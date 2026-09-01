@@ -44,9 +44,9 @@ export function Footer() {
           </p>
           <p className="mt-3 text-sm leading-relaxed text-surface/70">{SITE.baseline}</p>
           <p className="mt-6 text-sm leading-relaxed text-surface/70">
-            {SITE.city}
+            {SITE.street}
             <br />
-            {SITE.region}
+            {SITE.postalCode} {SITE.city}
             <br />
             SIRET {SITE.siret}
           </p>
@@ -66,7 +66,7 @@ export function Footer() {
       </div>
       <div className="border-t border-surface/15">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-5 py-5 text-xs text-surface/60 sm:flex-row sm:items-center sm:justify-between sm:px-8">
-          <p>Conçu à Quimper. {SITE.coords}</p>
+          <p>Conçu à Quimper. SIRET {SITE.siret}. {SITE.phone}.</p>
           <p className="flex flex-wrap gap-4">
             <AppLink to="/mentions-legales" className="hover:text-surface">
               Mentions légales

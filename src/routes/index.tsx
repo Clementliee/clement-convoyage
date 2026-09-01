@@ -45,11 +45,11 @@ const FAQ = [
   },
   {
     q: "Comment se déroule une mission ?",
-    a: "Demande, analyse, devis, prise en charge, convoyage, remise, compte-rendu. C’est le Protocole Clément.",
+    a: "Vous demandez, on confirme, on prend le véhicule, on le livre, on remet les clés. Photos au départ et à l’arrivée. Mise en main offerte.",
   },
   {
     q: "Quels services complémentaires ?",
-    a: "Nettoyage intérieur et extérieur (45 €), traqueur GPS pour l’acheteur (5 €), plein, contrôle visuel, coffrets. La mise en main est offerte.",
+    a: "Nettoyage intérieur et extérieur (45 €), traqueur GPS 4G pour l’acheteur (199 €), plein ou charge 90 % (65 €), coffret Armor 45 € ou Champagne 89 €. La mise en main est offerte.",
   },
   {
     q: "Proposez-vous du convoyage professionnel ?",
@@ -57,11 +57,11 @@ const FAQ = [
   },
   {
     q: "Faites-vous une expertise ?",
-    a: "Non. Contrôle visuel de vingt points, photos. Ce n’est pas une expertise, ni un rapport opposable.",
+    a: "Non. On photographie le véhicule au départ et à l’arrivée. Ce n’est pas une expertise.",
   },
   {
     q: "Le GPS, c’est pour suivre le convoyeur ?",
-    a: "Non. Option 5 € pour l’acheteur. Une balise laissée dans sa voiture. Vous cochez ou non.",
+    a: "Non. Option 199 € pour l’acheteur. Traceur 4G, il le garde. 12 mois inclus.",
   },
 ];
 

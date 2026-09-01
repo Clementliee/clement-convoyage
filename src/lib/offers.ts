@@ -46,11 +46,9 @@ export const PACKS = [
     tag: "Mise à la route",
     items: [
       "Pression des pneus",
-      "Contrôle des niveaux",
-      "Lave-glace",
-      "Contrôle visuel 20 points",
+      "Niveaux et lave-glace",
       "Photos",
-      "Carburant ou recharge selon besoin, au réel",
+      "Carburant ou recharge 90 %, au réel",
     ],
   },
   {
@@ -73,11 +71,9 @@ export const PACKS = [
     tag: "Remise concession",
     items: [
       "Tout le pack Confort",
-      "Préparation esthétique renforcée",
-      "Dossier photo complet",
+      "Photos complètes",
       "Kit de bienvenue",
-      "Mise en main (déjà offerte)",
-      "Suivi de mission renforcé",
+      "Mise en main offerte",
     ],
   },
 ] as const;
@@ -102,7 +98,7 @@ export const B2C_CASES = [
   { t: "Import", d: "Belgique, Allemagne, Pologne, Espagne. Documents vérifiés avant départ." },
   { t: "Déménagement", d: "Le véhicule suit, ou précède. Un interlocuteur, un créneau." },
   { t: "Électrique", d: "Plan de recharge, niveau de batterie convenu à la remise." },
-  { t: "Prestige", d: "Protocole Clément, option GPS le temps de la mission." },
+  { t: "Prestige", d: "Photos, clés en main, mise en main offerte. Option GPS 4G pour l’acheteur." },
 ] as const;
 
 export const B2B_CASES = [
@@ -110,7 +106,7 @@ export const B2B_CASES = [
   { t: "Garages", d: "CT, carrosserie, retours atelier. Vous gardez vos techniciens au banc." },
   { t: "Mandataires", d: "De la plate-forme jusqu’au client. Remise, pas un parking." },
   { t: "Marchands VO", d: "Rééquilibrage, livraisons, photos. Volume après trois missions test." },
-  { t: "Loueurs", d: "One-way, saisonnalité, flotte. EDL type loueur." },
+  { t: "Loueurs", d: "One-way, saisonnalité, flotte. Photos au départ et à l’arrivée." },
   { t: "Flottes", d: "Entreprises, leasing. Un interlocuteur, facturation mensuelle possible." },
 ] as const;
 
@@ -134,7 +130,7 @@ export const FORMULAS = [
     items: [
       "Tout de la livraison",
       "Nettoyage intérieur et extérieur, 45 €",
-      "Traqueur GPS pour l’acheteur, 5 €, en option",
+      "Traqueur GPS 4G pour l’acheteur, 199 €, en option",
       "Coffret, plein, pack, si vous voulez",
       "Mise en main offerte",
     ],
@@ -176,10 +172,10 @@ export const SECURITY = [
 ] as const;
 
 export const WHY = [
-  { t: "Expérience automobile", d: "DS Automobiles, Renault, Mercedes-Benz. Le niveau d’une remise en concession." },
-  { t: "Procédure", d: "Protocole Clément. Avant, pendant, après. Photos, faits, pas d’improvisation." },
-  { t: "Rigueur", d: "Horaires tenus. Si le créneau ne tient pas, on le dit avant." },
-  { t: "Un interlocuteur", d: "Clément, Quimper. Pas une plateforme. Astreinte 24 h pour les professionnels." },
-  { t: "Traçabilité", d: "EDL photo, compte-rendu. Option GPS temporaire, le temps de la mission." },
-  { t: "Panier complet", d: "Convoyage, préparation, packs, coffrets. Vous composez. Vous ne payez pas une grille fantôme." },
+  { t: "Un interlocuteur", d: "Clément, à Quimper. Vous avez un numéro, un mail, une réponse." },
+  { t: "Photos", d: "Au départ et à l’arrivée. Compteur, carrosserie, intérieur." },
+  { t: "Mise en main offerte", d: "À chaque livraison. On prend le temps d’expliquer le véhicule." },
+  { t: "Horaires tenus", d: "Si le créneau ne tient pas, on le dit avant." },
+  { t: "Vous composez", d: "Livraison, puis nettoyage, GPS, plein, coffret. Prix des options affichés." },
+  { t: "Professionnels", d: "Concessions, garages, flottes. Facture, quinze jours." },
 ] as const;

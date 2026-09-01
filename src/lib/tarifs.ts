@@ -17,12 +17,12 @@ export const OPTIONS = {
   dimanchePct: 0.4,
   utilitairePct: 0.15,
   prestigePct: 0.2,
-  gps: 5,
+  gps: 199,
   securite: 75,
   plein: 65,
   controleVisuel: 49,
   coffretArmor: 45,
-  coffretChampagne: 79,
+  coffretChampagne: 89,
   packEssentiel: 89,
   packConfort: 149,
   packPremium: 229,
@@ -42,14 +42,21 @@ export const COFFRET_COST = {
     ],
   },
   champagne: {
-    sell: 79,
-    cost: 36,
+    sell: 89,
+    cost: 40,
     items: [
-      "Champagne brut 75 cl type Nicolas Feuillatte. ~18 €",
-      "Ballotin chocolats 200 g (Lindt / équivalent). ~14 €",
+      "Champagne brut 75 cl type Nicolas Feuillatte. ~22 €",
+      "Ballotin chocolats 200 g. ~14 €",
       "Écrin + papier de soie + ruban. ~4 €",
     ],
   },
+} as const;
+
+/** Traceur 4G magnétique laissé à l’acheteur. 12 mois inclus. Abonnement ensuite à sa charge. */
+export const GPS_COST = {
+  sell: 199,
+  cost: 95,
+  what: "Traceur GPS 4G magnétique, sans perçage. Type PAJ / Salind. Application sur le téléphone de l’acheteur. 12 mois de suivi inclus. Ensuite environ 5 à 6 € par mois, payés par l’acheteur.",
 } as const;
 
 export const EUROPE_MAJORATION = 0.2;

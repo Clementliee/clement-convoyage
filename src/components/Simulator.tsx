@@ -188,28 +188,20 @@ export function Simulator({ initialFrom = "", initialTo = "" }: { initialFrom?: 
                 onClick={() => setInput((s) => ({ ...s, lavage: s.lavage === "complet" ? "aucun" : "complet" }))}
               />
               <Toggle
-                label="Traqueur GPS pour l’acheteur"
-                text="Une balise laissée dans le véhicule. C’est lui qui la garde, pour retrouver sa voiture."
+                label="Traqueur GPS 4G pour l’acheteur"
+                text="Il le garde. Pose à la remise, sans perçage. 12 mois de suivi inclus."
                 price={formatEuro(OPTIONS.gps)}
                 image="/images/07_gps.jpg"
                 on={input.gps}
                 onClick={() => setInput((s) => ({ ...s, gps: !s.gps }))}
               />
               <Toggle
-                label="Plein à la remise"
-                text="Réservoir fait. Le carburant est repris au réel, en plus."
+                label="Plein ou charge 90 %"
+                text="Essence : réservoir plein. Électrique : batterie à 90 % ou plus. Énergie au réel, en plus."
                 price={formatEuro(OPTIONS.plein)}
                 image="/images/11_plein.jpg"
                 on={input.plein}
                 onClick={() => setInput((s) => ({ ...s, plein: !s.plein }))}
-              />
-              <Toggle
-                label="Contrôle visuel, 20 points"
-                text="Photos. Un regard, pas une expertise."
-                price={formatEuro(OPTIONS.controleVisuel)}
-                image="/images/06_etat_des_lieux.jpg"
-                on={input.controleVisuel}
-                onClick={() => setInput((s) => ({ ...s, controleVisuel: !s.controleVisuel }))}
               />
             </div>
           </OptionGroup>

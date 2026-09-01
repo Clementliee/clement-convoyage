@@ -44,8 +44,8 @@ const MORE = [
   },
   {
     to: "/traqueur-gps",
-    title: "Traqueur GPS, 5 €",
-    text: "Pour l’acheteur. Une balise laissée dans le véhicule.",
+    title: "Traqueur GPS 4G, 199 €",
+    text: "Pour l’acheteur. Il le garde. 12 mois de suivi inclus.",
     image: "/images/07_gps.jpg",
   },
   {

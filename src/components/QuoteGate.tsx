@@ -17,11 +17,11 @@ export function QuoteGate({
   const range = quoteRange(quote.total);
   const extras = [
     input.lavage === "complet" || input.pack === "confort" || input.pack === "premium" ? "Nettoyage intérieur et extérieur" : "",
-    input.gps ? "Traqueur GPS pour l’acheteur" : "",
+    input.gps ? "Traqueur GPS 4G pour l’acheteur, 12 mois inclus" : "",
     "Mise en main offerte",
-    input.plein ? "Plein à la remise" : "",
+    input.plein ? "Plein carburant ou charge électrique 90 % ou plus" : "",
     input.rechargeVe ? "Recharge VE" : "",
-    input.controleVisuel || input.pack !== "aucun" ? "Contrôle visuel 20 points" : "",
+    input.controleVisuel || input.pack !== "aucun" ? "" : "",
     input.coffret === "champagne" ? "Coffret Champagne" : input.coffret === "armor" ? "Coffret Armor" : "",
     input.kitBienvenue || input.pack === "premium" ? "Kit de bienvenue" : "",
     input.pack === "essentiel" ? "Pack Essentiel" : "",
