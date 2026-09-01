@@ -9,7 +9,6 @@ import { Reveal } from "@/components/Reveal";
 import { pageHead } from "@/lib/seo";
 import { PILLARS, PROCESS, B2B_OFFERS } from "@/lib/offers";
 import { OPTIONS } from "@/lib/tarifs";
-import { SITE } from "@/lib/site";
 import { formatEuro } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
