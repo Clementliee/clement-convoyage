@@ -1,20 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #faf8f5;
-  --color-fg: #121826;
-  --color-navy: #1b2a4a;
-  --color-coral: #ff6a5c;
-  --color-copper: #b45309;
-  --color-line: #e7e0d6;
-  --color-muted: #5c5c5c;
+  --color-bg: #f5f5f7;
+  --color-fg: #1d1d1f;
+  --color-navy: #1d1d1f;
+  --color-coral: #0071e3;
+  --color-copper: #6e6e73;
+  --color-line: #d2d2d7;
+  --color-muted: #6e6e73;
   --color-surface: #ffffff;
-  --color-sand: #f4ede4;
-  --color-success: #1f6b4a;
-  --font-sans: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
-  --radius-lg: 1rem;
-  --radius-xl: 1.5rem;
+  --color-sand: #e8e8ed;
+  --color-success: #248a3d;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --radius-lg: 1.2rem;
+  --radius-xl: 1.8rem;
   --radius-full: 9999px;
 }
 
@@ -35,6 +35,7 @@
   h3,
   h4 {
     font-family: var(--font-display);
+    letter-spacing: -0.035em;
     text-wrap: balance;
     color: var(--color-navy);
   }
@@ -50,6 +51,24 @@
   }
 }
 
+@layer utilities {
+  .perspective-scene {
+    perspective: 1400px;
+    perspective-origin: 50% 35%;
+  }
+  .card-3d {
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    will-change: transform;
+  }
+  .tilt-hover {
+    transition: transform 500ms cubic-bezier(0.2, 0, 0, 1);
+  }
+  .tilt-hover:hover {
+    transform: perspective(1100px) rotateY(-7deg) translateZ(16px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -57,5 +76,9 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  .tilt-hover:hover,
+  .card-3d {
+    transform: none !important;
   }
 }

@@ -7,7 +7,7 @@ import { NAV, SITE } from "@/lib/site";
 export function Header() {
   const [open, setOpen] = useState(false);
   return (
-    <header className="sticky top-0 z-40 border-b border-line/80 bg-bg/95 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-line/70 bg-bg/80 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
         <Link to="/" className="flex flex-col leading-none" onClick={() => setOpen(false)}>
           <span className="font-display text-sm font-bold tracking-wide text-navy">{SITE.name}</span>

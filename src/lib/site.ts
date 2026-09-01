@@ -7,7 +7,7 @@ export const SITE = {
   coords: "47.99° N · 4.10° O",
   phone: "06 00 00 00 00",
   phoneHref: "tel:+33600000000",
-  email: "contact@clement-convoyage.fr",
+  email: "leliege.clement@gmail.com",
   hours: "Lundi – Dimanche · 7j/7",
   siret: "________________",
 } as const;

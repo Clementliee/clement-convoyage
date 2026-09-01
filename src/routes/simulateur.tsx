@@ -12,7 +12,7 @@ export const Route = createFileRoute("/simulateur")({
   head: () => ({
     meta: [
       { title: "Simulateur de coût · CLÉMENT CONVOYAGE" },
-      { name: "description", content: "Estimez le prix d’un convoyage depuis Quimper. 7 questions, tarif TTC indicatif, devis ferme sous 2 h." },
+      { name: "description", content: "Estimez un convoyage depuis Quimper. Fourchette indicative après vos coordonnées, PDF et e-mail." },
     ],
   }),
   component: Page,
@@ -24,11 +24,11 @@ function Page() {
     <main>
       <PageHero
         kicker="Simulateur"
-        title="Le prix avant"
-        accent="de partir."
-        text="Sept questions. Estimation TTC. Devis ferme sous 2 heures ouvrées."
+        title="Le prix, une fois"
+        accent="vos coordonnées."
+        text="Sept questions, puis nom, prénom, téléphone et e-mail. Fourchette indicative, PDF et confirmation par mail."
       />
-      <section className="mx-auto max-w-2xl px-4 pb-16 sm:px-6">
+      <section className="mx-auto max-w-5xl px-4 pb-16 sm:px-6">
         <Simulator initialFrom={from ?? "Quimper"} initialTo={to ?? ""} />
       </section>
     </main>

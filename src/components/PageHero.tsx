@@ -27,7 +27,12 @@ export function PageHero({
         ) : null}
         <h1 className="max-w-3xl font-display text-4xl font-semibold leading-tight text-navy sm:text-5xl">
           {title}
-          {accent ? <span className="text-coral"> {accent}</span> : null}
+          {accent ? (
+            <>
+              {" "}
+              <span className="text-coral">{accent}</span>
+            </>
+          ) : null}
         </h1>
         {text ? <p className="mt-4 max-w-2xl text-lg text-muted">{text}</p> : null}
       </div>

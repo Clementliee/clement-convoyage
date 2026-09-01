@@ -12,8 +12,9 @@ function Page() {
       <h1 className="font-display text-4xl text-navy">Politique de confidentialité</h1>
       <div className="mt-6 space-y-4 text-sm leading-relaxed text-muted">
         <p>
-          Les données du formulaire (nom, téléphone, e-mail, trajet) servent uniquement à établir un
-          devis et à exécuter la mission. Elles ne sont pas vendues.
+          Les données du formulaire (prénom, nom, téléphone, e-mail, trajet, profil particulier /
+          professionnel) servent uniquement à établir un devis et à exécuter la mission. Elles sont
+          envoyées à {SITE.email}. Elles ne sont pas vendues.
         </p>
         <p>
           Base légale : mesures précontractuelles et intérêt légitime. Durée : le temps du devis puis

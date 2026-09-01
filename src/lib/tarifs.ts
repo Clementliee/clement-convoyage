@@ -230,3 +230,12 @@ export function computeQuote(input: QuoteInput): QuoteResult {
     europe: Boolean(europeForced),
   };
 }
+
+export type QuoteRange = { low: number; mid: number; high: number };
+
+export function quoteRange(total: number): QuoteRange {
+  const low = Math.max(MINIMUM_LOCAL, Math.round((total * 0.9) / 5) * 5);
+  let high = Math.round((total * 1.12) / 5) * 5;
+  if (high <= low) high = low + 25;
+  return { low, mid: total, high };
+}
