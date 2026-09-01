@@ -247,6 +247,42 @@ export function prixBareme(km: number) {
 
 export type VehicleKind = "vp" | "utilitaire" | "prestige" | "ve";
 export type WhenKind = "standard" | "urgent" | "samedi" | "dimanche";
+
+/** Délais et majorations, calés sur le marché FR 2026 (Car Up +15–25 % express, moyenne 5–7 j planifié, HiFlow 72 h). */
+export const WHEN_OFFERS = [
+  {
+    id: "standard" as const,
+    name: "Standard",
+    delay: "5 à 7 jours",
+    hint: "Délai moyen d’un convoyage planifié, à partir de la confirmation.",
+    extraPct: 0,
+    extraLabel: "Tarif de base",
+  },
+  {
+    id: "urgent" as const,
+    name: "Urgent",
+    delay: "Sous 72 h",
+    hint: "Prise en charge sous 72 heures, selon disponibilité.",
+    extraPct: 0.25,
+    extraLabel: "+ 25 %",
+  },
+  {
+    id: "samedi" as const,
+    name: "Samedi",
+    delay: "Samedi convenu",
+    hint: "Livraison le samedi.",
+    extraPct: 0.2,
+    extraLabel: "+ 20 %",
+  },
+  {
+    id: "dimanche" as const,
+    name: "Dimanche, férié",
+    delay: "Jour férié",
+    hint: "Dimanche ou jour férié, astreinte.",
+    extraPct: 0.4,
+    extraLabel: "+ 40 %",
+  },
+] as const;
 export type ZoneKind = "france" | "europe";
 
 export type PackKind = "aucun" | "essentiel" | "confort" | "premium";
@@ -419,11 +455,11 @@ export function computeQuote(input: QuoteInput): QuoteResult {
 
   const total = Math.max(MINIMUM_LOCAL, base + options);
 
-  let delay = "24 à 48 h";
-  if (km > 400) delay = "J+2 à J+3";
-  if (km > 800) delay = "J+3 à J+4";
-  if (input.when === "urgent") delay = "sous 24 h (selon dispo)";
-  if (europeForced) delay = "J+2 à J+4";
+  let delay = "5 à 7 jours";
+  if (input.when === "urgent") delay = "sous 72 h";
+  if (input.when === "samedi") delay = "samedi convenu";
+  if (input.when === "dimanche") delay = "dimanche ou férié";
+  if (europeForced && input.when === "standard") delay = "5 à 8 jours";
 
   return {
     ok: true,

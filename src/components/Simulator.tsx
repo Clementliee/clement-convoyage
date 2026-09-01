@@ -7,6 +7,7 @@ import {
   computeQuote,
   JOCKEY_POINTS,
   OPTIONS,
+  WHEN_OFFERS,
   type MissionKind,
   type PackKind,
   type QuoteInput,
@@ -66,6 +67,15 @@ export function Simulator({
 
   const quote = useMemo(
     () => computeQuote({ ...input, kmManual: kmManual ? Number(kmManual) : undefined }),
+    [input, kmManual],
+  );
+  const standardBase = useMemo(
+    () =>
+      computeQuote({
+        ...input,
+        when: "standard",
+        kmManual: kmManual ? Number(kmManual) : undefined,
+      }).base,
     [input, kmManual],
   );
 
@@ -159,6 +169,11 @@ export function Simulator({
           <div className="h-full bg-coral transition-all" style={{ width: `${((step + 1) / STEPS.length) * 100}%` }} />
         </div>
         <h2 className="mt-6 font-display text-3xl text-navy">{STEPS[step]}</h2>
+        {step === 5 ? (
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted">
+            Délai à partir de la confirmation du devis. Standard, 5 à 7 jours, c’est la moyenne d’un convoyage planifié. Urgent, sous 72 h, majoration de 25 %.
+          </p>
+        ) : null}
         {step === 6 ? (
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted">
             Chaque véhicule est unique : gabarit, motorisation thermique ou électrique, contraintes d’assurance, niveau de préparation. Ces questions évitent un tarif générique.
@@ -223,15 +238,11 @@ export function Simulator({
         />
       )}
       {step === 5 && (
-        <Choice
-          options={[
-            { v: "standard", l: "Standard", h: "Créneau habituel" },
-            { v: "urgent", l: "Urgent", h: "Sous 24 h, selon disponibilité" },
-            { v: "samedi", l: "Samedi", h: "Week-end" },
-            { v: "dimanche", l: "Dimanche, férié", h: "Astreinte" },
-          ]}
+        <WhenPicker
+          base={quote.ok ? standardBase : 0}
+          showEuro={quote.ok && standardBase > 0}
           onPick={(v) => {
-            setInput((s) => ({ ...s, when: v as WhenKind }));
+            setInput((s) => ({ ...s, when: v }));
             next();
           }}
         />
@@ -374,6 +385,46 @@ export function Simulator({
           Contact
         </Link>
       </p>
+    </div>
+  );
+}
+
+function WhenPicker({
+  base,
+  showEuro,
+  onPick,
+}: {
+  base: number;
+  showEuro: boolean;
+  onPick: (v: WhenKind) => void;
+}) {
+  return (
+    <div className="grid gap-3">
+      {WHEN_OFFERS.map((w) => {
+        const extra = Math.round(base * w.extraPct);
+        return (
+          <button
+            key={w.id}
+            type="button"
+            onClick={() => onPick(w.id)}
+            className="flex flex-col gap-2 rounded-2xl border border-line bg-bg px-5 py-5 text-left transition-colors hover:border-navy sm:flex-row sm:items-center sm:justify-between"
+          >
+            <span>
+              <span className="block font-medium text-navy">{w.name}</span>
+              <span className="mt-1 block text-sm text-muted">
+                {w.delay}. {w.hint}
+              </span>
+            </span>
+            <span className="shrink-0 text-sm font-semibold text-coral">
+              {w.extraPct === 0
+                ? w.extraLabel
+                : showEuro && extra > 0
+                  ? `${w.extraLabel} · ${formatEuro(extra)}`
+                  : w.extraLabel}
+            </span>
+          </button>
+        );
+      })}
     </div>
   );
 }
