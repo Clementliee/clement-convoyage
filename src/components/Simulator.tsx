@@ -27,6 +27,29 @@ const STEPS = [
   "Personnalisez votre niveau de prestation",
 ];
 
+function applyPack(s: QuoteInput, pack: PackKind): QuoteInput {
+  if (pack === "aucun") {
+    return {
+      ...s,
+      pack,
+      lavage: "aucun",
+      gps: false,
+      coffret: "aucun",
+      controleVisuel: false,
+      plein: false,
+      kitBienvenue: false,
+    };
+  }
+  if (pack === "essentiel") {
+    return { ...s, pack, lavage: "complet", gps: false, coffret: "aucun", controleVisuel: true };
+  }
+  if (pack === "confort") {
+    const coffret = s.vehicle === "prestige" ? "champagne" : s.coffret === "champagne" ? "champagne" : "armor";
+    return { ...s, pack, lavage: "complet", gps: false, coffret, controleVisuel: true };
+  }
+  return { ...s, pack, lavage: "complet", gps: true, coffret: "champagne", controleVisuel: true };
+}
+
 export function Simulator({
   initialFrom = "",
   initialTo = "",
@@ -39,6 +62,7 @@ export function Simulator({
   const [flow, setFlow] = useState<"" | MissionKind>(initialMission || "");
   const [step, setStep] = useState(0);
   const [gate, setGate] = useState(false);
+  const [carteOpen, setCarteOpen] = useState(false);
   const [client, setClient] = useState<"part" | "pro">("part");
   const [input, setInput] = useState<QuoteInput>({
     from: initialFrom || "Quimper",
@@ -176,7 +200,7 @@ export function Simulator({
         ) : null}
         {step === 6 ? (
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted">
-            Chaque transfert est unique : segment du véhicule, motorisation, exigences esthétiques et impératifs de livraison. Sélectionnez vos options pour un acheminement sur mesure.
+            Trois menus de livraison, moins chers qu’à la carte. Ou aucune option, mise en main offerte.
           </p>
         ) : null}
       </div>
@@ -249,112 +273,177 @@ export function Simulator({
       )}
       {step === 6 && (
         <div className="space-y-10">
-          <div className="rounded-[1.4rem] bg-sand px-5 py-5 text-sm leading-relaxed text-navy">
-            <p className="font-display text-xl">Prestations incluses</p>
-            <ul className="mt-4 space-y-2 text-muted">
-              <li>Convoyage routier sécurisé avec assurance tous risques dédiée</li>
-              <li>Frais de route intégrés (carburant, péages, logistique retour)</li>
-              <li>Rapport d’état des lieux numérique haute définition, départ et arrivée</li>
-              <li>
-                Mise en main personnalisée, offerte. 20 à 30 minutes dédiées à la configuration du véhicule : aides à la conduite, multimédia, recharge.
-              </li>
-            </ul>
+          <div className="rounded-[1.4rem] bg-sand px-5 py-5">
+            <p className="text-sm text-muted">Mise en main personnalisée</p>
+            <p className="font-display text-3xl text-coral">Offerte</p>
+            <p className="mt-2 text-sm text-muted">À chaque remise. 20 à 30 minutes, aides à la conduite, multimédia, recharge.</p>
           </div>
-          <OptionGroup title="Options à la carte">
-            <div className="grid gap-3 sm:grid-cols-2">
+
+          <OptionGroup title="Menus de livraison">
+            <p className="mb-4 text-sm text-muted">Moins cher qu’à la carte. Un seul menu.</p>
+            <div className="grid gap-3">
               <Toggle
-                label="Préparation esthétique complète"
-                text="Nettoyage minutieux intérieur et extérieur avant restitution. Finition vitres et plastiques."
-                price={formatEuro(OPTIONS.lavageComplet)}
-                image="/images/preparation-esthetique-vehicule.jpg"
-                on={input.lavage === "complet"}
-                onClick={() => setInput((s) => ({ ...s, lavage: s.lavage === "complet" ? "aucun" : "complet" }))}
+                label="Pack Standard"
+                text="Nettoyage intérieur et extérieur. Contrôle visuel. Mise en main offerte."
+                price={formatEuro(OPTIONS.packEssentiel)}
+                on={input.pack === "essentiel"}
+                onClick={() => {
+                  setCarteOpen(false);
+                  setInput((s) => applyPack(s, "essentiel"));
+                }}
               />
               <Toggle
-                label="Balise traqueur GPS 4G autonome"
-                text="Cédée à l’acquéreur. Pose discrète sans perçage, 12 mois de suivi temps réel inclus."
-                price={formatEuro(OPTIONS.gps)}
-                image="/images/balise-gps-4g-vehicule.jpg"
-                on={input.gps}
-                onClick={() => setInput((s) => ({ ...s, gps: !s.gps }))}
+                label="Pack Confort"
+                text={
+                  input.vehicle === "prestige"
+                    ? "Tout le Standard. Coffret Prestige Champagne. Mise en main offerte."
+                    : "Tout le Standard. Coffret Terroir Breton, ou Prestige Champagne. Mise en main offerte."
+                }
+                price={formatEuro(
+                  input.vehicle === "prestige" || input.coffret === "champagne"
+                    ? OPTIONS.packConfortChampagne
+                    : OPTIONS.packConfort,
+                )}
+                on={input.pack === "confort"}
+                onClick={() => {
+                  setCarteOpen(false);
+                  setInput((s) => applyPack(s, "confort"));
+                }}
               />
               <Toggle
-                label="Service plein carburant ou charge 90 %"
-                text="Remise avec réservoir plein ou batterie chargée à 90 % ou plus. Énergie facturée au réel, sur justificatif."
-                price={formatEuro(OPTIONS.plein)}
-                image="/images/plein-carburant-vehicule.jpg"
-                on={input.plein}
-                onClick={() => setInput((s) => ({ ...s, plein: !s.plein }))}
+                label="Pack Signature"
+                text="Nettoyage offert. Contrôle visuel. Coffret Prestige. Balise GPS 4G. Mise en main offerte."
+                price={formatEuro(OPTIONS.packPremium)}
+                on={input.pack === "premium"}
+                onClick={() => {
+                  setCarteOpen(false);
+                  setInput((s) => applyPack(s, "premium"));
+                }}
+              />
+              <Toggle
+                label="Je ne souhaite pas de pack"
+                text="Mise en main offerte. 0 €. Vous pourrez composer à la carte, ou rien."
+                price="0 €"
+                on={carteOpen}
+                onClick={() => {
+                  setCarteOpen(true);
+                  setInput((s) => applyPack(s, "aucun"));
+                }}
               />
             </div>
           </OptionGroup>
-          <OptionGroup title="Coffrets remise privilège, un seul">
-            <div className="grid gap-3 sm:grid-cols-2">
-              <Toggle
-                label="Coffret Terroir Breton"
-                text="Sélection artisanale locale : cidre d’exception, galettes fines, caramel au beurre salé."
-                price={formatEuro(OPTIONS.coffretArmor)}
-                image="/images/coffret-terroir-breton.jpg"
-                on={input.coffret === "armor"}
-                onClick={() => setInput((s) => ({ ...s, coffret: s.coffret === "armor" ? "aucun" : "armor" }))}
-              />
-              <Toggle
-                label="Coffret Prestige Champagne"
-                text="Bouteille de champagne brut sélectionnée et chocolats fins."
-                price={formatEuro(OPTIONS.coffretChampagne)}
-                image="/images/coffret-prestige-champagne.jpg"
-                on={input.coffret === "champagne"}
-                onClick={() => setInput((s) => ({ ...s, coffret: s.coffret === "champagne" ? "aucun" : "champagne" }))}
-              />
-            </div>
-          </OptionGroup>
-          <OptionGroup title="Packs mise à la route">
-            <div className="grid gap-3 sm:grid-cols-3">
-              {(
-                [
-                  {
-                    v: "essentiel" as const,
-                    l: "Pack Essentiel",
-                    h: "Contrôle visuel 30 points, pression des pneus et niveaux des fluides.",
-                    p: OPTIONS.packEssentiel,
-                  },
-                  {
-                    v: "confort" as const,
-                    l: "Pack Confort",
-                    h: "Pack Essentiel et nettoyage complet intérieur et extérieur.",
-                    p: OPTIONS.packConfort,
-                  },
-                  {
-                    v: "premium" as const,
-                    l: "Pack Signature VIP",
-                    h: "Pack Confort, coffret d’accueil haut de gamme et priorisation du créneau.",
-                    p: OPTIONS.packPremium,
-                  },
-                ]
-              ).map((p) => (
+
+          {input.pack === "confort" ? (
+            <OptionGroup title="Coffret du Pack Confort">
+              {input.vehicle === "prestige" ? (
+                <p className="text-sm leading-relaxed text-muted">
+                  Véhicule haut de gamme : Coffret Prestige Champagne inclus. Cidre, galettes, caramel pour le Terroir. Champagne brut et chocolats pour le Prestige.
+                </p>
+              ) : (
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <Toggle
+                    label="Coffret Terroir Breton"
+                    text="Cidre d’exception, galettes fines, caramel au beurre salé."
+                    price="Inclus"
+                    image="/images/coffret-terroir-breton.jpg"
+                    on={input.coffret !== "champagne"}
+                    onClick={() => setInput((s) => ({ ...s, coffret: "armor" }))}
+                  />
+                  <Toggle
+                    label="Coffret Prestige Champagne"
+                    text="Champagne brut et chocolats fins."
+                    price={`+ ${formatEuro(OPTIONS.packConfortChampagne - OPTIONS.packConfort)}`}
+                    image="/images/coffret-prestige-champagne.jpg"
+                    on={input.coffret === "champagne"}
+                    onClick={() => setInput((s) => ({ ...s, coffret: "champagne" }))}
+                  />
+                </div>
+              )}
+            </OptionGroup>
+          ) : null}
+
+          {carteOpen && input.pack === "aucun" ? (
+            <OptionGroup title="À la carte">
+              <p className="mb-4 text-sm text-muted">Si vous ne prenez pas de menu. Ou aucune prestation supplémentaire.</p>
+              <div className="grid gap-3 sm:grid-cols-2">
                 <Toggle
-                  key={p.v}
-                  label={p.l}
-                  text={p.h}
-                  price={formatEuro(p.p)}
-                  on={input.pack === p.v}
+                  label="Aucune prestation supplémentaire"
+                  text="Mise en main offerte uniquement."
+                  price="0 €"
+                  on={
+                    !input.gps &&
+                    input.lavage === "aucun" &&
+                    !input.plein &&
+                    input.coffret === "aucun" &&
+                    !input.controleVisuel
+                  }
                   onClick={() =>
                     setInput((s) => ({
                       ...s,
-                      pack: s.pack === p.v ? "aucun" : (p.v as PackKind),
+                      lavage: "aucun",
+                      gps: false,
+                      plein: false,
+                      coffret: "aucun",
+                      controleVisuel: false,
                     }))
                   }
                 />
-              ))}
-            </div>
-          </OptionGroup>
+                <Toggle
+                  label="Nettoyage intérieur et extérieur"
+                  text="Finition vitres et plastiques."
+                  price={formatEuro(OPTIONS.lavageComplet)}
+                  image="/images/preparation-esthetique-vehicule.jpg"
+                  on={input.lavage === "complet"}
+                  onClick={() => setInput((s) => ({ ...s, lavage: s.lavage === "complet" ? "aucun" : "complet" }))}
+                />
+                <Toggle
+                  label="Contrôle visuel"
+                  text="Pression, fluides, points de contrôle. Ce n’est pas une expertise."
+                  price={formatEuro(OPTIONS.controleVisuel)}
+                  on={input.controleVisuel}
+                  onClick={() => setInput((s) => ({ ...s, controleVisuel: !s.controleVisuel }))}
+                />
+                <Toggle
+                  label="Plein ou charge 90 %"
+                  text="Énergie au réel, sur justificatif."
+                  price={formatEuro(OPTIONS.plein)}
+                  image="/images/plein-carburant-vehicule.jpg"
+                  on={input.plein}
+                  onClick={() => setInput((s) => ({ ...s, plein: !s.plein }))}
+                />
+                <Toggle
+                  label="Balise GPS 4G"
+                  text="Cédée à l’acquéreur. 12 mois inclus."
+                  price={formatEuro(OPTIONS.gps)}
+                  image="/images/balise-gps-4g-vehicule.jpg"
+                  on={input.gps}
+                  onClick={() => setInput((s) => ({ ...s, gps: !s.gps }))}
+                />
+                <Toggle
+                  label="Coffret Terroir Breton"
+                  text="Cidre, galettes, caramel au beurre salé."
+                  price={formatEuro(OPTIONS.coffretArmor)}
+                  image="/images/coffret-terroir-breton.jpg"
+                  on={input.coffret === "armor"}
+                  onClick={() => setInput((s) => ({ ...s, coffret: s.coffret === "armor" ? "aucun" : "armor" }))}
+                />
+                <Toggle
+                  label="Coffret Prestige Champagne"
+                  text="Champagne brut et chocolats fins."
+                  price={formatEuro(OPTIONS.coffretChampagne)}
+                  image="/images/coffret-prestige-champagne.jpg"
+                  on={input.coffret === "champagne"}
+                  onClick={() => setInput((s) => ({ ...s, coffret: s.coffret === "champagne" ? "aucun" : "champagne" }))}
+                />
+              </div>
+            </OptionGroup>
+          ) : null}
+
           <div className="rounded-[1.4rem] border border-line px-5 py-5">
-            <p className="text-sm text-muted">Mise en main personnalisée</p>
-            <p className="font-display text-2xl text-coral">Offerte</p>
-            <p className="mt-4 text-sm text-muted">Options sélectionnées</p>
+            <p className="text-sm text-muted">Options sélectionnées</p>
             <p className="font-display text-2xl text-navy">{formatEuro(quote.options)}</p>
             <p className="mt-4 text-sm leading-relaxed text-muted">
-              Le coût du convoyage s’ajuste selon la distance exacte. Renseignez vos coordonnées à l’étape suivante pour générer votre estimation et recevoir votre devis formel sous 2 heures ouvrées.
+              Le convoyage se calcule ensuite, après vos coordonnées. Devis formel sous 2 heures ouvrées.
             </p>
           </div>
         </div>

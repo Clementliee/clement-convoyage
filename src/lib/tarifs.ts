@@ -24,8 +24,9 @@ export const OPTIONS = {
   coffretArmor: 45,
   coffretChampagne: 89,
   packEssentiel: 89,
-  packConfort: 149,
-  packPremium: 229,
+  packConfort: 129,
+  packConfortChampagne: 169,
+  packPremium: 329,
   kitBienvenue: 19,
   jockeyCt: 55,
 } as const;
@@ -415,23 +416,21 @@ export function computeQuote(input: QuoteInput): QuoteResult {
 
   let options = 0;
   const packed = input.pack !== "aucun";
+  const prestige = input.vehicle === "prestige";
+  const confortChampagne = packed && input.pack === "confort" && (prestige || input.coffret === "champagne");
 
   if (input.pack === "essentiel") options += OPTIONS.packEssentiel;
-  else if (input.pack === "confort") options += OPTIONS.packConfort;
+  else if (input.pack === "confort") options += confortChampagne ? OPTIONS.packConfortChampagne : OPTIONS.packConfort;
   else if (input.pack === "premium") options += OPTIONS.packPremium;
 
-  const washInPack = input.pack === "confort" || input.pack === "premium";
-  if (!washInPack && (input.lavage === "complet" || input.lavage === "exterieur")) {
-    options += OPTIONS.lavageComplet;
+  if (!packed) {
+    if (input.lavage === "complet" || input.lavage === "exterieur") options += OPTIONS.lavageComplet;
+    if (input.controleVisuel) options += OPTIONS.controleVisuel;
+    if (input.gps) options += OPTIONS.gps;
+    if (input.plein) options += OPTIONS.plein;
+    if (input.coffret === "armor") options += OPTIONS.coffretArmor;
+    if (input.coffret === "champagne") options += OPTIONS.coffretChampagne;
   }
-
-  if (input.controleVisuel && !packed) options += OPTIONS.controleVisuel;
-  if (input.rechargeVe || input.vehicle === "ve") options += OPTIONS.rechargeVe;
-  if (input.gps) options += OPTIONS.gps;
-  if (input.plein) options += OPTIONS.plein;
-  if (input.coffret === "armor") options += OPTIONS.coffretArmor;
-  if (input.coffret === "champagne") options += OPTIONS.coffretChampagne;
-  if (input.kitBienvenue && input.pack !== "premium") options += OPTIONS.kitBienvenue;
 
   const total = Math.max(MINIMUM_LOCAL, base + options);
 
