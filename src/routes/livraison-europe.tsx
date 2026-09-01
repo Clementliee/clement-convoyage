@@ -9,7 +9,7 @@ export const Route = createFileRoute("/livraison-europe")({
     pageHead({
       title: "Livraison de véhicule en Europe. Depuis Quimper.",
       description:
-        "Convoyage Europe depuis Quimper. Belgique, Suisse, Allemagne, Pologne, Monaco, Serbie, Espagne, Italie, Royaume-Uni. Devis après coordonnées.",
+        "Convoyage Europe. Belgique, Suisse, Allemagne, Pologne, Monaco, Serbie, Espagne, Italie, Royaume-Uni. Prise en charge sur place, remise chez le client. Devis après coordonnées.",
       path: "/livraison-europe",
       image: "/images/04_europe_nuit.jpg",
     }),

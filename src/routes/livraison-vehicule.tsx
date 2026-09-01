@@ -11,7 +11,7 @@ export const Route = createFileRoute("/livraison-vehicule")({
     pageHead({
       title: "Livraison de véhicule en France. Depuis Quimper.",
       description:
-        "Convoyage de voiture partout en France depuis Quimper. Particuliers et utilitaires jusqu’à 3,5 t. État des lieux photo, mise en main offerte.",
+        "Convoyage de voiture partout en France. On récupère le véhicule où il se trouve, on le remet chez le client. Particuliers et utilitaires jusqu’à 3,5 t. Mise en main offerte.",
       path: "/livraison-vehicule",
       image: "/images/02_remise_cles.jpg",
     }),

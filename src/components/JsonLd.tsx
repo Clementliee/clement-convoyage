@@ -75,7 +75,7 @@ export function LocalBusinessJsonLd() {
         name: SITE.name,
         legalName: SITE.legalName,
         alternateName: ["Convoyage Bretagne", "Convoyage Quimper", SITE.tradeName, "Clément Convoyage"],
-        description: "Convoyage et livraison de véhicules depuis Quimper. Bretagne, France, Europe. État des lieux photo, mise en main offerte.",
+        description: "Convoyage et livraison de véhicules, base Quimper. Prise en charge partout en France et en Europe, remise chez le client. État des lieux photo, mise en main offerte.",
         slogan: SITE.baseline,
         telephone: SITE.phoneHref.replace("tel:", ""),
         email: SITE.email,

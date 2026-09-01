@@ -39,7 +39,7 @@ function Page() {
           <p className="text-xs font-semibold tracking-[0.2em] text-coral uppercase">Direction, Quimper</p>
           <h2 className="font-display text-4xl text-navy">Clément</h2>
           <p>
-            Clément livre des véhicules depuis Quimper. Photos au départ et à l’arrivée, clés en main propre, mise en main offerte.
+            Clément achemine des véhicules depuis une base à Quimper. Prise en charge partout en France et en Europe, remise chez le client. Photos au départ et à l’arrivée, clés en main, mise en main offerte.
           </p>
           <p>
             Si le créneau ne tient pas, on le dit avant. Si ça coince en route, on prévient.

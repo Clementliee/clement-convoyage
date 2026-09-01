@@ -9,7 +9,7 @@ export const Route = createFileRoute("/convoyage")({
     pageHead({
       title: "Convoyage automobile. Préparation, contrôle, remise.",
       description:
-        "Convoyage de véhicules depuis Quimper. Transfert, préparation, contrôle, remise. Particuliers et professionnels. France et Europe.",
+        "Convoyage de véhicules, base Quimper. Prise en charge partout en France et en Europe. Transfert, préparation, contrôle, remise. Particuliers et professionnels.",
       path: "/convoyage",
       image: "/images/01_hero_bretagne.jpg",
     }),

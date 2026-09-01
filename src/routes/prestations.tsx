@@ -11,7 +11,7 @@ export const Route = createFileRoute("/prestations")({
     pageHead({
       title: "Prestations convoyage automobile. Convoyage BZH",
       description:
-        "Livraison France et Europe, nettoyage, plein, coffrets, contrôle visuel, traqueur GPS, protocole sécurité. Convoyage depuis Quimper.",
+        "Livraison France et Europe, nettoyage, plein, coffrets, contrôle visuel, traqueur GPS. Prise en charge partout, base Quimper.",
       path: "/prestations",
     }),
   component: Page,

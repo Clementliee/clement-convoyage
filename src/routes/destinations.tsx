@@ -10,7 +10,7 @@ export const Route = createFileRoute("/destinations")({
     pageHead({
       title: "Destinations convoyage. Bretagne, France, Europe.",
       description:
-        "Toutes les destinations de convoyage depuis Quimper. Bretagne, France, Europe. Pologne, Monaco, Serbie. Pas de grille tarifaire publique.",
+        "Toutes les destinations de convoyage. Prise en charge partout en France et en Europe, base Quimper. Pologne, Monaco, Serbie. Pas de grille tarifaire publique.",
       path: "/destinations",
     }),
   component: Page,
@@ -51,7 +51,7 @@ function Page() {
         kicker="GEO"
         title="Chaque bassin,"
         accent="une page."
-        text="Villes, pays, métiers. Aucun tarif en vitrine : la fourchette s’affiche après vos coordonnées."
+        text="On récupère le véhicule où il se trouve. On le remet chez le client. Quimper est la base, pas un départ obligatoire. Aucun tarif en vitrine : la fourchette s’affiche après vos coordonnées."
       />
       <Group title="Villes" kind="ville" />
       <Group title="Territoires" kind="region" />

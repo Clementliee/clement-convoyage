@@ -4,7 +4,7 @@ export const SITE = {
   legalName: "Clément René Dominique LELIÈGE",
   tradeName: "BZH3D",
   baseline: "Acheminement, préparation et remise de véhicules, au standard concession.",
-  sub: "Base Quimper. Toute la Bretagne, la France, l’Europe.",
+  sub: "Base Quimper. Prise en charge partout en France et en Europe.",
   city: "Quimper",
   region: "Finistère, Bretagne",
   street: "11 rue Hoche",

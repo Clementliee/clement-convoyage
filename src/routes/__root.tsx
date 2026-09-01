@@ -18,7 +18,7 @@ export const Route = createRootRoute({
       {
         name: "description",
         content:
-          "Convoyage automobile depuis Quimper. Livraison de véhicule en Bretagne, France, Europe. État des lieux photo, mise en main offerte, devis sous 2 h.",
+          "Convoyage automobile, base Quimper. Prise en charge partout en France et en Europe, remise chez le client. État des lieux photo, mise en main offerte, devis sous 2 h.",
       },
       { name: "theme-color", content: "#f4f1ea" },
       { name: "format-detection", content: "telephone=yes" },

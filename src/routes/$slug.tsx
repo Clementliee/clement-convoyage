@@ -106,7 +106,7 @@ function RichCity({ page }: { page: SeoPage }) {
         <section className="mx-auto mt-20 max-w-6xl px-5 sm:px-8">
           <h2 className="font-display text-3xl text-navy sm:text-4xl">Zone couverte</h2>
           <p className="mt-3 max-w-2xl text-muted">
-            L’agglomération d’abord. Puis le Finistère, la Bretagne, la France.
+            On récupère le véhicule où il se trouve. Remise chez le client, en ${page.locality} ou ailleurs. Base Quimper, missions partout en France et en Europe.
           </p>
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {page.zones.map((z) => (

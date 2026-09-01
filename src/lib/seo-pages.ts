@@ -36,9 +36,9 @@ function ville(
 ): SeoPage {
   return {
     slug,
-    title: `Convoyage de voiture à ${name}. Livraison depuis Quimper.`,
+    title: `Convoyage de voiture à ${name}. Prise en charge et remise.`,
     h1: `Convoyage de voiture à ${name}`,
-    description: `Convoyage automobile à ${name} depuis Quimper. Livraison de véhicule, état des lieux photo, mise en main offerte. Devis sous 2 h.`,
+    description: `Convoyage automobile à ${name}. On récupère le véhicule où il se trouve, on le remet chez le client. Base Quimper. Mise en main offerte. Devis sous 2 h.`,
     kind: "ville",
     image: IMG,
     locality: name,
@@ -208,7 +208,7 @@ export const SEO_PAGES: SeoPage[] = [
       },
       {
         q: "Livrez-vous hors de Quimper ?",
-        a: "Oui. Bretagne, France, Europe. Le véhicule part de Quimper ou y arrive. Même protocole.",
+        a: "Oui. Quimper est la base. On récupère le véhicule où il se trouve, on le ramène chez le client. France et Europe.",
       },
     ],
   },
@@ -441,7 +441,7 @@ export const SEO_PAGES: SeoPage[] = [
     slug: "convoyage-bretagne",
     title: "Convoyage de véhicules en Bretagne, Convoyage BZH",
     h1: "Convoyage de véhicules en Bretagne",
-    description: "Livraison de voitures dans toute la Bretagne depuis Quimper. Finistère, Morbihan, Côtes-d’Armor, Ille-et-Vilaine. Devis sous 2 h.",
+    description: "Livraison de voitures dans toute la Bretagne. Prise en charge locale ou hors région, remise chez le client. Finistère, Morbihan, Côtes-d’Armor, Ille-et-Vilaine. Devis sous 2 h.",
     kind: "region",
     image: IMG,
     locality: "Bretagne",
@@ -865,16 +865,16 @@ export const SEO_PAGES: SeoPage[] = [
   },
   {
     slug: "convoyage-automobile",
-    title: "Convoyage automobile depuis Quimper. Convoyage BZH",
+    title: "Convoyage automobile, base Quimper. Convoyage BZH",
     h1: "Convoyage automobile",
-    description: "Convoyage automobile depuis Quimper. Livraison de voiture en conduite, Bretagne, France, Europe. photos du véhicule, devis sous 2 h.",
+    description: "Convoyage automobile, base Quimper. Prise en charge partout en France et en Europe, remise chez le client. Photos du véhicule, devis sous 2 h.",
     kind: "metier",
     image: IMG,
     locality: SITE.city,
     country: "FR",
     intro: "Le convoyage automobile, c’est amener un véhicule d’un point A à un point B, en conduite, comme en concession.",
     body: [
-      "Convoyage BZH livre des véhicules particuliers et utilitaires jusqu’à 3,5 t, en état de marche. Base Quimper. Bretagne, France, Europe.",
+      "Convoyage BZH achemine des véhicules particuliers et utilitaires jusqu’à 3,5 t, en état de marche. Base Quimper. Prise en charge partout en France et en Europe.",
       "Chaque mission comprend la conduite, le carburant du véhicule convoyé, les péages, le retour du convoyeur, un état des lieux photo et la mise en main offerte.",
       "Ce n’est pas un transport plateau. Ce n’est pas un taxi. C’est une remise. Le prix n’est pas publié. Le simulateur prépare une fourchette après vos coordonnées.",
     ],
@@ -891,7 +891,7 @@ export const SEO_PAGES: SeoPage[] = [
       },
       {
         q: "Où intervenez-vous ?",
-        a: "Depuis Quimper, toute la Bretagne, la France, puis l’Europe. Pologne, Monaco, Serbie comprises.",
+        a: "Prise en charge et remise partout en France, et en Europe selon mission. Quimper est la base, pas un départ obligatoire. Pologne, Monaco, Serbie comprises.",
       },
     ],
   },

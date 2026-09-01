@@ -15,7 +15,7 @@ export const Route = createFileRoute("/")({
     pageHead({
       title: "Convoyage de voiture à Quimper. Livraison France et Europe.",
       description:
-        "Convoyage BZH. Convoyage, préparation, contrôle et remise de véhicules depuis Quimper. Particuliers et professionnels. Devis sous 2 h.",
+        "Convoyage BZH, basé à Quimper. Prise en charge partout en France et en Europe, remise chez le client. Particuliers et professionnels. Devis sous 2 h.",
       path: "/",
       image: "/images/01_hero_bretagne.jpg",
     }),
@@ -33,7 +33,7 @@ const FAQ = [
   },
   {
     q: "Où intervenez-vous ?",
-    a: "Bretagne, France entière, et Europe selon mission. Pologne, Monaco, Serbie comprises.",
+    a: "Prise en charge et remise partout en France, et en Europe selon mission. Pologne, Monaco, Serbie comprises. Quimper est la base, pas un départ obligatoire. On peut récupérer un véhicule dans le Sud et le ramener chez le client.",
   },
   {
     q: "Pour qui ?",
@@ -293,7 +293,7 @@ function Home() {
         <Reveal>
           <h2 className="font-display text-4xl text-navy">France et Europe</h2>
           <p className="mt-4 max-w-2xl text-lg text-muted">
-            Base Quimper. Bretagne d’abord. France entière. Europe selon mission.
+            La base est à Quimper. La prise en charge se fait où le véhicule se trouve. Sud, Île-de-France, Belgique, Allemagne, Pologne. On récupère, on ramène chez le client.
           </p>
           <div className="mt-8 flex flex-wrap gap-2">
             {[

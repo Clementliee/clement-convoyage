@@ -13,9 +13,9 @@ export const Route = createFileRoute("/simulateur")({
   }),
   head: () =>
     pageHead({
-      title: "Simulateur convoyage voiture. Fourchette depuis Quimper.",
+      title: "Simulateur convoyage voiture. Estimation France et Europe.",
       description:
-        "Estimez un convoyage de voiture depuis Quimper. Sept questions, puis vos coordonnées. Fourchette indicative, PDF et e-mail.",
+        "Estimez un convoyage de voiture, prise en charge partout en France et en Europe. Sept questions, puis vos coordonnées. Fourchette indicative, PDF et e-mail.",
       path: "/simulateur",
     }),
   component: Page,

@@ -2,7 +2,7 @@ import { AppLink } from "@/components/AppLink";
 import { Button } from "@/components/ui/button";
 
 export function CtaBar({
-  title = "Un véhicule à acheminer ?",
+  title = "Un véhicule à récupérer, où qu’il soit ?",
   text = "Estimation détaillée après vos coordonnées. Devis formel sous 2 heures ouvrées.",
   secondaryTo = "/professionnels",
   secondaryLabel = "Compte professionnel",

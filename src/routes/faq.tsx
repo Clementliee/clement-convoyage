@@ -10,7 +10,7 @@ export const Route = createFileRoute("/faq")({
     pageHead({
       title: "FAQ convoyage automobile. Convoyage BZH",
       description:
-        "Questions sur le convoyage de voiture depuis Quimper. Prix, véhicules, zones, professionnels, GPS, packs, paiement.",
+        "Questions sur le convoyage de voiture. Prix, véhicules, zones, professionnels, GPS, packs, paiement. Base Quimper, missions partout.",
       path: "/faq",
     }),
   component: Page,
@@ -19,7 +19,7 @@ export const Route = createFileRoute("/faq")({
 const ITEMS = [
   { q: "Qui est Convoyage BZH ?", a: "Un convoyeur automobile basé à Quimper. Clément pilote. Expérience la remise en concession." },
   { q: "Quels véhicules ?", a: "Particuliers et utilitaires jusqu’à 3,5 t, en état de marche. Pas de plateau, pas de non-roulant." },
-  { q: "Où ?", a: "Bretagne, France, Europe selon mission." },
+  { q: "Où ?", a: "Prise en charge et remise partout en France, et en Europe selon mission. Quimper est la base, pas un départ obligatoire." },
   { q: "Combien ?", a: "Selon distance, véhicule, date, options. Fourchette après coordonnées. Packs à partir de 89 €, indicatifs." },
   { q: "Comment se passe une mission ?", a: "Demande, devis, prise en charge, convoyage, remise, compte-rendu. Protocole Clément." },
   { q: "Professionnels ?", a: "Oui. Compte, quinze jours, astreinte 24 h, cadre volume." },
