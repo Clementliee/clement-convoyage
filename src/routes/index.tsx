@@ -19,7 +19,7 @@ export const Route = createFileRoute("/")({
       description:
         "Convoyage BZH, basé à Quimper. Prise en charge partout en France et en Europe, remise chez le client. Particuliers et professionnels. Devis sous 2 h.",
       path: "/",
-      image: "/images/01_hero_bretagne.jpg",
+      image: "/images/convoyage-berline-bretagne.jpg",
     }),
   component: Home,
 });
@@ -117,7 +117,7 @@ function Home() {
             </Link>
           </div>
           <img
-            src="/images/12_garage_b2b.jpg"
+            src="/images/atelier-garage-professionnel.jpg"
             alt="Véhicule en atelier, convoyage professionnel"
             className="h-72 w-full object-cover lg:h-full"
           />
@@ -127,7 +127,7 @@ function Home() {
       <section className="mx-auto max-w-6xl px-5 pb-28 sm:px-8">
         <div className="overflow-hidden rounded-[2.4rem] bg-sand lg:grid lg:grid-cols-2">
           <img
-            src="/images/18_jockey_gare.jpg"
+            src="/images/jockey-gare-quimper.jpg"
             alt="Berline sur le parvis d’une gare"
             className="h-72 w-full object-cover lg:h-full"
           />

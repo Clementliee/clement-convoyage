@@ -10,7 +10,7 @@ export const Route = createFileRoute("/preparation-vehicule")({
       description:
         "Lavage, intérieur, vitres, jantes, désodorisation, contrôle visuel, carburant ou recharge. Préparation de remise, pas un centre de detailing.",
       path: "/preparation-vehicule",
-      image: "/images/03_nettoyage.jpg",
+      image: "/images/preparation-esthetique-vehicule.jpg",
     }),
   component: Page,
 });
@@ -31,7 +31,7 @@ function Page() {
         kicker="Préparation"
         title="Le véhicule arrive propre, contrôlé, prêt."
         text="Une préparation de remise. Pas une promesse de detailing haut de gamme."
-        image="/images/03_nettoyage.jpg"
+        image="/images/preparation-esthetique-vehicule.jpg"
         alt="Nettoyage d’une berline avant livraison"
       />
       <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8">

@@ -40,7 +40,7 @@ export function HeroStage() {
     <section ref={wrap} className="relative h-[145vh] bg-[#1a2230]">
       <div className="sticky top-0 h-dvh overflow-hidden bg-[#1a2230]">
         <img
-          src="/images/15_hero_berline.jpg?v=paysage"
+          src="/images/convoyage-berline-bretagne.jpg"
           alt="Berline premium sur la côte bretonne"
           width={1792}
           height={1008}
@@ -49,7 +49,7 @@ export function HeroStage() {
           className="absolute inset-0 h-full w-full object-cover object-[58%_58%]"
         />
         <img
-          src="/images/17_hero_phares.jpg?v=paysage"
+          src="/images/convoyage-berline-phares.jpg"
           alt=""
           width={1792}
           height={1008}
@@ -68,7 +68,7 @@ export function HeroStage() {
           style={{ opacity: lights * 0.38, mixBlendMode: "screen" }}
           aria-hidden
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/5" />
         <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col justify-end px-5 pb-16 pt-28 sm:px-8 sm:pb-20">
           <p className="mb-5 text-sm tracking-[0.22em] text-white/65 uppercase">
             Quimper, Bretagne, France, Europe

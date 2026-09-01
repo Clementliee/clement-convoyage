@@ -16,7 +16,7 @@ export const Route = createFileRoute("/professionnels")({
       description:
         "Compte professionnel Convoyage BZH. Concessions, garages, mandataires, marchands VO, loueurs, flottes. Facturation, compte-rendu, astreinte 24 h.",
       path: "/professionnels",
-      image: "/images/02_remise_cles.jpg",
+      image: "/images/remise-cles-vehicule.jpg",
     }),
   component: Page,
 });
@@ -29,7 +29,7 @@ function Page() {
         title="Votre flotte bouge."
         accent="Nous prenons les véhicules."
         text="Concessions, garages, mandataires, marchands VO, loueurs, flottes. Un interlocuteur à Quimper."
-        image="/images/12_garage_b2b.jpg"
+        image="/images/atelier-garage-professionnel.jpg"
         alt="Transfert de véhicule pour un garage en Bretagne"
       />
       <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8">

@@ -11,7 +11,7 @@ export const Route = createFileRoute("/pack-mise-a-la-route")({
       description:
         "Trois packs de mise à la route pour un véhicule convoyé. Contrôle, nettoyage, kit. Prix indicatifs à partir de 89 €, à confirmer.",
       path: "/pack-mise-a-la-route",
-      image: "/images/03_nettoyage.jpg",
+      image: "/images/preparation-esthetique-vehicule.jpg",
     }),
   component: Page,
 });
@@ -23,7 +23,7 @@ function Page() {
         kicker="Packs"
         title="Le véhicule arrive prêt à prendre la route."
         text="Contrôle, nettoyage, carburant ou recharge. Trois niveaux. Prix indicatifs, à confirmer avec le convoyage."
-        image="/images/03_nettoyage.jpg"
+        image="/images/preparation-esthetique-vehicule.jpg"
         alt="Préparation d’un véhicule avant livraison"
       />
       <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8">

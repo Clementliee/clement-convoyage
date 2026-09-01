@@ -11,7 +11,7 @@ export const Route = createFileRoute("/protocole-clement")({
       description:
         "Avant, pendant, après. Photos, kilométrage, carburant, documents, compte-rendu. Traçabilité d’un véhicule convoyé depuis Quimper.",
       path: "/protocole-clement",
-      image: "/images/06_etat_des_lieux.jpg",
+      image: "/images/etat-des-lieux-vehicule.jpg",
     }),
   component: Page,
 });
@@ -23,7 +23,7 @@ function Page() {
         kicker={PROTOCOL.name}
         title="Rien ne part sans preuve."
         text={PROTOCOL.promise}
-        image="/images/06_etat_des_lieux.jpg"
+        image="/images/etat-des-lieux-vehicule.jpg"
         alt="État des lieux photographique d’un véhicule"
       />
       <section className="mx-auto grid max-w-6xl gap-8 px-5 pb-16 sm:px-8 md:grid-cols-3">

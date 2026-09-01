@@ -266,7 +266,7 @@ export function Simulator({
                 label="Préparation esthétique complète"
                 text="Nettoyage minutieux intérieur et extérieur avant restitution. Finition vitres et plastiques."
                 price={formatEuro(OPTIONS.lavageComplet)}
-                image="/images/03_nettoyage.jpg"
+                image="/images/preparation-esthetique-vehicule.jpg"
                 on={input.lavage === "complet"}
                 onClick={() => setInput((s) => ({ ...s, lavage: s.lavage === "complet" ? "aucun" : "complet" }))}
               />
@@ -274,7 +274,7 @@ export function Simulator({
                 label="Balise traqueur GPS 4G autonome"
                 text="Cédée à l’acquéreur. Pose discrète sans perçage, 12 mois de suivi temps réel inclus."
                 price={formatEuro(OPTIONS.gps)}
-                image="/images/07_gps.jpg"
+                image="/images/balise-gps-4g-vehicule.jpg"
                 on={input.gps}
                 onClick={() => setInput((s) => ({ ...s, gps: !s.gps }))}
               />
@@ -282,7 +282,7 @@ export function Simulator({
                 label="Service plein carburant ou charge 90 %"
                 text="Remise avec réservoir plein ou batterie chargée à 90 % ou plus. Énergie facturée au réel, sur justificatif."
                 price={formatEuro(OPTIONS.plein)}
-                image="/images/11_plein.jpg"
+                image="/images/plein-carburant-vehicule.jpg"
                 on={input.plein}
                 onClick={() => setInput((s) => ({ ...s, plein: !s.plein }))}
               />
@@ -294,7 +294,7 @@ export function Simulator({
                 label="Coffret Terroir Breton"
                 text="Sélection artisanale locale : cidre d’exception, galettes fines, caramel au beurre salé."
                 price={formatEuro(OPTIONS.coffretArmor)}
-                image="/images/09_coffret_armor.jpg"
+                image="/images/coffret-terroir-breton.jpg"
                 on={input.coffret === "armor"}
                 onClick={() => setInput((s) => ({ ...s, coffret: s.coffret === "armor" ? "aucun" : "armor" }))}
               />
@@ -302,7 +302,7 @@ export function Simulator({
                 label="Coffret Prestige Champagne"
                 text="Bouteille de champagne brut sélectionnée et chocolats fins."
                 price={formatEuro(OPTIONS.coffretChampagne)}
-                image="/images/10_coffret_champagne.jpg"
+                image="/images/coffret-prestige-champagne.jpg"
                 on={input.coffret === "champagne"}
                 onClick={() => setInput((s) => ({ ...s, coffret: s.coffret === "champagne" ? "aucun" : "champagne" }))}
               />
@@ -662,7 +662,7 @@ function JockeyFlow({
               label="Nettoyage intérieur et extérieur"
               text="Pendant votre absence."
               price={formatEuro(OPTIONS.lavageComplet)}
-              image="/images/03_nettoyage.jpg"
+              image="/images/preparation-esthetique-vehicule.jpg"
               on={input.lavage === "complet"}
               onClick={() => setInput((s) => ({ ...s, lavage: s.lavage === "complet" ? "aucun" : "complet" }))}
             />
@@ -670,7 +670,7 @@ function JockeyFlow({
               label="Plein ou charge 90 %"
               text="Essence plein, électrique à 90 % ou plus. Énergie au réel."
               price={formatEuro(OPTIONS.plein)}
-              image="/images/11_plein.jpg"
+              image="/images/plein-carburant-vehicule.jpg"
               on={input.plein}
               onClick={() => setInput((s) => ({ ...s, plein: !s.plein }))}
             />

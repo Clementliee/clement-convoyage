@@ -13,7 +13,7 @@ export const Route = createFileRoute("/traqueur-gps")({
       description:
         "Option 199 € : traceur GPS 4G magnétique laissé dans le véhicule. L’acheteur le garde. 12 mois de suivi inclus. Convoyage BZH, Quimper.",
       path: "/traqueur-gps",
-      image: "/images/07_gps.jpg",
+      image: "/images/balise-gps-4g-vehicule.jpg",
     }),
   component: Page,
 });
@@ -41,7 +41,7 @@ function Page() {
         title="Un GPS 4G pour l’acheteur."
         accent="Il le garde."
         text="Pose à la remise, sans percer. 12 mois de suivi inclus. Ensuite l’abonnement est à sa charge."
-        image="/images/07_gps.jpg"
+        image="/images/balise-gps-4g-vehicule.jpg"
         alt="Traceur GPS 4G magnétique"
       />
       <section className="mx-auto grid max-w-6xl gap-12 px-4 pb-16 sm:px-6 lg:grid-cols-2">
@@ -58,7 +58,7 @@ function Page() {
             Ajouter le GPS à une estimation
           </Link>
         </div>
-        <img src="/images/07_gps.jpg" alt="Traceur GPS 4G" className="h-80 w-full rounded-[1.8rem] object-cover" />
+        <img src="/images/balise-gps-4g-vehicule.jpg" alt="Traceur GPS 4G" className="h-80 w-full rounded-[1.8rem] object-cover" />
       </section>
       <section className="mx-auto max-w-3xl px-5 pb-16 sm:px-8">
         <h2 className="mb-6 font-display text-3xl text-navy">Questions</h2>

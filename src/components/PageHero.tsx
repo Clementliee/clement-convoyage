@@ -43,10 +43,11 @@ export function PageHero({
               width={1600}
               height={900}
               decoding="async"
+              loading="lazy"
               className="h-full w-full object-cover"
             />
           </div>
-          <div className="absolute inset-0 bg-navy/40" />
+          <div className="absolute inset-0 bg-navy/10" />
         </div>
       ) : null}
       <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">

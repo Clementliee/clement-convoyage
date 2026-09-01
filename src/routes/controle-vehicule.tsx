@@ -12,7 +12,7 @@ export const Route = createFileRoute("/controle-vehicule")({
       description:
         "Contrôle visuel 20 points au départ et à l’arrivée. Niveaux, pneus, éclairage, carrosserie. Ce n’est pas une expertise.",
       path: "/controle-vehicule",
-      image: "/images/06_etat_des_lieux.jpg",
+      image: "/images/etat-des-lieux-vehicule.jpg",
     }),
   component: Page,
 });
@@ -40,7 +40,7 @@ function Page() {
         title="Vérifier."
         accent="Pas expertiser."
         text="Vingt points, des photos, un compte-rendu. Ce n’est pas une expertise automobile."
-        image="/images/06_etat_des_lieux.jpg"
+        image="/images/etat-des-lieux-vehicule.jpg"
         alt="État des lieux photo d’un véhicule avant convoyage"
       />
       <section className="mx-auto grid max-w-6xl gap-12 px-4 pb-16 sm:px-6 lg:grid-cols-2">
@@ -71,7 +71,7 @@ function Page() {
           </Link>
         </div>
         <img
-          src="/images/06_etat_des_lieux.jpg"
+          src="/images/etat-des-lieux-vehicule.jpg"
           alt="Contrôle visuel et photos"
           className="tilt-hover rounded-[1.6rem] object-cover"
         />

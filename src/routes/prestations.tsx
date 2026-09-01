@@ -22,25 +22,25 @@ const MORE = [
     to: "/jockey-gares-aeroports",
     title: "Jockey gares et aéroports",
     text: "Le véhicule vous attend sur le parvis.",
-    image: "/images/18_jockey_gare.jpg",
+    image: "/images/jockey-gare-quimper.jpg",
   },
   {
     to: "/professionnels",
     title: "Professionnels",
     text: "Concessions, garages, flottes.",
-    image: "/images/12_garage_b2b.jpg",
+    image: "/images/atelier-garage-professionnel.jpg",
   },
   {
     to: "/coffrets-livraison",
     title: "Coffrets",
     text: "Terroir Breton ou Prestige Champagne.",
-    image: "/images/09_coffret_armor.jpg",
+    image: "/images/coffret-terroir-breton.jpg",
   },
   {
     to: "/traqueur-gps",
     title: "Balise GPS 4G",
     text: "Cédée à l’acquéreur. 199 €.",
-    image: "/images/07_gps.jpg",
+    image: "/images/balise-gps-4g-vehicule.jpg",
   },
 ];
 

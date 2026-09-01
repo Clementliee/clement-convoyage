@@ -20,12 +20,12 @@ export type SeoPage = {
   highlights?: { t: string; d: string }[];
 };
 
-const IMG = "/images/01_hero_bretagne.jpg";
-const EU = "/images/04_europe_nuit.jpg";
-const KEYS = "/images/02_remise_cles.jpg";
-const EDL = "/images/06_etat_des_lieux.jpg";
-const GPS = "/images/07_gps.jpg";
-const SEC = "/images/08_securite.jpg";
+const IMG = "/images/convoyage-voiture-france.jpg";
+const EU = "/images/convoyage-europe-autoroute.jpg";
+const KEYS = "/images/remise-cles-vehicule.jpg";
+const EDL = "/images/etat-des-lieux-vehicule.jpg";
+const GPS = "/images/balise-gps-4g-vehicule.jpg";
+const SEC = "/images/remise-cles-vehicule.jpg";
 
 function ville(
   slug: string,
@@ -585,7 +585,7 @@ export const SEO_PAGES: SeoPage[] = [
     h1: "Convoyage de véhicule électrique",
     description: "Livraison VE depuis Quimper. Plan de recharge, EDL, remise avec niveau de batterie convenu.",
     kind: "metier",
-    image: "/images/03_nettoyage.jpg",
+    image: "/images/preparation-esthetique-vehicule.jpg",
     intro: "Un VE ne se convoyage pas comme un thermique. Autonomie, bornes, contrat de recharge.",
     body: [
       "Plan de trajet avec recharges. Remise à un niveau de batterie convenu. Mise en main offerte.",
@@ -812,7 +812,7 @@ export const SEO_PAGES: SeoPage[] = [
     h1: "Coffret cadeau à la livraison",
     description: "Deux coffrets maison remis avec les clés : Armor (galettes, caramels, cidre) ou Champagne (brut + chocolats). Composés à Quimper.",
     kind: "metier",
-    image: "/images/09_coffret_armor.jpg",
+    image: "/images/coffret-terroir-breton.jpg",
     intro: "La remise n’est pas un colis. Un coffret, composé ici, posé avec les clés.",
     body: [
       "Deux compositions, pas un catalogue. Coffret Armor : galettes, caramels au beurre salé, cidre. Coffret Champagne : brut 75 cl et chocolats.",
@@ -850,7 +850,7 @@ export const SEO_PAGES: SeoPage[] = [
     h1: "Plein de carburant à la livraison",
     description: "Plein à la remise du véhicule convoyé. Carburant au réel, forfait dans la fourchette. Base Quimper.",
     kind: "metier",
-    image: "/images/11_plein.jpg",
+    image: "/images/plein-carburant-vehicule.jpg",
     intro: "Une remise avec la réserve allumée, ce n’est pas une concession.",
     body: [
       "Le plein se fait à l’arrivée. Le carburant est repris au réel. Un forfait entre dans la fourchette du simulateur, à confirmer.",
@@ -1046,7 +1046,7 @@ export const SEO_PAGES: SeoPage[] = [
     h1: "Préparation avant livraison automobile",
     description: "Lavage, contrôle, carburant, photos avant remise client. Pour concessions et particuliers, depuis Quimper.",
     kind: "metier",
-    image: "/images/03_nettoyage.jpg",
+    image: "/images/preparation-esthetique-vehicule.jpg",
     locality: SITE.city,
     country: "FR",
     intro: "La préparation fait la remise. Ce n’est pas du detailing de concours.",

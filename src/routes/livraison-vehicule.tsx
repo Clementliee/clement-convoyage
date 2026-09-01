@@ -13,7 +13,7 @@ export const Route = createFileRoute("/livraison-vehicule")({
       description:
         "Convoyage de voiture partout en France. On récupère le véhicule où il se trouve, on le remet chez le client. Particuliers et utilitaires jusqu’à 3,5 t. Mise en main offerte.",
       path: "/livraison-vehicule",
-      image: "/images/02_remise_cles.jpg",
+      image: "/images/remise-cles-vehicule.jpg",
     }),
   component: Page,
 });
@@ -41,7 +41,7 @@ function Page() {
         title="Convoyage en conduite,"
         accent="de A à B."
         text="Véhicules légers et utilitaires jusqu’à 3,5 t, en état de marche. Le prix n’est pas affiché."
-        image="/images/02_remise_cles.jpg"
+        image="/images/remise-cles-vehicule.jpg"
         alt="Remise des clés d’un véhicule convoyé"
       />
       <section className="mx-auto grid max-w-6xl gap-16 px-5 pb-24 sm:px-8 lg:grid-cols-2">

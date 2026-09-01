@@ -11,7 +11,7 @@ export const Route = createFileRoute("/a-propos")({
       description:
         "Clément, convoyeur à Quimper. Photos, clés en main, mise en main offerte. Livraison tous les jours.",
       path: "/a-propos",
-      image: "/images/05_fondateur.jpg",
+      image: "/images/fondateur-clement-quimper.jpg",
     }),
   component: Page,
 });
@@ -29,7 +29,7 @@ function Page() {
         <Reveal>
           <div className="perspective-scene">
             <img
-              src="/images/05_fondateur.jpg"
+              src="/images/fondateur-clement-quimper.jpg"
               alt="Clément, Convoyage BZH, Quimper"
               className="tilt-hover aspect-[3/4] w-full rounded-[2rem] object-cover object-[50%_18%] shadow-[0_30px_60px_-24px_rgba(0,0,0,0.35)]"
             />

@@ -10,7 +10,7 @@ export const Route = createFileRoute("/nettoyage-vehicule")({
       description:
         "Lavage, plein, recharge VE avant remise. Mise en main offerte. Préparation de véhicule convoyé depuis Quimper.",
       path: "/nettoyage-vehicule",
-      image: "/images/03_nettoyage.jpg",
+      image: "/images/preparation-esthetique-vehicule.jpg",
     }),
   component: Page,
 });
@@ -23,7 +23,7 @@ function Page() {
         title="Remis comme en"
         accent="concession."
         text="Nettoyage intérieur et extérieur, 45 €. Mise en main offerte à chaque fois."
-        image="/images/03_nettoyage.jpg"
+        image="/images/preparation-esthetique-vehicule.jpg"
         alt="Nettoyage professionnel d’une berline blanche"
       />
       <section className="mx-auto grid max-w-6xl gap-6 px-5 pb-16 sm:grid-cols-2 sm:px-8 lg:grid-cols-3">
@@ -41,7 +41,7 @@ function Page() {
       </section>
       <section className="mx-auto mb-16 max-w-6xl px-4 sm:px-6">
         <div className="overflow-hidden rounded-[1.6rem] border border-line bg-surface lg:grid lg:grid-cols-2">
-        <img src="/images/11_plein.jpg" alt="Plein de carburant avant remise" className="h-56 w-full object-cover lg:h-full" />
+        <img src="/images/plein-carburant-vehicule.jpg" alt="Plein de carburant avant remise" className="h-56 w-full object-cover lg:h-full" />
         <div className="p-6 sm:p-8">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-coral">Plein</p>
           <h2 className="mt-2 font-display text-2xl text-navy">Le réservoir n’est pas un détail.</h2>

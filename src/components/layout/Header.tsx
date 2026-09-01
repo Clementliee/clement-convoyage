@@ -34,14 +34,23 @@ export function Header() {
             <Link to="/simulateur">Estimer</Link>
           </Button>
         </div>
-        <button
-          type="button"
-          className="inline-flex size-11 items-center justify-center rounded-full border border-line text-navy lg:hidden"
-          aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X className="size-5" /> : <Menu className="size-5" />}
-        </button>
+        <div className="flex items-center gap-2">
+          <a
+            href={SITE.phoneHref}
+            className="inline-flex size-11 items-center justify-center rounded-full border border-line text-navy md:hidden"
+            aria-label={`Appeler ${SITE.phone}`}
+          >
+            <Phone className="size-4" />
+          </a>
+          <button
+            type="button"
+            className="inline-flex size-11 items-center justify-center rounded-full border border-line text-navy lg:hidden"
+            aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
+        </div>
       </div>
       {open ? (
         <div className="border-t border-line bg-bg px-5 py-5 lg:hidden">

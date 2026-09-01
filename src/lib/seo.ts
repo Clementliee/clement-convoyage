@@ -19,20 +19,6 @@ export const STATIC_PATHS = [
   "/protocole-clement",
   "/faq",
   "/blog",
-  "/nettoyage-vehicule",
-  "/livraison-europe",
-  "/traqueur-gps",
-  "/securite-vehicule",
-  "/coffrets-livraison",
-  "/controle-vehicule",
-  "/destinations",
-  "/simulateur",
-  "/professionnels",
-  "/pack-mise-a-la-route",
-  "/preparation-vehicule",
-  "/protocole-clement",
-  "/faq",
-  "/blog",
   "/a-propos",
   "/avis",
   "/contact",
@@ -40,6 +26,7 @@ export const STATIC_PATHS = [
   "/confidentialite",
   "/cgv",
   "/jockey-gares-aeroports",
+  "/convoyage-france",
 ] as const;
 
 export function absUrl(path = "/") {

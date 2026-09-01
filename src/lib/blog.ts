@@ -18,7 +18,7 @@ export const ARTICLES: Article[] = [
     h1: "Combien coûte un convoyage automobile ?",
     description: "Le prix d’un convoyage dépend de la distance, du véhicule, de la date et des options. Fourchette après coordonnées, depuis Quimper.",
     date: "2026-09-01",
-    image: "/images/01_hero_bretagne.jpg",
+    image: "/images/convoyage-voiture-france.jpg",
     intro: "Il n’existe pas de tarif unique. Un trajet Quimper–Brest n’a rien à voir avec un import Pologne. Voici ce qui fait le prix.",
     body: [
       { h: "Ce qui entre dans le calcul", p: "Distance, type de véhicule, urgence, week-end, Europe, options. Le retour du convoyeur est inclus. Les péages et le carburant du véhicule convoyé aussi." },
@@ -34,7 +34,7 @@ export const ARTICLES: Article[] = [
     h1: "Faire livrer une voiture achetée à distance",
     description: "Achat Leboncoin, mandataire, concession éloignée. Convoyage, état des lieux photo, remise à domicile depuis Quimper.",
     date: "2026-09-01",
-    image: "/images/02_remise_cles.jpg",
+    image: "/images/remise-cles-vehicule.jpg",
     intro: "Vous avez acheté. Reste la route. Un convoyeur évite le train, la location, la fatigue.",
     body: [
       { h: "Avant de partir", p: "Le véhicule doit être roulant, assuré, documents à bord. Sinon, ce n’est pas un convoyage en conduite." },
@@ -50,7 +50,7 @@ export const ARTICLES: Article[] = [
     h1: "Comment fonctionne le convoyage automobile",
     description: "Prise en charge, conduite, état des lieux, remise. Le fonctionnement d’un convoyage depuis Quimper.",
     date: "2026-09-01",
-    image: "/images/06_etat_des_lieux.jpg",
+    image: "/images/etat-des-lieux-vehicule.jpg",
     intro: "Un convoyage, c’est une conduite de A à B, documentée. Pas un plateau. Pas un taxi.",
     body: [
       { h: "Le socle", p: "Prise en charge, trajet, péages, carburant du véhicule, retour du convoyeur, photos, clés, mise en main." },
@@ -66,7 +66,7 @@ export const ARTICLES: Article[] = [
     h1: "Convoyage ou plateau ?",
     description: "Véhicule roulant : convoyage en conduite. Non-roulant, épave, trop large : plateau. Comment choisir.",
     date: "2026-09-01",
-    image: "/images/04_europe_nuit.jpg",
+    image: "/images/convoyage-europe-autoroute.jpg",
     intro: "Si ça roule, on le conduit. Si ça ne roule pas, ce n’est plus nous.",
     body: [
       { h: "Convoyage", p: "Moins cher sur longue distance qu’un plateau, plus rapide à organiser, le véhicule arrive avec des kilomètres de trajet. photos du véhicule indispensable." },
@@ -81,7 +81,7 @@ export const ARTICLES: Article[] = [
     h1: "Préparer une voiture avant livraison",
     description: "Lavage, niveaux, pneus, carburant, photos. Préparation réaliste avant remise client, depuis Quimper.",
     date: "2026-09-01",
-    image: "/images/03_nettoyage.jpg",
+    image: "/images/preparation-esthetique-vehicule.jpg",
     intro: "Une remise sale n’est pas une remise. La préparation n’est pas du detailing de concours.",
     body: [
       { h: "Le minimum", p: "Pression, niveaux, photos, documents. Pack Essentiel." },
@@ -97,7 +97,7 @@ export const ARTICLES: Article[] = [
     h1: "État des lieux avant convoyage",
     description: "Photos horodatées, compteur, carrosserie, intérieur. Pourquoi l’EDL protège vendeur, acheteur et convoyeur.",
     date: "2026-09-01",
-    image: "/images/06_etat_des_lieux.jpg",
+    image: "/images/etat-des-lieux-vehicule.jpg",
     intro: "Sans photos, c’est une discussion. Avec photos, c’est un fait.",
     body: [
       { h: "Quoi photographier", p: "Extérieur, jantes, vitrages, intérieur, compteur, documents. Départ et arrivée." },
@@ -112,7 +112,7 @@ export const ARTICLES: Article[] = [
     h1: "Achat à distance : organiser la livraison",
     description: "Documents, paiement, convoyage, EDL. Comment faire livrer un véhicule acheté hors département.",
     date: "2026-09-01",
-    image: "/images/02_remise_cles.jpg",
+    image: "/images/remise-cles-vehicule.jpg",
     intro: "L’annonce est belle. La route reste. Voici l’ordre.",
     body: [
       { h: "Papiers", p: "Carte grise, contrôle technique, assurance, mandat si besoin." },
@@ -128,7 +128,7 @@ export const ARTICLES: Article[] = [
     h1: "Livraison depuis une autre région",
     description: "Convoyage longue distance depuis Quimper. France entière. Délais, documents, fourchette.",
     date: "2026-09-01",
-    image: "/images/04_europe_nuit.jpg",
+    image: "/images/convoyage-europe-autoroute.jpg",
     intro: "Paris, Lyon, Bordeaux, Lille : même standard qu’en Cornouaille. Le délai change. La remise non.",
     body: [
       { h: "Délais", p: "J+1 à J+3 selon axe et charge. Urgent selon disponibilité." },
@@ -143,7 +143,7 @@ export const ARTICLES: Article[] = [
     h1: "Convoyage automobile en Bretagne",
     description: "Convoyeur basé à Quimper. Finistère, Morbihan, Côtes-d’Armor, Ille-et-Vilaine. Livraison de véhicules en Bretagne.",
     date: "2026-09-01",
-    image: "/images/01_hero_bretagne.jpg",
+    image: "/images/convoyage-voiture-france.jpg",
     intro: "Quatre départements, une base. Quimper connaît les axes, les concessions, les créneaux.",
     body: [
       { h: "Le 29 d’abord", p: "Quimper, Brest, Concarneau, Bénodet, Douarnenez. Missions locales le jour même si le créneau tient." },
@@ -158,7 +158,7 @@ export const ARTICLES: Article[] = [
     h1: "Convoyage automobile à Quimper",
     description: "Convoyeur automobile à Quimper. Livraison locale, France, Europe. Base Cornouaille.",
     date: "2026-09-01",
-    image: "/images/05_fondateur.jpg",
+    image: "/images/fondateur-clement-quimper.jpg",
     intro: "Quimper n’est pas une antenne. C’est le siège. Clément y est.",
     body: [
       { h: "Local", p: "CT, carrosserie, courtoisie, livraison client. Le jour même si possible." },
@@ -173,7 +173,7 @@ export const ARTICLES: Article[] = [
     h1: "Convoyage d’une voiture électrique",
     description: "Plan de recharge, autonomie, remise à un niveau convenu. Convoyage VE depuis Quimper.",
     date: "2026-09-01",
-    image: "/images/03_nettoyage.jpg",
+    image: "/images/preparation-esthetique-vehicule.jpg",
     intro: "Un VE ne se convoyage pas comme un thermique. Bornes, contrat, niveau de batterie.",
     body: [
       { h: "Le plan", p: "Trajet avec recharges. Plan B si une borne est hors service." },
@@ -188,7 +188,7 @@ export const ARTICLES: Article[] = [
     h1: "Livraison d’un véhicule électrique",
     description: "Livraison VE, recharge, mise en main. Convoyage depuis Quimper pour particuliers et concessions.",
     date: "2026-09-01",
-    image: "/images/02_remise_cles.jpg",
+    image: "/images/remise-cles-vehicule.jpg",
     intro: "Livrer un électrique, c’est livrer une autonomie, pas seulement une carrosserie.",
     body: [
       { h: "Concession", p: "Le client ne découvre pas une batterie à 8 %. Niveau convenu, pack lavage si besoin." },
@@ -203,7 +203,7 @@ export const ARTICLES: Article[] = [
     h1: "Préparation avant livraison client",
     description: "Pour les concessions : véhicule propre, contrôlé, documenté. Pack livraison client depuis Quimper.",
     date: "2026-09-01",
-    image: "/images/03_nettoyage.jpg",
+    image: "/images/preparation-esthetique-vehicule.jpg",
     intro: "Un commercial n’a pas à laver une voiture. Un préparateur n’a pas à faire Quimper–Rennes.",
     body: [
       { h: "Pack livraison client", p: "Convoyage, nettoyage, contrôle, photos, mise en main, compte-rendu." },
@@ -218,7 +218,7 @@ export const ARTICLES: Article[] = [
     h1: "Externaliser le convoyage d’une concession",
     description: "Pourquoi une concession externalise ses convoyages. Gain de temps, traçabilité, livraison client. Quimper.",
     date: "2026-09-01",
-    image: "/images/05_fondateur.jpg",
+    image: "/images/fondateur-clement-quimper.jpg",
     intro: "Chaque trajet interne coûte un vendeur. L’externaliser rend le banc et le showroom.",
     body: [
       { h: "Les cas", p: "Livraison client, inter-sites, VO, courtoisie, CT." },
@@ -233,7 +233,7 @@ export const ARTICLES: Article[] = [
     h1: "Garage : externaliser les convoyages",
     description: "CT, carrosserie, retours atelier. Un garage qui garde ses techniciens au banc. Convoyage depuis Quimper.",
     date: "2026-09-01",
-    image: "/images/06_etat_des_lieux.jpg",
+    image: "/images/etat-des-lieux-vehicule.jpg",
     intro: "Un mécanicien sur la route ne répare rien. Un convoyeur oui.",
     body: [
       { h: "CT et carrosserie", p: "Aller-retour, EDL, créneau. Le client récupère sans que vous quittiez la fosse." },
@@ -248,7 +248,7 @@ export const ARTICLES: Article[] = [
     h1: "Convoyage pour marchand VO",
     description: "Rééquilibrage, livraisons, photos. Convoyage pour marchands de véhicules d’occasion, base Quimper.",
     date: "2026-09-01",
-    image: "/images/02_remise_cles.jpg",
+    image: "/images/remise-cles-vehicule.jpg",
     intro: "Un VO mal placé ne se vend pas. Un VO mal documenté se discute.",
     body: [
       { h: "Photos", p: "L’EDL protège l’achat comme la vente. Rayures, pneus, compteur." },

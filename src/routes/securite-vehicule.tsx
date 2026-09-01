@@ -10,7 +10,7 @@ export const Route = createFileRoute("/securite-vehicule")({
       description:
         "On photographie le véhicule au départ et à l’arrivée. Les clés sont remises en main propre. Mise en main offerte. Quimper.",
       path: "/securite-vehicule",
-      image: "/images/08_securite.jpg",
+      image: "/images/remise-cles-vehicule.jpg",
     }),
   component: Page,
 });
@@ -23,7 +23,7 @@ function Page() {
         title="Des photos, des clés."
         accent="Rien de plus compliqué."
         text="On photographie le véhicule au départ et à l’arrivée. On remet les clés à la bonne personne. La mise en main est offerte."
-        image="/images/08_securite.jpg"
+        image="/images/remise-cles-vehicule.jpg"
         alt="Remise des clés d’un véhicule"
       />
       <section className="mx-auto max-w-3xl space-y-5 px-5 pb-16 text-lg leading-relaxed text-muted sm:px-8">

@@ -13,7 +13,7 @@ export const Route = createFileRoute("/jockey-gares-aeroports")({
       description:
         "Voiturier et jockey privé. Votre véhicule vous attend sur le parvis. Gare de Quimper, aéroports Brest-Bretagne et Lorient. Pas de transport de passagers.",
       path: "/jockey-gares-aeroports",
-      image: "/images/18_jockey_gare.jpg",
+      image: "/images/jockey-gare-quimper.jpg",
     }),
   component: Page,
 });
@@ -23,19 +23,19 @@ const STEPS = [
     n: "01",
     t: "Départ sans contrainte",
     d: "Vous nous confiez les clés au dépose-minute. Nous ramenons le véhicule à votre domicile, ou sur un parking gardé. Photos au départ.",
-    img: "/images/20_jockey_cles.jpg",
+    img: "/images/remise-cles-vehicule.jpg",
   },
   {
     n: "02",
     t: "Pendant votre absence",
     d: "Optionnel. Nettoyage intérieur et extérieur, plein ou charge à 90 %, passage au contrôle technique ou à la révision.",
-    img: "/images/03_nettoyage.jpg",
+    img: "/images/preparation-esthetique-vehicule.jpg",
   },
   {
     n: "03",
     t: "Retour clés en main",
     d: "Nous suivons votre numéro de train ou de vol. À la sortie du hall, le véhicule vous attend sur le parvis, propre, climatisé ou chauffé.",
-    img: "/images/21_jockey_retour.jpg",
+    img: "/images/jockey-gare-quimper.jpg",
   },
 ];
 
@@ -77,7 +77,7 @@ function Page() {
         title="Votre véhicule vous attend sur le parvis."
         accent="Zéro attente."
         text="Service jockey privé. Prise en charge au dépose-minute, gare de Quimper, aéroports de Brest-Bretagne et Lorient."
-        image="/images/18_jockey_gare.jpg"
+        image="/images/jockey-gare-quimper.jpg"
         alt="Berline qui attend sur le parvis d’une gare"
       />
 
@@ -124,7 +124,7 @@ function Page() {
           ))}
         </div>
         <img
-          src="/images/19_jockey_aeroport.jpg"
+          src="/images/jockey-aeroport-bretagne.jpg"
           alt="Véhicule au dépose-minute d’un aéroport breton"
           className="mt-10 h-72 w-full rounded-[1.8rem] object-cover"
         />

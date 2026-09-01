@@ -81,7 +81,7 @@ export function LocalBusinessJsonLd() {
         email: SITE.email,
         taxID: SITE.siren.replace(/\s/g, ""),
         vatID: SITE.siret.replace(/\s/g, ""),
-        image: [`${SITE.origin}/og.jpg`, `${SITE.origin}/images/01_hero_bretagne.jpg`],
+        image: [`${SITE.origin}/og.jpg`, `${SITE.origin}/images/convoyage-voiture-france.jpg`],
         logo: `${SITE.origin}/og.jpg`,
         url: SITE.origin,
         inLanguage: "fr-FR",

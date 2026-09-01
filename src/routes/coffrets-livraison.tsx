@@ -10,7 +10,7 @@ export const Route = createFileRoute("/coffrets-livraison")({
       description:
         "Deux coffrets composés à Quimper, remis avec les clés. Armor 45 € : galettes, caramels, cidre. Champagne 89 € : brut et chocolats.",
       path: "/coffrets-livraison",
-      image: "/images/09_coffret_armor.jpg",
+      image: "/images/coffret-terroir-breton.jpg",
     }),
   component: Page,
 });
@@ -23,12 +23,12 @@ function Page() {
         title="Deux coffrets."
         accent="Un geste de concession."
         text="Composés à Quimper. Un seul par mission. Terroir Breton ou Prestige Champagne."
-        image="/images/09_coffret_armor.jpg"
+        image="/images/coffret-terroir-breton.jpg"
         alt="Coffret Terroir Breton : galettes, caramels, cidre"
       />
       <section className="mx-auto grid max-w-6xl gap-8 px-4 pb-16 sm:px-6 lg:grid-cols-2">
         <article className="overflow-hidden rounded-[1.6rem] border border-line bg-surface">
-          <img src="/images/09_coffret_armor.jpg" alt="Coffret Armor" className="h-56 w-full object-cover" />
+          <img src="/images/coffret-terroir-breton.jpg" alt="Coffret Armor" className="h-56 w-full object-cover" />
           <div className="p-6">
             <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">Coffret Terroir Breton</p>
             <h2 className="mt-2 font-display text-2xl text-navy">45 €</h2>
@@ -41,7 +41,7 @@ function Page() {
           </div>
         </article>
         <article className="overflow-hidden rounded-[1.6rem] border border-line bg-surface">
-          <img src="/images/10_coffret_champagne.jpg" alt="Coffret Champagne" className="h-56 w-full object-cover" />
+          <img src="/images/coffret-prestige-champagne.jpg" alt="Coffret Champagne" className="h-56 w-full object-cover" />
           <div className="p-6">
             <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">Coffret Prestige Champagne</p>
             <h2 className="mt-2 font-display text-2xl text-navy">89 €</h2>

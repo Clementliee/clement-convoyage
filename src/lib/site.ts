@@ -64,7 +64,7 @@ export const ADDONS = [
     title: "Préparation esthétique complète",
     text: "Nettoyage minutieux intérieur et extérieur. Finition vitres et plastiques. 45 €.",
     price: "45 €",
-    image: "/images/03_nettoyage.jpg",
+    image: "/images/preparation-esthetique-vehicule.jpg",
     alt: "Préparation esthétique d’un véhicule",
   },
   {
@@ -72,7 +72,7 @@ export const ADDONS = [
     title: "Balise traqueur GPS 4G autonome",
     text: "Cédée à l’acquéreur. Pose discrète, 12 mois de suivi. 199 €.",
     price: "199 €",
-    image: "/images/07_gps.jpg",
+    image: "/images/balise-gps-4g-vehicule.jpg",
     alt: "Balise GPS 4G autonome",
   },
   {
@@ -80,7 +80,7 @@ export const ADDONS = [
     title: "Plein carburant ou charge 90 %",
     text: "Réservoir plein ou batterie à 90 % ou plus. 65 €, énergie au réel.",
     price: "65 €",
-    image: "/images/11_plein.jpg",
+    image: "/images/plein-carburant-vehicule.jpg",
     alt: "Plein de carburant avant restitution",
   },
   {
@@ -88,7 +88,7 @@ export const ADDONS = [
     title: "Coffret Terroir Breton",
     text: "Cidre d’exception, galettes fines, caramel au beurre salé. 45 €.",
     price: "45 €",
-    image: "/images/09_coffret_armor.jpg",
+    image: "/images/coffret-terroir-breton.jpg",
     alt: "Coffret Terroir Breton",
   },
   {
@@ -96,7 +96,7 @@ export const ADDONS = [
     title: "Coffret Prestige Champagne",
     text: "Champagne brut sélectionné et chocolats fins. 89 €.",
     price: "89 €",
-    image: "/images/10_coffret_champagne.jpg",
+    image: "/images/coffret-prestige-champagne.jpg",
     alt: "Coffret Prestige Champagne",
   },
 ] as const;
@@ -106,7 +106,7 @@ export const SERVICES = [
     to: "/jockey-gares-aeroports",
     title: "Jockey VIP gares et aéroports",
     text: "Prise en charge à la gare de Quimper et aux aéroports de Brest et Lorient. Récupération et dépose sur le parvis.",
-    image: "/images/18_jockey_gare.jpg",
+    image: "/images/jockey-gare-quimper.jpg",
     alt: "Berline qui attend sur le parvis d’une gare",
     badge: "Nouveau · Cadres et voyageurs",
   },
@@ -114,21 +114,21 @@ export const SERVICES = [
     to: "/livraison-vehicule",
     title: "Livraison France",
     text: "Convoyage en conduite, particuliers et utilitaires jusqu’à 3,5 t. État des lieux photo, carburant et péages inclus.",
-    image: "/images/02_remise_cles.jpg",
+    image: "/images/remise-cles-vehicule.jpg",
     alt: "Remise des clés d’un véhicule premium",
   },
   {
     to: "/nettoyage-vehicule",
     title: "Préparation",
     text: "Lavage, plein, recharge. La mise en main est offerte à chaque remise.",
-    image: "/images/03_nettoyage.jpg",
+    image: "/images/preparation-esthetique-vehicule.jpg",
     alt: "Nettoyage professionnel d’une berline",
   },
   {
     to: "/livraison-europe",
     title: "Livraison Europe",
     text: "Belgique, Suisse, Allemagne, Pologne, Monaco, Serbie, Espagne, Italie, Royaume-Uni. Le même standard.",
-    image: "/images/04_europe_nuit.jpg",
+    image: "/images/convoyage-europe-autoroute.jpg",
     alt: "Convoyage de nuit sur autoroute européenne",
   },
 ] as const;
