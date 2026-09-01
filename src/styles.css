@@ -97,6 +97,24 @@
   .hero-phare-on {
     animation: hero-phare 2.6s ease-in-out infinite;
   }
+  @keyframes devis-pulse {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 rgb(0 113 227 / 0.45);
+    }
+    70% {
+      box-shadow: 0 0 0 12px rgb(0 113 227 / 0);
+    }
+  }
+  .devis-pulse {
+    animation: devis-pulse 2.4s ease-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .devis-pulse,
+    .hero-phare-on {
+      animation: none;
+    }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -2,17 +2,19 @@ import { AppLink } from "@/components/AppLink";
 import { SITE } from "@/lib/site";
 
 const PRESTATIONS = [
+  { to: "/prestations", label: "Prestations" },
   { to: "/jockey-gares-aeroports", label: "Jockey gares et aéroports" },
-  { to: "/convoyage", label: "Convoyage" },
-  { to: "/professionnels", label: "Professionnels" },
-  { to: "/pack-mise-a-la-route", label: "Packs mise à la route" },
-  { to: "/preparation-vehicule", label: "Préparation" },
-  { to: "/protocole-clement", label: "Protocole Clément" },
-  { to: "/livraison-vehicule", label: "France" },
-  { to: "/livraison-europe", label: "Europe" },
-  { to: "/blog", label: "Journal" },
+  { to: "/professionnels", label: "Particuliers et professionnels" },
+  { to: "/pack-mise-a-la-route", label: "Packs de livraison" },
+  { to: "/simulateur", label: "Devis" },
+];
+
+const INFOS = [
   { to: "/faq", label: "FAQ" },
-  { to: "/simulateur", label: "Estimer" },
+  { to: "/blog", label: "Journal" },
+  { to: "/a-propos", label: "À propos" },
+  { to: "/contact", label: "Contact" },
+  { to: "/destinations", label: "France et Europe" },
 ];
 
 const BRETAGNE = [
@@ -38,7 +40,7 @@ const EUROPE = [
 export function Footer() {
   return (
     <footer className="mt-24 border-t border-line bg-navy text-surface">
-      <div className="mx-auto grid max-w-6xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-4">
+      <div className="mx-auto grid max-w-6xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-2 lg:grid-cols-5">
         <div>
           <p className="font-display text-lg font-semibold">
             Convoyage <span className="text-coral">BZH</span>
@@ -65,6 +67,7 @@ export function Footer() {
           </p>
         </div>
         <FooterCol title="Prestations" links={PRESTATIONS} />
+        <FooterCol title="Infos" links={INFOS} />
         <FooterCol title="Bretagne" links={BRETAGNE} />
         <FooterCol title="Europe" links={EUROPE} />
       </div>

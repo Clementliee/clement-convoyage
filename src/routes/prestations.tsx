@@ -49,10 +49,22 @@ function Page() {
     <main>
       <PageHero
         kicker="Prestations"
-        title="L’essentiel."
+        title="Particuliers et professionnels."
         accent=""
-        text="Convoyage. Jockey. Professionnels. Options."
+        text="Le même niveau de remise. Convoyage, jockey, préparation, menus de livraison."
       />
+      <section className="mx-auto grid max-w-6xl gap-6 px-5 pb-16 sm:px-8 md:grid-cols-2">
+        <Link to="/simulateur" className="rounded-[1.8rem] border border-line bg-surface p-8">
+          <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">Particuliers</p>
+          <h2 className="mt-3 font-display text-3xl text-navy">Achat, import, remise à domicile.</h2>
+          <p className="mt-4 text-muted">Convoyage, jockey, préparation esthétique, coffret. Mise en main offerte.</p>
+        </Link>
+        <Link to="/professionnels" className="rounded-[1.8rem] bg-navy p-8 text-surface">
+          <p className="text-xs font-semibold tracking-[0.18em] text-surface/50 uppercase">Professionnels</p>
+          <h2 className="mt-3 font-display text-3xl">Concessions, garages, flottes.</h2>
+          <p className="mt-4 text-surface/70">Navettes atelier, rotations de stocks, livraison client final.</p>
+        </Link>
+      </section>
       <section className="mx-auto grid max-w-6xl gap-8 px-5 pb-12 sm:px-8 md:grid-cols-3">
         {SERVICES.map((s) => (
           <Link key={s.to} to={s.to} className="tilt-hover overflow-hidden rounded-2xl border border-line bg-surface">
