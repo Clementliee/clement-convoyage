@@ -121,8 +121,8 @@ function Home() {
             </Link>
           </div>
           <img
-            src="/images/atelier-garage-professionnel.jpg"
-            alt="Véhicule en atelier, convoyage professionnel"
+            src="/images/atelier-garage-professionnel.jpg?v=propre"
+            alt="Berline propre dans un atelier automobile professionnel"
             className="h-72 w-full object-cover lg:h-full"
           />
         </div>

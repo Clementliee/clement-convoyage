@@ -28,7 +28,7 @@ const MORE = [
     to: "/professionnels",
     title: "Professionnels",
     text: "Concessions, garages, flottes.",
-    image: "/images/atelier-garage-professionnel.jpg",
+    image: "/images/atelier-garage-professionnel.jpg?v=propre",
   },
   {
     to: "/coffrets-livraison",

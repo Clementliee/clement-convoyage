@@ -29,8 +29,8 @@ function Page() {
         title="Partenaire logistique des concessions, marchands et carrosseries."
         accent=""
         text="Navettes atelier, rotations de stocks sous 24 à 48 h, délégation de livraison client final. Un interlocuteur à Quimper."
-        image="/images/atelier-garage-professionnel.jpg"
-        alt="Transfert de véhicule pour un garage en Bretagne"
+        image="/images/atelier-garage-professionnel.jpg?v=propre"
+        alt="Berline propre dans un atelier automobile professionnel"
       />
       <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8">
         <div className="grid gap-10 lg:grid-cols-2">
