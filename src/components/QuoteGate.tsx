@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { downloadQuotePdf } from "@/lib/quote-pdf";
 import { mailtoFallback, sendDevisLead } from "@/lib/send-devis";
-import { quoteRange, type QuoteInput, type QuoteResult } from "@/lib/tarifs";
+import { OPTIONS, quoteRange, type QuoteInput, type QuoteResult } from "@/lib/tarifs";
 import { formatEuro } from "@/lib/utils";
 
 export function QuoteGate({
@@ -28,7 +28,9 @@ export function QuoteGate({
         : "",
     input.gps ? "Balise traqueur GPS 4G autonome, 12 mois inclus" : "",
     "Mise en main personnalisée, offerte",
-    input.plein ? "Service plein carburant ou charge 90 % ou plus" : "",
+    input.plein
+      ? `Plein carburant : passage à la pompe ${OPTIONS.pleinService} € + carburant ${OPTIONS.carburantLitre} €/L`
+      : "",
     input.rechargeVe ? "Recharge VE" : "",
     input.controleVisuel || input.pack !== "aucun" ? "" : "",
     input.coffret === "champagne" ? "Coffret Prestige Champagne" : input.coffret === "armor" ? "Coffret Terroir Breton" : "",

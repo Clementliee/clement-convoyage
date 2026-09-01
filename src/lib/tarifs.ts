@@ -19,7 +19,13 @@ export const OPTIONS = {
   prestigePct: 0.2,
   gps: 199,
   securite: 75,
-  plein: 65,
+  plein: 149,
+  pleinService: 49,
+  carburantLitre: 2,
+  pleinLitresVp: 50,
+  pleinLitresPrestige: 65,
+  pleinLitresUtilitaire: 70,
+  rechargeForfait: 28,
   controleVisuel: 49,
   coffretArmor: 45,
   coffretChampagne: 89,
@@ -267,6 +273,18 @@ export function prixBareme(km: number) {
 export type VehicleKind = "vp" | "utilitaire" | "prestige" | "ve";
 export type WhenKind = "standard" | "urgent";
 
+/** Passage à la pompe 49 € + carburant 2 €/L, volume selon le véhicule. Marge sur le déplacement. */
+export function litresPlein(vehicle: VehicleKind) {
+  if (vehicle === "prestige") return OPTIONS.pleinLitresPrestige;
+  if (vehicle === "utilitaire") return OPTIONS.pleinLitresUtilitaire;
+  return OPTIONS.pleinLitresVp;
+}
+
+export function prixPlein(vehicle: VehicleKind = "vp") {
+  if (vehicle === "ve") return OPTIONS.pleinService + OPTIONS.rechargeForfait;
+  return OPTIONS.pleinService + litresPlein(vehicle) * OPTIONS.carburantLitre;
+}
+
 /** Deux créneaux. Week-end et jours fériés inclus. Toujours sous réserve de disponibilité. */
 export const WHEN_OFFERS = [
   {
@@ -398,7 +416,7 @@ export function computeQuote(input: QuoteInput): QuoteResult {
     let options = 0;
     if (input.jockeyWash === "standard") options += OPTIONS.jockeyLavage;
     if (input.jockeyWash === "prestige") options += OPTIONS.jockeyLavagePrestige;
-    if (input.plein) options += OPTIONS.plein;
+    if (input.plein) options += prixPlein(input.vehicle);
     if (input.jockeyCt) options += OPTIONS.jockeyCt;
     const homeName = home?.name ?? (input.from.trim() || "Domicile");
     const label =
@@ -502,7 +520,7 @@ export function computeQuote(input: QuoteInput): QuoteResult {
     if (input.lavage === "complet" || input.lavage === "exterieur") options += OPTIONS.lavageComplet;
     if (input.controleVisuel) options += OPTIONS.controleVisuel;
     if (input.gps) options += OPTIONS.gps;
-    if (input.plein) options += OPTIONS.plein;
+    if (input.plein) options += prixPlein(input.vehicle);
     if (input.coffret === "armor") options += OPTIONS.coffretArmor;
     if (input.coffret === "champagne") options += OPTIONS.coffretChampagne;
   }

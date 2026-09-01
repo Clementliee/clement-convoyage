@@ -30,7 +30,7 @@ function Page() {
         {[
           ["Nettoyage intérieur et extérieur, 45 €", "Carrosserie, habitacle, vitres. Un seul nettoyage, le complet."],
           ["Mise en main, offerte", "À chaque remise. 20 à 30 min : commandes, options, charge."],
-          ["Plein ou charge 90 %, 65 €", "Essence plein. Électrique à 90 % ou plus. Énergie au réel, en plus."],
+          ["Plein carburant, 149 €", "Passage à la pompe 49 € + 50 L à 2 €/L. Prestige et utilitaire, volume plus élevé. Ajusté au ticket."],
           ["Traqueur GPS 4G, 199 €", "Pour l’acheteur. Il le garde. 12 mois inclus."],
         ].map(([t, p]) => (
           <div key={t} className="rounded-2xl border border-line bg-surface p-5">

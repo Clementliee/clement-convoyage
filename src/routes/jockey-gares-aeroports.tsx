@@ -98,14 +98,18 @@ function Page() {
 
       <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8">
         <h2 className="font-display text-3xl text-navy">Options, uniquement avec le jockey.</h2>
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
+        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           <div className="rounded-[1.6rem] bg-sand p-7">
             <p className="font-display text-xl text-navy">Nettoyage</p>
             <p className="mt-2 text-sm text-muted">Intérieur et extérieur. {formatEuro(OPTIONS.jockeyLavage)}. Prestige {formatEuro(OPTIONS.jockeyLavagePrestige)}.</p>
           </div>
           <div className="rounded-[1.6rem] bg-sand p-7">
-            <p className="font-display text-xl text-navy">Entretien ou CT</p>
-            <p className="mt-2 text-sm text-muted">Nous emmenons le véhicule. {formatEuro(OPTIONS.jockeyCt)}, hors facture du garage.</p>
+            <p className="font-display text-xl text-navy">Contrôle technique</p>
+            <p className="mt-2 text-sm text-muted">Nous emmenons le véhicule. {formatEuro(OPTIONS.jockeyCt)}, hors facture du centre.</p>
+          </div>
+          <div className="rounded-[1.6rem] bg-sand p-7">
+            <p className="font-display text-xl text-navy">Plein carburant</p>
+            <p className="mt-2 text-sm text-muted">Passage à la pompe {formatEuro(OPTIONS.pleinService)} + {OPTIONS.carburantLitre} €/L. Environ {formatEuro(OPTIONS.plein)} pour 50 L.</p>
           </div>
           <div className="rounded-[1.6rem] bg-sand p-7">
             <p className="font-display text-xl text-navy">Double des clés</p>

@@ -74,9 +74,9 @@ export const ADDONS = [
   },
   {
     to: "/nettoyage-vehicule",
-    title: "Plein carburant ou charge 90 %",
-    text: "Réservoir plein ou batterie à 90 % ou plus. 65 €, énergie au réel.",
-    price: "65 €",
+    title: "Plein carburant",
+    text: "Passage à la pompe 49 € + carburant 2 €/L, environ 50 L. 149 € pour un véhicule particulier, ajusté au ticket.",
+    price: "149 €",
     image: "/images/plein-carburant-vehicule.jpg",
     alt: "Plein de carburant avant restitution",
   },

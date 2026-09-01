@@ -49,7 +49,7 @@ const FAQ = [
 const OPTIONS_HOME = [
   { t: "Préparation esthétique", p: OPTIONS.lavageComplet },
   { t: "Balise GPS 4G", p: OPTIONS.gps },
-  { t: "Plein ou charge 90 %", p: OPTIONS.plein },
+  { t: "Plein carburant", p: OPTIONS.plein },
   { t: "Coffret Terroir Breton", p: OPTIONS.coffretArmor },
   { t: "Coffret Prestige Champagne", p: OPTIONS.coffretChampagne },
 ];

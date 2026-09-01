@@ -8,6 +8,8 @@ import {
   JOCKEY_POINTS,
   JOCKEY_SENS,
   OPTIONS,
+  prixPlein,
+  litresPlein,
   WHEN_OFFERS,
   type MissionKind,
   type PackKind,
@@ -409,9 +411,9 @@ export function Simulator({
                   onClick={() => setInput((s) => ({ ...s, controleVisuel: !s.controleVisuel }))}
                 />
                 <Toggle
-                  label="Plein ou charge 90 %"
-                  text="Énergie au réel, sur justificatif."
-                  price={formatEuro(OPTIONS.plein)}
+                  label="Plein carburant"
+                  text={`Passage à la pompe ${formatEuro(OPTIONS.pleinService)} + ${litresPlein(input.vehicle)} L à ${OPTIONS.carburantLitre} €. Ajusté au volume réel.`}
+                  price={formatEuro(prixPlein(input.vehicle))}
                   image="/images/plein-carburant-vehicule.jpg"
                   on={input.plein}
                   onClick={() => setInput((s) => ({ ...s, plein: !s.plein }))}
@@ -797,9 +799,9 @@ function JockeyFlow({
               onClick={() => setInput((s) => ({ ...s, jockeyCt: !s.jockeyCt }))}
             />
             <Toggle
-              label="Plein ou charge 90 %"
-              text="Essence plein, électrique à 90 % ou plus. Énergie au réel."
-              price={formatEuro(OPTIONS.plein)}
+              label="Plein carburant"
+              text={`Passage à la pompe ${formatEuro(OPTIONS.pleinService)} + ${litresPlein(input.vehicle)} L à ${OPTIONS.carburantLitre} € le litre. Ajusté au ticket.`}
+              price={formatEuro(prixPlein(input.vehicle))}
               image="/images/plein-carburant-vehicule.jpg"
               on={input.plein}
               onClick={() => setInput((s) => ({ ...s, plein: !s.plein }))}
