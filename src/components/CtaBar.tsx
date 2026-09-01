@@ -2,8 +2,8 @@ import { AppLink } from "@/components/AppLink";
 import { Button } from "@/components/ui/button";
 
 export function CtaBar({
-  title = "Besoin de déplacer un véhicule ?",
-  text = "Estimation indicative après vos coordonnées. Confirmation sous 2 heures ouvrées.",
+  title = "Un véhicule à acheminer ?",
+  text = "Estimation détaillée après vos coordonnées. Devis formel sous 2 heures ouvrées.",
   secondaryTo = "/professionnels",
   secondaryLabel = "Compte professionnel",
 }: {
@@ -19,7 +19,7 @@ export function CtaBar({
         <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-surface/70">{text}</p>
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Button asChild>
-            <AppLink to="/simulateur">Estimer mon convoyage</AppLink>
+            <AppLink to="/simulateur">Obtenir mon estimation détaillée</AppLink>
           </Button>
           <Button variant="ghost" className="border-0 bg-surface/10 text-surface hover:bg-surface/20" asChild>
             <AppLink to={secondaryTo}>{secondaryLabel}</AppLink>

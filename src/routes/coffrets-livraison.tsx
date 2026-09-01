@@ -19,18 +19,18 @@ function Page() {
   return (
     <main>
       <PageHero
-        kicker="Cadeau de remise"
+        kicker="Remise privilège"
         title="Deux coffrets."
-        accent="Prix affichés."
-        text="On les compose à Quimper. Un seul par livraison. Vous cochez Armor ou Champagne."
+        accent="Un geste de concession."
+        text="Composés à Quimper. Un seul par mission. Terroir Breton ou Prestige Champagne."
         image="/images/09_coffret_armor.jpg"
-        alt="Coffret Armor : galettes, caramels, cidre"
+        alt="Coffret Terroir Breton : galettes, caramels, cidre"
       />
       <section className="mx-auto grid max-w-6xl gap-8 px-4 pb-16 sm:px-6 lg:grid-cols-2">
         <article className="overflow-hidden rounded-[1.6rem] border border-line bg-surface">
           <img src="/images/09_coffret_armor.jpg" alt="Coffret Armor" className="h-56 w-full object-cover" />
           <div className="p-6">
-            <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">Coffret Armor</p>
+            <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">Coffret Terroir Breton</p>
             <h2 className="mt-2 font-display text-2xl text-navy">45 €</h2>
             <ul className="mt-4 space-y-2 text-sm text-muted">
               <li>Galettes ou palets bretons</li>
@@ -43,7 +43,7 @@ function Page() {
         <article className="overflow-hidden rounded-[1.6rem] border border-line bg-surface">
           <img src="/images/10_coffret_champagne.jpg" alt="Coffret Champagne" className="h-56 w-full object-cover" />
           <div className="p-6">
-            <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">Coffret Champagne</p>
+            <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">Coffret Prestige Champagne</p>
             <h2 className="mt-2 font-display text-2xl text-navy">89 €</h2>
             <ul className="mt-4 space-y-2 text-sm text-muted">
               <li>Champagne brut, 75 cl</li>

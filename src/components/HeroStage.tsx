@@ -90,10 +90,10 @@ export function HeroStage() {
             Quimper, Bretagne, France, Europe
           </p>
           <h1 className="max-w-3xl font-display text-4xl leading-[1.05] text-white sm:text-6xl lg:text-7xl">
-            Votre véhicule livré comme en <span className="text-coral">concession.</span>
+            Acheminement et remise, au standard <span className="text-coral">concession.</span>
           </h1>
           <p className="mt-5 max-w-lg text-base leading-relaxed text-white/80 sm:text-lg">
-            Livraison depuis la Bretagne. Photos au départ et à l’arrivée. Mise en main offerte.
+            Convoyage routier depuis la Bretagne. Rapport d’état des lieux haute définition. Mise en main personnalisée offerte.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Link
@@ -120,7 +120,7 @@ export function HeroStage() {
               to="/simulateur"
               className="inline-flex h-14 items-center justify-center rounded-full border border-white/20 px-6 text-sm font-semibold text-white/90"
             >
-              Estimer ma livraison
+              Estimer mon acheminement
             </Link>
           </div>
         </div>

@@ -24,7 +24,7 @@ const STEPS = [
   "Arrivée",
   "Zone",
   "Quand",
-  "Composer les options",
+  "Personnalisez votre niveau de prestation",
 ];
 
 export function Simulator({
@@ -176,7 +176,7 @@ export function Simulator({
         ) : null}
         {step === 6 ? (
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted">
-            Chaque véhicule est unique : gabarit, motorisation thermique ou électrique, contraintes d’assurance, niveau de préparation. Ces questions évitent un tarif générique.
+            Chaque transfert est unique : segment du véhicule, motorisation, exigences esthétiques et impératifs de livraison. Sélectionnez vos options pour un acheminement sur mesure.
           </p>
         ) : null}
       </div>
@@ -250,36 +250,37 @@ export function Simulator({
       {step === 6 && (
         <div className="space-y-10">
           <div className="rounded-[1.4rem] bg-sand px-5 py-5 text-sm leading-relaxed text-navy">
-            <p className="font-display text-xl">La livraison, toujours.</p>
-            <p className="mt-2">
-              Conduite, carburant, péages, retour, photos du véhicule au départ et à l’arrivée, clés.
-            </p>
-            <p className="mt-3 font-semibold text-coral">Mise en main : offerte.</p>
-            <p className="mt-2 text-muted">
-              On prend 20 à 30 minutes à l’arrivée pour expliquer les commandes, les aides, la charge. C’est inclus, à chaque fois.
-            </p>
+            <p className="font-display text-xl">Prestations incluses</p>
+            <ul className="mt-4 space-y-2 text-muted">
+              <li>Convoyage routier sécurisé avec assurance tous risques dédiée</li>
+              <li>Frais de route intégrés (carburant, péages, logistique retour)</li>
+              <li>Rapport d’état des lieux numérique haute définition, départ et arrivée</li>
+              <li>
+                Mise en main personnalisée, offerte. 20 à 30 minutes dédiées à la configuration du véhicule : aides à la conduite, multimédia, recharge.
+              </li>
+            </ul>
           </div>
-          <OptionGroup title="Vous ajoutez, prix affiché">
+          <OptionGroup title="Options à la carte">
             <div className="grid gap-3 sm:grid-cols-2">
               <Toggle
-                label="Nettoyage intérieur et extérieur"
-                text="Le véhicule arrive propre. Pas seulement un coup d’eau dehors."
+                label="Préparation esthétique complète"
+                text="Nettoyage minutieux intérieur et extérieur avant restitution. Finition vitres et plastiques."
                 price={formatEuro(OPTIONS.lavageComplet)}
                 image="/images/03_nettoyage.jpg"
                 on={input.lavage === "complet"}
                 onClick={() => setInput((s) => ({ ...s, lavage: s.lavage === "complet" ? "aucun" : "complet" }))}
               />
               <Toggle
-                label="Traqueur GPS 4G pour l’acheteur"
-                text="Il le garde. Pose à la remise, sans perçage. 12 mois de suivi inclus."
+                label="Balise traqueur GPS 4G autonome"
+                text="Cédée à l’acquéreur. Pose discrète sans perçage, 12 mois de suivi temps réel inclus."
                 price={formatEuro(OPTIONS.gps)}
                 image="/images/07_gps.jpg"
                 on={input.gps}
                 onClick={() => setInput((s) => ({ ...s, gps: !s.gps }))}
               />
               <Toggle
-                label="Plein ou charge 90 %"
-                text="Essence : réservoir plein. Électrique : batterie à 90 % ou plus. Énergie au réel, en plus."
+                label="Service plein carburant ou charge 90 %"
+                text="Remise avec réservoir plein ou batterie chargée à 90 % ou plus. Énergie facturée au réel, sur justificatif."
                 price={formatEuro(OPTIONS.plein)}
                 image="/images/11_plein.jpg"
                 on={input.plein}
@@ -287,19 +288,19 @@ export function Simulator({
               />
             </div>
           </OptionGroup>
-          <OptionGroup title="Coffret, un seul">
+          <OptionGroup title="Coffrets remise privilège, un seul">
             <div className="grid gap-3 sm:grid-cols-2">
               <Toggle
-                label="Coffret Armor"
-                text="Galettes, caramels, cidre."
+                label="Coffret Terroir Breton"
+                text="Sélection artisanale locale : cidre d’exception, galettes fines, caramel au beurre salé."
                 price={formatEuro(OPTIONS.coffretArmor)}
                 image="/images/09_coffret_armor.jpg"
                 on={input.coffret === "armor"}
                 onClick={() => setInput((s) => ({ ...s, coffret: s.coffret === "armor" ? "aucun" : "armor" }))}
               />
               <Toggle
-                label="Coffret Champagne"
-                text="Brut et chocolats."
+                label="Coffret Prestige Champagne"
+                text="Bouteille de champagne brut sélectionnée et chocolats fins."
                 price={formatEuro(OPTIONS.coffretChampagne)}
                 image="/images/10_coffret_champagne.jpg"
                 on={input.coffret === "champagne"}
@@ -307,13 +308,28 @@ export function Simulator({
               />
             </div>
           </OptionGroup>
-          <OptionGroup title="Pack mise à la route, si besoin">
+          <OptionGroup title="Packs mise à la route">
             <div className="grid gap-3 sm:grid-cols-3">
               {(
                 [
-                  { v: "essentiel" as const, l: "Essentiel", h: "Pneus, niveaux, contrôle visuel.", p: OPTIONS.packEssentiel },
-                  { v: "confort" as const, l: "Confort", h: "Essentiel et nettoyage complet.", p: OPTIONS.packConfort },
-                  { v: "premium" as const, l: "Premium", h: "Confort et kit de bienvenue.", p: OPTIONS.packPremium },
+                  {
+                    v: "essentiel" as const,
+                    l: "Pack Essentiel",
+                    h: "Contrôle visuel 30 points, pression des pneus et niveaux des fluides.",
+                    p: OPTIONS.packEssentiel,
+                  },
+                  {
+                    v: "confort" as const,
+                    l: "Pack Confort",
+                    h: "Pack Essentiel et nettoyage complet intérieur et extérieur.",
+                    p: OPTIONS.packConfort,
+                  },
+                  {
+                    v: "premium" as const,
+                    l: "Pack Signature VIP",
+                    h: "Pack Confort, coffret d’accueil haut de gamme et priorisation du créneau.",
+                    p: OPTIONS.packPremium,
+                  },
                 ]
               ).map((p) => (
                 <Toggle
@@ -333,12 +349,12 @@ export function Simulator({
             </div>
           </OptionGroup>
           <div className="rounded-[1.4rem] border border-line px-5 py-5">
-            <p className="text-sm text-muted">Mise en main</p>
+            <p className="text-sm text-muted">Mise en main personnalisée</p>
             <p className="font-display text-2xl text-coral">Offerte</p>
-            <p className="mt-4 text-sm text-muted">Options choisies</p>
+            <p className="mt-4 text-sm text-muted">Options sélectionnées</p>
             <p className="font-display text-2xl text-navy">{formatEuro(quote.options)}</p>
             <p className="mt-4 text-sm leading-relaxed text-muted">
-              La livraison se calcule selon le trajet. Le tarif final s’affiche après votre nom, téléphone et e-mail. Prix indicatif, à confirmer.
+              Le coût du convoyage s’ajuste selon la distance exacte. Renseignez vos coordonnées à l’étape suivante pour générer votre estimation et recevoir votre devis formel sous 2 heures ouvrées.
             </p>
           </div>
         </div>
@@ -370,7 +386,7 @@ export function Simulator({
           </Button>
         ) : (
           <Button type="button" onClick={() => quote.ok && setGate(true)} disabled={!quote.ok}>
-            Voir le tarif final
+            Obtenir mon estimation détaillée
           </Button>
         )}
       </div>
@@ -380,7 +396,7 @@ export function Simulator({
       ) : null}
 
       <p className="mt-6 text-center text-xs leading-relaxed text-muted">
-        Cochez les options, les prix s’affichent. Le tarif final de la livraison vient après vos coordonnées.
+        Le coût du convoyage s’ajuste selon la distance exacte. Devis formel sous 2 heures ouvrées.{" "}
         <Link to="/contact" className="text-coral">
           Contact
         </Link>
@@ -686,7 +702,7 @@ function JockeyFlow({
           </Button>
         ) : (
           <Button type="button" onClick={() => quote.ok && setGate(true)} disabled={!quote.ok}>
-            Voir le tarif final
+            Obtenir mon estimation détaillée
           </Button>
         )}
       </div>

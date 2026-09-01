@@ -27,9 +27,9 @@ function Page() {
     <main>
       <PageHero
         kicker="Simulateur"
-        title="Le prix, une fois"
-        accent="vos coordonnées."
-        text="Livraison, jockey gare ou aéroport. Les options ont un prix affiché. Le tarif final s’affiche après nom, téléphone et e-mail."
+        title="Personnalisez"
+        accent="votre prestation."
+        text="Chaque transfert est unique. Options à prix affiché. Estimation du convoyage après nom, téléphone et e-mail. Devis formel sous 2 heures ouvrées."
       />
       <section className="mx-auto max-w-5xl px-5 pb-24 sm:px-8">
         <Simulator

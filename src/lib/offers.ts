@@ -7,35 +7,35 @@ export const PROTOCOL = {
 
 export const PILLARS = [
   {
-    k: "Convoyage",
-    t: "Le véhicule va de A à B.",
-    d: "Prise en charge, conduite, péages, retour du convoyeur. Particuliers et utilitaires jusqu’à 3,5 t, en état de marche.",
+    k: "Acheminement",
+    t: "Convoyage routier, de bout en bout.",
+    d: "Prise en charge, conduite, péages, logistique retour. Véhicules particuliers et utilitaires jusqu’à 3,5 t, en état de marche.",
   },
   {
-    k: "Contrôle",
-    t: "Rien ne part sans preuve.",
-    d: "État des lieux photo, kilométrage, carburant ou autonomie. Ce n’est pas une expertise. C’est une trace.",
+    k: "Traçabilité",
+    t: "Rapport d’état des lieux haute définition.",
+    d: "Kilométrage, carrosserie, habitacle, niveau de carburant ou d’autonomie. Une preuve, pas une expertise.",
   },
   {
     k: "Préparation",
-    t: "Le véhicule arrive prêt.",
-    d: "Lavage, niveaux, pression, plein ou recharge. Vous composez. La mise en main est offerte.",
+    t: "Le véhicule est restitué prêt à prendre la route.",
+    d: "Préparation esthétique, fluides, pneumatiques, plein ou recharge. Vous composez. La mise en main personnalisée est offerte.",
   },
   {
-    k: "Remise",
-    t: "Comme en concession.",
-    d: "Clés en main propre, documents, compte-rendu. Option coffret ou kit. Pas un parking.",
+    k: "Restitution",
+    t: "Le standard d’une remise en concession.",
+    d: "Clés en main, documents, compte-rendu de mission. Coffret privilège en option.",
   },
 ] as const;
 
 export const PROCESS = [
-  { n: "01", t: "Demande", d: "Simulateur ou appel. Départ, arrivée, véhicule, options." },
-  { n: "02", t: "Analyse", d: "Distance, créneau, documents, faisabilité. Si ça ne tient pas, on le dit." },
-  { n: "03", t: "Devis", d: "Fourchette après vos coordonnées. Confirmation sous 2 heures ouvrées." },
-  { n: "04", t: "Prise en charge", d: "Identification, photos, compteur, carburant, documents." },
-  { n: "05", t: "Convoyage", d: "Conduite, suivi, signalement si incident. Protocole Clément." },
-  { n: "06", t: "Remise", d: "Photos d’arrivée, clés, mise en main offerte." },
-  { n: "07", t: "Compte-rendu", d: "Faits, photos, kilométrage. Facture pour les professionnels." },
+  { n: "01", t: "Demande", d: "Simulateur ou appel. Itinéraire, segment du véhicule, options de prestation." },
+  { n: "02", t: "Analyse", d: "Distance, créneau, documents, faisabilité. Un devis formel sous 2 heures ouvrées." },
+  { n: "03", t: "Confirmation", d: "Estimation détaillée après vos coordonnées. Prix indicatif, à confirmer." },
+  { n: "04", t: "Prise en charge", d: "Identification, rapport d’état des lieux numérique, compteur, carburant, documents." },
+  { n: "05", t: "Acheminement", d: "Convoyage routier sécurisé, assurance tous risques, signalement en cas d’imprévu." },
+  { n: "06", t: "Restitution", d: "État des lieux d’arrivée, clés, mise en main personnalisée offerte." },
+  { n: "07", t: "Compte-rendu", d: "Photos, kilométrage, faits. Facture pour les professionnels." },
 ] as const;
 
 export const PACKS = [
@@ -45,10 +45,10 @@ export const PACKS = [
     from: 89,
     tag: "Mise à la route",
     items: [
-      "Pression des pneus",
-      "Niveaux et lave-glace",
-      "Photos",
-      "Carburant ou recharge 90 %, au réel",
+      "Contrôle visuel 30 points",
+      "Pression des pneumatiques",
+      "Niveaux des fluides",
+      "Rapport photo",
     ],
   },
   {
@@ -58,22 +58,21 @@ export const PACKS = [
     tag: "Le plus demandé",
     items: [
       "Tout le pack Essentiel",
-      "Nettoyage intérieur et extérieur",
-      "Vitres, aspiration, plastiques",
-      "Désodorisation légère",
+      "Préparation esthétique complète, intérieur et extérieur",
+      "Finition vitres et plastiques",
       "Préparation des documents",
     ],
   },
   {
     id: "premium" as const,
-    name: "Pack Premium",
+    name: "Pack Signature VIP",
     from: 229,
-    tag: "Remise concession",
+    tag: "Remise privilège",
     items: [
       "Tout le pack Confort",
-      "Photos complètes",
-      "Kit de bienvenue",
-      "Mise en main offerte",
+      "Coffret d’accueil haut de gamme",
+      "Priorisation du créneau",
+      "Mise en main personnalisée offerte",
     ],
   },
 ] as const;
@@ -113,26 +112,26 @@ export const B2B_CASES = [
 export const FORMULAS = [
   {
     id: "standard" as const,
-    name: "Livraison",
-    tag: "Toujours",
+    name: "Convoyage Signature",
+    tag: "Inclus",
     items: [
-      "Le véhicule va de A à B",
-      "Photos au départ et à l’arrivée",
-      "Carburant, péages, retour du convoyeur",
-      "Clés en main propre",
-      "Mise en main offerte",
+      "Convoyage routier sécurisé, assurance tous risques",
+      "Rapport d’état des lieux numérique, départ et arrivée",
+      "Frais de route intégrés, carburant, péages, logistique retour",
+      "Restitution des clés en main",
+      "Mise en main personnalisée, offerte",
     ],
   },
   {
     id: "premium" as const,
-    name: "Livraison préparée",
-    tag: "Vous ajoutez",
+    name: "Convoyage Prestige",
+    tag: "À la carte",
     items: [
-      "Tout de la livraison",
-      "Nettoyage intérieur et extérieur, 45 €",
-      "Traqueur GPS 4G pour l’acheteur, 199 €, en option",
-      "Coffret, plein, pack, si vous voulez",
-      "Mise en main offerte",
+      "L’ensemble du convoyage Signature",
+      "Préparation esthétique complète, 45 €",
+      "Balise traqueur GPS 4G autonome, 199 €",
+      "Coffret privilège, plein ou pack mise à la route",
+      "Mise en main personnalisée, offerte",
     ],
   },
 ] as const;

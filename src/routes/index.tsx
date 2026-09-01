@@ -74,7 +74,7 @@ function Home() {
         <Reveal>
           <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Plus qu’un convoyage</p>
           <h2 className="mt-4 max-w-3xl font-display text-4xl text-navy sm:text-5xl">
-            Transfert, préparation, contrôle, remise.
+            Acheminement, préparation, traçabilité, restitution.
           </h2>
         </Reveal>
         <div className="mt-14 grid gap-6 sm:grid-cols-2">
@@ -171,9 +171,9 @@ function Home() {
       <section className="mx-auto mt-24 max-w-6xl px-5 sm:px-8">
         <Reveal>
           <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">L’offre</p>
-          <h2 className="mt-4 font-display text-4xl text-navy">Livraison, puis vous ajoutez.</h2>
+          <h2 className="mt-4 font-display text-4xl text-navy">Personnalisez votre niveau de prestation.</h2>
           <p className="mt-4 max-w-2xl text-lg text-muted">
-            La mise en main est offerte. Le nettoyage, le GPS pour l’acheteur, le plein : prix affichés, vous cochez ou non. Le tarif de la livraison vient après vos coordonnées.
+            Chaque transfert est unique. La mise en main personnalisée est offerte. Préparation esthétique, balise GPS, coffret privilège : prix affichés. L’estimation du convoyage après vos coordonnées.
           </p>
         </Reveal>
         <div className="mt-10 grid gap-6 lg:grid-cols-2">
@@ -187,7 +187,7 @@ function Home() {
                 ))}
               </ul>
               <Link to="/simulateur" className="mt-8 inline-flex text-sm font-semibold text-coral">
-                Estimer
+                Obtenir mon estimation détaillée
               </Link>
             </div>
           ))}
