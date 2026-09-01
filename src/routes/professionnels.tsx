@@ -12,9 +12,9 @@ import { SITE } from "@/lib/site";
 export const Route = createFileRoute("/professionnels")({
   head: () =>
     pageHead({
-      title: "Convoyage professionnel. Concessions, garages, flottes.",
+      title: "Convoyage professionnel. Concessions, marchands VO, carrosseries.",
       description:
-        "Compte professionnel Convoyage BZH. Concessions, garages, mandataires, marchands VO, loueurs, flottes. Facturation, compte-rendu, astreinte 24 h.",
+        "Partenaire logistique des réseaux automobiles. Navettes atelier, rotations de stocks, livraison client final. Quimper, Bretagne, France.",
       path: "/professionnels",
       image: "/images/remise-cles-vehicule.jpg",
     }),
@@ -25,10 +25,10 @@ function Page() {
   return (
     <main>
       <PageHero
-        kicker="Professionnels"
-        title="Votre flotte bouge."
-        accent="Nous prenons les véhicules."
-        text="Concessions, garages, mandataires, marchands VO, loueurs, flottes. Un interlocuteur à Quimper."
+        kicker="Réseaux automobiles"
+        title="Partenaire logistique des concessions, marchands et carrosseries."
+        accent=""
+        text="Navettes atelier, rotations de stocks sous 24 à 48 h, délégation de livraison client final. Un interlocuteur à Quimper."
         image="/images/atelier-garage-professionnel.jpg"
         alt="Transfert de véhicule pour un garage en Bretagne"
       />

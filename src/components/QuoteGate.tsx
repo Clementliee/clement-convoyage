@@ -215,11 +215,10 @@ export function QuoteGate({
             <Field label="E-mail" value={email} onChange={setEmail} type="email" autoComplete="email" />
           </div>
           <Button type="submit" className="mt-8 w-full" size="lg" disabled={busy}>
-            {busy ? "Envoi…" : "Afficher ma fourchette"}
+            {busy ? "Envoi…" : "Générer mon devis officiel"}
           </Button>
           <p className="mt-4 text-xs leading-relaxed text-muted">
-            Vos données servent uniquement à ce devis. Pas de revente. Un e-mail part vers vous et
-            vers {SITE_EMAIL}.
+            Afin d’ajuster l’itinéraire kilométrique et d’appliquer le barème, renseignez vos coordonnées. La synthèse s’affiche ensuite. Proposition tarifaire ferme sous 2 heures ouvrées. Un e-mail part vers vous et vers {SITE_EMAIL}.
           </p>
         </form>
       )}

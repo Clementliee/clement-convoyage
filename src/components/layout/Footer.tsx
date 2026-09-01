@@ -44,6 +44,9 @@ export function Footer() {
             Convoyage <span className="text-coral">BZH</span>
           </p>
           <p className="mt-3 text-sm leading-relaxed text-surface/70">{SITE.baseline}</p>
+          <p className="mt-3 text-sm leading-relaxed text-surface/70">
+            Société d’acheminement automobile et conciergerie privée. Siège d’exploitation : Quimper, Finistère, Bretagne.
+          </p>
           <p className="mt-6 text-sm leading-relaxed text-surface/70">
             {SITE.street}
             <br />
@@ -68,7 +71,7 @@ export function Footer() {
       <div className="border-t border-surface/15">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-5 py-5 text-xs text-surface/60 sm:flex-row sm:items-center sm:justify-between sm:px-8">
           <p>
-            Conçu à Quimper. SIRET {SITE.siret}. {SITE.phone}.
+            Convoyage BZH. Acheminement de véhicules terrestres à moteur, mandat de conduite. Responsabilité civile professionnelle dédiée. SIRET {SITE.siret}. {SITE.phone}.
           </p>
           <p className="flex flex-wrap gap-4">
             <AppLink to="/mentions-legales" className="hover:text-surface">

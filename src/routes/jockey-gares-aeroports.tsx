@@ -9,9 +9,9 @@ import { SITE } from "@/lib/site";
 export const Route = createFileRoute("/jockey-gares-aeroports")({
   head: () =>
     pageHead({
-      title: "Jockey VIP gares et aéroports. Quimper, Brest, Lorient, Rennes.",
+      title: "Voiturier et conciergerie gares et aéroports. Quimper, Brest, Lorient.",
       description:
-        "Voiturier et jockey privé. Votre véhicule vous attend sur le parvis. Gare de Quimper, aéroports Brest-Bretagne et Lorient. Pas de transport de passagers.",
+        "Service voiturier premium. Prise en charge au dépose-minute, gardiennage, entretien, restitution sur le parvis. Gare de Quimper, aéroports Brest-Bretagne et Lorient.",
       path: "/jockey-gares-aeroports",
       image: "/images/jockey-gare-quimper.jpg",
     }),
@@ -73,10 +73,10 @@ function Page() {
   return (
     <main>
       <PageHero
-        kicker="Nouveau. Cadres et voyageurs"
-        title="Votre véhicule vous attend sur le parvis."
-        accent="Zéro attente."
-        text="Service jockey privé. Prise en charge au dépose-minute, gare de Quimper, aéroports de Brest-Bretagne et Lorient."
+        kicker="Conciergerie gares et aéroports"
+        title="Service voiturier et conciergerie."
+        accent=""
+        text="Solution premium pour cadres, professions libérales et résidents. Gare de Quimper, aéroports de Brest-Bretagne et Lorient. Prise en charge au dépose-minute, restitution ponctuelle sur le parvis."
         image="/images/jockey-gare-quimper.jpg"
         alt="Berline qui attend sur le parvis d’une gare"
       />

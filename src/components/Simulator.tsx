@@ -24,7 +24,7 @@ const STEPS = [
   "Arrivée",
   "Zone",
   "Quand",
-  "Personnalisez votre niveau de prestation",
+  "Configuration des prestations associées",
 ];
 
 function applyPack(s: QuoteInput, pack: PackKind): QuoteInput {
@@ -200,7 +200,7 @@ export function Simulator({
         ) : null}
         {step === 6 ? (
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted">
-            Trois menus de livraison, moins chers qu’à la carte. Ou aucune option, mise en main offerte.
+            Trois menus de livraison, plus avantageux qu’à la carte. Ou aucune option, protocole de mise en main offert.
           </p>
         ) : null}
       </div>
@@ -276,7 +276,9 @@ export function Simulator({
           <div className="rounded-[1.4rem] bg-sand px-5 py-5">
             <p className="text-sm text-muted">Mise en main personnalisée</p>
             <p className="font-display text-3xl text-coral">Offerte</p>
-            <p className="mt-2 text-sm text-muted">À chaque remise. 20 à 30 minutes, aides à la conduite, multimédia, recharge.</p>
+            <p className="mt-2 text-sm text-muted">
+              Protocole de mise en main. Configuration des aides à la conduite, multimédia, recharge.
+            </p>
           </div>
 
           <OptionGroup title="Menus de livraison">
@@ -475,7 +477,7 @@ export function Simulator({
           </Button>
         ) : (
           <Button type="button" onClick={() => quote.ok && setGate(true)} disabled={!quote.ok}>
-            Obtenir mon estimation détaillée
+            Générer mon devis officiel
           </Button>
         )}
       </div>
@@ -791,7 +793,7 @@ function JockeyFlow({
           </Button>
         ) : (
           <Button type="button" onClick={() => quote.ok && setGate(true)} disabled={!quote.ok}>
-            Obtenir mon estimation détaillée
+            Générer mon devis officiel
           </Button>
         )}
       </div>

@@ -6,16 +6,44 @@ export const PROTOCOL = {
 } as const;
 
 export const PILLARS = [
-  { k: "01", t: "Prendre.", d: "Où le véhicule se trouve." },
-  { k: "02", t: "Conduire.", d: "France et Europe." },
-  { k: "03", t: "Remettre.", d: "Chez le client, comme en concession." },
+  {
+    k: "France",
+    t: "Transfert routier et logistique véhicules",
+    d: "Convoyage en conduite, chauffeur dédié. VL, berlines, électriques, utilitaires jusqu’à 3,5 t. État des lieux photo haute définition, assurance tous risques, traçabilité de mission.",
+  },
+  {
+    k: "Préparation",
+    t: "Préparation esthétique et mise à la route",
+    d: "Remise conforme aux réseaux constructeurs. Nettoyage intérieur et extérieur, niveaux, carburant ou recharge, protocole de mise en main, offerte.",
+  },
+  {
+    k: "Europe",
+    t: "Liaisons européennes sécurisées",
+    d: "Allemagne, Belgique, Suisse, Monaco, Royaume-Uni, Pologne, Italie, Espagne. Formalités transfrontalières cadrées avant départ.",
+  },
 ] as const;
 
 export const PROCESS = [
-  { n: "01", t: "Demande", d: "Simulateur ou appel." },
-  { n: "02", t: "Devis", d: "Sous 2 heures ouvrées." },
-  { n: "03", t: "Acheminement", d: "On récupère, on conduit, on remet." },
-  { n: "04", t: "Remise", d: "Clés, photos, mise en main offerte." },
+  {
+    n: "01",
+    t: "Ordre de mission",
+    d: "Impératifs de délai, créneau dédié, confirmation sous 2 heures ouvrées.",
+  },
+  {
+    n: "02",
+    t: "Prise en charge",
+    d: "Contrôle visuel, état des lieux photo horodaté, documents, clés en main.",
+  },
+  {
+    n: "03",
+    t: "Acheminement",
+    d: "Conduite soignée, assurance dédiée, information en cas d’imprévu.",
+  },
+  {
+    n: "04",
+    t: "Remise protocolaire",
+    d: "État des lieux d’arrivée, mise en main offerte, compte-rendu de mission.",
+  },
 ] as const;
 
 export const PACKS = [
@@ -103,16 +131,16 @@ export const FORMULAS = [
 
 export const B2B_OFFERS = [
   {
-    t: "Navettes atelier et contrôle technique",
-    d: "Vos techniciens restent au banc. Nous prenons le véhicule, le CT, la carrosserie, le retour.",
+    t: "Navettes ateliers et centres de contrôle",
+    d: "Transferts programmés de vos véhicules clients. Vos techniciens restent au banc.",
   },
   {
-    t: "Transferts inter-sites",
-    d: "Rotation de stock sous 24 à 48 h. VO, courtoisie, sites distants.",
+    t: "Rotations de stocks inter-concessions",
+    d: "Réactivité sous 24 à 48 h entre succursales. Quimper, Brest, Lorient, Rennes.",
   },
   {
-    t: "Livraison clé en main client final",
-    d: "Remise au standard constructeur. Photos, documents, mise en main. Vous ne sortez pas un commercial.",
+    t: "Délégation de livraison client final",
+    d: "Remise des clés à domicile, présentation des options, image de marque tenue.",
   },
 ] as const;
 

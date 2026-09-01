@@ -64,6 +64,11 @@ export function pageHead({
         content: noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large, max-snippet:-1",
       },
       { name: "author", content: SITE.name },
+      {
+        name: "keywords",
+        content:
+          "convoyage automobile, transfert de véhicules, livraison concession, conciergerie automobile Quimper, rapatriement véhicule Finistère Bretagne, jockey aéroport Brest Lorient, état des lieux numérique, convoyeur professionnel VL utilitaire",
+      },
       { name: "geo.region", content: "FR-29" },
       { name: "geo.placename", content: "Quimper" },
       { name: "geo.position", content: "47.996;-4.098" },

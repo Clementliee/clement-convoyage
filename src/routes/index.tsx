@@ -7,7 +7,7 @@ import { HeroStage } from "@/components/HeroStage";
 import { HomeEstimator } from "@/components/HomeEstimator";
 import { Reveal } from "@/components/Reveal";
 import { pageHead } from "@/lib/seo";
-import { PILLARS, PROCESS } from "@/lib/offers";
+import { PILLARS, PROCESS, B2B_OFFERS } from "@/lib/offers";
 import { OPTIONS } from "@/lib/tarifs";
 import { SITE } from "@/lib/site";
 import { formatEuro } from "@/lib/utils";
@@ -15,9 +15,9 @@ import { formatEuro } from "@/lib/utils";
 export const Route = createFileRoute("/")({
   head: () =>
     pageHead({
-      title: "Convoyage de voiture à Quimper. Livraison France et Europe.",
+      title: "Convoyage BZH | Convoyage automobile premium et conciergerie | Bretagne, France, Europe",
       description:
-        "Convoyage BZH, basé à Quimper. Prise en charge partout en France et en Europe, remise chez le client. Particuliers et professionnels. Devis sous 2 h.",
+        "Société de convoyage automobile professionnel et conciergerie VIP, basée à Quimper. Transfert VN et VO, mise à la route, préparation esthétique, livraison sécurisée 7j/7.",
       path: "/",
       image: "/images/convoyage-berline-bretagne.jpg",
     }),
@@ -26,24 +26,24 @@ export const Route = createFileRoute("/")({
 
 const FAQ = [
   {
-    q: "Qui êtes-vous ?",
-    a: "Convoyage BZH, basé à Quimper. Clément pilote les missions. Convoyage, préparation, remise.",
+    q: "Qui opère les missions ?",
+    a: "Convoyage BZH, base opérationnelle à Quimper. Clément Leliège conduit les missions. Convoyage, préparation esthétique, remise protocolaire.",
   },
   {
-    q: "Quels véhicules ?",
-    a: "Particuliers et utilitaires jusqu’à 3,5 t, en état de marche, permis B.",
+    q: "Quels véhicules sont éligibles ?",
+    a: "Véhicules légers et utilitaires jusqu’à 3,5 t, en état de marche, permis B. Hors champ : plateau, non-roulant, poids lourd.",
   },
   {
-    q: "Où intervenez-vous ?",
-    a: "Prise en charge et remise partout en France, et en Europe. Quimper est la base, pas un départ obligatoire.",
+    q: "Quelle est la zone d’intervention ?",
+    a: "Prise en charge et remise partout en France, et en Europe selon mission. Quimper est la base, pas un départ obligatoire.",
   },
   {
-    q: "Combien ça coûte ?",
-    a: "Selon la distance, le véhicule et les options. La fourchette s’affiche après nom, téléphone et e-mail. Prix indicatif, à confirmer.",
+    q: "Comment est établie la cotation ?",
+    a: "Selon l’itinéraire, le segment du véhicule, le délai et les prestations associées. La fourchette s’affiche après nom, téléphone et e-mail. Prix indicatif, à confirmer sous 2 heures ouvrées.",
   },
   {
-    q: "La mise en main ?",
-    a: "Offerte, à chaque remise.",
+    q: "La mise en main est-elle facturée ?",
+    a: "Non. Le protocole de mise en main est offert à chaque remise.",
   },
 ];
 
@@ -62,16 +62,17 @@ function Home() {
 
       <section className="mx-auto max-w-5xl px-5 py-28 sm:px-8 sm:py-36">
         <Reveal>
-          <p className="text-xs font-semibold tracking-[0.28em] text-coral uppercase">Convoyage BZH</p>
-          <h2 className="mt-6 max-w-3xl font-display text-5xl leading-[1.05] text-navy sm:text-7xl">
-            Prendre. Conduire. Remettre.
+          <p className="text-xs font-semibold tracking-[0.28em] text-coral uppercase">Prestations</p>
+          <h2 className="mt-6 max-w-3xl font-display text-4xl leading-[1.08] text-navy sm:text-6xl">
+            Acheminement, préparation, liaisons européennes.
           </h2>
         </Reveal>
-        <div className="mt-20 grid gap-16 sm:grid-cols-3">
+        <div className="mt-20 grid gap-12 sm:grid-cols-3">
           {PILLARS.map((p) => (
             <Reveal key={p.k}>
-              <p className="font-display text-4xl text-navy">{p.t}</p>
-              <p className="mt-3 text-lg text-muted">{p.d}</p>
+              <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">{p.k}</p>
+              <p className="mt-3 font-display text-2xl text-navy">{p.t}</p>
+              <p className="mt-4 text-base leading-relaxed text-muted">{p.d}</p>
             </Reveal>
           ))}
         </div>
@@ -79,9 +80,9 @@ function Home() {
 
       <section className="mx-auto max-w-5xl px-5 pb-28 sm:px-8">
         <Reveal>
-          <h2 className="font-display text-5xl text-navy sm:text-6xl">L’offre.</h2>
-          <p className="mt-6 max-w-xl text-xl leading-relaxed text-muted">
-            Le convoyage. Puis, si vous voulez, une option. Mise en main offerte.
+          <h2 className="font-display text-4xl text-navy sm:text-5xl">Prestations associées.</h2>
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+            Le convoyage. Puis, au choix, un menu de livraison ou une option à la carte. Mise en main offerte.
           </p>
         </Reveal>
         <div className="mt-16 divide-y divide-line border-y border-line">
@@ -104,16 +105,20 @@ function Home() {
       <section className="mx-auto max-w-6xl px-5 pb-28 sm:px-8">
         <div className="overflow-hidden rounded-[2.4rem] bg-navy text-surface lg:grid lg:grid-cols-2">
           <div className="flex flex-col justify-center p-12 sm:p-16">
-            <p className="text-xs font-semibold tracking-[0.22em] text-surface/45 uppercase">Professionnels</p>
-            <h2 className="mt-5 font-display text-4xl sm:text-5xl">Concessions. Garages. Flottes.</h2>
-            <p className="mt-6 max-w-md text-lg leading-relaxed text-surface/70">
-              Navettes atelier. Transferts inter-sites. Remise client final.
-            </p>
+            <p className="text-xs font-semibold tracking-[0.22em] text-surface/45 uppercase">Réseaux automobiles</p>
+            <h2 className="mt-5 font-display text-4xl sm:text-5xl">Partenaire logistique des concessions, marchands et carrosseries.</h2>
+            <ul className="mt-8 space-y-4 text-sm leading-relaxed text-surface/75">
+              {B2B_OFFERS.map((o) => (
+                <li key={o.t}>
+                  <span className="font-semibold text-surface">{o.t}.</span> {o.d}
+                </li>
+              ))}
+            </ul>
             <Link
               to="/professionnels"
               className="mt-10 inline-flex h-12 w-fit items-center rounded-full bg-coral px-6 text-sm font-semibold"
             >
-              Compte professionnel
+              Grille tarifaire partenaire
             </Link>
           </div>
           <img
@@ -132,13 +137,13 @@ function Home() {
             className="h-72 w-full object-cover lg:h-full"
           />
           <div className="flex flex-col justify-center p-12 sm:p-16">
-            <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Jockey</p>
-            <h2 className="mt-5 font-display text-4xl text-navy sm:text-5xl">Gare. Aéroport.</h2>
+            <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Conciergerie</p>
+            <h2 className="mt-5 font-display text-4xl text-navy sm:text-5xl">Voiturier gares et aéroports.</h2>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-muted">
-              Quimper, Brest, Lorient, Rennes. Le véhicule vous attend.
+              Gare de Quimper, aéroports de Brest-Bretagne et Lorient. Prise en charge au dépose-minute, restitution sur le parvis.
             </p>
             <Link to="/jockey-gares-aeroports" className="mt-10 inline-flex text-sm font-semibold text-coral">
-              Voir le jockey
+              Service jockey
             </Link>
           </div>
         </div>
@@ -146,9 +151,9 @@ function Home() {
 
       <section className="mx-auto max-w-5xl px-5 pb-28 sm:px-8">
         <Reveal>
-          <h2 className="font-display text-5xl text-navy sm:text-6xl">France. Europe.</h2>
-          <p className="mt-6 max-w-xl text-xl leading-relaxed text-muted">
-            Base Quimper. Prise en charge partout.
+          <h2 className="font-display text-4xl text-navy sm:text-5xl">France et Europe.</h2>
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+            Base opérationnelle à Quimper. Prise en charge sur le lieu où se trouve le véhicule.
           </p>
           <div className="mt-12 flex flex-wrap gap-3">
             {[
@@ -173,7 +178,7 @@ function Home() {
 
       <section className="mx-auto grid max-w-6xl gap-20 px-5 pb-28 sm:px-8 lg:grid-cols-2">
         <Reveal>
-          <h2 className="font-display text-5xl text-navy">Quatre étapes.</h2>
+          <h2 className="font-display text-4xl text-navy sm:text-5xl">Un processus d’acheminement en 4 phases.</h2>
           <ol className="mt-14 space-y-10">
             {PROCESS.map((s) => (
               <li key={s.n}>
@@ -186,6 +191,17 @@ function Home() {
         </Reveal>
         <Reveal delay={80}>
           <HomeEstimator />
+        </Reveal>
+      </section>
+
+      <section className="mx-auto max-w-5xl px-5 pb-28 sm:px-8">
+        <Reveal>
+          <h2 className="max-w-3xl font-display text-4xl text-navy sm:text-5xl">
+            Un véhicule confié n’est pas une marchandise. C’est un capital.
+          </h2>
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">
+            Assurance professionnelle tous risques, gestion des imprévus, clés remises en main propre, confidentialité. Le niveau d’exigence des réseaux de distribution premium.
+          </p>
         </Reveal>
       </section>
 

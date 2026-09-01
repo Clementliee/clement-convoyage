@@ -70,31 +70,40 @@ export function HeroStage() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/5" />
         <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col justify-end px-5 pb-16 pt-28 sm:px-8 sm:pb-20">
-          <p className="mb-5 text-sm tracking-[0.22em] text-white/65 uppercase">
-            Quimper, Bretagne, France, Europe
-          </p>
-          <h1 className="max-w-3xl font-display text-4xl leading-[1.05] text-white sm:text-6xl lg:text-7xl">
-            Acheminement et remise, au standard <span className="text-coral">concession.</span>
+          <div className="mb-6 flex flex-wrap gap-2">
+            {["Convoyage professionnel", "Préparation et mise en main", "France et Europe", "Disponibilité 7j/7"].map(
+              (b) => (
+                <span
+                  key={b}
+                  className="rounded-full border border-white/25 bg-black/20 px-3 py-1 text-[11px] tracking-[0.14em] text-white/80 uppercase"
+                >
+                  {b}
+                </span>
+              ),
+            )}
+          </div>
+          <h1 className="max-w-4xl font-display text-3xl leading-[1.08] text-white sm:text-5xl lg:text-6xl">
+            L’excellence opérationnelle pour l’acheminement et la mise à la route de vos véhicules.
           </h1>
-          <p className="mt-5 max-w-lg text-base leading-relaxed text-white/80 sm:text-lg">
-            On récupère le véhicule où il se trouve. On le remet chez le client.
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/80 sm:text-lg">
+            Base opérationnelle à Quimper. Prise en charge, transfert sécurisé et livraison protocolaire en Bretagne, sur le territoire national et en Europe.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Link
-              to="/contact"
+              to="/simulateur"
               className="inline-flex h-14 items-center justify-center rounded-full px-8 text-sm font-semibold text-white transition-[box-shadow,background-color] duration-300"
               style={{
                 background: `rgba(0, 113, 227, ${0.28 + lights * 0.72})`,
                 boxShadow: `0 0 ${10 + lights * 48}px ${3 + lights * 16}px rgba(0, 113, 227, ${glow}), 0 0 ${30 + lights * 70}px rgba(255,255,255,${lights * 0.28})`,
               }}
             >
-              Contacter
+              Calculer un itinéraire, obtenir un devis
             </Link>
             <a
               href={SITE.phoneHref}
               className="inline-flex h-14 items-center justify-center rounded-full border border-white/30 px-6 text-sm font-semibold text-white"
             >
-              {SITE.phone}
+              Ligne directe {SITE.phone}
             </a>
           </div>
         </div>
