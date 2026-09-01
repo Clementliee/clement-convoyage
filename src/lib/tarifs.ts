@@ -10,7 +10,7 @@ export type City = {
 
 export const OPTIONS = {
   lavageExterieur: 25,
-  lavageComplet: 45,
+  lavageComplet: 90,
   rechargeVe: 25,
   urgencePct: 0.25,
   samediPct: 0.2,

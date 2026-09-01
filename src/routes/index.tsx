@@ -7,7 +7,7 @@ import { HeroStage } from "@/components/HeroStage";
 import { HomeEstimator } from "@/components/HomeEstimator";
 import { Reveal } from "@/components/Reveal";
 import { pageHead } from "@/lib/seo";
-import { PILLARS, PROCESS, B2B_OFFERS } from "@/lib/offers";
+import { PILLARS, PROCESS, B2B_OFFERS, PACKS } from "@/lib/offers";
 import { OPTIONS } from "@/lib/tarifs";
 import { formatEuro } from "@/lib/utils";
 
@@ -47,7 +47,7 @@ const FAQ = [
 ];
 
 const OPTIONS_HOME = [
-  { t: "Préparation esthétique", p: OPTIONS.lavageComplet },
+  { t: "Nettoyage intérieur et extérieur", p: OPTIONS.lavageComplet },
   { t: "Balise GPS 4G", p: OPTIONS.gps },
   { t: "Plein carburant", p: OPTIONS.plein },
   { t: "Coffret Terroir Breton", p: OPTIONS.coffretArmor },
@@ -79,9 +79,9 @@ function Home() {
 
       <section className="mx-auto max-w-5xl px-5 pb-28 sm:px-8">
         <Reveal>
-          <h2 className="font-display text-4xl text-navy sm:text-5xl">Prestations associées.</h2>
+          <h2 className="font-display text-4xl text-navy sm:text-5xl">Menus de livraison.</h2>
           <p className="mt-4 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
-            Le convoyage. Puis, au choix, un menu de livraison ou une option à la carte. Mise en main offerte.
+            D’abord un pack. Sinon, à la carte. Mise en main offerte.
           </p>
         </Reveal>
         <div className="mt-16 divide-y divide-line border-y border-line">
@@ -89,8 +89,20 @@ function Home() {
             <p className="font-display text-3xl text-navy">Convoyage</p>
             <p className="text-sm text-muted">Sur devis</p>
           </div>
+          {PACKS.map((p) => (
+            <div key={p.id} className="flex items-baseline justify-between gap-6 py-6">
+              <div>
+                <p className="text-lg text-navy">{p.name}</p>
+                <p className="mt-1 text-sm text-muted">{p.items[0]}. {p.items[1]}.</p>
+              </div>
+              <p className="shrink-0 text-sm text-muted">{formatEuro(p.from)}</p>
+            </div>
+          ))}
+        </div>
+        <p className="mt-14 text-xs font-semibold tracking-[0.18em] text-muted uppercase">Ou à la carte</p>
+        <div className="mt-4 divide-y divide-line border-y border-line">
           {OPTIONS_HOME.map((o) => (
-            <div key={o.t} className="flex items-baseline justify-between gap-6 py-6">
+            <div key={o.t} className="flex items-baseline justify-between gap-6 py-5">
               <p className="text-lg text-navy">{o.t}</p>
               <p className="text-sm text-muted">{formatEuro(o.p)}</p>
             </div>

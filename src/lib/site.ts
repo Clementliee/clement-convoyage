@@ -59,8 +59,8 @@ export const ADDONS = [
   {
     to: "/nettoyage-vehicule",
     title: "Préparation esthétique complète",
-    text: "Nettoyage minutieux intérieur et extérieur. Finition vitres et plastiques. 45 €.",
-    price: "45 €",
+    text: "Nettoyage intérieur et extérieur. 90 €. Uniquement avec une livraison ou un jockey.",
+    price: "90 €",
     image: "/images/preparation-esthetique-vehicule.jpg",
     alt: "Préparation esthétique d’un véhicule",
   },

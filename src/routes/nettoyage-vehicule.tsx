@@ -22,13 +22,13 @@ function Page() {
         kicker="Nettoyage"
         title="Remis comme en"
         accent="concession."
-        text="Nettoyage intérieur et extérieur, 45 €. Mise en main offerte à chaque fois."
+        text="Nettoyage intérieur et extérieur, 90 €. Uniquement avec une livraison ou un jockey. Mise en main offerte."
         image="/images/preparation-esthetique-vehicule.jpg"
         alt="Nettoyage professionnel d’une berline blanche"
       />
       <section className="mx-auto grid max-w-6xl gap-6 px-5 pb-16 sm:grid-cols-2 sm:px-8 lg:grid-cols-3">
         {[
-          ["Nettoyage intérieur et extérieur, 45 €", "Carrosserie, habitacle, vitres. Un seul nettoyage, le complet."],
+          ["Nettoyage intérieur et extérieur, 90 €", "Carrosserie, habitacle, vitres. Uniquement avec une livraison ou un jockey."],
           ["Mise en main, offerte", "À chaque remise. 20 à 30 min : commandes, options, charge."],
           ["Plein carburant, 149 €", "Passage à la pompe 49 € + 50 L à 2 €/L. Prestige et utilitaire, volume plus élevé. Ajusté au ticket."],
           ["Traqueur GPS 4G, 199 €", "Pour l’acheteur. Il le garde. 12 mois inclus."],
