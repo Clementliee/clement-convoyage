@@ -656,13 +656,13 @@ export const SEO_PAGES: SeoPage[] = [
   {
     slug: "convoyage-week-end",
     title: "Convoyage le week-end, Convoyage BZH",
-    h1: "Convoyage samedi, dimanche et férié",
-    description: "Livraison de véhicule le week-end depuis Quimper. tous les jours, photos du véhicule, devis après coordonnées.",
+    h1: "Convoyage le week-end et les jours fériés",
+    description: "Week-end et jours fériés inclus. Standard sous 5 jours, urgent sous 72 h, sous réserve de disponibilité des équipes.",
     kind: "metier",
     image: IMG,
     intro: "Les remises ne tombent pas toutes un mardi. Nous roulons tous les jours.",
     body: [
-      "Samedi, dimanche, jours fériés : possibles. Le simulateur le prend en compte dans la fourchette, sans publier de majoration.",
+      "Week-end et jours fériés inclus, sans option à cocher. Standard, prise en charge sous cinq jours, du lundi au vendredi. Urgent, sous 72 heures. Dans les deux cas, sous réserve de disponibilité des équipes.",
       "Utile pour les particuliers qui reçoivent le véhicule chez eux, et pour les concessions en rush.",
     ],
     nearby: [

@@ -171,7 +171,7 @@ export function Simulator({
         <h2 className="mt-6 font-display text-3xl text-navy">{STEPS[step]}</h2>
         {step === 5 ? (
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted">
-            Délai à partir de la confirmation du devis. Standard, 5 à 7 jours, c’est la moyenne d’un convoyage planifié. Urgent, sous 72 h, majoration de 25 %.
+            Délai à partir de la confirmation du devis, sous réserve de disponibilité des équipes. Week-end et jours fériés inclus.
           </p>
         ) : null}
         {step === 6 ? (

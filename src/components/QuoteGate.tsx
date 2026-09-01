@@ -35,9 +35,7 @@ export function QuoteGate({
     input.model ? `Véhicule : ${input.model}` : "",
     input.vehicle === "prestige" ? "Prestige" : "",
     input.vehicle === "utilitaire" ? "Utilitaire" : "",
-    input.when === "urgent" ? "Urgent" : "",
-    input.when === "samedi" ? "Samedi" : "",
-    input.when === "dimanche" ? "Dimanche, férié" : "",
+    input.when === "urgent" ? "Urgent, sous 72 h" : "Standard, 5 jours",
   ]
     .filter(Boolean)
     .join(", ");

@@ -246,15 +246,15 @@ export function prixBareme(km: number) {
 }
 
 export type VehicleKind = "vp" | "utilitaire" | "prestige" | "ve";
-export type WhenKind = "standard" | "urgent" | "samedi" | "dimanche";
+export type WhenKind = "standard" | "urgent";
 
-/** Délais et majorations, calés sur le marché FR 2026 (Car Up +15–25 % express, moyenne 5–7 j planifié, HiFlow 72 h). */
+/** Deux créneaux. Week-end et jours fériés inclus. Toujours sous réserve de disponibilité. */
 export const WHEN_OFFERS = [
   {
     id: "standard" as const,
     name: "Standard",
-    delay: "5 à 7 jours",
-    hint: "Délai moyen d’un convoyage planifié, à partir de la confirmation.",
+    delay: "5 jours",
+    hint: "Du lundi au vendredi. Prise en charge sous cinq jours environ, sous réserve de disponibilité des équipes. Week-end et jours fériés inclus.",
     extraPct: 0,
     extraLabel: "Tarif de base",
   },
@@ -262,25 +262,9 @@ export const WHEN_OFFERS = [
     id: "urgent" as const,
     name: "Urgent",
     delay: "Sous 72 h",
-    hint: "Prise en charge sous 72 heures, selon disponibilité.",
+    hint: "Prise en charge sous 72 heures, sous réserve de disponibilité des équipes. Week-end et jours fériés inclus.",
     extraPct: 0.25,
     extraLabel: "+ 25 %",
-  },
-  {
-    id: "samedi" as const,
-    name: "Samedi",
-    delay: "Samedi convenu",
-    hint: "Livraison le samedi.",
-    extraPct: 0.2,
-    extraLabel: "+ 20 %",
-  },
-  {
-    id: "dimanche" as const,
-    name: "Dimanche, férié",
-    delay: "Jour férié",
-    hint: "Dimanche ou jour férié, astreinte.",
-    extraPct: 0.4,
-    extraLabel: "+ 40 %",
   },
 ] as const;
 export type ZoneKind = "france" | "europe";
@@ -357,8 +341,6 @@ export function computeQuote(input: QuoteInput): QuoteResult {
     const round = Boolean(input.jockeyRetour.trim());
     let base: number = round ? point.allerRetour : point.forfait;
     if (input.when === "urgent") base = Math.round(base * (1 + OPTIONS.urgencePct));
-    if (input.when === "samedi") base = Math.round(base * (1 + OPTIONS.samediPct));
-    if (input.when === "dimanche") base = Math.round(base * (1 + OPTIONS.dimanchePct));
     let options = 0;
     if (input.lavage === "complet") options += OPTIONS.lavageComplet;
     if (input.plein) options += OPTIONS.plein;
@@ -430,8 +412,6 @@ export function computeQuote(input: QuoteInput): QuoteResult {
   if (input.vehicle === "prestige") base = Math.round(base * (1 + OPTIONS.prestigePct));
 
   if (input.when === "urgent") base = Math.round(base * (1 + OPTIONS.urgencePct));
-  if (input.when === "samedi") base = Math.round(base * (1 + OPTIONS.samediPct));
-  if (input.when === "dimanche") base = Math.round(base * (1 + OPTIONS.dimanchePct));
 
   let options = 0;
   const packed = input.pack !== "aucun";
@@ -455,11 +435,9 @@ export function computeQuote(input: QuoteInput): QuoteResult {
 
   const total = Math.max(MINIMUM_LOCAL, base + options);
 
-  let delay = "5 à 7 jours";
-  if (input.when === "urgent") delay = "sous 72 h";
-  if (input.when === "samedi") delay = "samedi convenu";
-  if (input.when === "dimanche") delay = "dimanche ou férié";
-  if (europeForced && input.when === "standard") delay = "5 à 8 jours";
+  let delay = "5 jours, sous réserve de disponibilité";
+  if (input.when === "urgent") delay = "sous 72 h, sous réserve de disponibilité";
+  if (europeForced && input.when === "standard") delay = "5 jours, sous réserve de disponibilité";
 
   return {
     ok: true,
