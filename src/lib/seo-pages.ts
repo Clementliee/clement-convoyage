@@ -9,148 +9,350 @@ export type SeoPage = {
   body: string[];
   nearby: { to: string; label: string }[];
   faq: { q: string; a: string }[];
+  locality?: string;
+  country?: string;
 };
 
 const IMG = "/images/01_hero_bretagne.jpg";
+const EU = "/images/04_europe_nuit.jpg";
+const KEYS = "/images/02_remise_cles.jpg";
+const EDL = "/images/06_etat_des_lieux.jpg";
+const GPS = "/images/07_gps.jpg";
+const SEC = "/images/08_securite.jpg";
 
 function ville(
   slug: string,
   name: string,
   identity: string,
-  tarif: string,
+  extra: string,
   nearby: SeoPage["nearby"],
 ): SeoPage {
   return {
     slug,
     title: `Convoyage de voiture à ${name} · CLÉMENT CONVOYAGE`,
     h1: `Convoyage de voiture à ${name}`,
-    description: `Convoyage et livraison de véhicules à ${name}. Base Quimper, EDL photo, devis sous 2 h. ${tarif}.`,
+    description: `Convoyage et livraison de véhicules à ${name}, depuis Quimper. EDL photo, protocole sécurité, devis sous 2 h. Pas de tarif affiché : fourchette après vos coordonnées.`,
     kind: "ville",
     image: IMG,
+    locality: name,
+    country: "FR",
     intro: identity,
     body: [
       `CLÉMENT CONVOYAGE est basé à Quimper. Pour ${name}, vous avez un interlocuteur local, joignable 7 j/7, qui connaît les délais, les axes et les remises en concession.`,
-      `Chaque mission comprend la conduite A → B, le carburant du véhicule convoyé, les péages, le retour du convoyeur, un état des lieux photo au départ et à l’arrivée, et la remise des clés.`,
-      `Tarif depuis ou vers Quimper : ${tarif}. Estimation ferme via le simulateur, devis écrit sous 2 heures ouvrées.`,
-      `Véhicules acceptés : particuliers, utilitaires et vans ≤ 3,5 t, en état de marche. Hors champ : plateau, poids lourd, non-roulant.`,
+      extra,
+      "Chaque mission comprend la conduite A → B, le carburant du véhicule convoyé, les péages, le retour du convoyeur, un état des lieux photo au départ et à l’arrivée, et la remise des clés.",
+      "Le prix n’est pas publié. Le simulateur prépare une fourchette indicative après vos coordonnées, à confirmer avec un professionnel. Options : lavage, mise en main, traqueur GPS, protocole sécurité.",
+      "Véhicules acceptés : particuliers, utilitaires et vans ≤ 3,5 t, en état de marche. Hors champ : plateau, poids lourd, non-roulant.",
     ],
     nearby,
     faq: [
       {
         q: `Pourquoi un convoyeur basé à Quimper pour ${name} ?`,
-        a: "La proximité change les délais et les retours. Un interlocuteur unique, pas une plateforme anonyme.",
+        a: "La proximité change les délais et les retours. Un interlocuteur unique, pas une plateforme anonyme. Standard issu des réseaux DS Automobiles, Renault et Mercedes-Benz.",
       },
       {
-        q: "Le véhicule est-il assuré pendant le trajet ?",
-        a: "La responsabilité civile professionnelle est souscrite. Les conditions d’assurance du véhicule sont rappelées au devis.",
+        q: "Le véhicule est-il suivi pendant le trajet ?",
+        a: "État des lieux photo horodaté. Option traqueur GPS et protocole sécurité (clés sous scellé, points de contrôle). Gestion de crise si incident.",
+      },
+      {
+        q: "Comment obtenir le tarif ?",
+        a: "Via le simulateur : trajet, type de véhicule, options, puis nom, téléphone et e-mail. Une fourchette basse / haute s’affiche. Devis ferme sous 2 heures ouvrées.",
+      },
+    ],
+  };
+}
+
+function pays(
+  slug: string,
+  name: string,
+  city: string,
+  identity: string,
+  docs: string,
+): SeoPage {
+  return {
+    slug,
+    title: `Convoyage de voiture vers ${name} · CLÉMENT CONVOYAGE`,
+    h1: `Convoyage de véhicule vers ${name}`,
+    description: `Livraison de voiture en ${name} depuis Quimper (${city}). Carte verte, mandat, EDL photo, option GPS. Devis indicatif après coordonnées.`,
+    kind: "europe",
+    image: EU,
+    locality: city,
+    country: name,
+    intro: identity,
+    body: [
+      `Même standard qu’en France : remise comme en concession, EDL photo, interlocuteur unique depuis Quimper. Destination type : ${city}.`,
+      docs,
+      "Le tarif n’est pas affiché. Une fourchette indicative est calculée après vos coordonnées, à confirmer avec un professionnel. Délai type J+2 à J+4 selon axes et formalités.",
+      "Options recommandées à l’international : traqueur GPS, protocole sécurité, lavage avant remise.",
+    ],
+    nearby: [
+      { to: "/livraison-europe", label: "Toutes les destinations" },
+      { to: "/traqueur-gps", label: "Traqueur GPS" },
+      { to: "/securite-vehicule", label: "Sécurité" },
+      { to: "/simulateur", label: "Simulateur" },
+    ],
+    faq: [
+      {
+        q: `Quels documents pour ${name} ?`,
+        a: docs,
+      },
+      {
+        q: "Qui s’occupe du passage de frontière ?",
+        a: "Nous. Un véhicule non conforme est refusé avant départ. Gestion de crise si contrôle, panne ou retard.",
+      },
+      {
+        q: "Le GPS est-il obligatoire ?",
+        a: "Non. Fortement recommandé à l’international, sur l’import et les véhicules de valeur. Cochez l’option au simulateur.",
       },
     ],
   };
 }
 
 export const SEO_PAGES: SeoPage[] = [
-  ville(
-    "convoyage-quimper",
-    "Quimper",
-    "Capitale de la Cornouaille, Quimper conjugue le centre historique, Pluguffan, Ergué-Gabéric et un tissu de concessions, garages et mandataires. C’est notre base.",
-    "55 € en local",
-    [
-      { to: "/convoyage-concarneau", label: "Concarneau" },
-      { to: "/convoyage-brest", label: "Brest" },
-      { to: "/convoyage-lorient", label: "Lorient" },
-      { to: "/livraison-voiture-finistere", label: "Finistère" },
-    ],
-  ),
-  ville(
-    "convoyage-concarneau",
-    "Concarneau",
-    "Ville close, port et zone commerciale : Concarneau génère des livraisons VO, CT et retours atelier au quotidien vers Quimper.",
-    "70 €",
-    [
-      { to: "/convoyage-quimper", label: "Quimper" },
-      { to: "/convoyage-lorient", label: "Lorient" },
-      { to: "/livraison-voiture-finistere", label: "Finistère" },
-    ],
-  ),
-  ville(
-    "convoyage-brest",
-    "Brest",
-    "Métropole du Finistère nord, Brest et Guipavas concentrent concessions, loueurs et flux vers le sud Cornouaille.",
-    "105 €",
-    [
-      { to: "/convoyage-quimper", label: "Quimper" },
-      { to: "/convoyage-rennes", label: "Rennes" },
-      { to: "/livraison-voiture-finistere", label: "Finistère" },
-    ],
-  ),
-  ville(
-    "convoyage-lorient",
-    "Lorient",
-    "Lorient, Lanester et Guidel : axe N165, volume de VO et d’utilitaires entre le Morbihan et le Finistère sud.",
-    "100 €",
-    [
-      { to: "/convoyage-quimper", label: "Quimper" },
-      { to: "/convoyage-vannes", label: "Vannes" },
-      { to: "/convoyage-bretagne", label: "Bretagne" },
-    ],
-  ),
-  ville(
-    "convoyage-vannes",
-    "Vannes",
-    "Préfecture du Morbihan, Vannes et Auray sont un relais naturel entre Quimper et Rennes / Nantes.",
-    "155 €",
-    [
-      { to: "/convoyage-lorient", label: "Lorient" },
-      { to: "/convoyage-rennes", label: "Rennes" },
-      { to: "/convoyage-nantes", label: "Nantes" },
-    ],
-  ),
-  ville(
-    "convoyage-rennes",
-    "Rennes",
-    "Capitale régionale, Rennes polarise les stocks constructeurs, mandataires et livraisons clients de tout l’ouest.",
-    "245 €",
-    [
-      { to: "/convoyage-quimper", label: "Quimper" },
-      { to: "/convoyage-nantes", label: "Nantes" },
-      { to: "/convoyage-saint-brieuc", label: "Saint-Brieuc" },
-    ],
-  ),
-  ville(
-    "convoyage-saint-brieuc",
-    "Saint-Brieuc",
-    "Côte-d’Armor : Saint-Brieuc et Plérin, livraisons nord Bretagne depuis la base Quimper.",
-    "185 €",
-    [
-      { to: "/convoyage-rennes", label: "Rennes" },
-      { to: "/convoyage-brest", label: "Brest" },
-      { to: "/convoyage-bretagne", label: "Bretagne" },
-    ],
-  ),
-  ville(
-    "convoyage-nantes",
-    "Nantes",
-    "Porte de l’ouest vers le reste de la France. Nantes, Saint-Herblain, Montoir : transferts flotte et livraisons clients.",
-    "310 €",
-    [
-      { to: "/convoyage-rennes", label: "Rennes" },
-      { to: "/convoyage-vannes", label: "Vannes" },
-      { to: "/convoyage-voiture-france", label: "France" },
-    ],
-  ),
+  ville("convoyage-quimper", "Quimper", "Capitale de la Cornouaille : centre historique, Pluguffan, Ergué-Gabéric, tissu de concessions, garages et mandataires. C’est notre base.", "Les missions locales (CT, carrosserie, prêt de courtoisie, livraison client) partent le jour même quand le créneau le permet.", [
+    { to: "/convoyage-benodet", label: "Bénodet" },
+    { to: "/convoyage-concarneau", label: "Concarneau" },
+    { to: "/livraison-voiture-finistere", label: "Finistère" },
+  ]),
+  ville("convoyage-concarneau", "Concarneau", "Ville close, port et zones commerciales : Concarneau génère des livraisons VO, CT et retours atelier vers Quimper au quotidien.", "Axe Quimper–Concarneau fluide. Idéal pour les allers-retours concession / client.", [
+    { to: "/convoyage-quimper", label: "Quimper" },
+    { to: "/convoyage-fouesnant", label: "Fouesnant" },
+    { to: "/livraison-voiture-finistere", label: "Finistère" },
+  ]),
+  ville("convoyage-benodet", "Bénodet", "Station de la côte de Cornouaille, Bénodet concentre résidences, saisonnalité et livraisons de véhicules neufs ou d’occasion vers le littoral.", "Les créneaux d’été se réservent. Un interlocuteur Quimper évite les allers vides depuis Rennes ou Nantes.", [
+    { to: "/convoyage-quimper", label: "Quimper" },
+    { to: "/convoyage-fouesnant", label: "Fouesnant" },
+    { to: "/convoyage-pont-labbe", label: "Pont-l'Abbé" },
+  ]),
+  ville("convoyage-fouesnant", "Fouesnant", "Fouesnant et Beg-Meil : livraisons littoral, mandataires et retours atelier depuis la base Quimper.", "Même bassin que Bénodet et Concarneau. Délai local, remise en main propre.", [
+    { to: "/convoyage-benodet", label: "Bénodet" },
+    { to: "/convoyage-concarneau", label: "Concarneau" },
+    { to: "/convoyage-quimper", label: "Quimper" },
+  ]),
+  ville("convoyage-pont-labbe", "Pont-l'Abbé", "Capitale du Pays Bigouden : Pont-l'Abbé, Loctudy, Île-Tudy. Flux de particuliers, artisans et livraisons VO.", "Trajet court depuis Quimper. Utile pour CT, carrosserie et véhicules d’entreprise.", [
+    { to: "/convoyage-quimper", label: "Quimper" },
+    { to: "/convoyage-benodet", label: "Bénodet" },
+    { to: "/convoyage-audierne", label: "Audierne" },
+  ]),
+  ville("convoyage-douarnenez", "Douarnenez", "Port, Portzic, Tréboul : Douarnenez relie le cap Sizun au bassin quimpérois.", "Les retours vides se gèrent depuis la base. Un seul interlocuteur pour le 29 sud-ouest.", [
+    { to: "/convoyage-quimper", label: "Quimper" },
+    { to: "/convoyage-pont-labbe", label: "Pont-l'Abbé" },
+    { to: "/convoyage-audierne", label: "Audierne" },
+  ]),
+  ville("convoyage-quimperle", "Quimperlé", "Porte du Finistère vers Lorient : Quimperlé, Clohars, Guidel. Axe N165.", "Position de relais entre Cornouaille et Morbihan. Utile pour flottes et concessions.", [
+    { to: "/convoyage-lorient", label: "Lorient" },
+    { to: "/convoyage-quimper", label: "Quimper" },
+    { to: "/convoyage-pont-aven", label: "Pont-Aven" },
+  ]),
+  ville("convoyage-brest", "Brest", "Métropole du Finistère nord, Brest et Guipavas concentrent concessions, loueurs et flux vers le sud Cornouaille.", "Le trajet Brest–Quimper est un classique : VO, SAV, livraisons clients. Protocole EDL strict.", [
+    { to: "/convoyage-quimper", label: "Quimper" },
+    { to: "/convoyage-morlaix", label: "Morlaix" },
+    { to: "/livraison-voiture-finistere", label: "Finistère" },
+  ]),
+  ville("convoyage-morlaix", "Morlaix", "Morlaix et Landivisiau : nord Finistère, axe vers Brest et Saint-Brieuc.", "Moins de volume qu’à Brest, davantage de missions sur-mesure. Interlocuteur unique.", [
+    { to: "/convoyage-brest", label: "Brest" },
+    { to: "/convoyage-roscoff", label: "Roscoff" },
+    { to: "/convoyage-quimper", label: "Quimper" },
+  ]),
+  ville("convoyage-chateaulin", "Châteaulin", "Châteaulin, Porzay, Pleyben : la vallée de l’Aulne entre Quimper et Brest.", "Missions courtes, CT, artisans. La base Quimper tient les créneaux du matin.", [
+    { to: "/convoyage-quimper", label: "Quimper" },
+    { to: "/convoyage-carhaix", label: "Carhaix" },
+    { to: "/convoyage-brest", label: "Brest" },
+  ]),
+  ville("convoyage-audierne", "Audierne", "Audierne, Esquibien, pointe du Raz : livraisons cap Sizun, souvent saisonnières.", "Distance réelle plus longue que la carte. On calcule au kilomètre GPS, pas au sentiment.", [
+    { to: "/convoyage-douarnenez", label: "Douarnenez" },
+    { to: "/convoyage-pont-labbe", label: "Pont-l'Abbé" },
+    { to: "/convoyage-quimper", label: "Quimper" },
+  ]),
+  ville("convoyage-pont-aven", "Pont-Aven", "Pont-Aven, Névez, Riec : livraisons littoral et résidences, entre Concarneau et Quimperlé.", "Créneaux d’été à anticiper. Remise en main propre, pas un parking.", [
+    { to: "/convoyage-concarneau", label: "Concarneau" },
+    { to: "/convoyage-quimperle", label: "Quimperlé" },
+    { to: "/convoyage-quimper", label: "Quimper" },
+  ]),
+  ville("convoyage-carhaix", "Carhaix", "Carhaix-Plouguer, centre Bretagne. Moins de flux, davantage de sur-mesure.", "Utile pour flottes agricoles, artisans et livraisons familiales. Interlocuteur unique.", [
+    { to: "/convoyage-chateaulin", label: "Châteaulin" },
+    { to: "/convoyage-morlaix", label: "Morlaix" },
+    { to: "/convoyage-quimper", label: "Quimper" },
+  ]),
+  ville("convoyage-roscoff", "Roscoff", "Roscoff : ferry Royaume-Uni et Irlande. Correspondances, import, livraisons portuaires.", "On cadré le ferry avant de partir. GPS recommandé. Voir aussi la page Royaume-Uni.", [
+    { to: "/convoyage-morlaix", label: "Morlaix" },
+    { to: "/convoyage-royaume-uni", label: "Royaume-Uni" },
+    { to: "/convoyage-irlande", label: "Irlande" },
+  ]),
+  ville("convoyage-lannion", "Lannion", "Lannion, Perros-Guirec, côte de granit rose. Livraisons nord Bretagne.", "Délai J+1 type depuis Quimper. Même exigence de remise qu’en Cornouaille.", [
+    { to: "/convoyage-saint-brieuc", label: "Saint-Brieuc" },
+    { to: "/convoyage-morlaix", label: "Morlaix" },
+    { to: "/convoyage-brest", label: "Brest" },
+  ]),
+  ville("convoyage-lorient", "Lorient", "Lorient, Lanester, Guidel : axe N165, volume de VO et d’utilitaires entre le Morbihan et le Finistère sud.", "Flux professionnels denses. Astreinte possible pour les sites du groupe.", [
+    { to: "/convoyage-quimper", label: "Quimper" },
+    { to: "/convoyage-vannes", label: "Vannes" },
+    { to: "/convoyage-quimperle", label: "Quimperlé" },
+  ]),
+  ville("convoyage-vannes", "Vannes", "Préfecture du Morbihan, Vannes et Auray relaient Quimper vers Rennes et Nantes.", "Idéal pour les stocks inter-sites et les livraisons clients du golfe.", [
+    { to: "/convoyage-lorient", label: "Lorient" },
+    { to: "/convoyage-auray", label: "Auray" },
+    { to: "/convoyage-nantes", label: "Nantes" },
+  ]),
+  ville("convoyage-auray", "Auray", "Auray, golfe du Morbihan, Carnac. Livraisons littoral et stocks inter-sites.", "Relais entre Vannes et Lorient. Remise client ou concession.", [
+    { to: "/convoyage-vannes", label: "Vannes" },
+    { to: "/convoyage-quiberon", label: "Quiberon" },
+    { to: "/convoyage-lorient", label: "Lorient" },
+  ]),
+  ville("convoyage-quiberon", "Quiberon", "Presqu’île de Quiberon : saisonnalité forte, livraisons résidences et locations.", "Les week-ends d’été se réservent. Option lavage avant remise souvent demandée.", [
+    { to: "/convoyage-auray", label: "Auray" },
+    { to: "/convoyage-vannes", label: "Vannes" },
+    { to: "/convoyage-lorient", label: "Lorient" },
+  ]),
+  ville("convoyage-rennes", "Rennes", "Capitale régionale : stocks constructeurs, mandataires, livraisons clients de tout l’ouest.", "Rennes polarise. Nous ramenons le véhicule en Cornouaille sans faire prendre le TGV au client.", [
+    { to: "/convoyage-quimper", label: "Quimper" },
+    { to: "/convoyage-nantes", label: "Nantes" },
+    { to: "/convoyage-saint-brieuc", label: "Saint-Brieuc" },
+  ]),
+  ville("convoyage-saint-brieuc", "Saint-Brieuc", "Côte-d’Armor : Saint-Brieuc, Plérin. Livraisons nord Bretagne depuis Quimper.", "Moins de fréquence, même standard. EDL photo, remise en main propre.", [
+    { to: "/convoyage-rennes", label: "Rennes" },
+    { to: "/convoyage-saint-malo", label: "Saint-Malo" },
+    { to: "/convoyage-lannion", label: "Lannion" },
+  ]),
+  ville("convoyage-saint-malo", "Saint-Malo", "Saint-Malo, Dinard, ferry Angleterre : livraisons littoral et correspondances UK.", "Pour le Royaume-Uni, voir aussi la page convoyage vers l’Angleterre. GPS recommandé.", [
+    { to: "/convoyage-saint-brieuc", label: "Saint-Brieuc" },
+    { to: "/convoyage-rennes", label: "Rennes" },
+    { to: "/convoyage-royaume-uni", label: "Royaume-Uni" },
+  ]),
+  ville("convoyage-nantes", "Nantes", "Porte de l’ouest. Nantes, Saint-Herblain, Montoir : transferts flotte et livraisons clients.", "Nantes ouvre la France. Protocole professionnel, paiement 15 jours pour les sites.", [
+    { to: "/convoyage-rennes", label: "Rennes" },
+    { to: "/convoyage-vannes", label: "Vannes" },
+    { to: "/convoyage-angers", label: "Angers" },
+  ]),
+  ville("convoyage-angers", "Angers", "Angers relie l’ouest au Val de Loire. Livraisons mandataires et particuliers.", "Mission France type. Fourchette après coordonnées, confirmation sous 2 h.", [
+    { to: "/convoyage-nantes", label: "Nantes" },
+    { to: "/convoyage-le-mans", label: "Le Mans" },
+    { to: "/convoyage-tours", label: "Tours" },
+  ]),
+  ville("convoyage-le-mans", "Le Mans", "Le Mans, axe A11 vers Paris. Stocks, mandataires, livraisons prestige.", "Délai J+2 type. Option GPS et protocole sécurité pour les véhicules de valeur.", [
+    { to: "/convoyage-angers", label: "Angers" },
+    { to: "/convoyage-paris", label: "Paris" },
+    { to: "/convoyage-nantes", label: "Nantes" },
+  ]),
+  ville("convoyage-tours", "Tours", "Tours, Val de Loire. Mandataires, livraisons particuliers, axe A10.", "Relais entre Nantes, Le Mans et Bordeaux. Même standard de remise.", [
+    { to: "/convoyage-angers", label: "Angers" },
+    { to: "/convoyage-orleans", label: "Orléans" },
+    { to: "/convoyage-bordeaux", label: "Bordeaux" },
+  ]),
+  ville("convoyage-orleans", "Orléans", "Orléans, porte sud de l’Île-de-France. Flux Paris et Centre.", "Utile en relais Paris–ouest. EDL photo, option GPS.", [
+    { to: "/convoyage-paris", label: "Paris" },
+    { to: "/convoyage-tours", label: "Tours" },
+    { to: "/convoyage-le-mans", label: "Le Mans" },
+  ]),
+  ville("convoyage-caen", "Caen", "Caen, Calvados. Livraisons Normandie depuis Quimper, ferries Ouistreham.", "Correspondances UK possibles via Ouistreham. Voir aussi Royaume-Uni.", [
+    { to: "/convoyage-rennes", label: "Rennes" },
+    { to: "/convoyage-rouen", label: "Rouen" },
+    { to: "/convoyage-royaume-uni", label: "Royaume-Uni" },
+  ]),
+  ville("convoyage-rouen", "Rouen", "Rouen, axe Seine. Livraisons Haute-Normandie, relais vers Paris et Lille.", "Mission France. Protocole professionnel, fourchette après dossier.", [
+    { to: "/convoyage-caen", label: "Caen" },
+    { to: "/convoyage-paris", label: "Paris" },
+    { to: "/convoyage-lille", label: "Lille" },
+  ]),
+  ville("convoyage-paris", "Paris", "Île-de-France : Paris et petite couronne. Livraisons clients, mandataires, retours Bretagne.", "Le trajet Quimper–Paris est fréquent. EDL photo, option GPS, remise sur rendez-vous.", [
+    { to: "/convoyage-le-mans", label: "Le Mans" },
+    { to: "/convoyage-rennes", label: "Rennes" },
+    { to: "/convoyage-voiture-france", label: "France" },
+  ]),
+  ville("convoyage-lille", "Lille", "Lille, métropole, porte de la Belgique. Import VO, mandataires, livraisons nord.", "Souvent couplé à Bruxelles. GPS recommandé sur l’import.", [
+    { to: "/convoyage-belgique", label: "Belgique" },
+    { to: "/convoyage-paris", label: "Paris" },
+    { to: "/convoyage-reims", label: "Reims" },
+  ]),
+  ville("convoyage-reims", "Reims", "Reims, Champagne. Relais Paris–est, livraisons mandataires.", "Axe vers Metz, Luxembourg, Allemagne. EDL et option GPS.", [
+    { to: "/convoyage-paris", label: "Paris" },
+    { to: "/convoyage-metz", label: "Metz" },
+    { to: "/convoyage-lille", label: "Lille" },
+  ]),
+  ville("convoyage-metz", "Metz", "Metz, Moselle. Porte du Luxembourg et de l’Allemagne.", "Formalités internationales à cadrer si la mission continue hors France.", [
+    { to: "/convoyage-strasbourg", label: "Strasbourg" },
+    { to: "/convoyage-luxembourg", label: "Luxembourg" },
+    { to: "/convoyage-reims", label: "Reims" },
+  ]),
+  ville("convoyage-strasbourg", "Strasbourg", "Strasbourg, Alsace. Livraisons est, Allemagne, Suisse.", "Long trajet depuis Quimper. GPS et protocole sécurité souvent demandés.", [
+    { to: "/convoyage-metz", label: "Metz" },
+    { to: "/convoyage-allemagne", label: "Allemagne" },
+    { to: "/convoyage-suisse", label: "Suisse" },
+  ]),
+  ville("convoyage-dijon", "Dijon", "Dijon, Bourgogne. Relais Lyon–Paris, livraisons Centre-Est.", "Mission France. Même exigence de remise, délai J+2 / J+3.", [
+    { to: "/convoyage-lyon", label: "Lyon" },
+    { to: "/convoyage-paris", label: "Paris" },
+    { to: "/convoyage-strasbourg", label: "Strasbourg" },
+  ]),
+  ville("convoyage-lyon", "Lyon", "Lyon, carrefour est. Livraisons Rhône-Alpes depuis Quimper.", "Axe long. Même standard concession. Gestion de crise sur autoroute.", [
+    { to: "/convoyage-paris", label: "Paris" },
+    { to: "/convoyage-geneve", label: "Suisse" },
+    { to: "/convoyage-grenoble", label: "Grenoble" },
+  ]),
+  ville("convoyage-grenoble", "Grenoble", "Grenoble, Alpes. Livraisons de montagne, conditions météo à cadrer.", "Hiver : pneus et horaires. Gestion de crise si col fermé.", [
+    { to: "/convoyage-lyon", label: "Lyon" },
+    { to: "/convoyage-geneve", label: "Genève" },
+    { to: "/convoyage-marseille", label: "Marseille" },
+  ]),
+  ville("convoyage-bordeaux", "Bordeaux", "Bordeaux et l’axe atlantique. Livraisons sud-ouest depuis la Cornouaille.", "Mission France longue. Protocole sécurité recommandé. Délai J+2 / J+3.", [
+    { to: "/convoyage-nantes", label: "Nantes" },
+    { to: "/convoyage-la-rochelle", label: "La Rochelle" },
+    { to: "/convoyage-toulouse", label: "Toulouse" },
+  ]),
+  ville("convoyage-la-rochelle", "La Rochelle", "La Rochelle, Charente-Maritime. Livraisons atlantique, île de Ré sur devis.", "Relais Nantes–Bordeaux. Saisonnalité estivale.", [
+    { to: "/convoyage-nantes", label: "Nantes" },
+    { to: "/convoyage-bordeaux", label: "Bordeaux" },
+    { to: "/convoyage-angers", label: "Angers" },
+  ]),
+  ville("convoyage-toulouse", "Toulouse", "Toulouse, porte du sud. Mandataires, import, livraisons particuliers.", "Long trajet. Traqueur GPS et EDL renforcée sont souvent demandés.", [
+    { to: "/convoyage-bordeaux", label: "Bordeaux" },
+    { to: "/convoyage-pau", label: "Pau" },
+    { to: "/convoyage-espagne", label: "Espagne" },
+  ]),
+  ville("convoyage-pau", "Pau", "Pau, Béarn. Porte de l’Espagne et de l’Andorre.", "Formalités si la mission continue hors France. GPS recommandé.", [
+    { to: "/convoyage-toulouse", label: "Toulouse" },
+    { to: "/convoyage-bordeaux", label: "Bordeaux" },
+    { to: "/convoyage-espagne", label: "Espagne" },
+  ]),
+  ville("convoyage-clermont-ferrand", "Clermont-Ferrand", "Clermont-Ferrand, Massif central. Relais Lyon–Bordeaux.", "Trajet moins linéaire. On calcule au GPS, pas à vol d’oiseau affiché.", [
+    { to: "/convoyage-lyon", label: "Lyon" },
+    { to: "/convoyage-bordeaux", label: "Bordeaux" },
+    { to: "/convoyage-dijon", label: "Dijon" },
+  ]),
+  ville("convoyage-marseille", "Marseille", "Marseille, Aix : livraisons PACA. Particularités étiquette, péages, chaleur l’été.", "Prévoir un délai J+3. Lavage avant remise souvent demandé.", [
+    { to: "/convoyage-nice", label: "Nice" },
+    { to: "/convoyage-monaco", label: "Monaco" },
+    { to: "/convoyage-montpellier", label: "Montpellier" },
+  ]),
+  ville("convoyage-montpellier", "Montpellier", "Montpellier, axe languedocien. Relais Toulouse–Marseille.", "Mission sud. Option lavage et GPS selon le véhicule.", [
+    { to: "/convoyage-marseille", label: "Marseille" },
+    { to: "/convoyage-perpignan", label: "Perpignan" },
+    { to: "/convoyage-toulouse", label: "Toulouse" },
+  ]),
+  ville("convoyage-perpignan", "Perpignan", "Perpignan, porte de l’Espagne. Import, mandataires, livraisons Catalogne.", "Souvent couplé à Barcelone. Documents et GPS à cadrer.", [
+    { to: "/convoyage-espagne", label: "Espagne" },
+    { to: "/convoyage-montpellier", label: "Montpellier" },
+    { to: "/convoyage-andorre", label: "Andorre" },
+  ]),
+  ville("convoyage-nice", "Nice", "Nice, Cannes, Antibes. Prestige, locations, livraisons Côte d’Azur.", "Véhicules souvent haut de gamme : GPS et protocole sécurité conseillés. Voir aussi Monaco.", [
+    { to: "/convoyage-monaco", label: "Monaco" },
+    { to: "/convoyage-marseille", label: "Marseille" },
+    { to: "/convoyage-prestige", label: "Prestige" },
+  ]),
   {
     slug: "convoyage-bretagne",
     title: "Convoyage de véhicules en Bretagne · CLÉMENT CONVOYAGE",
     h1: "Convoyage de véhicules en Bretagne",
-    description:
-      "Livraison de voitures dans toute la Bretagne depuis Quimper. Finistère, Morbihan, Côtes-d’Armor, Ille-et-Vilaine.",
+    description: "Livraison de voitures dans toute la Bretagne depuis Quimper. Finistère, Morbihan, Côtes-d’Armor, Ille-et-Vilaine. Devis sous 2 h.",
     kind: "region",
     image: IMG,
-    intro:
-      "Quatre départements, une base : Quimper. Nous couvrons Cornouaille, Brest, Lorient, Vannes, Saint-Brieuc, Rennes et Saint-Malo.",
+    locality: "Bretagne",
+    country: "FR",
+    intro: "Quatre départements, une base : Quimper. Cornouaille, Brest, Lorient, Vannes, Saint-Brieuc, Rennes, Saint-Malo.",
     body: [
-      "Le convoyage régional est notre cœur de métier : délais 24–48 h, EDL photo, tarif tout compris.",
-      "Les pages villes détaillent les forfaits. Le simulateur calcule n’importe quel trajet intra-Bretagne.",
+      "Le convoyage régional est le cœur du métier : délais courts, EDL photo, interlocuteur unique.",
+      "Les pages villes détaillent chaque bassin. Le simulateur prépare n’importe quel trajet intra-Bretagne, sans afficher de grille publique.",
+      "Options fréquentes en Bretagne : lavage avant remise, week-end, prêt de courtoisie pour les concessions.",
     ],
     nearby: [
       { to: "/convoyage-quimper", label: "Quimper" },
@@ -158,48 +360,48 @@ export const SEO_PAGES: SeoPage[] = [
       { to: "/convoyage-rennes", label: "Rennes" },
       { to: "/livraison-voiture-finistere", label: "Finistère" },
     ],
-    faq: [
-      { q: "Intervenez-vous dans les quatre départements ?", a: "Oui. Base Quimper, toute la Bretagne, puis la France et l’Europe." },
-    ],
+    faq: [{ q: "Intervenez-vous dans les quatre départements ?", a: "Oui. Base Quimper, toute la Bretagne, puis la France et l’Europe." }],
   },
   {
     slug: "livraison-voiture-finistere",
     title: "Livraison de voiture dans le Finistère · CLÉMENT CONVOYAGE",
     h1: "Livraison de voiture dans le Finistère",
-    description:
-      "Convoyage Finistère : Quimper, Brest, Concarneau, Douarnenez, Quimperlé, Morlaix. Devis sous 2 h.",
+    description: "Convoyage Finistère : Quimper, Brest, Concarneau, Bénodet, Douarnenez, Pont-l'Abbé, Morlaix. Devis sous 2 h.",
     kind: "region",
     image: IMG,
-    intro:
-      "Le 29 est une péninsule. Un convoyeur basé à Quimper évite les allers vides et tient les créneaux des concessions locales.",
+    locality: "Finistère",
+    country: "FR",
+    intro: "Le 29 est une péninsule. Un convoyeur basé à Quimper évite les allers vides et tient les créneaux des concessions locales.",
     body: [
-      "Forfaits locaux dès 55 €. Brest 105 €, Lorient 100 €, Concarneau 70 €.",
-      "Idéal pour CT, carrosserie, prêts de courtoisie et livraisons clients VO.",
+      "Couverture : Quimper, Bénodet, Fouesnant, Pont-l’Abbé, Douarnenez, Audierne, Concarneau, Pont-Aven, Quimperlé, Châteaulin, Carhaix, Brest, Morlaix, Roscoff.",
+      "Idéal pour CT, carrosserie, prêts de courtoisie et livraisons clients VO. Le tarif se calcule au simulateur, jamais en grille publique.",
     ],
     nearby: [
       { to: "/convoyage-quimper", label: "Quimper" },
       { to: "/convoyage-brest", label: "Brest" },
-      { to: "/convoyage-concarneau", label: "Concarneau" },
+      { to: "/convoyage-benodet", label: "Bénodet" },
+      { to: "/convoyage-bretagne", label: "Bretagne" },
     ],
-    faq: [{ q: "Délai type dans le 29 ?", a: "Jour J ou J+1 pour le local et Brest / Lorient." }],
+    faq: [{ q: "Délai type dans le 29 ?", a: "Jour J ou J+1 pour le local, Brest et Lorient selon créneau." }],
   },
   {
     slug: "convoyage-voiture-france",
     title: "Convoyage de voiture en France · CLÉMENT CONVOYAGE",
     h1: "Convoyage de voiture en France",
-    description:
-      "Livraison de véhicules partout en France métropolitaine depuis Quimper. Paris 580 €, Nantes 310 €, Lyon 790 €.",
+    description: "Livraison de véhicules partout en France métropolitaine depuis Quimper. Paris, Lyon, Bordeaux, Marseille, Nice, Lille, Strasbourg. Devis sous 2 h.",
     kind: "france",
-    image: "/images/04_europe_nuit.jpg",
-    intro: "Depuis Quimper, nous livrons toute la France métropolitaine. Grille nationale, devis hors grille sous 2 h.",
+    image: EU,
+    country: "FR",
+    intro: "Depuis Quimper, nous livrons toute la France métropolitaine. Pas de grille publiée : fourchette après vos coordonnées.",
     body: [
-      "Paris 580 €, Nantes 310 €, Bordeaux 560 €, Lyon 790 €, Marseille 980 € — tout compris.",
-      "Particuliers : règlement avant départ. Professionnels : 15 jours.",
+      "Paris, Lyon, Bordeaux, Toulouse, Marseille, Nice, Nantes, Rennes, Lille, Strasbourg : le même standard de remise.",
+      "Particuliers : règlement avant départ. Professionnels : 15 jours. Options GPS et sécurité pour les longs trajets.",
     ],
     nearby: [
       { to: "/simulateur", label: "Simulateur" },
       { to: "/livraison-europe", label: "Europe" },
-      { to: "/convoyage-bretagne", label: "Bretagne" },
+      { to: "/destinations", label: "Toutes les villes" },
+      { to: "/securite-vehicule", label: "Sécurité" },
     ],
     faq: [{ q: "Livrez-vous la Corse ?", a: "Devis spécifique ferry. Le simulateur couvre la métropole." }],
   },
@@ -207,18 +409,18 @@ export const SEO_PAGES: SeoPage[] = [
     slug: "livraison-vehicule-particulier",
     title: "Livraison de véhicule pour particulier · CLÉMENT CONVOYAGE",
     h1: "Livraison de véhicule pour particulier",
-    description: "Acheté une voiture à distance ? Nous la convoyons jusqu’à chez vous, EDL photo, paiement avant départ.",
+    description: "Achat à distance, Leboncoin, mandataire : nous convoyons jusqu’à chez vous. EDL photo, GPS optionnel, paiement avant départ.",
     kind: "metier",
-    image: "/images/02_remise_cles.jpg",
-    intro:
-      "Achat Leboncoin, mandataire, concession hors département : vous ne prenez pas le train. Nous amenons le véhicule.",
+    image: KEYS,
+    intro: "Vous n’avez pas à prendre le train. Nous amenons le véhicule, photos horodatées, remise en main propre.",
     body: [
-      "100 % virement avant départ. Photos horodatées. Remise en main propre.",
-      "Options : lavage, mise en main, recharge VE.",
+      "Cas typiques : achat Leboncoin, mandataire, concession hors département, donation familiale.",
+      "Virement avant départ. Options : lavage, mise en main, traqueur GPS, protocole sécurité.",
     ],
     nearby: [
       { to: "/simulateur", label: "Estimer" },
-      { to: "/convoyage-concession", label: "Professionnels" },
+      { to: "/convoyage-mandataire", label: "Mandataire" },
+      { to: "/convoyage-occasion", label: "Occasion" },
     ],
     faq: [{ q: "Puis-je payer après ?", a: "Non pour un particulier. Le virement part avant la prise en charge." }],
   },
@@ -226,58 +428,296 @@ export const SEO_PAGES: SeoPage[] = [
     slug: "convoyage-concession",
     title: "Convoyage pour concessions et garages · CLÉMENT CONVOYAGE",
     h1: "Convoyage pour concessions et garages",
-    description:
-      "Transferts inter-sites, livraisons clients VO, CT et SAV. Standard issu des réseaux DS, Renault et Mercedes-Benz.",
+    description: "Transferts inter-sites, livraisons clients VO, CT et SAV. Standard issu des réseaux DS, Renault et Mercedes-Benz.",
     kind: "metier",
-    image: "/images/06_etat_des_lieux.jpg",
-    intro:
-      "Trois missions test au tarif grille, puis un cadre volume. Un interlocuteur, des EDL photo, un compte-rendu à chaque remise.",
+    image: EDL,
+    intro: "Trois missions test, puis un cadre volume. Un interlocuteur, des EDL photo, un compte-rendu à chaque remise.",
     body: [
-      "Paiement 15 jours. Premier dossier : acompte 50 % possible.",
-      "Équipe dédiée, astreinte 24 h pour les professionnels, gestion de crise.",
+      "Paiement 15 jours. Premier dossier : acompte 50 % possible. Astreinte 24 h pour les professionnels.",
+      "Équipe dédiée, gestion de crise, option GPS sur les flux sensibles.",
     ],
     nearby: [
       { to: "/a-propos", label: "À propos" },
+      { to: "/securite-vehicule", label: "Sécurité" },
       { to: "/contact", label: "Cadre volume" },
     ],
     faq: [{ q: "Facturez-vous un abonnement ?", a: "Non. À la mission, ou tarif dégressif si le volume est cadré." }],
   },
-  ...[
-    ["convoyage-belgique", "Belgique", "850 € vers Bruxelles"],
-    ["convoyage-suisse", "Suisse", "1 090 € vers Genève"],
-    ["convoyage-luxembourg", "Luxembourg", "870 €"],
-    ["convoyage-allemagne", "Allemagne", "Francfort 1 140 € · Munich 1 450 €"],
-    ["convoyage-espagne", "Espagne", "1 180 € vers Barcelone"],
-    ["convoyage-italie", "Italie", "1 450 € vers Milan"],
-    ["convoyage-pays-bas", "Pays-Bas", "980 € vers Amsterdam"],
-    ["convoyage-royaume-uni", "Royaume-Uni", "1 290 € vers Londres (ferry)"],
-  ].map(([slug, pays, tarif]) => ({
-    slug,
-    title: `Convoyage de voiture vers ${pays} · CLÉMENT CONVOYAGE`,
-    h1: `Convoyage de véhicule vers ${pays}`,
-    description: `Livraison de voiture en ${pays} depuis Quimper. ${tarif}. Carte verte, mandat, EDL photo.`,
-    kind: "europe" as const,
-    image: "/images/04_europe_nuit.jpg",
-    intro: `Même standard qu’en France, majoration Europe. ${tarif}, devis écrit obligatoire hors exemple.`,
+  {
+    slug: "convoyage-mandataire",
+    title: "Convoyage pour mandataire auto · CLÉMENT CONVOYAGE",
+    h1: "Convoyage pour mandataire automobile",
+    description: "Livraison des véhicules mandataire depuis les plates-formes vers la Bretagne et la France. EDL, GPS, remise client.",
+    kind: "metier",
+    image: KEYS,
+    intro: "Le mandataire vend. Nous livrons. Le client reçoit une remise de concession, pas un parking.",
     body: [
-      "Documents : carte grise ou mandat, assurance, carte verte selon le pays, contrôle technique à jour.",
-      "Royaume-Uni : ferry inclus dans l’exemple Londres. Autres ports sur devis.",
-      "Délai indicatif J+2 à J+4.",
+      "Photos au départ de la plate-forme, suivi, remise chez le client ou en point relais convenu.",
+      "Option GPS sur les importations et les hauts de gamme. Pas de tarif public : fourchette après dossier.",
     ],
     nearby: [
-      { to: "/livraison-europe", label: "Europe" },
+      { to: "/livraison-vehicule-particulier", label: "Particuliers" },
+      { to: "/traqueur-gps", label: "GPS" },
+      { to: "/convoyage-import", label: "Import" },
+    ],
+    faq: [{ q: "Livrez-vous depuis l’Allemagne ou la Belgique ?", a: "Oui. Voir les pages pays. Documents et carte verte vérifiés avant départ." }],
+  },
+  {
+    slug: "convoyage-prestige",
+    title: "Convoyage de véhicule prestige · CLÉMENT CONVOYAGE",
+    h1: "Convoyage de véhicule prestige",
+    description: "Livraison de berlines, sportives et prestige depuis Quimper. Protocole sécurité, GPS, EDL renforcée. Standard Mercedes / DS.",
+    kind: "metier",
+    image: KEYS,
+    intro: "Au-dessus d’un certain seuil de valeur, ce n’est plus un trajet. C’est une remise.",
+    body: [
+      "Protocole : EDL photo détaillée, clés sous scellé, option traqueur GPS, conduite souple, horaires tenus.",
+      "Issu des habitudes de remise en réseau premium. Gestion de crise si incident, météo, client absent.",
+    ],
+    nearby: [
+      { to: "/securite-vehicule", label: "Sécurité" },
+      { to: "/traqueur-gps", label: "GPS" },
+      { to: "/convoyage-monaco", label: "Monaco" },
+    ],
+    faq: [{ q: "Acceptez-vous les collection et jeunes timers ?", a: "Oui s’ils sont roulants, assurés, ≤ 3,5 t, permis B. Sinon orientation plateau." }],
+  },
+  {
+    slug: "convoyage-electrique",
+    title: "Convoyage de véhicule électrique · CLÉMENT CONVOYAGE",
+    h1: "Convoyage de véhicule électrique",
+    description: "Livraison VE depuis Quimper. Plan de recharge, EDL, remise avec niveau de batterie convenu.",
+    kind: "metier",
+    image: "/images/03_nettoyage.jpg",
+    intro: "Un VE ne se convoyage pas comme un thermique. Autonomie, bornes, contrat de recharge.",
+    body: [
+      "Plan de trajet avec recharges. Remise à un niveau de batterie convenu. Option mise en main.",
+      "Pas de tarification publiée. Le simulateur intègre l’option recharge.",
+    ],
+    nearby: [
+      { to: "/nettoyage-vehicule", label: "Préparation" },
       { to: "/simulateur", label: "Simulateur" },
-      { to: "/convoyage-voiture-france", label: "France" },
     ],
-    faq: [
-      {
-        q: "Qui s’occupe du passage de frontière ?",
-        a: "Nous. Vous préparez les documents listés au devis. Un véhicule non conforme est refusé avant départ.",
-      },
+    faq: [{ q: "Et si une borne est hors service ?", a: "Plan B prévu. C’est de la gestion de crise, pas de l’improvisation." }],
+  },
+  {
+    slug: "convoyage-utilitaire",
+    title: "Convoyage d’utilitaire et van · CLÉMENT CONVOYAGE",
+    h1: "Convoyage d’utilitaire et van",
+    description: "Livraison d’utilitaires et vans ≤ 3,5 t depuis Quimper. Artisans, loueurs, flottes. EDL photo.",
+    kind: "metier",
+    image: EDL,
+    intro: "Fourgons, vans, cabines approfondies : tant que c’est permis B et roulant.",
+    body: [
+      "Flottes, loueurs, artisans. EDL soigné : un utilitaire a plus de points d’usure.",
+      "Hors champ au-delà de 3,5 t. Devis après coordonnées.",
     ],
-  })),
+    nearby: [
+      { to: "/convoyage-concession", label: "Professionnels" },
+      { to: "/convoyage-location", label: "Loueurs" },
+      { to: "/simulateur", label: "Simulateur" },
+    ],
+    faq: [{ q: "Le chargement est-il possible ?", a: "Non. Véhicule vide, en état de marche. Marchandise = autre métier." }],
+  },
+  {
+    slug: "etat-des-lieux-convoyage",
+    title: "État des lieux photo convoyage · CLÉMENT CONVOYAGE",
+    h1: "État des lieux photo",
+    description: "EDL photo horodaté au départ et à l’arrivée. Preuve, sérénité, standard concession.",
+    kind: "metier",
+    image: EDL,
+    intro: "Sans photos, ce n’est pas une remise. C’est une discussion.",
+    body: [
+      "Série de photos horodatées : intérieur, extérieur, compteur, carrosserie, documents.",
+      "Conservées le temps du dossier. Complément possible : scellé des clés, GPS.",
+    ],
+    nearby: [
+      { to: "/securite-vehicule", label: "Sécurité" },
+      { to: "/a-propos", label: "À propos" },
+    ],
+    faq: [{ q: "Le client reçoit-il les photos ?", a: "Oui, avec le compte-rendu de mission." }],
+  },
+  {
+    slug: "convoyage-urgence",
+    title: "Convoyage urgent de véhicule · CLÉMENT CONVOYAGE",
+    h1: "Convoyage urgent",
+    description: "Livraison de véhicule sous 24 h selon disponibilité, depuis Quimper. Astreinte professionnels, EDL photo.",
+    kind: "metier",
+    image: EU,
+    intro: "Urgent ne veut pas dire improvisé. Un créneau, un protocole, une confirmation.",
+    body: [
+      "Sous 24 h selon disponibilité. Pas de promesse magique : si le créneau n’existe pas, on le dit.",
+      "Astreinte 24 h pour les professionnels. Le simulateur a une option Urgent. Fourchette après coordonnées.",
+    ],
+    nearby: [
+      { to: "/simulateur", label: "Simulateur" },
+      { to: "/convoyage-week-end", label: "Week-end" },
+      { to: "/contact", label: "Appeler" },
+    ],
+    faq: [{ q: "C’est toujours possible en 24 h ?", a: "Non. Selon charge, distance et documents. On confirme dans l’heure si le créneau tient." }],
+  },
+  {
+    slug: "convoyage-week-end",
+    title: "Convoyage le week-end · CLÉMENT CONVOYAGE",
+    h1: "Convoyage samedi, dimanche et férié",
+    description: "Livraison de véhicule le week-end depuis Quimper. 7 j/7, EDL photo, devis après coordonnées.",
+    kind: "metier",
+    image: IMG,
+    intro: "Les remises ne tombent pas toutes un mardi. Nous roulons 7 j/7.",
+    body: [
+      "Samedi, dimanche, jours fériés : possibles. Le simulateur le prend en compte dans la fourchette, sans publier de majoration.",
+      "Utile pour les particuliers qui reçoivent le véhicule chez eux, et pour les concessions en rush.",
+    ],
+    nearby: [
+      { to: "/simulateur", label: "Simulateur" },
+      { to: "/convoyage-urgence", label: "Urgent" },
+      { to: "/livraison-vehicule-particulier", label: "Particuliers" },
+    ],
+    faq: [{ q: "Le dimanche est-il possible partout ?", a: "En France oui, selon créneau. En Europe : selon formalités et ferries." }],
+  },
+  {
+    slug: "convoyage-import",
+    title: "Convoyage de véhicule import · CLÉMENT CONVOYAGE",
+    h1: "Convoyage de véhicule importé",
+    description: "Ramener un véhicule acheté en Belgique, Allemagne, Pologne, Espagne. EDL, GPS, formalités, base Quimper.",
+    kind: "metier",
+    image: EU,
+    intro: "L’achat est fait. Reste la route, les papiers, la preuve.",
+    body: [
+      "Plates-formes, mandataires, particuliers à l’étranger : nous prenons en charge le véhicule, documents vérifiés, EDL photo.",
+      "GPS quasi systématique. Pologne, Allemagne, Belgique, Espagne : pages pays dédiées. Pas de tarif vitrine.",
+    ],
+    nearby: [
+      { to: "/convoyage-pologne", label: "Pologne" },
+      { to: "/convoyage-allemagne", label: "Allemagne" },
+      { to: "/traqueur-gps", label: "GPS" },
+      { to: "/convoyage-mandataire", label: "Mandataire" },
+    ],
+    faq: [{ q: "Vous gérez les plaques et la carte grise ?", a: "Non. Nous convoyons un véhicule en règle. Immatriculation = autre prestataire." }],
+  },
+  {
+    slug: "convoyage-occasion",
+    title: "Convoyage de véhicule d’occasion · CLÉMENT CONVOYAGE",
+    h1: "Convoyage de véhicule d’occasion",
+    description: "Livraison VO : Leboncoin, concession, particulier. EDL photo stricte, option GPS, depuis Quimper.",
+    kind: "metier",
+    image: EDL,
+    intro: "Un VO n’a pas le vernis d’un neuf. L’état des lieux est encore plus important.",
+    body: [
+      "Photos détaillées au départ : rayures, pneus, intérieur, compteur. Le vendeur et l’acheteur voient la même chose.",
+      "Si le véhicule n’est pas roulant ou non conforme, on refuse. Orientation plateau.",
+    ],
+    nearby: [
+      { to: "/livraison-vehicule-particulier", label: "Particuliers" },
+      { to: "/etat-des-lieux-convoyage", label: "EDL" },
+      { to: "/simulateur", label: "Simulateur" },
+    ],
+    faq: [{ q: "Que se passe-t-il si l’annonce ment ?", a: "On documente, on prévient, on n’embarque pas un doute. C’est de la gestion de crise, pas un débat." }],
+  },
+  {
+    slug: "convoyage-location",
+    title: "Convoyage pour loueurs · CLÉMENT CONVOYAGE",
+    h1: "Convoyage pour agences de location",
+    description: "Transferts de flotte, one-way, rééquilibrage. EDL photo, 7 j/7, base Quimper.",
+    kind: "metier",
+    image: KEYS,
+    intro: "Une flotte qui n’est pas au bon endroit ne se loue pas. Nous rééquilibrons.",
+    body: [
+      "One-way, aéroports, agences littorales l’été, retours atelier. EDL type loueur.",
+      "Cadre volume possible après trois missions test. Pas d’abonnement imposé.",
+    ],
+    nearby: [
+      { to: "/convoyage-concession", label: "Professionnels" },
+      { to: "/convoyage-utilitaire", label: "Utilitaires" },
+      { to: "/contact", label: "Cadre volume" },
+    ],
+    faq: [{ q: "Gérez-vous les one-way saisonniers ?", a: "Oui, surtout Bretagne littorale. Les créneaux d’été se réservent." }],
+  },
+  {
+    slug: "convoyage-suivi-gps",
+    title: "Suivi GPS d’un véhicule convoyé · CLÉMENT CONVOYAGE",
+    h1: "Suivi GPS pendant le convoyage",
+    description: "Traqueur GPS temporaire sur le véhicule livré. Pose discrète, retrait à la remise. Prestige, import, Europe.",
+    kind: "metier",
+    image: GPS,
+    intro: "Savoir où il est, sans en faire un spectacle. Pose le temps de la mission.",
+    body: [
+      "Complément de la page Traqueur GPS : ici le point de vue métier — import, prestige, Pologne, Serbie, Royaume-Uni, Monaco.",
+      "Ce n’est pas de la surveillance de chauffeur. C’est la tenue d’une concession qui sait où est sa démonstration.",
+    ],
+    nearby: [
+      { to: "/traqueur-gps", label: "Prestation GPS" },
+      { to: "/securite-vehicule", label: "Sécurité" },
+      { to: "/convoyage-prestige", label: "Prestige" },
+    ],
+    faq: [{ q: "Le boîtier reste-t-il après la remise ?", a: "Non, sauf demande écrite. Retrait à l’arrivée, mentionné sur l’EDL." }],
+  },
+  {
+    slug: "protocole-securite-convoyage",
+    title: "Protocole sécurité convoyage · CLÉMENT CONVOYAGE",
+    h1: "Protocole sécurité du véhicule",
+    description: "Clés sous scellé, EDL photo, GPS, gestion de crise. Standard DS / Renault / Mercedes-Benz, base Quimper.",
+    kind: "metier",
+    image: SEC,
+    intro: "Le véhicule n’est pas un colis. Clés, documents, carrosserie, trajet : un ordre.",
+    body: [
+      "Même exigence qu’une remise en réseau premium. Le protocole se coche au simulateur, il n’a pas de prix affiché.",
+      "Incident, client absent, contrôle, météo : escalade, faits, photos, prochaine action.",
+    ],
+    nearby: [
+      { to: "/securite-vehicule", label: "Page sécurité" },
+      { to: "/traqueur-gps", label: "GPS" },
+      { to: "/a-propos", label: "À propos" },
+    ],
+    faq: [{ q: "C’est obligatoire ?", a: "L’EDL photo l’est. Le scellé et le GPS se cochent selon la valeur et la destination." }],
+  },
+  pays("convoyage-belgique", "Belgique", "Bruxelles", "Belgique : Bruxelles, Liège, Anvers. Flux mandataires et livraisons clients depuis Quimper.", "Carte grise ou mandat, assurance, contrôle technique. Carte verte selon le contrat."),
+  pays("convoyage-suisse", "Suisse", "Genève", "Suisse : Genève, Lausanne, Bâle. Formalités spécifiques, véhicules souvent prestige.", "Carte grise, mandat, assurance. Anticiper douane et vignette. GPS recommandé."),
+  pays("convoyage-luxembourg", "Luxembourg", "Luxembourg", "Luxembourg : place financière, flottes, livraisons courtes depuis l’est de la France.", "Documents France + assurance. Passage simple, même exigence de remise."),
+  pays("convoyage-allemagne", "Allemagne", "Francfort", "Allemagne : Francfort, Munich, Düsseldorf. Import VO, mandataires, prestige.", "Carte grise ou mandat, CT, assurance. Plaques et export : à cadrer au devis."),
+  pays("convoyage-espagne", "Espagne", "Barcelone", "Espagne : Barcelone, Madrid, Valence, Pays basque. Saisonnalité et mandataires.", "Carte verte, mandat, CT. Chaleur l’été : lavage et niveau fluides vérifiés."),
+  pays("convoyage-italie", "Italie", "Milan", "Italie : Milan, Turin, Gênes. Prestige et import. Péages denses.", "Documents + carte verte. GPS et protocole sécurité souvent demandés."),
+  pays("convoyage-pays-bas", "Pays-Bas", "Amsterdam", "Pays-Bas : Amsterdam, Rotterdam. Ports, mandataires, VE.", "Documents Schengen. Recharge VE à planifier si électrique."),
+  pays("convoyage-royaume-uni", "Royaume-Uni", "Londres", "Royaume-Uni : Londres et sud. Ferry, formalités post-Brexit.", "Passeport, assurance frontière, ferry. GPS fortement recommandé. Autres ports sur devis."),
+  pays("convoyage-pologne", "Pologne", "Varsovie", "Pologne : Varsovie, Poznań, Wrocław. Import VO, plates-formes, reimport.", "Mandat, CT, assurance, cartes. Trajet long : GPS et EDL renforcée."),
+  pays("convoyage-monaco", "Monaco", "Monaco", "Monaco et Monte-Carlo : prestige, discrétion, remise sur rendez-vous. Voisin de Nice.", "Documents France. Protocole sécurité et GPS presque systématiques. Horaires tenus."),
+  pays("convoyage-serbie", "Serbie", "Belgrade", "Serbie : Belgrade. Hors UE : formalités, assurance frontière, temps de contrôle.", "Carte verte, mandat, éventuel carnet. GPS obligatoire sur ce type de mission."),
+  pays("convoyage-portugal", "Portugal", "Lisbonne", "Portugal : Lisbonne, Porto. Atlantique, mandataires, livraisons particuliers.", "Carte verte, CT, mandat. Trajet long par l’Espagne."),
+  pays("convoyage-autriche", "Autriche", "Vienne", "Autriche : Vienne, Salzbourg. Prestige et corridors Allemagne.", "Documents Schengen. Vignette autoroute gérée dans la mission."),
+  pays("convoyage-tchequie", "République tchèque", "Prague", "République tchèque : Prague. Import, plates-formes, reimport ouest.", "Mandat, CT, assurance. GPS sur les flux d’import."),
+  pays("convoyage-croatie", "Croatie", "Zagreb", "Croatie : Zagreb, littoral. Saisonnalité, livraisons estivales.", "Documents UE. Anticiper les week-ends d’été."),
+  pays("convoyage-irlande", "Irlande", "Dublin", "Irlande : Dublin. Ferry + route. Formalités spécifiques.", "Ferry, assurance, documents. GPS recommandé."),
+  pays("convoyage-danemark", "Danemark", "Copenhague", "Danemark : Copenhague. Ponts, ferries, VE fréquents.", "Documents Schengen. Plan de recharge si électrique."),
+  pays("convoyage-hongrie", "Hongrie", "Budapest", "Hongrie : Budapest. Import centre-Europe.", "Mandat, CT, vignette. GPS sur l’import."),
+  pays("convoyage-andorre", "Andorre", "Andorre", "Andorre : vallée, douane, véhicules souvent neufs ou prestige.", "Formalités frontalières. Protocole sécurité."),
+  pays("convoyage-slovenie", "Slovénie", "Ljubljana", "Slovénie : Ljubljana. Corridor vers les Balkans.", "Documents UE. Peut précéder une mission Serbie."),
+  pays("convoyage-slovaquie", "Slovaquie", "Bratislava", "Slovaquie : Bratislava, jumelée à Vienne.", "Documents UE. GPS si import."),
+  pays("convoyage-grece", "Grèce", "Athènes", "Grèce : Athènes. Long corridor, ferries éventuels.", "Documents, temps de trajet. GPS et EDL renforcée."),
+  pays("convoyage-suede", "Suède", "Stockholm", "Suède : Stockholm. Distances, hiver, VE.", "Documents Schengen. Conditions hivernales à cadrer."),
+  pays("convoyage-norvege", "Norvège", "Oslo", "Norvège : Oslo. Hors UE, péages, tunnels.", "Douane, assurance. GPS."),
+  pays("convoyage-roumanie", "Roumanie", "Bucarest", "Roumanie : Bucarest. Import, long trajet.", "Mandat, CT, GPS."),
+  pays("convoyage-finlande", "Finlande", "Helsinki", "Finlande : Helsinki. Distances, ferry éventuel, VE, hiver.", "Documents Schengen. Conditions hivernales et plan de recharge à cadrer."),
+  pays("convoyage-bulgarie", "Bulgarie", "Sofia", "Bulgarie : Sofia. Import centre-est, long corridor.", "Mandat, CT, assurance. GPS et EDL renforcée."),
+  pays("convoyage-albanie", "Albanie", "Tirana", "Albanie : Tirana. Hors UE, formalités, temps de contrôle.", "Carte verte, mandat. GPS quasi systématique."),
+  pays("convoyage-montenegro", "Monténégro", "Podgorica", "Monténégro : Podgorica, littoral. Hors UE, prestige saisonnier.", "Carte verte, formalités. GPS et protocole sécurité."),
+  pays("convoyage-bosnie", "Bosnie-Herzégovine", "Sarajevo", "Bosnie-Herzégovine : Sarajevo. Hors UE, corridors Balkans.", "Carte verte, mandat, contrôles. GPS."),
+  pays("convoyage-macedoine", "Macédoine du Nord", "Skopje", "Macédoine du Nord : Skopje. Hors UE, import.", "Carte verte, mandat. GPS et EDL renforcée."),
+  pays("convoyage-estonie", "Estonie", "Tallinn", "Estonie : Tallinn. Baltique, distances, VE.", "Documents Schengen. Trajet long : GPS."),
+  pays("convoyage-lettonie", "Lettonie", "Riga", "Lettonie : Riga. Corridor baltique.", "Documents Schengen. GPS sur l’import."),
+  pays("convoyage-lituanie", "Lituanie", "Vilnius", "Lituanie : Vilnius. Porte de la Pologne vers les pays baltes.", "Documents UE. Souvent couplé à une mission Pologne."),
+  pays("convoyage-malte", "Malte", "La Valette", "Malte : La Valette. Ferry / mer, formalités spécifiques.", "Trajet mer à cadrer au devis. GPS et documents."),
+  pays("convoyage-chypre", "Chypre", "Nicosie", "Chypre : Nicosie. Trajet mer / air, devis spécifique.", "Pas un convoyage routier classique. Devis sur dossier, hors simulateur standard."),
+  pays("convoyage-liechtenstein", "Liechtenstein", "Vaduz", "Liechtenstein : Vaduz. Prestige, discrétion, voisin de la Suisse.", "Formalités type Suisse. Protocole sécurité."),
+  pays("convoyage-geneve", "Genève", "Genève", "Genève, pour les recherches locales. Voir aussi la page Suisse.", "Même formalités que la Suisse. Prestige fréquent."),
 ];
 
 export function seoBySlug(slug: string) {
   return SEO_PAGES.find((p) => p.slug === slug);
+}
+
+export function seoSlugs() {
+  return SEO_PAGES.map((p) => p.slug);
+}
+
+export function seoByKind(kind: SeoPage["kind"]) {
+  return SEO_PAGES.filter((p) => p.kind === kind);
 }

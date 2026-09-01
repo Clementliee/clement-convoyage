@@ -38,7 +38,7 @@ export const SERVICES = [
   {
     to: "/livraison-europe",
     title: "Livraison Europe",
-    text: "Même standard, Belgique, Suisse, Allemagne, Espagne, Italie, Royaume-Uni.",
+    text: "Même standard. Belgique, Suisse, Allemagne, Pologne, Monaco, Serbie, Espagne, Italie, Royaume-Uni.",
     image: "/images/04_europe_nuit.jpg",
     alt: "Convoyage de nuit sur autoroute européenne",
   },

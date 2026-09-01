@@ -5,25 +5,30 @@ const PRESTATIONS = [
   { to: "/livraison-vehicule", label: "Livraison France" },
   { to: "/nettoyage-vehicule", label: "Nettoyage" },
   { to: "/livraison-europe", label: "Livraison Europe" },
+  { to: "/traqueur-gps", label: "Traqueur GPS" },
+  { to: "/securite-vehicule", label: "Sécurité" },
+  { to: "/destinations", label: "Destinations" },
   { to: "/simulateur", label: "Simulateur" },
 ];
 
 const BRETAGNE = [
   { to: "/convoyage-quimper", label: "Quimper" },
+  { to: "/convoyage-benodet", label: "Bénodet" },
   { to: "/convoyage-brest", label: "Brest" },
   { to: "/convoyage-lorient", label: "Lorient" },
   { to: "/convoyage-vannes", label: "Vannes" },
   { to: "/convoyage-rennes", label: "Rennes" },
-  { to: "/convoyage-nantes", label: "Nantes" },
   { to: "/convoyage-bretagne", label: "Toute la Bretagne" },
 ];
 
 const EUROPE = [
   { to: "/convoyage-belgique", label: "Belgique" },
-  { to: "/convoyage-suisse", label: "Suisse" },
+  { to: "/convoyage-pologne", label: "Pologne" },
+  { to: "/convoyage-monaco", label: "Monaco" },
+  { to: "/convoyage-serbie", label: "Serbie" },
   { to: "/convoyage-allemagne", label: "Allemagne" },
-  { to: "/convoyage-espagne", label: "Espagne" },
   { to: "/convoyage-royaume-uni", label: "Royaume-Uni" },
+  { to: "/livraison-europe", label: "Toutes les destinations" },
 ];
 
 export function Footer() {

@@ -2,9 +2,17 @@ import { createFileRoute, notFound } from "@tanstack/react-router";
 import { AppLink } from "@/components/AppLink";
 import { CtaBar } from "@/components/CtaBar";
 import { Faq } from "@/components/Faq";
-import { FaqJsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { PageHero } from "@/components/PageHero";
 import { seoBySlug } from "@/lib/seo-pages";
+
+const KICKER = {
+  ville: "Local",
+  region: "Territoire",
+  france: "France",
+  europe: "Europe",
+  metier: "Métier",
+} as const;
 
 export const Route = createFileRoute("/$slug")({
   loader: ({ params }) => {
@@ -16,6 +24,8 @@ export const Route = createFileRoute("/$slug")({
     meta: [
       { title: loaderData?.title ?? "CLÉMENT CONVOYAGE" },
       { name: "description", content: loaderData?.description ?? "" },
+      { property: "og:title", content: loaderData?.title ?? "" },
+      { property: "og:description", content: loaderData?.description ?? "" },
     ],
   }),
   component: SeoPage,
@@ -25,7 +35,13 @@ function SeoPage() {
   const page = Route.useLoaderData();
   return (
     <main>
-      <PageHero kicker={page.kind} title={page.h1} text={page.intro} image={page.image} alt={page.h1} />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Accueil", href: "https://clement-convoyage.vercel.app/" },
+          { name: page.h1, href: `https://clement-convoyage.vercel.app/${page.slug}` },
+        ]}
+      />
+      <PageHero kicker={KICKER[page.kind]} title={page.h1} text={page.intro} image={page.image} alt={page.h1} />
       <article className="mx-auto max-w-3xl space-y-4 px-4 pb-10 sm:px-6">
         {page.body.map((p) => (
           <p key={p} className="text-muted leading-relaxed">
@@ -49,7 +65,7 @@ function SeoPage() {
           <FaqJsonLd items={page.faq} />
         </div>
       </article>
-      <CtaBar />
+      <CtaBar title="Obtenir une fourchette" text="Pas de grille publique. Coordonnées, puis estimation indicative." />
     </main>
   );
 }

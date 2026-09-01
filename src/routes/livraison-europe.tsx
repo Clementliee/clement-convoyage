@@ -2,14 +2,16 @@ import { createFileRoute } from "@tanstack/react-router";
 import { AppLink } from "@/components/AppLink";
 import { PageHero } from "@/components/PageHero";
 import { CtaBar } from "@/components/CtaBar";
-import { EUROPE_DISPLAY } from "@/lib/tarifs";
-import { formatEuro } from "@/lib/utils";
 
 export const Route = createFileRoute("/livraison-europe")({
   head: () => ({
     meta: [
       { title: "Livraison de véhicules en Europe · CLÉMENT CONVOYAGE" },
-      { name: "description", content: "Convoyage Europe depuis Quimper. Belgique, Suisse, Allemagne, Espagne, Italie, Royaume-Uni. Devis écrit." },
+      {
+        name: "description",
+        content:
+          "Convoyage Europe depuis Quimper : Belgique, Suisse, Allemagne, Pologne, Monaco, Serbie, Espagne, Italie, Royaume-Uni. Devis après coordonnées.",
+      },
     ],
   }),
   component: Page,
@@ -24,6 +26,35 @@ const COUNTRIES = [
   ["/convoyage-italie", "Italie"],
   ["/convoyage-pays-bas", "Pays-Bas"],
   ["/convoyage-royaume-uni", "Royaume-Uni"],
+  ["/convoyage-pologne", "Pologne"],
+  ["/convoyage-monaco", "Monaco"],
+  ["/convoyage-serbie", "Serbie"],
+  ["/convoyage-portugal", "Portugal"],
+  ["/convoyage-autriche", "Autriche"],
+  ["/convoyage-tchequie", "Tchéquie"],
+  ["/convoyage-croatie", "Croatie"],
+  ["/convoyage-irlande", "Irlande"],
+  ["/convoyage-danemark", "Danemark"],
+  ["/convoyage-hongrie", "Hongrie"],
+  ["/convoyage-andorre", "Andorre"],
+  ["/convoyage-slovenie", "Slovénie"],
+  ["/convoyage-slovaquie", "Slovaquie"],
+  ["/convoyage-grece", "Grèce"],
+  ["/convoyage-suede", "Suède"],
+  ["/convoyage-norvege", "Norvège"],
+  ["/convoyage-roumanie", "Roumanie"],
+  ["/convoyage-finlande", "Finlande"],
+  ["/convoyage-bulgarie", "Bulgarie"],
+  ["/convoyage-albanie", "Albanie"],
+  ["/convoyage-montenegro", "Monténégro"],
+  ["/convoyage-bosnie", "Bosnie-Herzégovine"],
+  ["/convoyage-macedoine", "Macédoine du Nord"],
+  ["/convoyage-estonie", "Estonie"],
+  ["/convoyage-lettonie", "Lettonie"],
+  ["/convoyage-lituanie", "Lituanie"],
+  ["/convoyage-malte", "Malte"],
+  ["/convoyage-chypre", "Chypre"],
+  ["/convoyage-liechtenstein", "Liechtenstein"],
 ] as const;
 
 function Page() {
@@ -33,29 +64,16 @@ function Page() {
         kicker="Europe"
         title="Le même standard,"
         accent="au-delà des frontières."
-        text="Majoration +20 % + forfait frontalier 90 €. Devis écrit hors exemples."
+        text="Pas de tarif affiché. Documents, EDL, option GPS. Fourchette après vos coordonnées."
         image="/images/04_europe_nuit.jpg"
         alt="Convoyage de nuit sur autoroute européenne"
       />
       <section className="mx-auto max-w-6xl px-4 pb-10 sm:px-6">
-        <div className="overflow-hidden rounded-2xl border border-line">
-          <table className="w-full text-sm">
-            <thead className="bg-navy text-surface">
-              <tr>
-                <th className="px-4 py-3 text-left">Destination</th>
-                <th className="px-4 py-3 text-right">Exemple TTC</th>
-              </tr>
-            </thead>
-            <tbody>
-              {EUROPE_DISPLAY.map((r) => (
-                <tr key={r.name} className="odd:bg-sand/50">
-                  <td className="px-4 py-2.5 text-navy">{r.name}</td>
-                  <td className="px-4 py-2.5 text-right font-semibold tabular-nums">{formatEuro(r.prix)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <h2 className="font-display text-2xl text-navy">Destinations</h2>
+        <p className="mt-2 max-w-2xl text-sm text-muted">
+          Chaque pays a sa page : formalités, délais, recommandations sécurité. Le prix se calcule au
+          simulateur, jamais en grille.
+        </p>
         <div className="mt-8 flex flex-wrap gap-2">
           {COUNTRIES.map(([to, label]) => (
             <AppLink
@@ -67,9 +85,10 @@ function Page() {
             </AppLink>
           ))}
         </div>
-        <p className="mt-6 max-w-2xl text-sm text-muted">
-          Documents : carte grise ou mandat, assurance, carte verte selon le pays, contrôle technique à jour.
-          Royaume-Uni : ferry inclus dans l’exemple Londres.
+        <p className="mt-8 max-w-2xl text-sm text-muted">
+          Documents types : carte grise ou mandat, assurance, carte verte selon le pays, contrôle
+          technique à jour. Royaume-Uni et Serbie : formalités renforcées. GPS recommandé à
+          l’international.
         </p>
       </section>
       <CtaBar />

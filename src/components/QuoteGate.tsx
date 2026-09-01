@@ -24,6 +24,8 @@ export function QuoteGate({
     input.lavage !== "aucun" ? EXTRAS[input.lavage] : "",
     input.miseEnMain ? "Mise en main" : "",
     input.rechargeVe ? "Recharge VE" : "",
+    input.gps ? "Traqueur GPS" : "",
+    input.securite ? "Protocole sécurité" : "",
     input.vehicle === "prestige" ? "Prestige" : "",
     input.vehicle === "utilitaire" ? "Utilitaire" : "",
     input.when === "urgent" ? "Urgent" : "",

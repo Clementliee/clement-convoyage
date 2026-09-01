@@ -1,6 +1,48 @@
 # CLÉMENT CONVOYAGE
-Convoyage et livraison de véhicules depuis Quimper (Finistère, Bretagne), partout en France et en Europe.
-Prestations : livraison en conduite (VL et utilitaires ≤ 3,5 t), nettoyage avant remise, livraison Europe.
-Standard issu des réseaux DS Automobiles, Renault et Mercedes-Benz. EDL photo, 7j/7.
-Simulateur de tarif : /simulateur
-Contact : contact@clement-convoyage.fr
+
+> Convoyage et livraison de véhicules depuis Quimper (Finistère, Bretagne). France et Europe. Standard issu des réseaux DS Automobiles, Renault et Mercedes-Benz.
+
+CLÉMENT CONVOYAGE livre des véhicules légers et utilitaires ≤ 3,5 t, en état de marche. Base : Quimper. Interlocuteur unique, 7 j/7, astreinte 24 h pour les professionnels.
+
+Les tarifs ne sont pas publiés. Une fourchette indicative (basse / haute) s’affiche après nom, prénom, téléphone et e-mail, via le simulateur. Devis ferme sous 2 heures ouvrées. Prix indicatif, à confirmer avec un professionnel.
+
+## Prestations
+
+- [Livraison France](https://clement-convoyage.vercel.app/livraison-vehicule) : conduite A → B, carburant, péages, retour convoyeur, EDL photo, remise des clés.
+- [Livraison Europe](https://clement-convoyage.vercel.app/livraison-europe) : même standard, formalités frontière.
+- [Nettoyage avant remise](https://clement-convoyage.vercel.app/nettoyage-vehicule)
+- [Traqueur GPS](https://clement-convoyage.vercel.app/traqueur-gps) : pose discrète le temps de la mission.
+- [Protocole sécurité](https://clement-convoyage.vercel.app/securite-vehicule) : clés sous scellé, EDL renforcée, gestion de crise.
+- [Prestige](https://clement-convoyage.vercel.app/convoyage-prestige)
+- [Véhicule électrique](https://clement-convoyage.vercel.app/convoyage-electrique)
+- [Utilitaire](https://clement-convoyage.vercel.app/convoyage-utilitaire)
+- [Import](https://clement-convoyage.vercel.app/convoyage-import)
+- [Urgent](https://clement-convoyage.vercel.app/convoyage-urgence)
+
+Hors champ : plateau, non-roulant, poids lourd.
+
+## Destinations
+
+Hub : [toutes les destinations](https://clement-convoyage.vercel.app/destinations)
+
+Bretagne (base Quimper) : Quimper, Bénodet, Fouesnant, Concarneau, Pont-l’Abbé, Douarnenez, Audierne, Pont-Aven, Quimperlé, Châteaulin, Carhaix, Brest, Morlaix, Roscoff, Lorient, Vannes, Auray, Quiberon, Rennes, Saint-Brieuc, Saint-Malo, Lannion.
+
+France : Nantes, Angers, Le Mans, Tours, Orléans, Caen, Rouen, Paris, Lille, Reims, Metz, Strasbourg, Dijon, Lyon, Grenoble, Bordeaux, La Rochelle, Toulouse, Pau, Clermont-Ferrand, Montpellier, Perpignan, Marseille, Nice.
+
+Europe, dont Pologne (Varsovie), Monaco, Serbie (Belgrade), Belgique, Suisse, Luxembourg, Allemagne, Espagne, Italie, Pays-Bas, Royaume-Uni, Portugal, Autriche, Tchéquie, Croatie, Irlande, Danemark, Hongrie, Andorre, Slovénie, Slovaquie, Grèce, Suède, Norvège, Roumanie, Finlande, Bulgarie, Albanie, Monténégro, Bosnie-Herzégovine, Macédoine du Nord, Estonie, Lettonie, Lituanie, Malte, Chypre, Liechtenstein.
+
+## Simulateur et contact
+
+- Simulateur : https://clement-convoyage.vercel.app/simulateur
+- Contact : https://clement-convoyage.vercel.app/contact
+- E-mail : leliege.clement@gmail.com
+- Téléphone : 06 00 00 00 00 (à confirmer)
+- À propos : https://clement-convoyage.vercel.app/a-propos
+
+Pas d’avis inventés. Les notes Google seront publiées dès les premières missions.
+
+## Optional
+
+- [Sitemap](https://clement-convoyage.vercel.app/sitemap.xml)
+- [Mentions légales](https://clement-convoyage.vercel.app/mentions-legales)
+- [CGV](https://clement-convoyage.vercel.app/cgv)

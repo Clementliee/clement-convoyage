@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Check, Clock, Shield, Star } from "lucide-react";
+import { AppLink } from "@/components/AppLink";
 import { CtaBar } from "@/components/CtaBar";
 import { Faq } from "@/components/Faq";
 import { FaqJsonLd } from "@/components/JsonLd";
@@ -33,11 +34,15 @@ const FAQ = [
   },
   {
     q: "Intervenez-vous le week-end ?",
-    a: "Oui, 7 j/7. Samedi +20 %, dimanche et férié +40 %. Astreinte 24 h pour les professionnels.",
+    a: "Oui, 7 j/7. Les samedis, dimanches et fériés sont possibles. Astreinte 24 h pour les professionnels.",
   },
   {
     q: "Livrez-vous hors Bretagne ?",
-    a: "Oui. France entière et Europe (Belgique, Suisse, Allemagne, Espagne, Italie, Pays-Bas, Royaume-Uni).",
+    a: "Oui. France entière et Europe : Belgique, Suisse, Allemagne, Pologne, Monaco, Serbie, Espagne, Italie, Royaume-Uni, et d’autres pays sur devis.",
+  },
+  {
+    q: "Proposez-vous un suivi GPS ?",
+    a: "Oui, en option : pose discrète le temps de la mission, retrait à la remise. Souvent couplé au protocole sécurité (clés sous scellé, EDL renforcée).",
   },
   {
     q: "Comment payer ?",
@@ -116,6 +121,66 @@ function Home() {
           </ol>
         </div>
         <HomeEstimator />
+      </section>
+
+      <section className="mx-auto mt-16 max-w-6xl px-4 sm:px-6">
+        <div className="overflow-hidden rounded-[1.8rem] bg-navy text-surface lg:grid lg:grid-cols-2">
+          <img
+            src="/images/08_securite.jpg"
+            alt="Clés sous scellé et état des lieux photo"
+            className="h-64 w-full object-cover lg:h-full"
+          />
+          <div className="p-8 sm:p-10">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-surface/50">Sécurité</p>
+            <h2 className="mt-3 font-display text-3xl tracking-tight">Le véhicule n’est pas un colis.</h2>
+            <p className="mt-4 text-sm leading-relaxed text-surface/75">
+              EDL photo, clés sous scellé, option traqueur GPS, gestion de crise. Le même réflexe
+              qu’une remise en réseau DS, Renault ou Mercedes-Benz.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link to="/securite-vehicule" className="text-sm font-semibold text-coral">
+                Protocole sécurité →
+              </Link>
+              <Link to="/traqueur-gps" className="text-sm font-semibold text-surface/80">
+                Traqueur GPS →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto mt-16 max-w-6xl px-4 sm:px-6">
+        <div className="flex items-end justify-between gap-4">
+          <h2 className="font-display text-3xl tracking-tight text-navy">Zones</h2>
+          <AppLink to="/destinations" className="text-sm font-semibold text-coral">
+            Toutes les destinations →
+          </AppLink>
+        </div>
+        <p className="mt-2 max-w-2xl text-sm text-muted">
+          Bretagne, France, Europe — Pologne, Monaco, Serbie incluses. Chaque bassin a sa page, sans
+          tarif affiché.
+        </p>
+        <div className="mt-6 flex flex-wrap gap-2">
+          {[
+            ["/convoyage-quimper", "Quimper"],
+            ["/convoyage-brest", "Brest"],
+            ["/convoyage-rennes", "Rennes"],
+            ["/convoyage-paris", "Paris"],
+            ["/convoyage-pologne", "Pologne"],
+            ["/convoyage-monaco", "Monaco"],
+            ["/convoyage-serbie", "Serbie"],
+            ["/traqueur-gps", "GPS"],
+            ["/securite-vehicule", "Sécurité"],
+          ].map(([to, label]) => (
+            <AppLink
+              key={to}
+              to={to}
+              className="rounded-full border border-line bg-surface px-4 py-2 text-sm text-navy hover:border-coral"
+            >
+              {label}
+            </AppLink>
+          ))}
+        </div>
       </section>
 
       <section className="mx-auto mt-16 max-w-6xl px-4 sm:px-6">

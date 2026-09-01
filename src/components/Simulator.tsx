@@ -34,6 +34,8 @@ export function Simulator({ initialFrom = "", initialTo = "" }: { initialFrom?: 
     lavage: "aucun",
     miseEnMain: false,
     rechargeVe: false,
+    gps: false,
+    securite: false,
   });
   const [kmManual, setKmManual] = useState("");
 
@@ -95,10 +97,10 @@ export function Simulator({ initialFrom = "", initialTo = "" }: { initialFrom?: 
       {step === 1 && (
         <Choice
           options={[
-            { v: "vp", l: "Véhicule particulier", h: "Tarif grille" },
-            { v: "utilitaire", l: "Utilitaire / van", h: "+15 %" },
-            { v: "prestige", l: "Prestige > 60 000 €", h: "+20 %" },
-            { v: "ve", l: "Véhicule électrique", h: "+ recharge 25 €" },
+            { v: "vp", l: "Véhicule particulier", h: "Berline, SUV, citadine" },
+            { v: "utilitaire", l: "Utilitaire / van", h: "Permis B, ≤ 3,5 t" },
+            { v: "prestige", l: "Prestige", h: "Protocole renforcé" },
+            { v: "ve", l: "Véhicule électrique", h: "Plan de recharge" },
           ]}
           onPick={(v) => {
             setInput((s) => ({ ...s, vehicle: v as VehicleKind, rechargeVe: v === "ve" }));
@@ -127,8 +129,8 @@ export function Simulator({ initialFrom = "", initialTo = "" }: { initialFrom?: 
       {step === 4 && (
         <Choice
           options={[
-            { v: "france", l: "Bretagne / France", h: "Grille nationale" },
-            { v: "europe", l: "Europe", h: "+20 % + 90 €" },
+            { v: "france", l: "Bretagne / France", h: "Métropole" },
+            { v: "europe", l: "Europe", h: "Formalités frontière" },
           ]}
           onPick={(v) => {
             setInput((s) => ({ ...s, zone: v as ZoneKind }));
@@ -139,10 +141,10 @@ export function Simulator({ initialFrom = "", initialTo = "" }: { initialFrom?: 
       {step === 5 && (
         <Choice
           options={[
-            { v: "standard", l: "Standard", h: "Délai grille" },
-            { v: "urgent", l: "Urgent < 24 h", h: "+25 %" },
-            { v: "samedi", l: "Samedi", h: "+20 %" },
-            { v: "dimanche", l: "Dimanche / férié", h: "+40 %" },
+            { v: "standard", l: "Standard", h: "Créneau habituel" },
+            { v: "urgent", l: "Urgent", h: "Sous 24 h, selon dispo" },
+            { v: "samedi", l: "Samedi", h: "Week-end" },
+            { v: "dimanche", l: "Dimanche / férié", h: "Astreinte" },
           ]}
           onPick={(v) => {
             setInput((s) => ({ ...s, when: v as WhenKind }));
@@ -153,24 +155,34 @@ export function Simulator({ initialFrom = "", initialTo = "" }: { initialFrom?: 
       {step === 6 && (
         <div className="space-y-3">
           <Toggle
-            label="Lavage extérieur (+25 €)"
+            label="Lavage extérieur"
             on={input.lavage === "exterieur"}
             onClick={() => setInput((s) => ({ ...s, lavage: s.lavage === "exterieur" ? "aucun" : "exterieur" }))}
           />
           <Toggle
-            label="Lavage intérieur + extérieur (+45 €)"
+            label="Lavage intérieur + extérieur"
             on={input.lavage === "complet"}
             onClick={() => setInput((s) => ({ ...s, lavage: s.lavage === "complet" ? "aucun" : "complet" }))}
           />
           <Toggle
-            label="Mise en main (+35 €)"
+            label="Mise en main"
             on={input.miseEnMain}
             onClick={() => setInput((s) => ({ ...s, miseEnMain: !s.miseEnMain }))}
           />
           <Toggle
-            label="Recharge VE 80 % (+25 € + borne)"
+            label="Recharge VE"
             on={input.rechargeVe}
             onClick={() => setInput((s) => ({ ...s, rechargeVe: !s.rechargeVe }))}
+          />
+          <Toggle
+            label="Traqueur GPS (pose le temps de la mission)"
+            on={input.gps}
+            onClick={() => setInput((s) => ({ ...s, gps: !s.gps }))}
+          />
+          <Toggle
+            label="Protocole sécurité (scellé, EDL renforcée)"
+            on={input.securite}
+            onClick={() => setInput((s) => ({ ...s, securite: !s.securite }))}
           />
         </div>
       )}

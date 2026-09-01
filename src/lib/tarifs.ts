@@ -18,6 +18,8 @@ export const OPTIONS = {
   dimanchePct: 0.4,
   utilitairePct: 0.15,
   prestigePct: 0.2,
+  gps: 120,
+  securite: 75,
 } as const;
 
 export const EUROPE_MAJORATION = 0.2;
@@ -39,6 +41,8 @@ export const CITIES: City[] = [
   { name: "Douarnenez", aliases: ["douarnenez"], lat: 48.092, lng: -4.33, forfaitFromQuimper: 70 },
   { name: "Pont-l'Abbé", aliases: ["pont-l'abbé", "pont l'abbe", "pont-labbe"], lat: 47.867, lng: -4.223, forfaitFromQuimper: 70 },
   { name: "Quimperlé", aliases: ["quimperle", "quimperlé"], lat: 47.872, lng: -3.55, forfaitFromQuimper: 85 },
+  { name: "Bénodet", aliases: ["benodet"], lat: 47.877, lng: -4.111, forfaitFromQuimper: 70 },
+  { name: "Fouesnant", aliases: ["fouesnant", "beg-meil"], lat: 47.894, lng: -4.012, forfaitFromQuimper: 70 },
   { name: "Lorient", aliases: ["lorient", "lanester", "guidel"], lat: 47.748, lng: -3.366, forfaitFromQuimper: 100 },
   { name: "Brest", aliases: ["brest", "guipavas"], lat: 48.39, lng: -4.486, forfaitFromQuimper: 105 },
   { name: "Morlaix", aliases: ["morlaix", "landivisiau"], lat: 48.578, lng: -3.827, forfaitFromQuimper: 110 },
@@ -54,6 +58,30 @@ export const CITIES: City[] = [
   { name: "Toulouse", aliases: ["toulouse"], lat: 43.604, lng: 1.444, forfaitFromQuimper: 720 },
   { name: "Lyon", aliases: ["lyon"], lat: 45.764, lng: 4.836, forfaitFromQuimper: 790 },
   { name: "Marseille", aliases: ["marseille", "aix"], lat: 43.296, lng: 5.37, forfaitFromQuimper: 980 },
+  { name: "Nice", aliases: ["nice", "cannes", "antibes"], lat: 43.71, lng: 7.262, forfaitFromQuimper: 1050 },
+  { name: "Caen", aliases: ["caen"], lat: 49.182, lng: -0.37, forfaitFromQuimper: 420 },
+  { name: "Rouen", aliases: ["rouen"], lat: 49.443, lng: 1.099, forfaitFromQuimper: 480 },
+  { name: "Lille", aliases: ["lille"], lat: 50.629, lng: 3.057, forfaitFromQuimper: 620 },
+  { name: "Reims", aliases: ["reims"], lat: 49.258, lng: 4.032, forfaitFromQuimper: 580 },
+  { name: "Metz", aliases: ["metz"], lat: 49.119, lng: 6.176, forfaitFromQuimper: 750 },
+  { name: "Strasbourg", aliases: ["strasbourg"], lat: 48.573, lng: 7.752, forfaitFromQuimper: 820 },
+  { name: "Dijon", aliases: ["dijon"], lat: 47.322, lng: 5.041, forfaitFromQuimper: 720 },
+  { name: "Grenoble", aliases: ["grenoble"], lat: 45.188, lng: 5.724, forfaitFromQuimper: 850 },
+  { name: "Montpellier", aliases: ["montpellier"], lat: 43.611, lng: 3.877, forfaitFromQuimper: 920 },
+  { name: "Perpignan", aliases: ["perpignan"], lat: 42.699, lng: 2.895, forfaitFromQuimper: 980 },
+  { name: "La Rochelle", aliases: ["la rochelle"], lat: 46.16, lng: -1.152, forfaitFromQuimper: 420 },
+  { name: "Tours", aliases: ["tours"], lat: 47.394, lng: 0.684, forfaitFromQuimper: 380 },
+  { name: "Orléans", aliases: ["orleans", "orléans"], lat: 47.903, lng: 1.909, forfaitFromQuimper: 480 },
+  { name: "Clermont-Ferrand", aliases: ["clermont", "clermont-ferrand"], lat: 45.777, lng: 3.082, forfaitFromQuimper: 700 },
+  { name: "Pau", aliases: ["pau"], lat: 43.295, lng: -0.37, forfaitFromQuimper: 720 },
+  { name: "Châteaulin", aliases: ["chateaulin", "châteaulin"], lat: 48.197, lng: -4.09, forfaitFromQuimper: 70 },
+  { name: "Audierne", aliases: ["audierne"], lat: 48.021, lng: -4.538, forfaitFromQuimper: 85 },
+  { name: "Pont-Aven", aliases: ["pont-aven", "pont aven"], lat: 47.856, lng: -3.748, forfaitFromQuimper: 80 },
+  { name: "Carhaix", aliases: ["carhaix", "carhaix-plouguer"], lat: 48.276, lng: -3.567, forfaitFromQuimper: 95 },
+  { name: "Roscoff", aliases: ["roscoff"], lat: 48.727, lng: -3.986, forfaitFromQuimper: 140 },
+  { name: "Lannion", aliases: ["lannion"], lat: 48.732, lng: -3.459, forfaitFromQuimper: 175 },
+  { name: "Auray", aliases: ["auray"], lat: 47.667, lng: -2.983, forfaitFromQuimper: 165 },
+  { name: "Quiberon", aliases: ["quiberon"], lat: 47.484, lng: -3.12, forfaitFromQuimper: 190 },
   { name: "Bruxelles", aliases: ["bruxelles", "brussels", "brussel"], lat: 50.85, lng: 4.351, europe: true },
   { name: "Luxembourg", aliases: ["luxembourg"], lat: 49.611, lng: 6.132, europe: true },
   { name: "Amsterdam", aliases: ["amsterdam"], lat: 52.367, lng: 4.904, europe: true },
@@ -62,7 +90,38 @@ export const CITIES: City[] = [
   { name: "Francfort", aliases: ["francfort", "frankfurt"], lat: 50.11, lng: 8.682, europe: true },
   { name: "Milan", aliases: ["milan", "milano"], lat: 45.464, lng: 9.19, europe: true },
   { name: "Munich", aliases: ["munich", "munchen"], lat: 48.135, lng: 11.582, europe: true },
-  { name: "Londres", aliases: ["londres", "london"], lat: 51.507, lng: -0.128, europe: true, note: "ferry + majoration Manche" },
+  { name: "Londres", aliases: ["londres", "london"], lat: 51.507, lng: -0.128, europe: true, note: "ferry" },
+  { name: "Monaco", aliases: ["monaco", "monte-carlo", "monte carlo"], lat: 43.738, lng: 7.424, europe: true },
+  { name: "Varsovie", aliases: ["varsovie", "warsaw", "warszawa", "pologne"], lat: 52.23, lng: 21.012, europe: true },
+  { name: "Belgrade", aliases: ["belgrade", "beograd", "serbie"], lat: 44.787, lng: 20.449, europe: true },
+  { name: "Lisbonne", aliases: ["lisbonne", "lisboa", "lisbon"], lat: 38.722, lng: -9.139, europe: true },
+  { name: "Porto", aliases: ["porto"], lat: 41.158, lng: -8.629, europe: true },
+  { name: "Vienne", aliases: ["vienne", "vienna"], lat: 48.208, lng: 16.374, europe: true },
+  { name: "Prague", aliases: ["prague", "praha"], lat: 50.075, lng: 14.438, europe: true },
+  { name: "Zagreb", aliases: ["zagreb"], lat: 45.815, lng: 15.982, europe: true },
+  { name: "Dublin", aliases: ["dublin"], lat: 53.35, lng: -6.26, europe: true },
+  { name: "Copenhague", aliases: ["copenhague", "copenhagen"], lat: 55.676, lng: 12.568, europe: true },
+  { name: "Budapest", aliases: ["budapest"], lat: 47.498, lng: 19.04, europe: true },
+  { name: "Andorre", aliases: ["andorre", "andorra"], lat: 42.507, lng: 1.521, europe: true },
+  { name: "Ljubljana", aliases: ["ljubljana"], lat: 46.056, lng: 14.506, europe: true },
+  { name: "Bratislava", aliases: ["bratislava"], lat: 48.148, lng: 17.107, europe: true },
+  { name: "Athènes", aliases: ["athenes", "athens"], lat: 37.984, lng: 23.728, europe: true },
+  { name: "Stockholm", aliases: ["stockholm"], lat: 59.329, lng: 18.069, europe: true },
+  { name: "Oslo", aliases: ["oslo"], lat: 59.913, lng: 10.752, europe: true },
+  { name: "Bucarest", aliases: ["bucarest", "bucharest"], lat: 44.426, lng: 26.102, europe: true },
+  { name: "Valence", aliases: ["valence", "valencia"], lat: 39.47, lng: -0.376, europe: true },
+  { name: "Helsinki", aliases: ["helsinki", "helsinki finland"], lat: 60.17, lng: 24.938, europe: true },
+  { name: "Sofia", aliases: ["sofia", "sofija"], lat: 42.698, lng: 23.322, europe: true },
+  { name: "Tirana", aliases: ["tirana"], lat: 41.328, lng: 19.819, europe: true },
+  { name: "Podgorica", aliases: ["podgorica"], lat: 42.441, lng: 19.263, europe: true },
+  { name: "Sarajevo", aliases: ["sarajevo"], lat: 43.856, lng: 18.413, europe: true },
+  { name: "Skopje", aliases: ["skopje"], lat: 41.998, lng: 21.425, europe: true },
+  { name: "Tallinn", aliases: ["tallinn"], lat: 59.437, lng: 24.754, europe: true },
+  { name: "Riga", aliases: ["riga"], lat: 56.949, lng: 24.105, europe: true },
+  { name: "Vilnius", aliases: ["vilnius"], lat: 54.687, lng: 25.28, europe: true },
+  { name: "La Valette", aliases: ["valette", "valletta", "malte"], lat: 35.899, lng: 14.514, europe: true },
+  { name: "Nicosie", aliases: ["nicosie", "nicosia"], lat: 35.185, lng: 33.382, europe: true },
+  { name: "Vaduz", aliases: ["vaduz"], lat: 47.141, lng: 9.521, europe: true },
 ];
 
 export const FORFAITS_DISPLAY = CITIES.filter((c) => c.forfaitFromQuimper).map((c) => ({
@@ -80,6 +139,37 @@ export const EUROPE_DISPLAY = [
   { name: "Milan", prix: 1450 },
   { name: "Munich", prix: 1450 },
   { name: "Londres", prix: 1290 },
+  { name: "Monaco", prix: 1180 },
+  { name: "Varsovie", prix: 1650 },
+  { name: "Belgrade", prix: 1750 },
+  { name: "Lisbonne", prix: 1380 },
+  { name: "Porto", prix: 1280 },
+  { name: "Vienne", prix: 1480 },
+  { name: "Prague", prix: 1520 },
+  { name: "Zagreb", prix: 1580 },
+  { name: "Dublin", prix: 1420 },
+  { name: "Copenhague", prix: 1550 },
+  { name: "Budapest", prix: 1600 },
+  { name: "Andorre", prix: 980 },
+  { name: "Ljubljana", prix: 1520 },
+  { name: "Bratislava", prix: 1500 },
+  { name: "Athènes", prix: 1980 },
+  { name: "Stockholm", prix: 1850 },
+  { name: "Oslo", prix: 1880 },
+  { name: "Bucarest", prix: 1820 },
+  { name: "Valence", prix: 1320 },
+  { name: "Helsinki", prix: 1950 },
+  { name: "Sofia", prix: 1750 },
+  { name: "Tirana", prix: 1780 },
+  { name: "Podgorica", prix: 1720 },
+  { name: "Sarajevo", prix: 1680 },
+  { name: "Skopje", prix: 1760 },
+  { name: "Tallinn", prix: 1900 },
+  { name: "Riga", prix: 1850 },
+  { name: "Vilnius", prix: 1800 },
+  { name: "La Valette", prix: 2100 },
+  { name: "Nicosie", prix: 2200 },
+  { name: "Vaduz", prix: 1280 },
 ];
 
 function norm(s: string) {
@@ -131,6 +221,8 @@ export type QuoteInput = {
   lavage: "aucun" | "exterieur" | "complet";
   miseEnMain: boolean;
   rechargeVe: boolean;
+  gps: boolean;
+  securite: boolean;
 };
 
 export type QuoteResult = {
@@ -209,6 +301,8 @@ export function computeQuote(input: QuoteInput): QuoteResult {
   if (input.lavage === "complet") options += OPTIONS.lavageComplet;
   if (input.miseEnMain) options += OPTIONS.miseEnMain;
   if (input.rechargeVe || input.vehicle === "ve") options += OPTIONS.rechargeVe;
+  if (input.gps) options += OPTIONS.gps;
+  if (input.securite) options += OPTIONS.securite;
 
   const total = Math.max(MINIMUM_LOCAL, base + options);
 

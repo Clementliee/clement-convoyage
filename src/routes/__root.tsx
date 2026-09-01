@@ -16,7 +16,7 @@ export const Route = createRootRoute({
       {
         name: "description",
         content:
-          "Convoyage de véhicules depuis Quimper. Livraison France et Europe, nettoyage, EDL photo. Devis sous 2 h.",
+          "Convoyage de véhicules depuis Quimper. France et Europe, GPS, protocole sécurité, EDL photo. Devis après coordonnées.",
       },
       { name: "theme-color", content: "#f5f5f7" },
     ],

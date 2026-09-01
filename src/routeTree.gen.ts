@@ -16,12 +16,15 @@ import { Route as AvisRouteImport } from './routes/avis'
 import { Route as CgvRouteImport } from './routes/cgv'
 import { Route as ConfidentialiteRouteImport } from './routes/confidentialite'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DestinationsRouteImport } from './routes/destinations'
 import { Route as LivraisonEuropeRouteImport } from './routes/livraison-europe'
 import { Route as LivraisonVehiculeRouteImport } from './routes/livraison-vehicule'
 import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
 import { Route as NettoyageVehiculeRouteImport } from './routes/nettoyage-vehicule'
 import { Route as PrestationsRouteImport } from './routes/prestations'
+import { Route as SecuriteVehiculeRouteImport } from './routes/securite-vehicule'
 import { Route as SimulateurRouteImport } from './routes/simulateur'
+import { Route as TraqueurGpsRouteImport } from './routes/traqueur-gps'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -58,6 +61,11 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DestinationsRoute = DestinationsRouteImport.update({
+  id: '/destinations',
+  path: '/destinations',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LivraisonEuropeRoute = LivraisonEuropeRouteImport.update({
   id: '/livraison-europe',
   path: '/livraison-europe',
@@ -83,9 +91,19 @@ const PrestationsRoute = PrestationsRouteImport.update({
   path: '/prestations',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SecuriteVehiculeRoute = SecuriteVehiculeRouteImport.update({
+  id: '/securite-vehicule',
+  path: '/securite-vehicule',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SimulateurRoute = SimulateurRouteImport.update({
   id: '/simulateur',
   path: '/simulateur',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TraqueurGpsRoute = TraqueurGpsRouteImport.update({
+  id: '/traqueur-gps',
+  path: '/traqueur-gps',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -97,12 +115,15 @@ export interface FileRoutesByFullPath {
   '/cgv': typeof CgvRoute
   '/confidentialite': typeof ConfidentialiteRoute
   '/contact': typeof ContactRoute
+  '/destinations': typeof DestinationsRoute
   '/livraison-europe': typeof LivraisonEuropeRoute
   '/livraison-vehicule': typeof LivraisonVehiculeRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/nettoyage-vehicule': typeof NettoyageVehiculeRoute
   '/prestations': typeof PrestationsRoute
+  '/securite-vehicule': typeof SecuriteVehiculeRoute
   '/simulateur': typeof SimulateurRoute
+  '/traqueur-gps': typeof TraqueurGpsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -112,12 +133,15 @@ export interface FileRoutesByTo {
   '/cgv': typeof CgvRoute
   '/confidentialite': typeof ConfidentialiteRoute
   '/contact': typeof ContactRoute
+  '/destinations': typeof DestinationsRoute
   '/livraison-europe': typeof LivraisonEuropeRoute
   '/livraison-vehicule': typeof LivraisonVehiculeRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/nettoyage-vehicule': typeof NettoyageVehiculeRoute
   '/prestations': typeof PrestationsRoute
+  '/securite-vehicule': typeof SecuriteVehiculeRoute
   '/simulateur': typeof SimulateurRoute
+  '/traqueur-gps': typeof TraqueurGpsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -128,12 +152,15 @@ export interface FileRoutesById {
   '/cgv': typeof CgvRoute
   '/confidentialite': typeof ConfidentialiteRoute
   '/contact': typeof ContactRoute
+  '/destinations': typeof DestinationsRoute
   '/livraison-europe': typeof LivraisonEuropeRoute
   '/livraison-vehicule': typeof LivraisonVehiculeRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/nettoyage-vehicule': typeof NettoyageVehiculeRoute
   '/prestations': typeof PrestationsRoute
+  '/securite-vehicule': typeof SecuriteVehiculeRoute
   '/simulateur': typeof SimulateurRoute
+  '/traqueur-gps': typeof TraqueurGpsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -145,12 +172,15 @@ export interface FileRouteTypes {
     | '/cgv'
     | '/confidentialite'
     | '/contact'
+    | '/destinations'
     | '/livraison-europe'
     | '/livraison-vehicule'
     | '/mentions-legales'
     | '/nettoyage-vehicule'
     | '/prestations'
+    | '/securite-vehicule'
     | '/simulateur'
+    | '/traqueur-gps'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -160,12 +190,15 @@ export interface FileRouteTypes {
     | '/cgv'
     | '/confidentialite'
     | '/contact'
+    | '/destinations'
     | '/livraison-europe'
     | '/livraison-vehicule'
     | '/mentions-legales'
     | '/nettoyage-vehicule'
     | '/prestations'
+    | '/securite-vehicule'
     | '/simulateur'
+    | '/traqueur-gps'
   id:
     | '__root__'
     | '/'
@@ -175,12 +208,15 @@ export interface FileRouteTypes {
     | '/cgv'
     | '/confidentialite'
     | '/contact'
+    | '/destinations'
     | '/livraison-europe'
     | '/livraison-vehicule'
     | '/mentions-legales'
     | '/nettoyage-vehicule'
     | '/prestations'
+    | '/securite-vehicule'
     | '/simulateur'
+    | '/traqueur-gps'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -191,12 +227,15 @@ export interface RootRouteChildren {
   CgvRoute: typeof CgvRoute
   ConfidentialiteRoute: typeof ConfidentialiteRoute
   ContactRoute: typeof ContactRoute
+  DestinationsRoute: typeof DestinationsRoute
   LivraisonEuropeRoute: typeof LivraisonEuropeRoute
   LivraisonVehiculeRoute: typeof LivraisonVehiculeRoute
   MentionsLegalesRoute: typeof MentionsLegalesRoute
   NettoyageVehiculeRoute: typeof NettoyageVehiculeRoute
   PrestationsRoute: typeof PrestationsRoute
+  SecuriteVehiculeRoute: typeof SecuriteVehiculeRoute
   SimulateurRoute: typeof SimulateurRoute
+  TraqueurGpsRoute: typeof TraqueurGpsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -250,6 +289,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/destinations': {
+      id: '/destinations'
+      path: '/destinations'
+      fullPath: '/destinations'
+      preLoaderRoute: typeof DestinationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/livraison-europe': {
       id: '/livraison-europe'
       path: '/livraison-europe'
@@ -285,11 +331,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrestationsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/securite-vehicule': {
+      id: '/securite-vehicule'
+      path: '/securite-vehicule'
+      fullPath: '/securite-vehicule'
+      preLoaderRoute: typeof SecuriteVehiculeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/simulateur': {
       id: '/simulateur'
       path: '/simulateur'
       fullPath: '/simulateur'
       preLoaderRoute: typeof SimulateurRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/traqueur-gps': {
+      id: '/traqueur-gps'
+      path: '/traqueur-gps'
+      fullPath: '/traqueur-gps'
+      preLoaderRoute: typeof TraqueurGpsRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -303,12 +363,15 @@ const rootRouteChildren: RootRouteChildren = {
   CgvRoute: CgvRoute,
   ConfidentialiteRoute: ConfidentialiteRoute,
   ContactRoute: ContactRoute,
+  DestinationsRoute: DestinationsRoute,
   LivraisonEuropeRoute: LivraisonEuropeRoute,
   LivraisonVehiculeRoute: LivraisonVehiculeRoute,
   MentionsLegalesRoute: MentionsLegalesRoute,
   NettoyageVehiculeRoute: NettoyageVehiculeRoute,
   PrestationsRoute: PrestationsRoute,
+  SecuriteVehiculeRoute: SecuriteVehiculeRoute,
   SimulateurRoute: SimulateurRoute,
+  TraqueurGpsRoute: TraqueurGpsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
