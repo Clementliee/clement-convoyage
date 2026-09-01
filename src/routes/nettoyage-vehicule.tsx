@@ -22,18 +22,18 @@ function Page() {
         kicker="Nettoyage"
         title="Remis comme en"
         accent="concession."
-        text="Le véhicule arrive propre. Pas « à peu près ». Tarif intégré à la fourchette, jamais en vitrine."
+        text="Nettoyage intérieur et extérieur, 45 €. Mise en main offerte à chaque fois."
         image="/images/03_nettoyage.jpg"
         alt="Nettoyage professionnel d’une berline blanche"
       />
       <section className="mx-auto grid max-w-6xl gap-6 px-5 pb-16 sm:grid-cols-2 sm:px-8 lg:grid-cols-3">
         {[
-          ["Lavage extérieur", "Carrosserie, jantes, vitres. Pour une remise nette."],
-          ["Intérieur + extérieur", "Habitacle, plastiques, tapis. Standard concession."],
-          ["Plein à la remise", "Le client reçoit un véhicule avec du carburant. Facturé au réel, forfait dans la fourchette."],
-          ["Mise en main", "Offerte à chaque remise. 20 à 30 min : commandes, options, charge VE."],
+          ["Nettoyage intérieur et extérieur, 45 €", "Carrosserie, habitacle, vitres. Un seul nettoyage, le complet."],
+          ["Mise en main, offerte", "À chaque remise. 20 à 30 min : commandes, options, charge."],
+          ["Plein à la remise, 65 €", "Le carburant est repris au réel, en plus du forfait."],
+          ["Traqueur GPS, 5 €", "Pour l’acheteur. Une balise laissée dans le véhicule."],
           ["Recharge VE", "Niveau convenu, plan de bornes sur le trajet."],
-          ["Contrôle visuel", "20 points. Ce n’est pas une expertise. Photos sur l’EDL."],
+          ["Contrôle visuel, 49 €", "20 points, photos. Ce n’est pas une expertise."],
         ].map(([t, p]) => (
           <div key={t} className="rounded-2xl border border-line bg-surface p-5">
             <p className="font-display text-lg text-navy">{t}</p>

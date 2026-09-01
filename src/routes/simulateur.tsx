@@ -28,7 +28,7 @@ function Page() {
         kicker="Simulateur"
         title="Le prix, une fois"
         accent="vos coordonnées."
-        text="Chaque véhicule est unique. Gabarit, motorisation, assurance, préparation. Nom, téléphone et e-mail, puis fourchette, PDF et confirmation sous 2 h ouvrées."
+        text="Livraison, nettoyage, GPS pour l’acheteur. Les options ont un prix affiché. Le tarif final de la livraison s’affiche après nom, téléphone et e-mail."
       />
       <section className="mx-auto max-w-5xl px-5 pb-24 sm:px-8">
         <Simulator initialFrom={from ?? "Quimper"} initialTo={to ?? ""} />

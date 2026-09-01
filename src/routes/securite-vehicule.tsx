@@ -1,114 +1,44 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { CtaBar } from "@/components/CtaBar";
-import { Faq } from "@/components/Faq";
-import { FaqJsonLd } from "@/components/JsonLd";
 import { PageHero } from "@/components/PageHero";
 import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/securite-vehicule")({
   head: () =>
     pageHead({
-      title: "Sécurité du véhicule convoyé. Protocole Convoyage BZH",
+      title: "Photos du véhicule, clés en main. Convoyage BZH",
       description:
-        "Protocole sécurité convoyage. État des lieux photo, clés sous scellé, traqueur GPS, gestion de crise. Standard concession, base Quimper.",
+        "On photographie le véhicule au départ et à l’arrivée. Les clés sont remises en main propre. Mise en main offerte. Quimper.",
       path: "/securite-vehicule",
       image: "/images/08_securite.jpg",
     }),
   component: Page,
 });
 
-const FAQ = [
-  {
-    q: "Qu’est-ce qui est toujours inclus ?",
-    a: "L’état des lieux photo horodaté, un interlocuteur unique, un compte-rendu. Le scellé et le GPS se cochent.",
-  },
-  {
-    q: "Que se passe-t-il en cas d’incident ?",
-    a: "Ordre fixe : sécuriser, documenter, prévenir, décider. Issu de la gestion de crise en réseau premium. Pas d’improvisation au bord de l’autoroute.",
-  },
-  {
-    q: "Le protocole a-t-il un tarif affiché ?",
-    a: "Non. Il entre dans la fourchette après vos coordonnées, à confirmer avec un professionnel.",
-  },
-];
-
 function Page() {
   return (
     <main>
       <PageHero
-        kicker="Sécurité"
-        title="Le véhicule n’est pas"
-        accent="un colis."
-        text="Clés, documents, carrosserie, trajet : un protocole. Pas une promesse."
+        kicker="Inclus"
+        title="Des photos, des clés."
+        accent="Rien de plus compliqué."
+        text="On photographie le véhicule au départ et à l’arrivée. On remet les clés à la bonne personne. La mise en main est offerte."
         image="/images/08_securite.jpg"
-        alt="Clés sous scellé et état des lieux photo lors d’une remise"
+        alt="Remise des clés d’un véhicule"
       />
-      <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
-        <div className="grid gap-6 md:grid-cols-3">
-          {[
-            {
-              t: "Preuve",
-              d: "État des lieux photo horodaté au départ et à l’arrivée. Compteur, carrosserie, intérieur, documents. Le client reçoit le jeu.",
-            },
-            {
-              t: "Scellé",
-              d: "Clés sous pochette numérotée quand la mission le justifie. Double des documents sous pli. Rien ne « circule ».",
-            },
-            {
-              t: "Suivi",
-              d: "Option traqueur GPS. Points de contrôle. Un interlocuteur unique, joignable tous les jours, astreinte 24 h pour les professionnels.",
-            },
-          ].map((b) => (
-            <div key={b.t} className="rounded-[1.6rem] border border-line bg-surface p-6">
-              <p className="font-display text-xl text-navy">{b.t}</p>
-              <p className="mt-3 text-sm leading-relaxed text-muted">{b.d}</p>
-            </div>
-          ))}
-        </div>
-        <div className="mt-12 grid items-center gap-10 lg:grid-cols-2">
-          <img
-            src="/images/08_securite.jpg"
-            alt="Protocole de remise sécurisé"
-            className="tilt-hover rounded-[1.6rem] object-cover"
-          />
-          <div className="space-y-4 text-muted leading-relaxed">
-            <h2 className="font-display text-2xl tracking-tight text-navy">Gestion de crise</h2>
-            <p>
-              Incident de parcours, véhicule immobilisé, client absent, météo, document manquant,
-              contrôle : il y a un ordre. On n’invente pas au bord de l’autoroute.
-            </p>
-            <p>
-              C’est le même réflexe qu’en réseau DS, Renault ou Mercedes-Benz : escalade, faits,
-              photos, prochaine action. Le prestige n’excuse pas le flou. Il l’interdit.
-            </p>
-            <p>
-              Le protocole sécurité se coche au simulateur. Il entre dans la fourchette, jamais en
-              vitrine tarifaire.
-            </p>
-            <Link to="/traqueur-gps" className="inline-flex font-semibold text-coral">
-              Voir le traqueur GPS
-            </Link>
-          </div>
-        </div>
-        <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            ["01", "Avant", "Documents, assurance, niveau, pneus. Refus si non-roulant."],
-            ["02", "Prise", "EDL photo, scellé si coché, GPS si coché, départ horodaté."],
-            ["03", "Route", "Conduite, points de contrôle, un seul interlocuteur."],
-            ["04", "Remise", "Photos, clés, compte-rendu. Fin de mission, pas un parking."],
-          ].map(([n, t, d]) => (
-            <li key={n} className="rounded-[1.4rem] bg-sand p-5">
-              <p className="font-display text-sm text-coral">{n}</p>
-              <p className="mt-1 font-display text-lg text-navy">{t}</p>
-              <p className="mt-2 text-sm text-muted">{d}</p>
-            </li>
-          ))}
-        </ol>
-      </section>
-      <section className="mx-auto max-w-3xl px-4 pb-16 sm:px-6">
-        <h2 className="mb-4 font-display text-2xl text-navy">Questions</h2>
-        <Faq items={FAQ} />
-        <FaqJsonLd items={FAQ} />
+      <section className="mx-auto max-w-3xl space-y-5 px-5 pb-16 text-lg leading-relaxed text-muted sm:px-8">
+        <p>
+          Pas de sigle, pas de protocole à décoder. On prend des photos pour que personne ne discute d’une rayure. On ne laisse pas les clés sur un pneu.
+        </p>
+        <p>
+          Si quelque chose coince en route, on prévient. C’est tout.
+        </p>
+        <p>
+          Le traqueur GPS n’est pas ça. C’est une option à 5 €, pour l’acheteur, laissée dans sa voiture.
+        </p>
+        <Link to="/simulateur" className="inline-flex font-semibold text-coral">
+          Estimer une livraison
+        </Link>
       </section>
       <CtaBar />
     </main>

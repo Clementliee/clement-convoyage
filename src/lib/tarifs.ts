@@ -17,7 +17,7 @@ export const OPTIONS = {
   dimanchePct: 0.4,
   utilitairePct: 0.15,
   prestigePct: 0.2,
-  gps: 120,
+  gps: 5,
   securite: 75,
   plein: 65,
   controleVisuel: 49,
@@ -337,39 +337,22 @@ export function computeQuote(input: QuoteInput): QuoteResult {
 
   let options = 0;
   const packed = input.pack !== "aucun";
-  const formulaOn = input.formula !== "aucun";
 
   if (input.pack === "essentiel") options += OPTIONS.packEssentiel;
   else if (input.pack === "confort") options += OPTIONS.packConfort;
   else if (input.pack === "premium") options += OPTIONS.packPremium;
 
-  if (input.formula === "standard" || input.formula === "premium") {
-    options += OPTIONS.gps + OPTIONS.securite;
-  } else {
-    if (input.gps) options += OPTIONS.gps;
-    if (input.securite) options += OPTIONS.securite;
-  }
-
   const washInPack = input.pack === "confort" || input.pack === "premium";
-  const washInFormula = input.formula === "premium";
-  if (!washInPack && !washInFormula) {
-    if (input.lavage === "exterieur") options += OPTIONS.lavageExterieur;
-    if (input.lavage === "complet") options += OPTIONS.lavageComplet;
+  if (!washInPack && (input.lavage === "complet" || input.lavage === "exterieur")) {
+    options += OPTIONS.lavageComplet;
   }
 
-  const controlInPack = packed;
-  if (input.controleVisuel && !controlInPack) options += OPTIONS.controleVisuel;
-
+  if (input.controleVisuel && !packed) options += OPTIONS.controleVisuel;
   if (input.rechargeVe || input.vehicle === "ve") options += OPTIONS.rechargeVe;
+  if (input.gps) options += OPTIONS.gps;
   if (input.plein) options += OPTIONS.plein;
-
-  if (input.formula === "premium") {
-    options += input.coffret === "champagne" ? OPTIONS.coffretChampagne : OPTIONS.coffretArmor;
-  } else {
-    if (input.coffret === "armor") options += OPTIONS.coffretArmor;
-    if (input.coffret === "champagne") options += OPTIONS.coffretChampagne;
-  }
-
+  if (input.coffret === "armor") options += OPTIONS.coffretArmor;
+  if (input.coffret === "champagne") options += OPTIONS.coffretChampagne;
   if (input.kitBienvenue && input.pack !== "premium") options += OPTIONS.kitBienvenue;
 
   const total = Math.max(MINIMUM_LOCAL, base + options);

@@ -5,13 +5,14 @@ import { Button } from "@/components/ui/button";
 import {
   CITIES,
   computeQuote,
-  type FormulaKind,
+  OPTIONS,
   type PackKind,
   type QuoteInput,
   type VehicleKind,
   type WhenKind,
   type ZoneKind,
 } from "@/lib/tarifs";
+import { formatEuro } from "@/lib/utils";
 
 const STEPS = [
   "Qui commande ?",
@@ -42,7 +43,7 @@ export function Simulator({ initialFrom = "", initialTo = "" }: { initialFrom?: 
     coffret: "aucun",
     pack: "aucun",
     kitBienvenue: false,
-    formula: "standard",
+    formula: "aucun",
   });
   const [kmManual, setKmManual] = useState("");
 
@@ -111,7 +112,7 @@ export function Simulator({ initialFrom = "", initialTo = "" }: { initialFrom?: 
           options={[
             { v: "vp", l: "Véhicule particulier", h: "Berline, SUV, citadine" },
             { v: "utilitaire", l: "Utilitaire, van", h: "Permis B, jusqu’à 3,5 t" },
-            { v: "prestige", l: "Prestige", h: "Protocole renforcé" },
+            { v: "prestige", l: "Prestige", h: "Berline, sportive" },
             { v: "ve", l: "Véhicule électrique", h: "Plan de recharge" },
           ]}
           onPick={(v) => {
@@ -166,125 +167,58 @@ export function Simulator({ initialFrom = "", initialTo = "" }: { initialFrom?: 
       )}
       {step === 6 && (
         <div className="space-y-10">
-          <p className="rounded-[1.4rem] bg-sand px-5 py-4 text-sm leading-relaxed text-navy">
-            Déjà inclus dans chaque mission : conduite, carburant, péages, retour, état des lieux photo, clés, mise en main offerte. La formule ajoute le niveau de sécurité et de remise.
-          </p>
-          <OptionGroup title="Formule">
+          <div className="rounded-[1.4rem] bg-sand px-5 py-5 text-sm leading-relaxed text-navy">
+            <p className="font-display text-xl">La livraison, toujours.</p>
+            <p className="mt-2">
+              Conduite, carburant, péages, retour, photos du véhicule au départ et à l’arrivée, clés.
+            </p>
+            <p className="mt-3 font-semibold text-coral">Mise en main : offerte.</p>
+            <p className="mt-2 text-muted">
+              On prend 20 à 30 minutes à l’arrivée pour expliquer les commandes, les aides, la charge. C’est inclus, à chaque fois.
+            </p>
+          </div>
+          <OptionGroup title="Vous ajoutez, prix affiché">
             <div className="grid gap-3 sm:grid-cols-2">
               <Toggle
-                label="Formule Standard"
-                text="Sécurité, traqueur GPS, EDL. Mise en main offerte."
-                image="/images/08_securite.jpg"
-                on={input.formula === "standard"}
-                onClick={() =>
-                  setInput((s) => ({
-                    ...s,
-                    formula: "standard" as FormulaKind,
-                    gps: true,
-                    securite: true,
-                  }))
-                }
-              />
-              <Toggle
-                label="Formule Premium VIP"
-                text="Standard, lavage complet, mise en main experte, coffret."
-                image="/images/09_coffret_armor.jpg"
-                on={input.formula === "premium"}
-                onClick={() =>
-                  setInput((s) => ({
-                    ...s,
-                    formula: "premium" as FormulaKind,
-                    gps: true,
-                    securite: true,
-                    lavage: "complet",
-                    coffret: s.coffret === "champagne" ? "champagne" : "armor",
-                  }))
-                }
-              />
-            </div>
-          </OptionGroup>
-          <OptionGroup title="Pack mise à la route">
-            <div className="grid gap-3 sm:grid-cols-3">
-              {(
-                [
-                  { v: "essentiel", l: "Essentiel", h: "Niveaux, pneus, contrôle visuel." },
-                  { v: "confort", l: "Confort", h: "Essentiel et nettoyage complet." },
-                  { v: "premium", l: "Premium", h: "Confort, kit, dossier photo." },
-                ] as const
-              ).map((p) => (
-                <Toggle
-                  key={p.v}
-                  label={p.l}
-                  text={p.h}
-                  on={input.pack === p.v}
-                  onClick={() =>
-                    setInput((s) => ({
-                      ...s,
-                      pack: s.pack === p.v ? "aucun" : (p.v as PackKind),
-                      controleVisuel: s.pack === p.v ? s.controleVisuel : true,
-                    }))
-                  }
-                />
-              ))}
-            </div>
-          </OptionGroup>
-          <OptionGroup title="Options additionnelles">
-            <div className="grid gap-3 sm:grid-cols-2">
-              <Toggle
-                label="Inspection, contrôle visuel"
-                text="Vingt points, photos. Ce n’est pas une expertise."
-                image="/images/06_etat_des_lieux.jpg"
-                on={input.controleVisuel}
-                onClick={() => setInput((s) => ({ ...s, controleVisuel: !s.controleVisuel }))}
-              />
-              <Toggle
-                label="Restitution propre"
-                text="Lavage intérieur et extérieur avant remise."
+                label="Nettoyage intérieur et extérieur"
+                text="Le véhicule arrive propre. Pas seulement un coup d’eau dehors."
+                price={formatEuro(OPTIONS.lavageComplet)}
                 image="/images/03_nettoyage.jpg"
-                on={input.lavage === "complet" || input.formula === "premium"}
-                onClick={() =>
-                  setInput((s) => ({
-                    ...s,
-                    lavage: s.lavage === "complet" && s.formula !== "premium" ? "aucun" : "complet",
-                  }))
-                }
+                on={input.lavage === "complet"}
+                onClick={() => setInput((s) => ({ ...s, lavage: s.lavage === "complet" ? "aucun" : "complet" }))}
               />
               <Toggle
-                label="Suivi GPS temps réel"
-                text="Balise le temps de la mission. Inclus dans les formules."
+                label="Traqueur GPS pour l’acheteur"
+                text="Une balise laissée dans le véhicule. C’est lui qui la garde, pour retrouver sa voiture."
+                price={formatEuro(OPTIONS.gps)}
                 image="/images/07_gps.jpg"
-                on={input.gps || input.formula !== "aucun"}
-                onClick={() =>
-                  setInput((s) =>
-                    s.formula !== "aucun"
-                      ? s
-                      : { ...s, gps: !s.gps },
-                  )
-                }
+                on={input.gps}
+                onClick={() => setInput((s) => ({ ...s, gps: !s.gps }))}
               />
               <Toggle
                 label="Plein à la remise"
-                text="Réservoir fait. Carburant au réel."
+                text="Réservoir fait. Le carburant est repris au réel, en plus."
+                price={formatEuro(OPTIONS.plein)}
                 image="/images/11_plein.jpg"
                 on={input.plein}
                 onClick={() => setInput((s) => ({ ...s, plein: !s.plein }))}
               />
+              <Toggle
+                label="Contrôle visuel, 20 points"
+                text="Photos. Un regard, pas une expertise."
+                price={formatEuro(OPTIONS.controleVisuel)}
+                image="/images/06_etat_des_lieux.jpg"
+                on={input.controleVisuel}
+                onClick={() => setInput((s) => ({ ...s, controleVisuel: !s.controleVisuel }))}
+              />
             </div>
           </OptionGroup>
-          <OptionGroup title="Véhicule électrique">
-            <Toggle
-              label="Recharge VE"
-              text="Niveau de batterie convenu à la remise."
-              image="/images/11_plein.jpg"
-              on={input.rechargeVe}
-              onClick={() => setInput((s) => ({ ...s, rechargeVe: !s.rechargeVe }))}
-            />
-          </OptionGroup>
-          <OptionGroup title="Cadeau à la remise. Un coffret.">
+          <OptionGroup title="Coffret, un seul">
             <div className="grid gap-3 sm:grid-cols-2">
               <Toggle
                 label="Coffret Armor"
                 text="Galettes, caramels, cidre."
+                price={formatEuro(OPTIONS.coffretArmor)}
                 image="/images/09_coffret_armor.jpg"
                 on={input.coffret === "armor"}
                 onClick={() => setInput((s) => ({ ...s, coffret: s.coffret === "armor" ? "aucun" : "armor" }))}
@@ -292,30 +226,47 @@ export function Simulator({ initialFrom = "", initialTo = "" }: { initialFrom?: 
               <Toggle
                 label="Coffret Champagne"
                 text="Brut et chocolats."
+                price={formatEuro(OPTIONS.coffretChampagne)}
                 image="/images/10_coffret_champagne.jpg"
                 on={input.coffret === "champagne"}
                 onClick={() => setInput((s) => ({ ...s, coffret: s.coffret === "champagne" ? "aucun" : "champagne" }))}
               />
-              <Toggle
-                label="Kit de bienvenue"
-                text="Eau, lingettes, microfibre, désodorisant."
-                on={input.kitBienvenue || input.pack === "premium"}
-                onClick={() => setInput((s) => ({ ...s, kitBienvenue: !s.kitBienvenue }))}
-              />
             </div>
           </OptionGroup>
-          <OptionGroup title="Véhicule (facultatif)">
-            <label className="block text-sm text-muted">
-              Marque et modèle
-              <input
-                value={input.model ?? ""}
-                onChange={(e) => setInput((s) => ({ ...s, model: e.target.value }))}
-                className="mt-2 w-full rounded-2xl border border-line bg-bg px-4 py-3.5 text-navy"
-                placeholder="exemple, Peugeot 308"
-                suppressHydrationWarning
-              />
-            </label>
+          <OptionGroup title="Pack mise à la route, si besoin">
+            <div className="grid gap-3 sm:grid-cols-3">
+              {(
+                [
+                  { v: "essentiel" as const, l: "Essentiel", h: "Pneus, niveaux, contrôle visuel.", p: OPTIONS.packEssentiel },
+                  { v: "confort" as const, l: "Confort", h: "Essentiel et nettoyage complet.", p: OPTIONS.packConfort },
+                  { v: "premium" as const, l: "Premium", h: "Confort et kit de bienvenue.", p: OPTIONS.packPremium },
+                ]
+              ).map((p) => (
+                <Toggle
+                  key={p.v}
+                  label={p.l}
+                  text={p.h}
+                  price={formatEuro(p.p)}
+                  on={input.pack === p.v}
+                  onClick={() =>
+                    setInput((s) => ({
+                      ...s,
+                      pack: s.pack === p.v ? "aucun" : (p.v as PackKind),
+                    }))
+                  }
+                />
+              ))}
+            </div>
           </OptionGroup>
+          <div className="rounded-[1.4rem] border border-line px-5 py-5">
+            <p className="text-sm text-muted">Mise en main</p>
+            <p className="font-display text-2xl text-coral">Offerte</p>
+            <p className="mt-4 text-sm text-muted">Options choisies</p>
+            <p className="font-display text-2xl text-navy">{formatEuro(quote.options)}</p>
+            <p className="mt-4 text-sm leading-relaxed text-muted">
+              La livraison se calcule selon le trajet. Le tarif final s’affiche après votre nom, téléphone et e-mail. Prix indicatif, à confirmer.
+            </p>
+          </div>
         </div>
       )}
 
@@ -345,7 +296,7 @@ export function Simulator({ initialFrom = "", initialTo = "" }: { initialFrom?: 
           </Button>
         ) : (
           <Button type="button" onClick={() => quote.ok && setGate(true)} disabled={!quote.ok}>
-            Préparer mon estimation
+            Voir le tarif final
           </Button>
         )}
       </div>
@@ -355,7 +306,7 @@ export function Simulator({ initialFrom = "", initialTo = "" }: { initialFrom?: 
       ) : null}
 
       <p className="mt-6 text-center text-xs leading-relaxed text-muted">
-        Le prix s’affiche après vos coordonnées. Fourchette indicative, à confirmer.{" "}
+        Cochez les options, les prix s’affichent. Le tarif final de la livraison vient après vos coordonnées.
         <Link to="/contact" className="text-coral">
           Contact
         </Link>
@@ -437,12 +388,14 @@ function Toggle({
   label,
   text,
   image,
+  price,
   on,
   onClick,
 }: {
   label: string;
   text: string;
   image?: string;
+  price?: string;
   on: boolean;
   onClick: () => void;
 }) {
@@ -456,9 +409,12 @@ function Toggle({
     >
       {image ? <img src={image} alt="" className="h-28 w-full object-cover" /> : null}
       <span className="block p-4">
-        <span className="block font-display text-lg text-navy">{label}</span>
+        <span className="flex items-start justify-between gap-3">
+          <span className="font-display text-lg text-navy">{label}</span>
+          {price ? <span className="shrink-0 text-sm font-semibold text-coral">{price}</span> : null}
+        </span>
         <span className="mt-1 block text-sm text-muted">{text}</span>
-        <span className="mt-3 block text-sm font-semibold text-coral">{on ? "Ajouté" : "Ajouter"}</span>
+        <span className="mt-3 block text-sm font-semibold text-navy">{on ? "Ajouté" : "Ajouter"}</span>
       </span>
     </button>
   );

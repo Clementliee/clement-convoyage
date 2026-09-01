@@ -37,6 +37,6 @@ SIRET : 894 337 120 00048
 SIREN : 894 337 120
 Enseigne : Convoyage BZH. Nom commercial : BZH3D. Micro-entreprise.
 
-GPS : suivi temporaire du véhicule pendant la mission, consentement, retrait à la remise. Pas de surveillance, pas de sécurité privée.
+GPS : option 5 € pour l’acheteur. Une balise laissée dans le véhicule. Pas un suivi du convoyeur.
 
 Pas d’avis inventés. Pas de numéro d’agrément inventé. Franchise TVA art. 293 B du CGI.

@@ -5,11 +5,6 @@ import { mailtoFallback, sendDevisLead } from "@/lib/send-devis";
 import { quoteRange, type QuoteInput, type QuoteResult } from "@/lib/tarifs";
 import { formatEuro } from "@/lib/utils";
 
-const EXTRAS: Record<string, string> = {
-  exterieur: "Lavage extérieur",
-  complet: "Lavage complet",
-};
-
 export function QuoteGate({
   quote,
   client,
@@ -21,20 +16,17 @@ export function QuoteGate({
 }) {
   const range = quoteRange(quote.total);
   const extras = [
-    input.formula === "standard" ? "Formule Standard" : "",
-    input.formula === "premium" ? "Formule Premium VIP" : "",
-    input.pack === "essentiel" ? "Pack Essentiel" : "",
-    input.pack === "confort" ? "Pack Confort" : "",
-    input.pack === "premium" ? "Pack Premium" : "",
-    input.lavage !== "aucun" && input.formula !== "premium" && input.pack === "aucun" ? EXTRAS[input.lavage] : "",
+    input.lavage === "complet" || input.pack === "confort" || input.pack === "premium" ? "Nettoyage intérieur et extérieur" : "",
+    input.gps ? "Traqueur GPS pour l’acheteur" : "",
     "Mise en main offerte",
     input.plein ? "Plein à la remise" : "",
     input.rechargeVe ? "Recharge VE" : "",
-    input.controleVisuel && input.pack === "aucun" ? "Inspection, contrôle visuel 20 points" : "",
-    input.gps || input.formula !== "aucun" ? "Suivi GPS temporaire" : "",
-    input.securite || input.formula !== "aucun" ? "Protocole sécurité, clés sous scellé" : "",
-    input.coffret === "champagne" ? "Coffret Champagne" : input.coffret === "armor" || input.formula === "premium" ? "Coffret Armor" : "",
+    input.controleVisuel || input.pack !== "aucun" ? "Contrôle visuel 20 points" : "",
+    input.coffret === "champagne" ? "Coffret Champagne" : input.coffret === "armor" ? "Coffret Armor" : "",
     input.kitBienvenue || input.pack === "premium" ? "Kit de bienvenue" : "",
+    input.pack === "essentiel" ? "Pack Essentiel" : "",
+    input.pack === "confort" ? "Pack Confort" : "",
+    input.pack === "premium" ? "Pack Premium" : "",
     input.model ? `Véhicule : ${input.model}` : "",
     input.vehicle === "prestige" ? "Prestige" : "",
     input.vehicle === "utilitaire" ? "Utilitaire" : "",
@@ -130,7 +122,7 @@ export function QuoteGate({
           </p>
           {revealed ? (
             <>
-              <p className="mt-8 text-sm text-surface/70">Fourchette indicative</p>
+              <p className="mt-8 text-sm text-surface/70">Tarif final, indicatif</p>
               <p className="mt-3 font-display text-4xl tracking-tight sm:text-5xl">
                 de {formatEuro(range.low)} à {formatEuro(range.high)}
               </p>

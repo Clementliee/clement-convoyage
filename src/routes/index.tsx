@@ -49,7 +49,7 @@ const FAQ = [
   },
   {
     q: "Quels services complémentaires ?",
-    a: "Packs mise à la route, nettoyage, plein, recharge VE, contrôle visuel, GPS temporaire, kit de bienvenue, coffrets Armor ou Champagne.",
+    a: "Nettoyage intérieur et extérieur (45 €), traqueur GPS pour l’acheteur (5 €), plein, contrôle visuel, coffrets. La mise en main est offerte.",
   },
   {
     q: "Proposez-vous du convoyage professionnel ?",
@@ -60,8 +60,8 @@ const FAQ = [
     a: "Non. Contrôle visuel de vingt points, photos. Ce n’est pas une expertise, ni un rapport opposable.",
   },
   {
-    q: "Le GPS est-il de la surveillance ?",
-    a: "Non. Suivi temporaire du véhicule pendant la mission, avec consentement, retiré à la remise. Pas de sécurité privée.",
+    q: "Le GPS, c’est pour suivre le convoyeur ?",
+    a: "Non. Option 5 € pour l’acheteur. Une balise laissée dans sa voiture. Vous cochez ou non.",
   },
 ];
 
@@ -141,10 +141,10 @@ function Home() {
 
       <section className="mx-auto mt-24 max-w-6xl px-5 sm:px-8">
         <Reveal>
-          <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Formules</p>
-          <h2 className="mt-4 font-display text-4xl text-navy">Standard ou Premium VIP.</h2>
+          <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">L’offre</p>
+          <h2 className="mt-4 font-display text-4xl text-navy">Livraison, puis vous ajoutez.</h2>
           <p className="mt-4 max-w-2xl text-lg text-muted">
-            Vous composez le convoyage. La formule fixe le niveau de remise. Le montant s’affiche après vos coordonnées.
+            La mise en main est offerte. Le nettoyage, le GPS pour l’acheteur, le plein : prix affichés, vous cochez ou non. Le tarif de la livraison vient après vos coordonnées.
           </p>
         </Reveal>
         <div className="mt-10 grid gap-6 lg:grid-cols-2">
@@ -158,7 +158,7 @@ function Home() {
                 ))}
               </ul>
               <Link to="/simulateur" className="mt-8 inline-flex text-sm font-semibold text-coral">
-                Choisir cette formule
+                Estimer
               </Link>
             </div>
           ))}

@@ -8,9 +8,9 @@ import { pageHead } from "@/lib/seo";
 export const Route = createFileRoute("/traqueur-gps")({
   head: () =>
     pageHead({
-      title: "Traqueur GPS convoyage. Pose le temps de la mission.",
+      title: "Traqueur GPS pour l’acheteur. 5 € à la livraison.",
       description:
-        "Traqueur GPS sur le véhicule convoyé. Pose discrète, suivi pendant la mission, retrait à la remise. Prestige, import, Europe.",
+        "Option 5 € : une balise GPS laissée dans le véhicule pour l’acheteur. Retrouver sa voiture, simplement. Convoyage BZH, Quimper.",
       path: "/traqueur-gps",
       image: "/images/07_gps.jpg",
     }),
@@ -19,16 +19,16 @@ export const Route = createFileRoute("/traqueur-gps")({
 
 const FAQ = [
   {
-    q: "Le GPS est-il obligatoire ?",
-    a: "Non. Fortement recommandé sur prestige, import, Pologne, Serbie, Royaume-Uni, Monaco. Cochez l’option au simulateur.",
-  },
-  {
-    q: "Le chauffeur est-il surveillé ?",
-    a: "Non. Le boîtier suit le véhicule, pas une personne. C’est une tenue de concession, pas un flicage.",
+    q: "C’est pour qui ?",
+    a: "Pour l’acheteur. La balise reste dans le véhicule. Ce n’est pas pour suivre le convoyeur pendant la route.",
   },
   {
     q: "Combien ça coûte ?",
-    a: "Le montant n’est pas affiché. Il entre dans la fourchette après vos coordonnées, à confirmer avec un professionnel.",
+    a: "5 €, affichés. Vous cochez ou non dans le simulateur.",
+  },
+  {
+    q: "C’est obligatoire ?",
+    a: "Non. Une option, comme le nettoyage.",
   },
 ];
 
@@ -36,70 +36,35 @@ function Page() {
   return (
     <main>
       <PageHero
-        kicker="Complément"
-        title="Savoir où il est."
-        accent="Sans en faire un spectacle."
-        text="Un boîtier discret, le temps de la mission. Pas un gadget. Une tenue."
+        kicker="Option, 5 €"
+        title="Un GPS pour l’acheteur."
+        accent="Pas pour nous."
+        text="Si le client veut un système simple dans sa voiture, on pose une balise à la remise. Il la garde."
         image="/images/07_gps.jpg"
-        alt="Pose discrète d’un traqueur GPS sous un véhicule premium"
+        alt="Balise GPS posée dans un véhicule"
       />
       <section className="mx-auto grid max-w-6xl gap-12 px-4 pb-16 sm:px-6 lg:grid-cols-2">
-        <div className="space-y-4 text-muted leading-relaxed">
+        <div className="space-y-4 text-lg leading-relaxed text-muted">
           <p>
-            Sur un véhicule de valeur, un import, un trajet Europe, le client ne devrait pas
-            attendre un SMS « on est arrivés ». Le traqueur GPS est une option : pose au départ,
-            suivi pendant le convoyage, retrait à la remise. ou conservation si vous le souhaitez.
+            L’idée est simple. L’acheteur reçoit sa voiture, et s’il le souhaite, une petite balise GPS reste dedans. Pour la retrouver en cas de vol, ou simplement savoir où elle est.
           </p>
           <p>
-            Ce n’est pas de la surveillance de chauffeur. C’est la même exigence qu’une concession
-            qui sait où est sa démonstration. Clément vient des réseaux DS Automobiles, Renault et
-            Mercedes-Benz : on documente, on ne raconte pas.
+            Ce n’est pas un suivi du trajet de convoyage. On ne flique personne. On laisse un outil à celui qui paie le véhicule.
           </p>
-          <div className="space-y-4">
-            {[
-              "Pose discrète, sans percer, sans laisser de trace.",
-              "Activation le temps de la mission.",
-              "Retrait à la remise, avec l’état des lieux photo.",
-              "Recommandé : prestige, import, Pologne, Serbie, Royaume-Uni, Monaco.",
-            ].map((i) => (
-              <p key={i} className="text-muted">
-                {i}
-              </p>
-            ))}
-          </div>
-          <p className="text-sm">
-            Le montant n’est pas affiché ici. Cochez l’option dans le simulateur : elle entre dans
-            la fourchette, à confirmer.
-          </p>
+          <p className="font-display text-2xl text-navy">5 €</p>
+          <p>Prix affiché. Vous cochez l’option, ou non. La mise en main reste offerte.</p>
           <Link to="/simulateur" className="inline-flex font-semibold text-coral">
             Ajouter le GPS à une estimation
           </Link>
         </div>
-        <img
-          src="/images/07_gps.jpg"
-          alt="Installation d’un traqueur GPS"
-          className="tilt-hover rounded-[1.6rem] object-cover"
-        />
+        <img src="/images/07_gps.jpg" alt="Balise GPS" className="h-80 w-full rounded-[1.8rem] object-cover" />
       </section>
-      <section className="mx-auto grid max-w-6xl gap-4 px-4 pb-16 sm:grid-cols-3 sm:px-6">
-        {[
-          ["01", "Pose", "Au départ, avec l’état des lieux. Emplacement discret, test de signal."],
-          ["02", "Mission", "Le véhicule est localisable. Points de contrôle si le protocole sécurité est coché."],
-          ["03", "Retrait", "À la remise, mentionné sur le compte-rendu. Sauf demande écrite de conservation."],
-        ].map(([n, t, d]) => (
-          <div key={n} className="rounded-[1.6rem] border border-line bg-surface p-6">
-            <p className="font-display text-sm text-coral">{n}</p>
-            <p className="mt-2 font-display text-xl text-navy">{t}</p>
-            <p className="mt-2 text-sm leading-relaxed text-muted">{d}</p>
-          </div>
-        ))}
-      </section>
-      <section className="mx-auto max-w-3xl px-4 pb-16 sm:px-6">
-        <h2 className="mb-4 font-display text-2xl text-navy">Questions</h2>
+      <section className="mx-auto max-w-3xl px-5 pb-16 sm:px-8">
+        <h2 className="mb-6 font-display text-3xl text-navy">Questions</h2>
         <Faq items={FAQ} />
         <FaqJsonLd items={FAQ} />
       </section>
-      <CtaBar title="Mission sensible ?" text="GPS + protocole sécurité. Fourchette après vos coordonnées." />
+      <CtaBar />
     </main>
   );
 }

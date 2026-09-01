@@ -117,25 +117,26 @@ export const B2B_CASES = [
 export const FORMULAS = [
   {
     id: "standard" as const,
-    name: "Formule Standard",
-    tag: "Sécurité, traçabilité",
+    name: "Livraison",
+    tag: "Toujours",
     items: [
-      "Convoyage en conduite soignée",
-      "État des lieux photo haute définition",
-      "Clés sous scellé",
-      "Suivi GPS le temps du trajet",
+      "Le véhicule va de A à B",
+      "Photos au départ et à l’arrivée",
+      "Carburant, péages, retour du convoyeur",
+      "Clés en main propre",
       "Mise en main offerte",
     ],
   },
   {
     id: "premium" as const,
-    name: "Formule Premium VIP",
-    tag: "Remise complète",
+    name: "Livraison préparée",
+    tag: "Vous ajoutez",
     items: [
-      "Tout le Standard",
-      "Lavage extérieur et finition intérieure",
-      "Mise en main complète, jumelage, aides à la conduite",
-      "Coffret de bienvenue remis avec les clés",
+      "Tout de la livraison",
+      "Nettoyage intérieur et extérieur, 45 €",
+      "Traqueur GPS pour l’acheteur, 5 €, en option",
+      "Coffret, plein, pack, si vous voulez",
+      "Mise en main offerte",
     ],
   },
 ] as const;
@@ -157,20 +158,20 @@ export const B2B_OFFERS = [
 
 export const SECURITY = [
   {
-    t: "Conduite cadrée",
-    d: "Itinéraire convenu, horaires tenus, véhicule traité comme le vôtre. Pas un colis.",
+    t: "Photos",
+    d: "On photographie le véhicule au départ et à l’arrivée. Compteur, carrosserie, intérieur. C’est tout. Pas un jargon.",
   },
   {
-    t: "Discrétion",
-    d: "Pas de récit, pas de photo de client. Les clés ne circulent pas en clair.",
+    t: "Les clés",
+    d: "Elles ne traînent pas. Remise en main propre, à la personne prévue.",
   },
   {
-    t: "Imprévus",
-    d: "Panne, météo, client absent, documents manquants. Un protocole, une remontée factuelle.",
+    t: "Si ça coince",
+    d: "Panne, pluie, client absent. On prévient, on dit ce qui se passe, on ne disparaît pas.",
   },
   {
-    t: "Remise irréprochable",
-    d: "Présentation, documents, photos d’arrivée. Le client reçoit un véhicule, pas une excuse.",
+    t: "À l’arrivée",
+    d: "Le véhicule, les documents, la mise en main offerte. Une livraison propre.",
   },
 ] as const;
 

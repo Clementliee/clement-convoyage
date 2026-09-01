@@ -44,14 +44,14 @@ const MORE = [
   },
   {
     to: "/traqueur-gps",
-    title: "Traqueur GPS",
-    text: "Pose discrète le temps de la mission. Import, prestige, Europe.",
+    title: "Traqueur GPS, 5 €",
+    text: "Pour l’acheteur. Une balise laissée dans le véhicule.",
     image: "/images/07_gps.jpg",
   },
   {
     to: "/securite-vehicule",
-    title: "Sécurité",
-    text: "EDL, clés sous scellé, gestion de crise. Le véhicule n’est pas un colis.",
+    title: "Photos et clés",
+    text: "Photos au départ et à l’arrivée. Clés en main propre. Mise en main offerte.",
     image: "/images/08_securite.jpg",
   },
   {
