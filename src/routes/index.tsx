@@ -62,7 +62,7 @@ function Home() {
       <section className="mx-auto max-w-5xl px-5 py-28 sm:px-8 sm:py-36">
         <Reveal>
           <p className="text-xs font-semibold tracking-[0.28em] text-coral uppercase">Prestations</p>
-          <h2 className="mt-6 max-w-3xl font-display text-4xl leading-[1.08] text-navy sm:text-6xl">
+          <h2 className="mt-5 max-w-3xl font-display text-4xl leading-[1.12] tracking-tight text-navy sm:text-5xl">
             Acheminement, préparation, liaisons européennes.
           </h2>
         </Reveal>
@@ -80,7 +80,7 @@ function Home() {
       <section className="mx-auto max-w-5xl px-5 pb-28 sm:px-8">
         <Reveal>
           <h2 className="font-display text-4xl text-navy sm:text-5xl">Prestations associées.</h2>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+          <p className="mt-4 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
             Le convoyage. Puis, au choix, un menu de livraison ou une option à la carte. Mise en main offerte.
           </p>
         </Reveal>
@@ -96,12 +96,16 @@ function Home() {
             </div>
           ))}
         </div>
-        <Link to="/simulateur" className="mt-12 inline-flex text-sm font-semibold text-coral">
-          Obtenir une estimation
+        <Link
+          to="/simulateur"
+          className="mt-12 inline-flex h-12 items-center rounded-full bg-coral px-6 text-sm font-semibold text-white"
+        >
+          Obtenir un devis
         </Link>
       </section>
 
       <section className="mx-auto max-w-6xl px-5 pb-28 sm:px-8">
+        <Reveal>
         <div className="overflow-hidden rounded-[2.4rem] bg-navy text-surface lg:grid lg:grid-cols-2">
           <div className="flex flex-col justify-center p-12 sm:p-16">
             <p className="text-xs font-semibold tracking-[0.22em] text-surface/45 uppercase">Réseaux automobiles</p>
@@ -126,9 +130,11 @@ function Home() {
             className="h-72 w-full object-cover lg:h-full"
           />
         </div>
+        </Reveal>
       </section>
 
       <section className="mx-auto max-w-6xl px-5 pb-28 sm:px-8">
+        <Reveal>
         <div className="overflow-hidden rounded-[2.4rem] bg-sand lg:grid lg:grid-cols-2">
           <img
             src="/images/jockey-gare-quimper.jpg"
@@ -141,11 +147,15 @@ function Home() {
             <p className="mt-6 max-w-md text-lg leading-relaxed text-muted">
               Gare de Quimper, aéroports de Brest-Bretagne et Lorient. Prise en charge au dépose-minute, restitution sur le parvis.
             </p>
-            <Link to="/jockey-gares-aeroports" className="mt-10 inline-flex text-sm font-semibold text-coral">
-              Service jockey
+            <Link
+              to="/jockey-gares-aeroports"
+              className="mt-10 inline-flex h-12 w-fit items-center rounded-full bg-coral px-6 text-sm font-semibold text-white"
+            >
+              Réserver un jockey
             </Link>
           </div>
         </div>
+        </Reveal>
       </section>
 
       <section className="mx-auto max-w-5xl px-5 pb-28 sm:px-8">
@@ -157,10 +167,18 @@ function Home() {
           <div className="mt-12 flex flex-wrap gap-3">
             {[
               ["/convoyage-quimper", "Quimper"],
+              ["/convoyage-concarneau", "Concarneau"],
               ["/convoyage-brest", "Brest"],
+              ["/convoyage-lorient", "Lorient"],
+              ["/convoyage-vannes", "Vannes"],
+              ["/convoyage-rennes", "Rennes"],
+              ["/convoyage-nantes", "Nantes"],
               ["/convoyage-paris", "Paris"],
+              ["/convoyage-lyon", "Lyon"],
+              ["/convoyage-bordeaux", "Bordeaux"],
               ["/convoyage-pologne", "Pologne"],
               ["/convoyage-monaco", "Monaco"],
+              ["/convoyage-belgique", "Belgique"],
               ["/destinations", "Toutes les destinations"],
             ].map(([to, label]) => (
               <AppLink

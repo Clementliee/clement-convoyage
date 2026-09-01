@@ -36,9 +36,9 @@ function ville(
 ): SeoPage {
   return {
     slug,
-    title: `Convoyage de voiture à ${name}. Prise en charge et remise.`,
-    h1: `Convoyage de voiture à ${name}`,
-    description: `Convoyage automobile à ${name}. On récupère le véhicule où il se trouve, on le remet chez le client. Base Quimper. Mise en main offerte. Devis sous 2 h.`,
+    title: `Convoyage automobile à ${name} | Convoyage BZH`,
+    h1: `Convoyage automobile à ${name}`,
+    description: `Convoyage de véhicule à ${name}. Prise en charge, transfert sécurisé, remise protocolaire. Base Quimper. Mise en main offerte. Devis sous 2 h.`,
     kind: "ville",
     image: IMG,
     locality: name,
@@ -436,6 +436,86 @@ export const SEO_PAGES: SeoPage[] = [
     { to: "/convoyage-monaco", label: "Monaco" },
     { to: "/convoyage-marseille", label: "Marseille" },
     { to: "/convoyage-prestige", label: "Prestige" },
+  ]),
+  ville("convoyage-landerneau", "Landerneau", "Landerneau, entre Brest et Morlaix. Concessions, particuliers, flux Elorn.", "Trajet court depuis Quimper via la N165. Remise en main propre.", [
+    { to: "/convoyage-brest", label: "Brest" },
+    { to: "/convoyage-morlaix", label: "Morlaix" },
+    { to: "/convoyage-quimper", label: "Quimper" },
+  ]),
+  ville("convoyage-landivisiau", "Landivisiau", "Landivisiau, nord Finistère. Flottes, artisans, livraisons familiales.", "Relais Brest, Morlaix. Un interlocuteur unique à Quimper.", [
+    { to: "/convoyage-morlaix", label: "Morlaix" },
+    { to: "/convoyage-brest", label: "Brest" },
+    { to: "/convoyage-landerneau", label: "Landerneau" },
+  ]),
+  ville("convoyage-crozon", "Crozon", "Presqu’île de Crozon, Camaret, Morgat. Livraisons littoral et saisonnières.", "Distance réelle plus longue que la carte. Créneaux d’été à anticiper.", [
+    { to: "/convoyage-brest", label: "Brest" },
+    { to: "/convoyage-chateaulin", label: "Châteaulin" },
+    { to: "/convoyage-quimper", label: "Quimper" },
+  ]),
+  ville("convoyage-guidel", "Guidel", "Guidel, entre Quimperlé et Lorient. Flux N165, particuliers et VO.", "Idéal pour les allers-retours atelier et livraisons clients.", [
+    { to: "/convoyage-lorient", label: "Lorient" },
+    { to: "/convoyage-quimperle", label: "Quimperlé" },
+    { to: "/convoyage-quimper", label: "Quimper" },
+  ]),
+  ville("convoyage-ploemeur", "Ploemeur", "Ploemeur, Lorient-Bretagne Sud. Aéroport, littoral, livraisons résidentielles.", "Complémentaire du jockey aéroport Lorient. Remise à domicile possible.", [
+    { to: "/convoyage-lorient", label: "Lorient" },
+    { to: "/jockey-gares-aeroports", label: "Jockey aéroport" },
+    { to: "/convoyage-guidel", label: "Guidel" },
+  ]),
+  ville("convoyage-hennebont", "Hennebont", "Hennebont, Lanester, Inzinzac. Bassin lorientais, utilitaires et VO.", "Navettes atelier et stocks inter-sites fréquents.", [
+    { to: "/convoyage-lorient", label: "Lorient" },
+    { to: "/convoyage-vannes", label: "Vannes" },
+    { to: "/convoyage-quimperle", label: "Quimperlé" },
+  ]),
+  ville("convoyage-pontivy", "Pontivy", "Pontivy, centre Bretagne. Artisans, flottes, livraisons familiales.", "Moins de volume, davantage de sur-mesure. Base Quimper.", [
+    { to: "/convoyage-vannes", label: "Vannes" },
+    { to: "/convoyage-carhaix", label: "Carhaix" },
+    { to: "/convoyage-lorient", label: "Lorient" },
+  ]),
+  ville("convoyage-dinan", "Dinan", "Dinan, vallée de la Rance. Livraisons Côtes-d’Armor et Ille-et-Vilaine.", "Relais Saint-Malo, Rennes. Même exigence de remise.", [
+    { to: "/convoyage-saint-malo", label: "Saint-Malo" },
+    { to: "/convoyage-rennes", label: "Rennes" },
+    { to: "/convoyage-saint-brieuc", label: "Saint-Brieuc" },
+  ]),
+  ville("convoyage-saint-nazaire", "Saint-Nazaire", "Saint-Nazaire, Montoir, presqu’île guérandaise. Flottes, import, livraisons portuaires.", "Axe Nantes. Utile pour les retours chantier et VO.", [
+    { to: "/convoyage-nantes", label: "Nantes" },
+    { to: "/convoyage-la-baule", label: "La Baule" },
+    { to: "/convoyage-vannes", label: "Vannes" },
+  ]),
+  ville("convoyage-la-baule", "La Baule", "La Baule, Le Pouliguen, Pornichet. Livraisons littoral, saisonnalité forte.", "Week-ends d’été à réserver. Lavage avant remise souvent demandé.", [
+    { to: "/convoyage-saint-nazaire", label: "Saint-Nazaire" },
+    { to: "/convoyage-nantes", label: "Nantes" },
+    { to: "/convoyage-vannes", label: "Vannes" },
+  ]),
+  ville("convoyage-laval", "Laval", "Laval, Mayenne. Relais Rennes, Le Mans, Angers.", "Mission ouest. Délai type J+1 depuis Quimper.", [
+    { to: "/convoyage-rennes", label: "Rennes" },
+    { to: "/convoyage-le-mans", label: "Le Mans" },
+    { to: "/convoyage-angers", label: "Angers" },
+  ]),
+  ville("convoyage-vitre", "Vitré", "Vitré, porte de la Bretagne vers Laval et Le Mans.", "Stocks inter-sites et livraisons clients du 35 est.", [
+    { to: "/convoyage-rennes", label: "Rennes" },
+    { to: "/convoyage-laval", label: "Laval" },
+    { to: "/convoyage-fougeres", label: "Fougères" },
+  ]),
+  ville("convoyage-fougeres", "Fougères", "Fougères, nord-est Ille-et-Vilaine. Relais Normandie et Mayenne.", "Complémentaire de Rennes et Saint-Malo.", [
+    { to: "/convoyage-rennes", label: "Rennes" },
+    { to: "/convoyage-vitre", label: "Vitré" },
+    { to: "/convoyage-caen", label: "Caen" },
+  ]),
+  ville("convoyage-aix-en-provence", "Aix-en-Provence", "Aix-en-Provence, PACA. Prestige, livraisons particulières, relais Marseille.", "Délai J+3. Option lavage et GPS selon le véhicule.", [
+    { to: "/convoyage-marseille", label: "Marseille" },
+    { to: "/convoyage-nice", label: "Nice" },
+    { to: "/convoyage-lyon", label: "Lyon" },
+  ]),
+  ville("convoyage-biarritz", "Biarritz", "Biarritz, Bayonne, côte basque. Prestige, locations, porte de l’Espagne.", "Souvent couplé à un import. Formalités si la mission continue hors France.", [
+    { to: "/convoyage-bordeaux", label: "Bordeaux" },
+    { to: "/convoyage-pau", label: "Pau" },
+    { to: "/convoyage-espagne", label: "Espagne" },
+  ]),
+  ville("convoyage-le-havre", "Le Havre", "Le Havre, port, import. Correspondances ferry et livraisons normandes.", "Relais Rouen, Caen, Paris. GPS recommandé à l’arrivée.", [
+    { to: "/convoyage-rouen", label: "Rouen" },
+    { to: "/convoyage-caen", label: "Caen" },
+    { to: "/convoyage-paris", label: "Paris" },
   ]),
   {
     slug: "convoyage-bretagne",
