@@ -43,6 +43,7 @@ const COUNTRIES = [
 ];
 
 const SERVICES = [
+  { name: "Jockey VIP gares et aéroports", url: "/jockey-gares-aeroports" },
   { name: "Livraison de véhicule France", url: "/livraison-vehicule" },
   { name: "Livraison de véhicule Europe", url: "/livraison-europe" },
   { name: "Nettoyage avant remise", url: "/nettoyage-vehicule" },

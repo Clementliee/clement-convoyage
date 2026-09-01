@@ -2,6 +2,7 @@ import { AppLink } from "@/components/AppLink";
 import { SITE } from "@/lib/site";
 
 const PRESTATIONS = [
+  { to: "/jockey-gares-aeroports", label: "Jockey gares et aéroports" },
   { to: "/convoyage", label: "Convoyage" },
   { to: "/professionnels", label: "Professionnels" },
   { to: "/pack-mise-a-la-route", label: "Packs mise à la route" },
@@ -66,7 +67,9 @@ export function Footer() {
       </div>
       <div className="border-t border-surface/15">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-5 py-5 text-xs text-surface/60 sm:flex-row sm:items-center sm:justify-between sm:px-8">
-          <p>Conçu à Quimper. SIRET {SITE.siret}. {SITE.phone}.</p>
+          <p>
+            Conçu à Quimper. SIRET {SITE.siret}. {SITE.phone}.
+          </p>
           <p className="flex flex-wrap gap-4">
             <AppLink to="/mentions-legales" className="hover:text-surface">
               Mentions légales
@@ -87,11 +90,11 @@ export function Footer() {
 function FooterCol({ title, links }: { title: string; links: { to: string; label: string }[] }) {
   return (
     <div>
-      <p className="font-display text-xs font-semibold tracking-wider text-coral uppercase">{title}</p>
-      <ul className="mt-4 space-y-2.5 text-sm text-surface/80">
+      <p className="text-xs font-semibold tracking-[0.16em] text-surface/50 uppercase">{title}</p>
+      <ul className="mt-4 space-y-2 text-sm">
         {links.map((l) => (
           <li key={l.to}>
-            <AppLink to={l.to} className="hover:text-coral">
+            <AppLink to={l.to} className="text-surface/80 hover:text-coral">
               {l.label}
             </AppLink>
           </li>

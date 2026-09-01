@@ -40,6 +40,7 @@ const STATIC = new Set([
   "/mentions-legales",
   "/confidentialite",
   "/cgv",
+  "/jockey-gares-aeroports",
 ]);
 
 export function AppLink({

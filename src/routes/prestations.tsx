@@ -19,6 +19,12 @@ export const Route = createFileRoute("/prestations")({
 
 const MORE = [
   {
+    to: "/jockey-gares-aeroports",
+    title: "Jockey VIP gares et aéroports",
+    text: "Parvis Quimper, Brest, Lorient, Rennes. Le véhicule vous attend.",
+    image: "/images/18_jockey_gare.jpg",
+  },
+  {
     to: "/professionnels",
     title: "Professionnels",
     text: "Concessions, garages, mandataires, flottes. Compte, quinze jours, compte-rendu.",
@@ -106,6 +112,9 @@ function Page() {
           <Link key={s.to} to={s.to} className="tilt-hover overflow-hidden rounded-2xl border border-line bg-surface">
             <img src={s.image} alt={s.alt} className="h-44 w-full object-cover" />
             <div className="p-5">
+              {"badge" in s && s.badge ? (
+                <p className="mb-2 text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">{s.badge}</p>
+              ) : null}
               <h2 className="font-display text-xl text-navy">{s.title}</h2>
               <p className="mt-2 text-sm text-muted">{s.text}</p>
             </div>

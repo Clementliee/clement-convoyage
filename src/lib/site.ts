@@ -28,6 +28,7 @@ export const SITE = {
 
 export const NAV = [
   { to: "/prestations", label: "Prestations" },
+  { to: "/jockey-gares-aeroports", label: "Jockey" },
   { to: "/professionnels", label: "Professionnels" },
   { to: "/simulateur", label: "Estimer" },
   { to: "/blog", label: "Journal" },
@@ -105,6 +106,14 @@ export const ADDONS = [
 ] as const;
 
 export const SERVICES = [
+  {
+    to: "/jockey-gares-aeroports",
+    title: "Jockey VIP gares et aéroports",
+    text: "Prise en charge à la gare de Quimper et aux aéroports de Brest et Lorient. Récupération et dépose sur le parvis.",
+    image: "/images/18_jockey_gare.jpg",
+    alt: "Berline qui attend sur le parvis d’une gare",
+    badge: "Nouveau · Cadres et voyageurs",
+  },
   {
     to: "/livraison-vehicule",
     title: "Livraison France",

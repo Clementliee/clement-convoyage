@@ -39,6 +39,7 @@ export const STATIC_PATHS = [
   "/mentions-legales",
   "/confidentialite",
   "/cgv",
+  "/jockey-gares-aeroports",
 ] as const;
 
 export function absUrl(path = "/") {

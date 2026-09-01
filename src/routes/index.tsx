@@ -141,6 +141,35 @@ function Home() {
 
       <section className="mx-auto mt-24 max-w-6xl px-5 sm:px-8">
         <Reveal>
+          <div className="overflow-hidden rounded-[2.2rem] border border-line bg-surface lg:grid lg:grid-cols-2">
+            <img src="/images/18_jockey_gare.jpg" alt="Berline qui attend sur le parvis d’une gare" className="h-72 w-full object-cover lg:h-full" />
+            <div className="p-10 sm:p-14">
+              <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Nouveau · Cadres et voyageurs</p>
+              <h2 className="mt-4 font-display text-4xl text-navy">Jockey VIP gares et aéroports</h2>
+              <p className="mt-5 text-base leading-relaxed text-muted">
+                Prise en charge de votre véhicule à la gare de Quimper et aux aéroports de Brest et Lorient. Récupération et dépose sur le parvis. Lavage et gardiennage selon option.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link
+                  to="/jockey-gares-aeroports"
+                  className="inline-flex h-12 items-center rounded-full bg-coral px-6 text-sm font-semibold text-white"
+                >
+                  Voir le jockey
+                </Link>
+                <a
+                  href={SITE.phoneHref}
+                  className="inline-flex h-12 items-center rounded-full border border-navy px-6 text-sm font-semibold text-navy"
+                >
+                  {SITE.phone}
+                </a>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </section>
+
+      <section className="mx-auto mt-24 max-w-6xl px-5 sm:px-8">
+        <Reveal>
           <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">L’offre</p>
           <h2 className="mt-4 font-display text-4xl text-navy">Livraison, puis vous ajoutez.</h2>
           <p className="mt-4 max-w-2xl text-lg text-muted">

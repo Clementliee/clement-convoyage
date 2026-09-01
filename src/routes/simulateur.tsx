@@ -3,12 +3,13 @@ import { Simulator } from "@/components/Simulator";
 import { PageHero } from "@/components/PageHero";
 import { pageHead } from "@/lib/seo";
 
-type Search = { from?: string; to?: string };
+type Search = { from?: string; to?: string; mission?: string };
 
 export const Route = createFileRoute("/simulateur")({
   validateSearch: (s: Record<string, unknown>): Search => ({
     from: typeof s.from === "string" ? s.from : "",
     to: typeof s.to === "string" ? s.to : "",
+    mission: typeof s.mission === "string" ? s.mission : "",
   }),
   head: () =>
     pageHead({
@@ -21,17 +22,21 @@ export const Route = createFileRoute("/simulateur")({
 });
 
 function Page() {
-  const { from, to } = Route.useSearch();
+  const { from, to, mission } = Route.useSearch();
   return (
     <main>
       <PageHero
         kicker="Simulateur"
         title="Le prix, une fois"
         accent="vos coordonnées."
-        text="Livraison, nettoyage, GPS pour l’acheteur. Les options ont un prix affiché. Le tarif final de la livraison s’affiche après nom, téléphone et e-mail."
+        text="Livraison, jockey gare ou aéroport. Les options ont un prix affiché. Le tarif final s’affiche après nom, téléphone et e-mail."
       />
       <section className="mx-auto max-w-5xl px-5 pb-24 sm:px-8">
-        <Simulator initialFrom={from ?? "Quimper"} initialTo={to ?? ""} />
+        <Simulator
+          initialFrom={from ?? "Quimper"}
+          initialTo={to ?? ""}
+          initialMission={mission === "jockey" ? "jockey" : ""}
+        />
       </section>
     </main>
   );

@@ -5,7 +5,9 @@ import { Button } from "@/components/ui/button";
 import {
   CITIES,
   computeQuote,
+  JOCKEY_POINTS,
   OPTIONS,
+  type MissionKind,
   type PackKind,
   type QuoteInput,
   type VehicleKind,
@@ -24,7 +26,16 @@ const STEPS = [
   "Composer les options",
 ];
 
-export function Simulator({ initialFrom = "", initialTo = "" }: { initialFrom?: string; initialTo?: string }) {
+export function Simulator({
+  initialFrom = "",
+  initialTo = "",
+  initialMission = "",
+}: {
+  initialFrom?: string;
+  initialTo?: string;
+  initialMission?: "" | MissionKind;
+}) {
+  const [flow, setFlow] = useState<"" | MissionKind>(initialMission || "");
   const [step, setStep] = useState(0);
   const [gate, setGate] = useState(false);
   const [client, setClient] = useState<"part" | "pro">("part");
@@ -44,6 +55,12 @@ export function Simulator({ initialFrom = "", initialTo = "" }: { initialFrom?: 
     pack: "aucun",
     kitBienvenue: false,
     formula: "aucun",
+    mission: initialMission === "jockey" ? "jockey" : "convoyage",
+    jockeyPoint: "",
+    jockeyRef: "",
+    jockeyAller: "",
+    jockeyRetour: "",
+    jockeyCt: false,
   });
   const [kmManual, setKmManual] = useState("");
 
@@ -64,8 +81,62 @@ export function Simulator({ initialFrom = "", initialTo = "" }: { initialFrom?: 
       setGate(false);
       return;
     }
+    if (step === 0) {
+      setFlow("");
+      return;
+    }
     setStep((s) => Math.max(0, s - 1));
   };
+
+  if (!flow) {
+    return (
+      <div className="rounded-[2rem] border border-line bg-surface p-6 shadow-sm sm:p-10">
+        <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">Étape 1</p>
+        <h2 className="mt-4 font-display text-3xl text-navy">Quelle mission ?</h2>
+        <div className="mt-8">
+          <Choice
+            options={[
+              {
+                v: "convoyage",
+                l: "Convoyage, livraison France et Europe",
+                h: "A vers B",
+              },
+              {
+                v: "jockey",
+                l: "Jockey gare ou aéroport",
+                h: "Parvis, navette locale",
+              },
+            ]}
+            onPick={(v) => {
+              const mission = v as MissionKind;
+              setFlow(mission);
+              setInput((s) => ({ ...s, mission }));
+              setStep(0);
+            }}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  if (flow === "jockey") {
+    return (
+      <JockeyFlow
+        input={input}
+        setInput={setInput}
+        client={client}
+        setClient={setClient}
+        gate={gate}
+        setGate={setGate}
+        quote={quote}
+        onBack={() => {
+          setFlow("");
+          setGate(false);
+          setStep(0);
+        }}
+      />
+    );
+  }
 
   if (gate && quote.ok) {
     return (
@@ -279,7 +350,7 @@ export function Simulator({ initialFrom = "", initialTo = "" }: { initialFrom?: 
       )}
 
       <div className="mt-10 flex items-center justify-between gap-3">
-        <Button variant="ghost" type="button" onClick={prev} disabled={step === 0}>
+        <Button variant="ghost" type="button" onClick={prev}>
           Retour
         </Button>
         {step < STEPS.length - 1 ? (
@@ -409,5 +480,165 @@ function Toggle({
         <span className="mt-3 block text-sm font-semibold text-navy">{on ? "Ajouté" : "Ajouter"}</span>
       </span>
     </button>
+  );
+}
+
+function JockeyFlow({
+  input,
+  setInput,
+  client,
+  setClient,
+  gate,
+  setGate,
+  quote,
+  onBack,
+}: {
+  input: QuoteInput;
+  setInput: (fn: (s: QuoteInput) => QuoteInput) => void;
+  client: "part" | "pro";
+  setClient: (v: "part" | "pro") => void;
+  gate: boolean;
+  setGate: (v: boolean) => void;
+  quote: ReturnType<typeof computeQuote>;
+  onBack: () => void;
+}) {
+  const [step, setStep] = useState(0);
+  const steps = ["Qui commande ?", "Point de rendez-vous", "Horaires et n° train ou vol", "Options"];
+
+  if (gate && quote.ok) {
+    return (
+      <div>
+        <button type="button" onClick={() => setGate(false)} className="mb-6 text-sm text-muted hover:text-navy">
+          Modifier le créneau
+        </button>
+        <QuoteGate quote={quote} client={client} input={input} />
+      </div>
+    );
+  }
+
+  return (
+    <div className="rounded-[2rem] border border-line bg-surface p-6 shadow-sm sm:p-10">
+      <button type="button" onClick={onBack} className="mb-6 text-sm text-muted hover:text-navy">
+        Changer de mission
+      </button>
+      <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">
+        Jockey, étape {step + 1} sur {steps.length}
+      </p>
+      <div className="mt-3 h-1 overflow-hidden rounded-full bg-sand">
+        <div className="h-full bg-coral transition-all" style={{ width: `${((step + 1) / steps.length) * 100}%` }} />
+      </div>
+      <h2 className="mt-6 font-display text-3xl text-navy">{steps[step]}</h2>
+
+      {step === 0 && (
+        <div className="mt-8">
+          <Choice
+            options={[
+              { v: "part", l: "Particulier", h: "Règlement avant départ" },
+              { v: "pro", l: "Professionnel", h: "Paiement à quinze jours" },
+            ]}
+            onPick={(v) => {
+              setClient(v as "part" | "pro");
+              setStep(1);
+            }}
+          />
+        </div>
+      )}
+
+      {step === 1 && (
+        <div className="mt-8">
+          <Choice
+            options={JOCKEY_POINTS.map((p) => ({ v: p.name, l: p.name, h: p.pack }))}
+            onPick={(v) => {
+              setInput((s) => ({ ...s, jockeyPoint: v, from: v, to: "Domicile ou parking" }));
+              setStep(2);
+            }}
+          />
+        </div>
+      )}
+
+      {step === 2 && (
+        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          <label className="block text-sm text-muted sm:col-span-2">
+            Numéro de train ou de vol, facultatif
+            <input
+              value={input.jockeyRef}
+              onChange={(e) => setInput((s) => ({ ...s, jockeyRef: e.target.value }))}
+              className="mt-2 w-full rounded-2xl border border-line bg-bg px-4 py-3.5 text-navy"
+              placeholder="TGV 8690, AF7521"
+            />
+          </label>
+          <label className="block text-sm text-muted">
+            Date et heure d’aller
+            <input
+              type="datetime-local"
+              value={input.jockeyAller}
+              onChange={(e) => setInput((s) => ({ ...s, jockeyAller: e.target.value }))}
+              className="mt-2 w-full rounded-2xl border border-line bg-bg px-4 py-3.5 text-navy"
+            />
+          </label>
+          <label className="block text-sm text-muted">
+            Date et heure de retour, facultatif
+            <input
+              type="datetime-local"
+              value={input.jockeyRetour}
+              onChange={(e) => setInput((s) => ({ ...s, jockeyRetour: e.target.value }))}
+              className="mt-2 w-full rounded-2xl border border-line bg-bg px-4 py-3.5 text-navy"
+            />
+          </label>
+        </div>
+      )}
+
+      {step === 3 && (
+        <div className="mt-8 space-y-6">
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Toggle
+              label="Nettoyage intérieur et extérieur"
+              text="Pendant votre absence."
+              price={formatEuro(OPTIONS.lavageComplet)}
+              image="/images/03_nettoyage.jpg"
+              on={input.lavage === "complet"}
+              onClick={() => setInput((s) => ({ ...s, lavage: s.lavage === "complet" ? "aucun" : "complet" }))}
+            />
+            <Toggle
+              label="Plein ou charge 90 %"
+              text="Essence plein, électrique à 90 % ou plus. Énergie au réel."
+              price={formatEuro(OPTIONS.plein)}
+              image="/images/11_plein.jpg"
+              on={input.plein}
+              onClick={() => setInput((s) => ({ ...s, plein: !s.plein }))}
+            />
+            <Toggle
+              label="Passage révision ou contrôle technique"
+              text="Nous emmenons le véhicule, nous le récupérons."
+              price={formatEuro(OPTIONS.jockeyCt)}
+              on={input.jockeyCt}
+              onClick={() => setInput((s) => ({ ...s, jockeyCt: !s.jockeyCt }))}
+            />
+          </div>
+          <p className="text-sm text-muted">
+            Le tarif du jockey s’affiche après nom, téléphone et e-mail. Prix indicatif, à confirmer sous 2 h.
+          </p>
+        </div>
+      )}
+
+      <div className="mt-10 flex items-center justify-between gap-3">
+        <Button variant="ghost" type="button" onClick={() => (step === 0 ? onBack() : setStep((s) => s - 1))}>
+          Retour
+        </Button>
+        {step < steps.length - 1 ? (
+          <Button
+            type="button"
+            onClick={() => setStep((s) => s + 1)}
+            disabled={step === 1 && !input.jockeyPoint}
+          >
+            Continuer
+          </Button>
+        ) : (
+          <Button type="button" onClick={() => quote.ok && setGate(true)} disabled={!quote.ok}>
+            Voir le tarif final
+          </Button>
+        )}
+      </div>
+    </div>
   );
 }

@@ -27,6 +27,7 @@ export const OPTIONS = {
   packConfort: 149,
   packPremium: 229,
   kitBienvenue: 19,
+  jockeyCt: 55,
 } as const;
 
 /** Coûts d’achat indicatifs (Amazon / GMS, TTC). Marge ≥ 50 % du prix client. Jamais affichés. */
@@ -250,6 +251,16 @@ export type ZoneKind = "france" | "europe";
 
 export type PackKind = "aucun" | "essentiel" | "confort" | "premium";
 export type FormulaKind = "aucun" | "standard" | "premium";
+export type MissionKind = "convoyage" | "jockey";
+
+export const JOCKEY_POINTS = [
+  { id: "quimper-gare", name: "Gare de Quimper", pack: "Pack Parvis Quimper", forfait: 89, allerRetour: 159 },
+  { id: "brest-aero", name: "Aéroport Brest-Bretagne", pack: "Pack Aéroport Brest", forfait: 169, allerRetour: 299 },
+  { id: "lorient-aero", name: "Aéroport Lorient-Bretagne Sud", pack: "Pack Aéroport Lorient", forfait: 159, allerRetour: 279 },
+  { id: "brest-gare", name: "Gare de Brest", pack: "Pack Gare Brest", forfait: 149, allerRetour: 259 },
+  { id: "rennes-gare", name: "Gare de Rennes", pack: "Pack Gare Rennes", forfait: 289, allerRetour: 519 },
+  { id: "autre", name: "Autre adresse locale", pack: "Trajet local", forfait: 119, allerRetour: 209 },
+] as const;
 
 export type QuoteInput = {
   from: string;
@@ -269,6 +280,12 @@ export type QuoteInput = {
   kitBienvenue: boolean;
   formula: FormulaKind;
   model?: string;
+  mission: MissionKind;
+  jockeyPoint: string;
+  jockeyRef: string;
+  jockeyAller: string;
+  jockeyRetour: string;
+  jockeyCt: boolean;
 };
 
 export type QuoteResult = {
@@ -285,6 +302,44 @@ export type QuoteResult = {
 };
 
 export function computeQuote(input: QuoteInput): QuoteResult {
+  if (input.mission === "jockey") {
+    const point = JOCKEY_POINTS.find((p) => p.name === input.jockeyPoint);
+    if (!point) {
+      return {
+        ok: false,
+        message: "Choisissez un point de rendez-vous.",
+        km: 0,
+        base: 0,
+        options: 0,
+        total: 0,
+        delay: "",
+        fromName: input.jockeyPoint || "Point de rendez-vous",
+        toName: "Domicile ou parking",
+        europe: false,
+      };
+    }
+    const round = Boolean(input.jockeyRetour.trim());
+    let base: number = round ? point.allerRetour : point.forfait;
+    if (input.when === "urgent") base = Math.round(base * (1 + OPTIONS.urgencePct));
+    if (input.when === "samedi") base = Math.round(base * (1 + OPTIONS.samediPct));
+    if (input.when === "dimanche") base = Math.round(base * (1 + OPTIONS.dimanchePct));
+    let options = 0;
+    if (input.lavage === "complet") options += OPTIONS.lavageComplet;
+    if (input.plein) options += OPTIONS.plein;
+    if (input.jockeyCt) options += OPTIONS.jockeyCt;
+    return {
+      ok: true,
+      km: 0,
+      base,
+      options,
+      total: base + options,
+      delay: round ? "Aller et retour, créneau sous 2 h" : "Créneau sous 2 h",
+      fromName: point.name,
+      toName: round ? "Aller et retour, domicile ou parking" : "Domicile ou parking gardé",
+      europe: false,
+    };
+  }
+
   const fromCity = findCity(input.from);
   const toCity = findCity(input.to);
   let km = input.kmManual && input.kmManual > 0 ? input.kmManual : 0;

@@ -16,6 +16,11 @@ export function QuoteGate({
 }) {
   const range = quoteRange(quote.total);
   const extras = [
+    input.mission === "jockey" ? `Jockey ${input.jockeyPoint}` : "",
+    input.mission === "jockey" && input.jockeyRef ? `Train ou vol ${input.jockeyRef}` : "",
+    input.mission === "jockey" && input.jockeyAller ? `Aller ${input.jockeyAller.replace("T", " ")}` : "",
+    input.mission === "jockey" && input.jockeyRetour ? `Retour ${input.jockeyRetour.replace("T", " ")}` : "",
+    input.mission === "jockey" && input.jockeyCt ? "Passage révision ou contrôle technique" : "",
     input.lavage === "complet" || input.pack === "confort" || input.pack === "premium" ? "Nettoyage intérieur et extérieur" : "",
     input.gps ? "Traqueur GPS 4G pour l’acheteur, 12 mois inclus" : "",
     "Mise en main offerte",

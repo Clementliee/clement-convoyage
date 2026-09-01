@@ -25,6 +25,7 @@ import { Route as DestinationsRouteImport } from './routes/destinations'
 import { Route as DevisRouteImport } from './routes/devis'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as GpsSuiviRouteImport } from './routes/gps-suivi'
+import { Route as JockeyGaresAeroportsRouteImport } from './routes/jockey-gares-aeroports'
 import { Route as LivraisonEuropeRouteImport } from './routes/livraison-europe'
 import { Route as LivraisonVehiculeRouteImport } from './routes/livraison-vehicule'
 import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
@@ -119,6 +120,11 @@ const GpsSuiviRoute = GpsSuiviRouteImport.update({
   path: '/gps-suivi',
   getParentRoute: () => rootRouteImport,
 } as any)
+const JockeyGaresAeroportsRoute = JockeyGaresAeroportsRouteImport.update({
+  id: '/jockey-gares-aeroports',
+  path: '/jockey-gares-aeroports',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LivraisonEuropeRoute = LivraisonEuropeRouteImport.update({
   id: '/livraison-europe',
   path: '/livraison-europe',
@@ -202,6 +208,7 @@ export interface FileRoutesByFullPath {
   '/devis': typeof DevisRoute
   '/faq': typeof FaqRoute
   '/gps-suivi': typeof GpsSuiviRoute
+  '/jockey-gares-aeroports': typeof JockeyGaresAeroportsRoute
   '/livraison-europe': typeof LivraisonEuropeRoute
   '/livraison-vehicule': typeof LivraisonVehiculeRoute
   '/mentions-legales': typeof MentionsLegalesRoute
@@ -233,6 +240,7 @@ export interface FileRoutesByTo {
   '/devis': typeof DevisRoute
   '/faq': typeof FaqRoute
   '/gps-suivi': typeof GpsSuiviRoute
+  '/jockey-gares-aeroports': typeof JockeyGaresAeroportsRoute
   '/livraison-europe': typeof LivraisonEuropeRoute
   '/livraison-vehicule': typeof LivraisonVehiculeRoute
   '/mentions-legales': typeof MentionsLegalesRoute
@@ -265,6 +273,7 @@ export interface FileRoutesById {
   '/devis': typeof DevisRoute
   '/faq': typeof FaqRoute
   '/gps-suivi': typeof GpsSuiviRoute
+  '/jockey-gares-aeroports': typeof JockeyGaresAeroportsRoute
   '/livraison-europe': typeof LivraisonEuropeRoute
   '/livraison-vehicule': typeof LivraisonVehiculeRoute
   '/mentions-legales': typeof MentionsLegalesRoute
@@ -298,6 +307,7 @@ export interface FileRouteTypes {
     | '/devis'
     | '/faq'
     | '/gps-suivi'
+    | '/jockey-gares-aeroports'
     | '/livraison-europe'
     | '/livraison-vehicule'
     | '/mentions-legales'
@@ -329,6 +339,7 @@ export interface FileRouteTypes {
     | '/devis'
     | '/faq'
     | '/gps-suivi'
+    | '/jockey-gares-aeroports'
     | '/livraison-europe'
     | '/livraison-vehicule'
     | '/mentions-legales'
@@ -360,6 +371,7 @@ export interface FileRouteTypes {
     | '/devis'
     | '/faq'
     | '/gps-suivi'
+    | '/jockey-gares-aeroports'
     | '/livraison-europe'
     | '/livraison-vehicule'
     | '/mentions-legales'
@@ -392,6 +404,7 @@ export interface RootRouteChildren {
   DevisRoute: typeof DevisRoute
   FaqRoute: typeof FaqRoute
   GpsSuiviRoute: typeof GpsSuiviRoute
+  JockeyGaresAeroportsRoute: typeof JockeyGaresAeroportsRoute
   LivraisonEuropeRoute: typeof LivraisonEuropeRoute
   LivraisonVehiculeRoute: typeof LivraisonVehiculeRoute
   MentionsLegalesRoute: typeof MentionsLegalesRoute
@@ -520,6 +533,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GpsSuiviRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/jockey-gares-aeroports': {
+      id: '/jockey-gares-aeroports'
+      path: '/jockey-gares-aeroports'
+      fullPath: '/jockey-gares-aeroports'
+      preLoaderRoute: typeof JockeyGaresAeroportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/livraison-europe': {
       id: '/livraison-europe'
       path: '/livraison-europe'
@@ -641,6 +661,7 @@ const rootRouteChildren: RootRouteChildren = {
   DevisRoute: DevisRoute,
   FaqRoute: FaqRoute,
   GpsSuiviRoute: GpsSuiviRoute,
+  JockeyGaresAeroportsRoute: JockeyGaresAeroportsRoute,
   LivraisonEuropeRoute: LivraisonEuropeRoute,
   LivraisonVehiculeRoute: LivraisonVehiculeRoute,
   MentionsLegalesRoute: MentionsLegalesRoute,
