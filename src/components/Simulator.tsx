@@ -767,7 +767,7 @@ function JockeyFlow({
         </div>
       )}
 
-      {step === 3 && (
+      {step === 4 && (
         <div className="mt-8 space-y-6">
           <div className="grid gap-3 sm:grid-cols-2">
             <Toggle
@@ -790,8 +790,8 @@ function JockeyFlow({
               }
             />
             <Toggle
-              label="Entretien ou contrôle technique"
-              text="Nous emmenons le véhicule. Hors facture du garage."
+              label="Contrôle technique"
+              text="Nous emmenons le véhicule au CT. 55 €, hors facture du centre."
               price={formatEuro(OPTIONS.jockeyCt)}
               on={input.jockeyCt}
               onClick={() => setInput((s) => ({ ...s, jockeyCt: !s.jockeyCt }))}
@@ -806,7 +806,7 @@ function JockeyFlow({
             />
           </div>
           <p className="text-sm text-muted">
-            Bretagne, Rennes, Nantes. Photos. Un double des clés peut rester chez nous. Pas de gardiennage. Pas de transport de passagers. Prix indicatif, à confirmer.
+            Cochez nettoyage et CT si besoin. Ils s’ajoutent au devis. Pas de gardiennage. Pas de transport de passagers.
           </p>
         </div>
       )}
