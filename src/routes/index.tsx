@@ -118,20 +118,22 @@ function Home() {
 
       <section className="mx-auto max-w-6xl px-5 pb-28 sm:px-8">
         <Reveal>
-        <div className="overflow-hidden rounded-[2.4rem] bg-navy text-surface lg:grid lg:grid-cols-2">
-          <div className="flex flex-col justify-center p-12 sm:p-16">
-            <p className="text-xs font-semibold tracking-[0.22em] text-surface/45 uppercase">Réseaux automobiles</p>
-            <h2 className="mt-5 font-display text-4xl sm:text-5xl">Partenaire logistique des concessions, marchands et carrosseries.</h2>
-            <ul className="mt-8 space-y-4 text-sm leading-relaxed text-surface/75">
+        <div className="overflow-hidden rounded-[2.4rem] bg-navy text-surface lg:grid lg:grid-cols-2 lg:items-stretch">
+          <div className="flex flex-col justify-center gap-5 p-8 sm:p-12">
+            <p className="text-xs font-semibold tracking-[0.22em] text-surface/50 uppercase">Réseaux automobiles</p>
+            <h2 className="font-display text-3xl leading-tight text-white sm:text-4xl">
+              Concessions, garages, flottes.
+            </h2>
+            <ul className="space-y-3 text-sm leading-relaxed text-white/70">
               {B2B_OFFERS.map((o) => (
                 <li key={o.t}>
-                  <span className="font-semibold text-surface">{o.t}.</span> {o.d}
+                  <span className="font-semibold text-white">{o.t}.</span> {o.d}
                 </li>
               ))}
             </ul>
             <Link
               to="/simulateur"
-              className="mt-10 inline-flex h-12 w-fit items-center rounded-full bg-coral px-6 text-sm font-semibold"
+              className="mt-2 inline-flex h-12 w-fit items-center rounded-full bg-coral px-6 text-sm font-semibold text-white"
             >
               Obtenir un devis
             </Link>
@@ -139,7 +141,7 @@ function Home() {
           <img
             src="/images/atelier-garage-professionnel.jpg?v=propre"
             alt="Berline propre dans un atelier automobile professionnel"
-            className="h-72 w-full object-cover lg:h-full"
+            className="h-56 w-full object-cover sm:h-72 lg:h-full lg:min-h-[22rem]"
           />
         </div>
         </Reveal>
