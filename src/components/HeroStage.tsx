@@ -72,16 +72,16 @@ export function HeroStage() {
             )}
           </div>
           <h1
-            className="max-w-3xl font-display text-[2.05rem] leading-[1.14] text-white sm:text-5xl lg:text-[3.35rem]"
+            className="max-w-3xl font-display text-[2.15rem] leading-[1.12] text-white sm:text-5xl lg:text-[3.4rem]"
             style={{ textShadow: "0 2px 28px rgba(0,0,0,0.7)" }}
           >
-            L’excellence opérationnelle pour l’acheminement et la mise à la route de vos véhicules.
+            On récupère votre véhicule. On le livre.
           </h1>
           <p
             className="mt-5 max-w-xl text-base leading-relaxed text-white sm:text-lg"
             style={{ textShadow: "0 2px 18px rgba(0,0,0,0.7)" }}
           >
-            Base opérationnelle à Quimper. Prise en charge, transfert sécurisé et livraison protocolaire en Bretagne, sur le territoire national et en Europe.
+            Convoyage en France et en Europe. Jockey gares et aéroports en Bretagne, Rennes et Nantes. Mise en main offerte.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Link
