@@ -28,7 +28,7 @@ function Page() {
         kicker="Réseaux automobiles"
         title="Partenaire logistique des concessions, marchands et carrosseries."
         accent=""
-        text="Navettes atelier, rotations de stocks sous 24 à 48 h, délégation de livraison client final. Un interlocuteur à Quimper."
+        text="Navettes atelier, rotations de stocks, livraison client final. Le tarif est le même que pour un particulier."
         image="/images/atelier-garage-professionnel.jpg?v=propre"
         alt="Berline propre dans un atelier automobile professionnel"
       />
@@ -72,13 +72,12 @@ function Page() {
         </div>
         <div className="mt-16 grid gap-10 lg:grid-cols-[1fr_minmax(0,420px)]">
           <div>
-            <h2 className="font-display text-3xl text-navy">Demander une grille tarifaire partenaire Pro</h2>
+            <h2 className="font-display text-3xl text-navy">Nous écrire</h2>
             <ul className="mt-6 space-y-3 text-muted">
-              <li>Interlocuteur unique.</li>
+              <li>Même tarif, particulier ou professionnel.</li>
               <li>Devis sous 2 heures ouvrées.</li>
-              <li>Facturation, historique des missions.</li>
-              <li>Conditions de volume après cadrage.</li>
-              <li>Rapports standardisés, photos.</li>
+              <li>Un interlocuteur à Quimper.</li>
+              <li>Facture après mission.</li>
             </ul>
             <p className="mt-6 text-sm text-muted">
               L’espace client (suivi, factures) viendra. Aujourd’hui : un cadre clair, un téléphone, un e-mail.
@@ -127,7 +126,7 @@ function ProForm() {
       km: 0,
       delay: "cadre volume",
       range: { low: 0, mid: 0, high: 0 },
-      extras: volume ? `Grille partenaire Pro. Volume estimé : ${volume}` : "Demande de grille tarifaire partenaire Pro",
+      extras: volume ? `Demande professionnelle. Volume estimé : ${volume}` : "Demande professionnelle",
       message,
     };
     const res = await sendDevisLead(payload);

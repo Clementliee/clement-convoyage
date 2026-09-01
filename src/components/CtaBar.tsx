@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 export function CtaBar({
   title = "Un véhicule à acheminer ?",
   text = "Itinéraire, cotation et devis formel sous 2 heures ouvrées.",
-  secondaryTo = "/professionnels",
-  secondaryLabel = "Compte professionnel",
+  secondaryTo = "/contact",
+  secondaryLabel = "Nous écrire",
 }: {
   title?: string;
   text?: string;

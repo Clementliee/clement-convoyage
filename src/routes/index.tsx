@@ -118,10 +118,10 @@ function Home() {
               ))}
             </ul>
             <Link
-              to="/professionnels"
+              to="/simulateur"
               className="mt-10 inline-flex h-12 w-fit items-center rounded-full bg-coral px-6 text-sm font-semibold"
             >
-              Grille tarifaire partenaire
+              Obtenir un devis
             </Link>
           </div>
           <img
