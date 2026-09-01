@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
 @theme {
   --color-bg: #f4f1ea;
@@ -16,6 +17,8 @@
   --radius-lg: 1.4rem;
   --radius-xl: 2rem;
   --radius-full: 9999px;
+  --text-hero: clamp(2.05rem, 1.4rem + 2.6vw, 3.4rem);
+  --text-display: clamp(1.75rem, 1.2rem + 1.8vw, 3rem);
 }
 
 @layer base {
@@ -25,6 +28,7 @@
     background: var(--color-bg);
     color: var(--color-fg);
     scroll-behavior: smooth;
+    interpolate-size: allow-keywords;
   }
   body {
     font-family: var(--font-sans);
@@ -43,6 +47,12 @@
     font-weight: 500;
     line-height: 1.12;
   }
+  h1 {
+    font-size: var(--text-hero);
+  }
+  h2 {
+    font-size: var(--text-display);
+  }
   p {
     text-wrap: pretty;
   }
@@ -52,6 +62,20 @@
   }
   a {
     color: inherit;
+  }
+}
+
+@layer components {
+  .glass {
+    background: color-mix(in oklab, var(--color-bg) 82%, transparent);
+    backdrop-filter: blur(18px) saturate(1.2);
+    -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  }
+  .panel {
+    container-type: inline-size;
+    border: 1px solid var(--color-line);
+    background: var(--color-surface);
+    border-radius: 1.6rem;
   }
 }
 
@@ -82,6 +106,23 @@
     opacity: 1;
     transform: none;
   }
+  @supports (animation-timeline: view()) {
+    .reveal-view {
+      animation: reveal-up 800ms cubic-bezier(0.16, 1, 0.3, 1) both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+  }
+  @keyframes reveal-up {
+    from {
+      opacity: 0;
+      transform: translateY(1.25rem);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
   @keyframes hero-phare {
     0%,
     100% {
@@ -99,10 +140,10 @@
   @keyframes devis-pulse {
     0%,
     100% {
-      box-shadow: 0 0 0 0 rgb(0 113 227 / 0.28);
+      box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-coral) 28%, transparent);
     }
     70% {
-      box-shadow: 0 0 0 8px rgb(0 113 227 / 0);
+      box-shadow: 0 0 0 8px color-mix(in oklab, var(--color-coral) 0%, transparent);
     }
   }
   .devis-pulse {
@@ -110,7 +151,8 @@
   }
   @media (prefers-reduced-motion: reduce) {
     .devis-pulse,
-    .hero-phare-on {
+    .hero-phare-on,
+    .reveal-view {
       animation: none;
     }
   }

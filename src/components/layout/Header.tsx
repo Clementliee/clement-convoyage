@@ -8,7 +8,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-line/70 bg-bg/90 backdrop-blur-xl">
+      <header className="glass fixed inset-x-0 top-0 z-50 border-b border-line/70">
         <div className="mx-auto flex h-[4.5rem] max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
           <Link to="/" className="min-w-0" onClick={() => setOpen(false)}>
             <BrandMark />
