@@ -50,9 +50,7 @@ export function Footer() {
             Société d’acheminement automobile et conciergerie privée. Siège d’exploitation : Quimper, Finistère, Bretagne.
           </p>
           <p className="mt-6 text-sm leading-relaxed text-surface/70">
-            {SITE.street}
-            <br />
-            {SITE.postalCode} {SITE.city}
+            {SITE.city}, {SITE.region}
             <br />
             SIRET {SITE.siret}
           </p>

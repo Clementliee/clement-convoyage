@@ -21,7 +21,7 @@ function Page() {
           L’enseigne {SITE.name} est éditée par {SITE.legalName}, {SITE.form}. Nom commercial : {SITE.tradeName}.
         </p>
         <p>
-          Siège : {SITE.street}, {SITE.postalCode} {SITE.city}, France.
+          Siège d’exploitation : {SITE.city}, {SITE.region}, France.
         </p>
         <p>
           SIREN {SITE.siren}. SIRET {SITE.siret}. Code APE {SITE.ape} ({SITE.apeLabel}). Immatriculation au RNE le {SITE.rne}.

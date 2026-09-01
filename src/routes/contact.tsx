@@ -130,9 +130,7 @@ function Page() {
             </a>
           </p>
           <p>
-            {SITE.street}
-            <br />
-            {SITE.postalCode} {SITE.city}
+            {SITE.city}
             <br />
             {SITE.region}
           </p>

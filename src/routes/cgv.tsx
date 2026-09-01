@@ -18,7 +18,7 @@ function Page() {
       <h1 className="font-display text-4xl text-navy">Conditions générales de vente</h1>
       <div className="mt-8 space-y-5 text-sm leading-relaxed text-muted">
         <p>
-          Prestataire : {SITE.legalName}, {SITE.form}, enseigne {SITE.name}, nom commercial {SITE.tradeName}. SIRET {SITE.siret}. {SITE.street}, {SITE.postalCode} {SITE.city}. {SITE.vat}.
+          Prestataire : {SITE.legalName}, {SITE.form}, enseigne {SITE.name}, nom commercial {SITE.tradeName}. SIRET {SITE.siret}. {SITE.city}, {SITE.region}. {SITE.vat}.
         </p>
         <p>Devis valable 15 jours. La mission est confirmée à l’accord écrit. Le simulateur produit une fourchette indicative, à confirmer sous 2 heures ouvrées.</p>
         <p>Particuliers : 100 % par virement avant départ. Pas de mission sans encaissement.</p>

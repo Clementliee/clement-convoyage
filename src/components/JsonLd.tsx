@@ -90,10 +90,8 @@ export function LocalBusinessJsonLd() {
         priceRange: "Sur devis",
         address: {
           "@type": "PostalAddress",
-          streetAddress: SITE.street,
           addressLocality: SITE.city,
           addressRegion: "Bretagne",
-          postalCode: SITE.postalCode,
           addressCountry: "FR",
         },
         geo: { "@type": "GeoCoordinates", latitude: 47.996, longitude: -4.098 },

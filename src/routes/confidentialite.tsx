@@ -18,7 +18,7 @@ function Page() {
       <h1 className="font-display text-4xl text-navy">Politique de confidentialité</h1>
       <div className="mt-8 space-y-5 text-sm leading-relaxed text-muted">
         <p>
-          Responsable de traitement : {SITE.legalName}, {SITE.form}, SIRET {SITE.siret}, {SITE.street}, {SITE.postalCode} {SITE.city}.
+          Responsable de traitement : {SITE.legalName}, {SITE.form}, SIRET {SITE.siret}, {SITE.city}, {SITE.region}.
         </p>
         <p>
           Les données du formulaire (prénom, nom, téléphone, e-mail, trajet, profil particulier ou professionnel, société) servent uniquement à établir un devis et à exécuter la mission. Elles sont envoyées à {SITE.email}. Elles ne sont pas vendues.
