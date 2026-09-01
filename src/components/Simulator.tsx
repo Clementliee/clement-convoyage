@@ -6,6 +6,7 @@ import {
   CITIES,
   computeQuote,
   JOCKEY_POINTS,
+  JOCKEY_SENS,
   OPTIONS,
   WHEN_OFFERS,
   type MissionKind,
@@ -81,11 +82,13 @@ export function Simulator({
     kitBienvenue: false,
     formula: "aucun",
     mission: initialMission === "jockey" ? "jockey" : "convoyage",
+    jockeySens: "rapatriement",
     jockeyPoint: "",
     jockeyRef: "",
     jockeyAller: "",
     jockeyRetour: "",
     jockeyCt: false,
+    jockeyWash: "aucun",
   });
   const [kmManual, setKmManual] = useState("");
 
@@ -661,7 +664,7 @@ function JockeyFlow({
   onBack: () => void;
 }) {
   const [step, setStep] = useState(0);
-  const steps = ["Qui commande ?", "Point de rendez-vous", "Horaires et n° train ou vol", "Options"];
+  const steps = ["Le trajet", "Le lieu, en Bretagne", "Horaires", "Options"];
 
   if (gate && quote.ok) {
     return (
@@ -690,12 +693,9 @@ function JockeyFlow({
       {step === 0 && (
         <div className="mt-8">
           <Choice
-            options={[
-              { v: "part", l: "Particulier", h: "Règlement avant départ" },
-              { v: "pro", l: "Professionnel", h: "Paiement à quinze jours" },
-            ]}
+            options={JOCKEY_SENS.map((s) => ({ v: s.id, l: s.name, h: s.hint }))}
             onPick={(v) => {
-              setClient(v as "part" | "pro");
+              setInput((s) => ({ ...s, jockeySens: v as QuoteInput["jockeySens"] }));
               setStep(1);
             }}
           />
@@ -705,9 +705,13 @@ function JockeyFlow({
       {step === 1 && (
         <div className="mt-8">
           <Choice
-            options={JOCKEY_POINTS.map((p) => ({ v: p.name, l: p.name, h: p.pack }))}
+            options={JOCKEY_POINTS.map((p) => ({
+              v: p.name,
+              l: p.name,
+              h: `${formatEuro(p.forfait)} · aller et retour ${formatEuro(p.allerRetour)}`,
+            }))}
             onPick={(v) => {
-              setInput((s) => ({ ...s, jockeyPoint: v, from: v, to: "Domicile ou parking" }));
+              setInput((s) => ({ ...s, jockeyPoint: v, from: v, to: "Domicile" }));
               setStep(2);
             }}
           />
@@ -751,11 +755,29 @@ function JockeyFlow({
           <div className="grid gap-3 sm:grid-cols-2">
             <Toggle
               label="Nettoyage intérieur et extérieur"
-              text="Pendant votre absence."
-              price={formatEuro(OPTIONS.lavageComplet)}
+              text="Uniquement avec le jockey. 90 €."
+              price={formatEuro(OPTIONS.jockeyLavage)}
               image="/images/preparation-esthetique-vehicule.jpg"
-              on={input.lavage === "complet"}
-              onClick={() => setInput((s) => ({ ...s, lavage: s.lavage === "complet" ? "aucun" : "complet" }))}
+              on={input.jockeyWash === "standard"}
+              onClick={() =>
+                setInput((s) => ({ ...s, jockeyWash: s.jockeyWash === "standard" ? "aucun" : "standard" }))
+              }
+            />
+            <Toggle
+              label="Nettoyage prestige"
+              text="Véhicule haut de gamme. 125 €."
+              price={formatEuro(OPTIONS.jockeyLavagePrestige)}
+              on={input.jockeyWash === "prestige"}
+              onClick={() =>
+                setInput((s) => ({ ...s, jockeyWash: s.jockeyWash === "prestige" ? "aucun" : "prestige" }))
+              }
+            />
+            <Toggle
+              label="Entretien ou contrôle technique"
+              text="Nous emmenons le véhicule. Hors facture du garage."
+              price={formatEuro(OPTIONS.jockeyCt)}
+              on={input.jockeyCt}
+              onClick={() => setInput((s) => ({ ...s, jockeyCt: !s.jockeyCt }))}
             />
             <Toggle
               label="Plein ou charge 90 %"
@@ -765,16 +787,9 @@ function JockeyFlow({
               on={input.plein}
               onClick={() => setInput((s) => ({ ...s, plein: !s.plein }))}
             />
-            <Toggle
-              label="Passage révision ou contrôle technique"
-              text="Nous emmenons le véhicule, nous le récupérons."
-              price={formatEuro(OPTIONS.jockeyCt)}
-              on={input.jockeyCt}
-              onClick={() => setInput((s) => ({ ...s, jockeyCt: !s.jockeyCt }))}
-            />
           </div>
           <p className="text-sm text-muted">
-            Le tarif du jockey s’affiche après nom, téléphone et e-mail. Prix indicatif, à confirmer sous 2 h.
+            Bretagne uniquement. Photos au départ et à l’arrivée. Un double des clés peut rester chez nous. Pas de gardiennage. Pas de transport de passagers. Prix indicatif, à confirmer.
           </p>
         </div>
       )}

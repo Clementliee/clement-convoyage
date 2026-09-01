@@ -29,6 +29,8 @@ export const OPTIONS = {
   packPremium: 329,
   kitBienvenue: 19,
   jockeyCt: 55,
+  jockeyLavage: 90,
+  jockeyLavagePrestige: 125,
 } as const;
 
 /** Coûts d’achat indicatifs (Amazon / GMS, TTC). Marge ≥ 50 % du prix client. Jamais affichés. */
@@ -290,13 +292,34 @@ export type PackKind = "aucun" | "essentiel" | "confort" | "premium";
 export type FormulaKind = "aucun" | "standard" | "premium";
 export type MissionKind = "convoyage" | "jockey";
 
+export type JockeySens = "depose" | "rapatriement" | "allerRetour";
+
+export const JOCKEY_SENS = [
+  {
+    id: "depose" as const,
+    name: "Dépose",
+    hint: "Nous amenons votre véhicule à la gare ou à l’aéroport. Vous partez. Photos.",
+  },
+  {
+    id: "rapatriement" as const,
+    name: "Rapatriement",
+    hint: "Vous nous confiez les clés au dépose-minute. Nous ramenons le véhicule à votre domicile. Photos.",
+  },
+  {
+    id: "allerRetour" as const,
+    name: "Aller et retour",
+    hint: "Dépose au départ, rapatriement au retour. Un double des clés peut rester chez nous.",
+  },
+] as const;
+
 export const JOCKEY_POINTS = [
-  { id: "quimper-gare", name: "Gare de Quimper", pack: "Pack Parvis Quimper", forfait: 89, allerRetour: 159 },
-  { id: "brest-aero", name: "Aéroport Brest-Bretagne", pack: "Pack Aéroport Brest", forfait: 169, allerRetour: 299 },
-  { id: "lorient-aero", name: "Aéroport Lorient-Bretagne Sud", pack: "Pack Aéroport Lorient", forfait: 159, allerRetour: 279 },
-  { id: "brest-gare", name: "Gare de Brest", pack: "Pack Gare Brest", forfait: 149, allerRetour: 259 },
-  { id: "rennes-gare", name: "Gare de Rennes", pack: "Pack Gare Rennes", forfait: 289, allerRetour: 519 },
-  { id: "autre", name: "Autre adresse locale", pack: "Trajet local", forfait: 119, allerRetour: 209 },
+  { id: "quimper-gare", name: "Gare de Quimper", forfait: 89, allerRetour: 159 },
+  { id: "lorient-aero", name: "Aéroport Lorient-Bretagne Sud", forfait: 159, allerRetour: 279 },
+  { id: "lorient-gare", name: "Gare de Lorient", forfait: 149, allerRetour: 259 },
+  { id: "brest-aero", name: "Aéroport Brest-Bretagne", forfait: 169, allerRetour: 299 },
+  { id: "brest-gare", name: "Gare de Brest", forfait: 149, allerRetour: 259 },
+  { id: "vannes-gare", name: "Gare de Vannes", forfait: 189, allerRetour: 339 },
+  { id: "rennes-gare", name: "Gare de Rennes", forfait: 289, allerRetour: 519 },
 ] as const;
 
 export type QuoteInput = {
@@ -318,11 +341,13 @@ export type QuoteInput = {
   formula: FormulaKind;
   model?: string;
   mission: MissionKind;
+  jockeySens: JockeySens;
   jockeyPoint: string;
   jockeyRef: string;
   jockeyAller: string;
   jockeyRetour: string;
   jockeyCt: boolean;
+  jockeyWash: "aucun" | "standard" | "prestige";
 };
 
 export type QuoteResult = {
@@ -355,22 +380,29 @@ export function computeQuote(input: QuoteInput): QuoteResult {
         europe: false,
       };
     }
-    const round = Boolean(input.jockeyRetour.trim());
+    const round = input.jockeySens === "allerRetour";
     let base: number = round ? point.allerRetour : point.forfait;
     if (input.when === "urgent") base = Math.round(base * (1 + OPTIONS.urgencePct));
     let options = 0;
-    if (input.lavage === "complet") options += OPTIONS.lavageComplet;
+    if (input.jockeyWash === "standard") options += OPTIONS.jockeyLavage;
+    if (input.jockeyWash === "prestige") options += OPTIONS.jockeyLavagePrestige;
     if (input.plein) options += OPTIONS.plein;
     if (input.jockeyCt) options += OPTIONS.jockeyCt;
+    const dest =
+      input.jockeySens === "depose"
+        ? `Dépose, ${point.name}`
+        : input.jockeySens === "rapatriement"
+          ? `Rapatriement au domicile, depuis ${point.name}`
+          : `Aller et retour, ${point.name}`;
     return {
       ok: true,
       km: 0,
       base,
       options,
       total: base + options,
-      delay: round ? "Aller et retour, créneau sous 2 h" : "Créneau sous 2 h",
-      fromName: point.name,
-      toName: round ? "Aller et retour, domicile ou parking" : "Domicile ou parking gardé",
+      delay: "Bretagne. Créneau sous 2 h, sous réserve.",
+      fromName: input.jockeySens === "depose" ? "Domicile" : point.name,
+      toName: dest,
       europe: false,
     };
   }

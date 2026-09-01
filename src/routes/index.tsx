@@ -145,7 +145,7 @@ function Home() {
             <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Conciergerie</p>
             <h2 className="mt-5 font-display text-4xl text-navy sm:text-5xl">Voiturier gares et aéroports.</h2>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-muted">
-              Gare de Quimper, aéroports de Brest-Bretagne et Lorient. Prise en charge au dépose-minute, restitution sur le parvis.
+              Bretagne. Dépose à la gare ou à l’aéroport, ou rapatriement à domicile. Photos. Pas de gardiennage.
             </p>
             <Link
               to="/jockey-gares-aeroports"

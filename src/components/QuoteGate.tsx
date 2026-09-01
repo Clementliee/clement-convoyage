@@ -16,12 +16,16 @@ export function QuoteGate({
 }) {
   const range = quoteRange(quote.total);
   const extras = [
-    input.mission === "jockey" ? `Jockey ${input.jockeyPoint}` : "",
+    input.mission === "jockey" ? `Jockey ${input.jockeySens} · ${input.jockeyPoint}` : "",
     input.mission === "jockey" && input.jockeyRef ? `Train ou vol ${input.jockeyRef}` : "",
     input.mission === "jockey" && input.jockeyAller ? `Aller ${input.jockeyAller.replace("T", " ")}` : "",
     input.mission === "jockey" && input.jockeyRetour ? `Retour ${input.jockeyRetour.replace("T", " ")}` : "",
     input.mission === "jockey" && input.jockeyCt ? "Passage révision ou contrôle technique" : "",
-    input.lavage === "complet" || input.pack === "confort" || input.pack === "premium" ? "Préparation esthétique complète" : "",
+    input.mission === "jockey" && input.jockeyWash === "prestige"
+      ? "Nettoyage prestige 125 €"
+      : input.mission === "jockey" && input.jockeyWash === "standard"
+        ? "Nettoyage intérieur et extérieur 90 €"
+        : "",
     input.gps ? "Balise traqueur GPS 4G autonome, 12 mois inclus" : "",
     "Mise en main personnalisée, offerte",
     input.plein ? "Service plein carburant ou charge 90 % ou plus" : "",
