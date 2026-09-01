@@ -6,36 +6,16 @@ export const PROTOCOL = {
 } as const;
 
 export const PILLARS = [
-  {
-    k: "Acheminement",
-    t: "Convoyage routier, de bout en bout.",
-    d: "Prise en charge, conduite, péages, logistique retour. Véhicules particuliers et utilitaires jusqu’à 3,5 t, en état de marche.",
-  },
-  {
-    k: "Traçabilité",
-    t: "Rapport d’état des lieux haute définition.",
-    d: "Kilométrage, carrosserie, habitacle, niveau de carburant ou d’autonomie. Une preuve, pas une expertise.",
-  },
-  {
-    k: "Préparation",
-    t: "Le véhicule est restitué prêt à prendre la route.",
-    d: "Préparation esthétique, fluides, pneumatiques, plein ou recharge. Vous composez. La mise en main personnalisée est offerte.",
-  },
-  {
-    k: "Restitution",
-    t: "Le standard d’une remise en concession.",
-    d: "Clés en main, documents, compte-rendu de mission. Coffret privilège en option.",
-  },
+  { k: "01", t: "Prendre.", d: "Où le véhicule se trouve." },
+  { k: "02", t: "Conduire.", d: "France et Europe." },
+  { k: "03", t: "Remettre.", d: "Chez le client, comme en concession." },
 ] as const;
 
 export const PROCESS = [
-  { n: "01", t: "Demande", d: "Simulateur ou appel. Itinéraire, segment du véhicule, options de prestation." },
-  { n: "02", t: "Analyse", d: "Distance, créneau, documents, faisabilité. Un devis formel sous 2 heures ouvrées." },
-  { n: "03", t: "Confirmation", d: "Estimation détaillée après vos coordonnées. Prix indicatif, à confirmer." },
-  { n: "04", t: "Prise en charge", d: "Identification, rapport d’état des lieux numérique, compteur, carburant, documents." },
-  { n: "05", t: "Acheminement", d: "Convoyage routier sécurisé, assurance tous risques, signalement en cas d’imprévu." },
-  { n: "06", t: "Restitution", d: "État des lieux d’arrivée, clés, mise en main personnalisée offerte." },
-  { n: "07", t: "Compte-rendu", d: "Photos, kilométrage, faits. Facture pour les professionnels." },
+  { n: "01", t: "Demande", d: "Simulateur ou appel." },
+  { n: "02", t: "Devis", d: "Sous 2 heures ouvrées." },
+  { n: "03", t: "Acheminement", d: "On récupère, on conduit, on remet." },
+  { n: "04", t: "Remise", d: "Clés, photos, mise en main offerte." },
 ] as const;
 
 export const PACKS = [
@@ -112,26 +92,12 @@ export const B2B_CASES = [
 export const FORMULAS = [
   {
     id: "standard" as const,
-    name: "Convoyage Signature",
+    name: "Convoyage",
     tag: "Inclus",
     items: [
-      "Convoyage routier sécurisé, assurance tous risques",
-      "Rapport d’état des lieux numérique, départ et arrivée",
-      "Frais de route intégrés, carburant, péages, logistique retour",
-      "Restitution des clés en main",
-      "Mise en main personnalisée, offerte",
-    ],
-  },
-  {
-    id: "premium" as const,
-    name: "Convoyage Prestige",
-    tag: "À la carte",
-    items: [
-      "L’ensemble du convoyage Signature",
-      "Préparation esthétique complète, 45 €",
-      "Balise traqueur GPS 4G autonome, 199 €",
-      "Coffret privilège, plein ou pack mise à la route",
-      "Mise en main personnalisée, offerte",
+      "Prise en charge et acheminement",
+      "État des lieux photo, départ et arrivée",
+      "Mise en main, offerte",
     ],
   },
 ] as const;

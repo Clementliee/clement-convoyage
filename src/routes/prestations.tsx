@@ -20,81 +20,27 @@ export const Route = createFileRoute("/prestations")({
 const MORE = [
   {
     to: "/jockey-gares-aeroports",
-    title: "Jockey VIP gares et aéroports",
-    text: "Parvis Quimper, Brest, Lorient, Rennes. Le véhicule vous attend.",
+    title: "Jockey gares et aéroports",
+    text: "Le véhicule vous attend sur le parvis.",
     image: "/images/18_jockey_gare.jpg",
   },
   {
     to: "/professionnels",
     title: "Professionnels",
-    text: "Concessions, garages, mandataires, flottes. Compte, quinze jours, compte-rendu.",
-    image: "/images/02_remise_cles.jpg",
-  },
-  {
-    to: "/pack-mise-a-la-route",
-    title: "Packs mise à la route",
-    text: "Essentiel, Confort, Premium. Le véhicule arrive prêt.",
-    image: "/images/03_nettoyage.jpg",
+    text: "Concessions, garages, flottes.",
+    image: "/images/12_garage_b2b.jpg",
   },
   {
     to: "/coffrets-livraison",
-    title: "Coffrets cadeau",
-    text: "Deux coffrets maison, remis avec les clés. Armor ou Champagne.",
+    title: "Coffrets",
+    text: "Terroir Breton ou Prestige Champagne.",
     image: "/images/09_coffret_armor.jpg",
   },
   {
-    to: "/controle-vehicule",
-    title: "Contrôle visuel",
-    text: "20 points, photos. Ce n’est pas une expertise. Une remise propre.",
-    image: "/images/06_etat_des_lieux.jpg",
-  },
-  {
     to: "/traqueur-gps",
-    title: "Traqueur GPS 4G, 199 €",
-    text: "Pour l’acheteur. Il le garde. 12 mois de suivi inclus.",
+    title: "Balise GPS 4G",
+    text: "Cédée à l’acquéreur. 199 €.",
     image: "/images/07_gps.jpg",
-  },
-  {
-    to: "/securite-vehicule",
-    title: "Photos et clés",
-    text: "Photos au départ et à l’arrivée. Clés en main propre. Mise en main offerte.",
-    image: "/images/08_securite.jpg",
-  },
-  {
-    to: "/convoyage-prestige",
-    title: "Prestige",
-    text: "Berlines et sportives. Protocole de remise issu des réseaux premium.",
-    image: "/images/02_remise_cles.jpg",
-  },
-  {
-    to: "/convoyage-electrique",
-    title: "Véhicule électrique",
-    text: "Plan de recharge, niveau de batterie convenu. Mise en main offerte.",
-    image: "/images/03_nettoyage.jpg",
-  },
-  {
-    to: "/etat-des-lieux-convoyage",
-    title: "État des lieux",
-    text: "Photos horodatées, compte-rendu. Preuve, pas récit.",
-    image: "/images/06_etat_des_lieux.jpg",
-  },
-  {
-    to: "/convoyage-mandataire",
-    title: "Mandataires",
-    text: "De la plate-forme jusqu’au client. Même exigence de remise.",
-    image: "/images/04_europe_nuit.jpg",
-  },
-  {
-    to: "/convoyage-import",
-    title: "Import",
-    text: "Belgique, Allemagne, Pologne. GPS et formalités cadrés avant départ.",
-    image: "/images/04_europe_nuit.jpg",
-  },
-  {
-    to: "/convoyage-urgence",
-    title: "Urgent / week-end",
-    text: "Sous 24 h selon créneau. Tous les jours. Pas de promesse magique.",
-    image: "/images/01_hero_bretagne.jpg",
   },
 ];
 
@@ -103,9 +49,9 @@ function Page() {
     <main>
       <PageHero
         kicker="Prestations"
-        title="Livrer."
-        accent="Préparer. Sécuriser."
-        text="Le même niveau de remise qu’en concession. Aucun tarif en vitrine."
+        title="L’essentiel."
+        accent=""
+        text="Convoyage. Jockey. Professionnels. Options."
       />
       <section className="mx-auto grid max-w-6xl gap-8 px-5 pb-12 sm:px-8 md:grid-cols-3">
         {SERVICES.map((s) => (
