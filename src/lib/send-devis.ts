@@ -23,19 +23,19 @@ function autoresponse(p: LeadPayload) {
     "",
     "Votre demande de convoyage est bien arrivée.",
     "",
-    `Trajet : ${p.fromName} → ${p.toName} (${p.km} km)`,
+    `Trajet : ${p.fromName} vers ${p.toName} (${p.km} km)`,
     `Délai estimé : ${p.delay}`,
-    p.range.mid > 0 ? `Fourchette indicative : ${p.range.low} € – ${p.range.high} €` : "",
+    p.range.mid > 0 ? `Fourchette indicative : de ${p.range.low} € à ${p.range.high} €` : "",
     p.range.mid > 0 ? `Estimation centrale : ${p.range.mid} €` : "",
     p.extras ? `Options : ${p.extras}` : "",
     "",
     "Ce tarif est indicatif. Il doit être confirmé avec un professionnel avant toute mission.",
-    "Le PDF de devis s’est téléchargé depuis le site au moment de votre demande — conservez-le.",
+    "Le PDF de devis s’est téléchargé depuis le site au moment de votre demande. Conservez-le.",
     "",
-    "Inclus à la confirmation : conduite, carburant, péages, retour, EDL photo, remise des clés.",
+    "Inclus à la confirmation : conduite, carburant, péages, retour, état des lieux photo, remise des clés, mise en main.",
     "Franchise TVA art. 293 B du CGI.",
     "",
-    `${SITE.name} — ${SITE.city}`,
+    `${SITE.name}. ${SITE.city}`,
     SITE.email,
   ]
     .filter((l) => l !== "")
@@ -44,7 +44,7 @@ function autoresponse(p: LeadPayload) {
 
 export async function sendDevisLead(p: LeadPayload): Promise<{ ok: boolean; detail?: string }> {
   const body = {
-    _subject: `Devis convoyage ${p.fromName} → ${p.toName} — ${p.firstName} ${p.lastName}`,
+    _subject: `Devis convoyage ${p.fromName} vers ${p.toName}. ${p.firstName} ${p.lastName}`,
     _template: "table",
     _captcha: "false",
     _replyto: p.email,
@@ -53,15 +53,15 @@ export async function sendDevisLead(p: LeadPayload): Promise<{ ok: boolean; deta
     Prenom: p.firstName,
     Nom: p.lastName,
     Profil: p.client === "pro" ? "Professionnel" : "Particulier",
-    Societe: p.company || "—",
+    Societe: p.company || "",
     Telephone: p.phone,
-    Trajet: `${p.fromName} → ${p.toName}`,
+    Trajet: `${p.fromName} vers ${p.toName}`,
     Kilometres: String(p.km),
     Delai: p.delay,
-    Fourchette: `${p.range.low} € – ${p.range.high} €`,
+    Fourchette: `de ${p.range.low} € à ${p.range.high} €`,
     Estimation: `${p.range.mid} €`,
-    Options: p.extras || "—",
-    Message: p.message || "—",
+    Options: p.extras || "",
+    Message: p.message || "",
   };
 
   try {
@@ -82,15 +82,15 @@ export async function sendDevisLead(p: LeadPayload): Promise<{ ok: boolean; deta
 }
 
 export function mailtoFallback(p: LeadPayload) {
-  const subject = encodeURIComponent(`Devis convoyage ${p.fromName} → ${p.toName}`);
+  const subject = encodeURIComponent(`Devis convoyage ${p.fromName} vers ${p.toName}`);
   const body = encodeURIComponent(
     [
       `${p.firstName} ${p.lastName}`,
       p.client === "pro" ? `Professionnel ${p.company ?? ""}` : "Particulier",
       p.email,
       p.phone,
-      `${p.fromName} → ${p.toName} · ${p.km} km`,
-      `Fourchette ${p.range.low} – ${p.range.high} €`,
+      `${p.fromName} vers ${p.toName}, ${p.km} km`,
+      `Fourchette ${p.range.low}, ${p.range.high} €`,
       p.message ?? "",
     ].join("\n"),
   );

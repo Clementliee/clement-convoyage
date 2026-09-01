@@ -1,48 +1,42 @@
-# CLÉMENT CONVOYAGE
+# Convoyage BZH
 
-> Convoyage et livraison de véhicules depuis Quimper (Finistère, Bretagne). France et Europe. Standard issu des réseaux DS Automobiles, Renault et Mercedes-Benz.
+> Convoyage, préparation, contrôle et remise de véhicules depuis Quimper (Finistère, Bretagne). France et Europe.
 
-CLÉMENT CONVOYAGE livre des véhicules légers et utilitaires ≤ 3,5 t, en état de marche. Base : Quimper. Interlocuteur unique, 7 j/7, astreinte 24 h pour les professionnels.
+Convoyage BZH n’est pas un simple A vers B. C’est une prise en charge : transfert, état des lieux, préparation, remise comme en concession.
 
-Les tarifs ne sont pas publiés. Une fourchette indicative (basse / haute) s’affiche après nom, prénom, téléphone et e-mail, via le simulateur. Devis ferme sous 2 heures ouvrées. Prix indicatif, à confirmer avec un professionnel.
+Fondateur : Clément. Expérience DS Automobiles, Renault, Mercedes-Benz. Passage par l’armée française (rigueur, procédure, imprévus — pas une activité de sécurité privée).
 
-## Prestations
+Véhicules : particuliers et utilitaires jusqu’à 3,5 t, en état de marche, permis B. Hors champ : plateau, non-roulant, poids lourd.
 
-- [Livraison France](https://clement-convoyage.vercel.app/livraison-vehicule) : conduite A → B, carburant, péages, retour convoyeur, EDL photo, remise des clés.
-- [Livraison Europe](https://clement-convoyage.vercel.app/livraison-europe) : même standard, formalités frontière.
-- [Nettoyage avant remise](https://clement-convoyage.vercel.app/nettoyage-vehicule)
-- [Traqueur GPS](https://clement-convoyage.vercel.app/traqueur-gps) : pose discrète le temps de la mission.
-- [Protocole sécurité](https://clement-convoyage.vercel.app/securite-vehicule) : clés sous scellé, EDL renforcée, gestion de crise.
-- [Prestige](https://clement-convoyage.vercel.app/convoyage-prestige)
-- [Véhicule électrique](https://clement-convoyage.vercel.app/convoyage-electrique)
-- [Utilitaire](https://clement-convoyage.vercel.app/convoyage-utilitaire)
-- [Import](https://clement-convoyage.vercel.app/convoyage-import)
-- [Urgent](https://clement-convoyage.vercel.app/convoyage-urgence)
+Toujours inclus : conduite, carburant du véhicule convoyé, péages, retour du convoyeur, état des lieux photo, clés, mise en main.
 
-Hors champ : plateau, non-roulant, poids lourd.
+Les tarifs de convoyage ne sont pas une grille publique. Fourchette après nom, téléphone, e-mail. Prix indicatif, à confirmer. Packs mise à la route : indicatifs à partir de 89 / 149 / 229 €.
 
-## Destinations
+## Parcours
 
-Hub : [toutes les destinations](https://clement-convoyage.vercel.app/destinations)
+- Particuliers : achat à distance, vente, import, déménagement, VE, prestige.
+- Professionnels (priorité) : concessions, garages, mandataires, marchands VO, loueurs, flottes. Compte, quinze jours, astreinte 24 h, cadre volume.
 
-Bretagne (base Quimper) : Quimper, Bénodet, Fouesnant, Concarneau, Pont-l’Abbé, Douarnenez, Audierne, Pont-Aven, Quimperlé, Châteaulin, Carhaix, Brest, Morlaix, Roscoff, Lorient, Vannes, Auray, Quiberon, Rennes, Saint-Brieuc, Saint-Malo, Lannion.
+## Pages clés
 
-France : Nantes, Angers, Le Mans, Tours, Orléans, Caen, Rouen, Paris, Lille, Reims, Metz, Strasbourg, Dijon, Lyon, Grenoble, Bordeaux, La Rochelle, Toulouse, Pau, Clermont-Ferrand, Montpellier, Perpignan, Marseille, Nice.
+- [Accueil](https://clement-convoyage.vercel.app/)
+- [Convoyage](https://clement-convoyage.vercel.app/convoyage)
+- [Professionnels](https://clement-convoyage.vercel.app/professionnels)
+- [Packs mise à la route](https://clement-convoyage.vercel.app/pack-mise-a-la-route)
+- [Préparation](https://clement-convoyage.vercel.app/preparation-vehicule)
+- [Protocole Clément](https://clement-convoyage.vercel.app/protocole-clement)
+- [Simulateur](https://clement-convoyage.vercel.app/simulateur)
+- [Journal](https://clement-convoyage.vercel.app/blog)
+- [FAQ](https://clement-convoyage.vercel.app/faq)
+- [Contact](https://clement-convoyage.vercel.app/contact)
 
-Europe, dont Pologne (Varsovie), Monaco, Serbie (Belgrade), Belgique, Suisse, Luxembourg, Allemagne, Espagne, Italie, Pays-Bas, Royaume-Uni, Portugal, Autriche, Tchéquie, Croatie, Irlande, Danemark, Hongrie, Andorre, Slovénie, Slovaquie, Grèce, Suède, Norvège, Roumanie, Finlande, Bulgarie, Albanie, Monténégro, Bosnie-Herzégovine, Macédoine du Nord, Estonie, Lettonie, Lituanie, Malte, Chypre, Liechtenstein.
+Téléphone : 06 24 04 85 73
+E-mail : leliege.clement@gmail.com
+Base : 11 rue Hoche, 29000 Quimper
+SIRET : 894 337 120 00048
+SIREN : 894 337 120
+Enseigne : Convoyage BZH. Nom commercial : BZH3D. Micro-entreprise.
 
-## Simulateur et contact
+GPS : suivi temporaire du véhicule pendant la mission, consentement, retrait à la remise. Pas de surveillance, pas de sécurité privée.
 
-- Simulateur : https://clement-convoyage.vercel.app/simulateur
-- Contact : https://clement-convoyage.vercel.app/contact
-- E-mail : leliege.clement@gmail.com
-- Téléphone : 06 00 00 00 00 (à confirmer)
-- À propos : https://clement-convoyage.vercel.app/a-propos
-
-Pas d’avis inventés. Les notes Google seront publiées dès les premières missions.
-
-## Optional
-
-- [Sitemap](https://clement-convoyage.vercel.app/sitemap.xml)
-- [Mentions légales](https://clement-convoyage.vercel.app/mentions-legales)
-- [CGV](https://clement-convoyage.vercel.app/cgv)
+Pas d’avis inventés. Pas de numéro d’agrément inventé. Franchise TVA art. 293 B du CGI.

@@ -3,18 +3,16 @@ import { AppLink } from "@/components/AppLink";
 import { CtaBar } from "@/components/CtaBar";
 import { PageHero } from "@/components/PageHero";
 import { seoByKind } from "@/lib/seo-pages";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/destinations")({
-  head: () => ({
-    meta: [
-      { title: "Destinations convoyage · CLÉMENT CONVOYAGE" },
-      {
-        name: "description",
-        content:
-          "Toutes les destinations de convoyage depuis Quimper : Bretagne, France, Europe (Pologne, Monaco, Serbie…). Pas de grille tarifaire publique.",
-      },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      title: "Destinations convoyage. Bretagne, France, Europe.",
+      description:
+        "Toutes les destinations de convoyage depuis Quimper. Bretagne, France, Europe. Pologne, Monaco, Serbie. Pas de grille tarifaire publique.",
+      path: "/destinations",
+    }),
   component: Page,
 });
 

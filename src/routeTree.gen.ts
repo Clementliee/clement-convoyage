@@ -13,18 +13,31 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as SlugRouteImport } from './routes/$slug'
 import { Route as AProposRouteImport } from './routes/a-propos'
 import { Route as AvisRouteImport } from './routes/avis'
+import { Route as BlogRouteImport } from './routes/blog'
 import { Route as CgvRouteImport } from './routes/cgv'
+import { Route as CoffretsLivraisonRouteImport } from './routes/coffrets-livraison'
 import { Route as ConfidentialiteRouteImport } from './routes/confidentialite'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ControleVehiculeRouteImport } from './routes/controle-vehicule'
+import { Route as ConvoyageRouteImport } from './routes/convoyage'
+import { Route as ConvoyageFranceRouteImport } from './routes/convoyage-france'
 import { Route as DestinationsRouteImport } from './routes/destinations'
+import { Route as DevisRouteImport } from './routes/devis'
+import { Route as FaqRouteImport } from './routes/faq'
+import { Route as GpsSuiviRouteImport } from './routes/gps-suivi'
 import { Route as LivraisonEuropeRouteImport } from './routes/livraison-europe'
 import { Route as LivraisonVehiculeRouteImport } from './routes/livraison-vehicule'
 import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
 import { Route as NettoyageVehiculeRouteImport } from './routes/nettoyage-vehicule'
+import { Route as PackMiseALaRouteRouteImport } from './routes/pack-mise-a-la-route'
+import { Route as PreparationVehiculeRouteImport } from './routes/preparation-vehicule'
 import { Route as PrestationsRouteImport } from './routes/prestations'
+import { Route as ProfessionnelsRouteImport } from './routes/professionnels'
+import { Route as ProtocoleClementRouteImport } from './routes/protocole-clement'
 import { Route as SecuriteVehiculeRouteImport } from './routes/securite-vehicule'
 import { Route as SimulateurRouteImport } from './routes/simulateur'
 import { Route as TraqueurGpsRouteImport } from './routes/traqueur-gps'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -46,9 +59,19 @@ const AvisRoute = AvisRouteImport.update({
   path: '/avis',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CgvRoute = CgvRouteImport.update({
   id: '/cgv',
   path: '/cgv',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CoffretsLivraisonRoute = CoffretsLivraisonRouteImport.update({
+  id: '/coffrets-livraison',
+  path: '/coffrets-livraison',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConfidentialiteRoute = ConfidentialiteRouteImport.update({
@@ -61,9 +84,39 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ControleVehiculeRoute = ControleVehiculeRouteImport.update({
+  id: '/controle-vehicule',
+  path: '/controle-vehicule',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConvoyageRoute = ConvoyageRouteImport.update({
+  id: '/convoyage',
+  path: '/convoyage',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConvoyageFranceRoute = ConvoyageFranceRouteImport.update({
+  id: '/convoyage-france',
+  path: '/convoyage-france',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DestinationsRoute = DestinationsRouteImport.update({
   id: '/destinations',
   path: '/destinations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DevisRoute = DevisRouteImport.update({
+  id: '/devis',
+  path: '/devis',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GpsSuiviRoute = GpsSuiviRouteImport.update({
+  id: '/gps-suivi',
+  path: '/gps-suivi',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LivraisonEuropeRoute = LivraisonEuropeRouteImport.update({
@@ -86,9 +139,29 @@ const NettoyageVehiculeRoute = NettoyageVehiculeRouteImport.update({
   path: '/nettoyage-vehicule',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PackMiseALaRouteRoute = PackMiseALaRouteRouteImport.update({
+  id: '/pack-mise-a-la-route',
+  path: '/pack-mise-a-la-route',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PreparationVehiculeRoute = PreparationVehiculeRouteImport.update({
+  id: '/preparation-vehicule',
+  path: '/preparation-vehicule',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrestationsRoute = PrestationsRouteImport.update({
   id: '/prestations',
   path: '/prestations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfessionnelsRoute = ProfessionnelsRouteImport.update({
+  id: '/professionnels',
+  path: '/professionnels',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProtocoleClementRoute = ProtocoleClementRouteImport.update({
+  id: '/protocole-clement',
+  path: '/protocole-clement',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SecuriteVehiculeRoute = SecuriteVehiculeRouteImport.update({
@@ -106,42 +179,73 @@ const TraqueurGpsRoute = TraqueurGpsRouteImport.update({
   path: '/traqueur-gps',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => BlogRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$slug': typeof SlugRoute
   '/a-propos': typeof AProposRoute
   '/avis': typeof AvisRoute
+  '/blog': typeof BlogRouteWithChildren
   '/cgv': typeof CgvRoute
+  '/coffrets-livraison': typeof CoffretsLivraisonRoute
   '/confidentialite': typeof ConfidentialiteRoute
   '/contact': typeof ContactRoute
+  '/controle-vehicule': typeof ControleVehiculeRoute
+  '/convoyage': typeof ConvoyageRoute
+  '/convoyage-france': typeof ConvoyageFranceRoute
   '/destinations': typeof DestinationsRoute
+  '/devis': typeof DevisRoute
+  '/faq': typeof FaqRoute
+  '/gps-suivi': typeof GpsSuiviRoute
   '/livraison-europe': typeof LivraisonEuropeRoute
   '/livraison-vehicule': typeof LivraisonVehiculeRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/nettoyage-vehicule': typeof NettoyageVehiculeRoute
+  '/pack-mise-a-la-route': typeof PackMiseALaRouteRoute
+  '/preparation-vehicule': typeof PreparationVehiculeRoute
   '/prestations': typeof PrestationsRoute
+  '/professionnels': typeof ProfessionnelsRoute
+  '/protocole-clement': typeof ProtocoleClementRoute
   '/securite-vehicule': typeof SecuriteVehiculeRoute
   '/simulateur': typeof SimulateurRoute
   '/traqueur-gps': typeof TraqueurGpsRoute
+  '/blog/$slug': typeof BlogSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$slug': typeof SlugRoute
   '/a-propos': typeof AProposRoute
   '/avis': typeof AvisRoute
+  '/blog': typeof BlogRouteWithChildren
   '/cgv': typeof CgvRoute
+  '/coffrets-livraison': typeof CoffretsLivraisonRoute
   '/confidentialite': typeof ConfidentialiteRoute
   '/contact': typeof ContactRoute
+  '/controle-vehicule': typeof ControleVehiculeRoute
+  '/convoyage': typeof ConvoyageRoute
+  '/convoyage-france': typeof ConvoyageFranceRoute
   '/destinations': typeof DestinationsRoute
+  '/devis': typeof DevisRoute
+  '/faq': typeof FaqRoute
+  '/gps-suivi': typeof GpsSuiviRoute
   '/livraison-europe': typeof LivraisonEuropeRoute
   '/livraison-vehicule': typeof LivraisonVehiculeRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/nettoyage-vehicule': typeof NettoyageVehiculeRoute
+  '/pack-mise-a-la-route': typeof PackMiseALaRouteRoute
+  '/preparation-vehicule': typeof PreparationVehiculeRoute
   '/prestations': typeof PrestationsRoute
+  '/professionnels': typeof ProfessionnelsRoute
+  '/protocole-clement': typeof ProtocoleClementRoute
   '/securite-vehicule': typeof SecuriteVehiculeRoute
   '/simulateur': typeof SimulateurRoute
   '/traqueur-gps': typeof TraqueurGpsRoute
+  '/blog/$slug': typeof BlogSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -149,18 +253,31 @@ export interface FileRoutesById {
   '/$slug': typeof SlugRoute
   '/a-propos': typeof AProposRoute
   '/avis': typeof AvisRoute
+  '/blog': typeof BlogRouteWithChildren
   '/cgv': typeof CgvRoute
+  '/coffrets-livraison': typeof CoffretsLivraisonRoute
   '/confidentialite': typeof ConfidentialiteRoute
   '/contact': typeof ContactRoute
+  '/controle-vehicule': typeof ControleVehiculeRoute
+  '/convoyage': typeof ConvoyageRoute
+  '/convoyage-france': typeof ConvoyageFranceRoute
   '/destinations': typeof DestinationsRoute
+  '/devis': typeof DevisRoute
+  '/faq': typeof FaqRoute
+  '/gps-suivi': typeof GpsSuiviRoute
   '/livraison-europe': typeof LivraisonEuropeRoute
   '/livraison-vehicule': typeof LivraisonVehiculeRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/nettoyage-vehicule': typeof NettoyageVehiculeRoute
+  '/pack-mise-a-la-route': typeof PackMiseALaRouteRoute
+  '/preparation-vehicule': typeof PreparationVehiculeRoute
   '/prestations': typeof PrestationsRoute
+  '/professionnels': typeof ProfessionnelsRoute
+  '/protocole-clement': typeof ProtocoleClementRoute
   '/securite-vehicule': typeof SecuriteVehiculeRoute
   '/simulateur': typeof SimulateurRoute
   '/traqueur-gps': typeof TraqueurGpsRoute
+  '/blog/$slug': typeof BlogSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -169,54 +286,93 @@ export interface FileRouteTypes {
     | '/$slug'
     | '/a-propos'
     | '/avis'
+    | '/blog'
     | '/cgv'
+    | '/coffrets-livraison'
     | '/confidentialite'
     | '/contact'
+    | '/controle-vehicule'
+    | '/convoyage'
+    | '/convoyage-france'
     | '/destinations'
+    | '/devis'
+    | '/faq'
+    | '/gps-suivi'
     | '/livraison-europe'
     | '/livraison-vehicule'
     | '/mentions-legales'
     | '/nettoyage-vehicule'
+    | '/pack-mise-a-la-route'
+    | '/preparation-vehicule'
     | '/prestations'
+    | '/professionnels'
+    | '/protocole-clement'
     | '/securite-vehicule'
     | '/simulateur'
     | '/traqueur-gps'
+    | '/blog/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/$slug'
     | '/a-propos'
     | '/avis'
+    | '/blog'
     | '/cgv'
+    | '/coffrets-livraison'
     | '/confidentialite'
     | '/contact'
+    | '/controle-vehicule'
+    | '/convoyage'
+    | '/convoyage-france'
     | '/destinations'
+    | '/devis'
+    | '/faq'
+    | '/gps-suivi'
     | '/livraison-europe'
     | '/livraison-vehicule'
     | '/mentions-legales'
     | '/nettoyage-vehicule'
+    | '/pack-mise-a-la-route'
+    | '/preparation-vehicule'
     | '/prestations'
+    | '/professionnels'
+    | '/protocole-clement'
     | '/securite-vehicule'
     | '/simulateur'
     | '/traqueur-gps'
+    | '/blog/$slug'
   id:
     | '__root__'
     | '/'
     | '/$slug'
     | '/a-propos'
     | '/avis'
+    | '/blog'
     | '/cgv'
+    | '/coffrets-livraison'
     | '/confidentialite'
     | '/contact'
+    | '/controle-vehicule'
+    | '/convoyage'
+    | '/convoyage-france'
     | '/destinations'
+    | '/devis'
+    | '/faq'
+    | '/gps-suivi'
     | '/livraison-europe'
     | '/livraison-vehicule'
     | '/mentions-legales'
     | '/nettoyage-vehicule'
+    | '/pack-mise-a-la-route'
+    | '/preparation-vehicule'
     | '/prestations'
+    | '/professionnels'
+    | '/protocole-clement'
     | '/securite-vehicule'
     | '/simulateur'
     | '/traqueur-gps'
+    | '/blog/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -224,15 +380,27 @@ export interface RootRouteChildren {
   SlugRoute: typeof SlugRoute
   AProposRoute: typeof AProposRoute
   AvisRoute: typeof AvisRoute
+  BlogRoute: typeof BlogRouteWithChildren
   CgvRoute: typeof CgvRoute
+  CoffretsLivraisonRoute: typeof CoffretsLivraisonRoute
   ConfidentialiteRoute: typeof ConfidentialiteRoute
   ContactRoute: typeof ContactRoute
+  ControleVehiculeRoute: typeof ControleVehiculeRoute
+  ConvoyageRoute: typeof ConvoyageRoute
+  ConvoyageFranceRoute: typeof ConvoyageFranceRoute
   DestinationsRoute: typeof DestinationsRoute
+  DevisRoute: typeof DevisRoute
+  FaqRoute: typeof FaqRoute
+  GpsSuiviRoute: typeof GpsSuiviRoute
   LivraisonEuropeRoute: typeof LivraisonEuropeRoute
   LivraisonVehiculeRoute: typeof LivraisonVehiculeRoute
   MentionsLegalesRoute: typeof MentionsLegalesRoute
   NettoyageVehiculeRoute: typeof NettoyageVehiculeRoute
+  PackMiseALaRouteRoute: typeof PackMiseALaRouteRoute
+  PreparationVehiculeRoute: typeof PreparationVehiculeRoute
   PrestationsRoute: typeof PrestationsRoute
+  ProfessionnelsRoute: typeof ProfessionnelsRoute
+  ProtocoleClementRoute: typeof ProtocoleClementRoute
   SecuriteVehiculeRoute: typeof SecuriteVehiculeRoute
   SimulateurRoute: typeof SimulateurRoute
   TraqueurGpsRoute: typeof TraqueurGpsRoute
@@ -268,11 +436,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AvisRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/cgv': {
       id: '/cgv'
       path: '/cgv'
       fullPath: '/cgv'
       preLoaderRoute: typeof CgvRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/coffrets-livraison': {
+      id: '/coffrets-livraison'
+      path: '/coffrets-livraison'
+      fullPath: '/coffrets-livraison'
+      preLoaderRoute: typeof CoffretsLivraisonRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/confidentialite': {
@@ -289,11 +471,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/controle-vehicule': {
+      id: '/controle-vehicule'
+      path: '/controle-vehicule'
+      fullPath: '/controle-vehicule'
+      preLoaderRoute: typeof ControleVehiculeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/convoyage': {
+      id: '/convoyage'
+      path: '/convoyage'
+      fullPath: '/convoyage'
+      preLoaderRoute: typeof ConvoyageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/convoyage-france': {
+      id: '/convoyage-france'
+      path: '/convoyage-france'
+      fullPath: '/convoyage-france'
+      preLoaderRoute: typeof ConvoyageFranceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/destinations': {
       id: '/destinations'
       path: '/destinations'
       fullPath: '/destinations'
       preLoaderRoute: typeof DestinationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/devis': {
+      id: '/devis'
+      path: '/devis'
+      fullPath: '/devis'
+      preLoaderRoute: typeof DevisRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gps-suivi': {
+      id: '/gps-suivi'
+      path: '/gps-suivi'
+      fullPath: '/gps-suivi'
+      preLoaderRoute: typeof GpsSuiviRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/livraison-europe': {
@@ -324,11 +548,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NettoyageVehiculeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pack-mise-a-la-route': {
+      id: '/pack-mise-a-la-route'
+      path: '/pack-mise-a-la-route'
+      fullPath: '/pack-mise-a-la-route'
+      preLoaderRoute: typeof PackMiseALaRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/preparation-vehicule': {
+      id: '/preparation-vehicule'
+      path: '/preparation-vehicule'
+      fullPath: '/preparation-vehicule'
+      preLoaderRoute: typeof PreparationVehiculeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/prestations': {
       id: '/prestations'
       path: '/prestations'
       fullPath: '/prestations'
       preLoaderRoute: typeof PrestationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/professionnels': {
+      id: '/professionnels'
+      path: '/professionnels'
+      fullPath: '/professionnels'
+      preLoaderRoute: typeof ProfessionnelsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/protocole-clement': {
+      id: '/protocole-clement'
+      path: '/protocole-clement'
+      fullPath: '/protocole-clement'
+      preLoaderRoute: typeof ProtocoleClementRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/securite-vehicule': {
@@ -352,23 +604,52 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TraqueurGpsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof BlogRoute
+    }
   }
 }
+
+interface BlogRouteChildren {
+  BlogSlugRoute: typeof BlogSlugRoute
+}
+
+const BlogRouteChildren: BlogRouteChildren = {
+  BlogSlugRoute: BlogSlugRoute,
+}
+
+const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SlugRoute: SlugRoute,
   AProposRoute: AProposRoute,
   AvisRoute: AvisRoute,
+  BlogRoute: BlogRouteWithChildren,
   CgvRoute: CgvRoute,
+  CoffretsLivraisonRoute: CoffretsLivraisonRoute,
   ConfidentialiteRoute: ConfidentialiteRoute,
   ContactRoute: ContactRoute,
+  ControleVehiculeRoute: ControleVehiculeRoute,
+  ConvoyageRoute: ConvoyageRoute,
+  ConvoyageFranceRoute: ConvoyageFranceRoute,
   DestinationsRoute: DestinationsRoute,
+  DevisRoute: DevisRoute,
+  FaqRoute: FaqRoute,
+  GpsSuiviRoute: GpsSuiviRoute,
   LivraisonEuropeRoute: LivraisonEuropeRoute,
   LivraisonVehiculeRoute: LivraisonVehiculeRoute,
   MentionsLegalesRoute: MentionsLegalesRoute,
   NettoyageVehiculeRoute: NettoyageVehiculeRoute,
+  PackMiseALaRouteRoute: PackMiseALaRouteRoute,
+  PreparationVehiculeRoute: PreparationVehiculeRoute,
   PrestationsRoute: PrestationsRoute,
+  ProfessionnelsRoute: ProfessionnelsRoute,
+  ProtocoleClementRoute: ProtocoleClementRoute,
   SecuriteVehiculeRoute: SecuriteVehiculeRoute,
   SimulateurRoute: SimulateurRoute,
   TraqueurGpsRoute: TraqueurGpsRoute,

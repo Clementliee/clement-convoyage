@@ -1,56 +1,67 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Check, Clock, Shield, Star } from "lucide-react";
 import { AppLink } from "@/components/AppLink";
 import { CtaBar } from "@/components/CtaBar";
 import { Faq } from "@/components/Faq";
 import { FaqJsonLd } from "@/components/JsonLd";
 import { HeroStage } from "@/components/HeroStage";
 import { HomeEstimator } from "@/components/HomeEstimator";
-import { Button } from "@/components/ui/button";
-import { SERVICES, SITE } from "@/lib/site";
+import { Reveal } from "@/components/Reveal";
+import { pageHead } from "@/lib/seo";
+import { B2B_OFFERS, B2C_CASES, FORMULAS, PACKS, PILLARS, PROCESS, PROTOCOL, SECURITY, WHY } from "@/lib/offers";
+import { INCLUDED, SITE } from "@/lib/site";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: `${SITE.name} · Votre véhicule livré comme en concession.` },
-      {
-        name: "description",
-        content:
-          "Convoyage premium depuis Quimper. Bretagne, France, Europe. EDL photo, 7j/7, devis sous 2 h.",
-      },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      title: "Convoyage de voiture à Quimper. Livraison France et Europe.",
+      description:
+        "Convoyage BZH. Convoyage, préparation, contrôle et remise de véhicules depuis Quimper. Particuliers et professionnels. Devis sous 2 h.",
+      path: "/",
+      image: "/images/01_hero_bretagne.jpg",
+    }),
   component: Home,
 });
 
 const FAQ = [
   {
-    q: "Comment obtenir le prix ?",
-    a: "Sept questions, puis vos coordonnées. Une fourchette basse / haute s’affiche, un PDF se télécharge, et un e-mail part vers vous. Le tarif est indicatif, à confirmer avec un professionnel.",
+    q: "Qui êtes-vous ?",
+    a: "Convoyage BZH, basé à Quimper. Clément pilote les missions. Expérience DS Automobiles, Renault, Mercedes-Benz. Convoyage, préparation, contrôle, remise.",
   },
   {
-    q: "Que comprend le tarif ?",
-    a: "La conduite A → B, le carburant du véhicule convoyé, les péages, le retour du convoyeur, l’état des lieux photo et la remise des clés.",
+    q: "Quels véhicules convoyez-vous ?",
+    a: "Particuliers et utilitaires jusqu’à 3,5 t, en état de marche, permis B. Hors champ : plateau, non-roulant, poids lourd.",
   },
   {
-    q: "Intervenez-vous le week-end ?",
-    a: "Oui, 7 j/7. Les samedis, dimanches et fériés sont possibles. Astreinte 24 h pour les professionnels.",
+    q: "Où intervenez-vous ?",
+    a: "Bretagne, France entière, et Europe selon mission. Pologne, Monaco, Serbie comprises.",
   },
   {
-    q: "Livrez-vous hors Bretagne ?",
-    a: "Oui. France entière et Europe : Belgique, Suisse, Allemagne, Pologne, Monaco, Serbie, Espagne, Italie, Royaume-Uni, et d’autres pays sur devis.",
+    q: "Pour qui ?",
+    a: "Particuliers (achat à distance, import, déménagement) et professionnels (concessions, garages, mandataires, marchands VO, loueurs, flottes).",
   },
   {
-    q: "Proposez-vous un suivi GPS ?",
-    a: "Oui, en option : pose discrète le temps de la mission, retrait à la remise. Souvent couplé au protocole sécurité (clés sous scellé, EDL renforcée).",
+    q: "Combien coûte un convoyage ?",
+    a: "Cela dépend de la distance, du véhicule, de la date, de l’urgence et des options. Un trajet local part d’un forfait. La fourchette s’affiche après nom, téléphone et e-mail. Prix indicatif, à confirmer.",
   },
   {
-    q: "Comment payer ?",
-    a: "Particulier : virement avant départ. Professionnel : 15 jours, acompte 50 % possible au premier dossier.",
+    q: "Comment se déroule une mission ?",
+    a: "Demande, analyse, devis, prise en charge, convoyage, remise, compte-rendu. C’est le Protocole Clément.",
   },
   {
-    q: "Que se passe-t-il si le véhicule n’est pas roulant ?",
-    a: "Nous refusons. Orientation vers un transporteur plateau. Permis B uniquement, ≤ 3,5 t.",
+    q: "Quels services complémentaires ?",
+    a: "Packs mise à la route, nettoyage, plein, recharge VE, contrôle visuel, GPS temporaire, kit de bienvenue, coffrets Armor ou Champagne.",
+  },
+  {
+    q: "Proposez-vous du convoyage professionnel ?",
+    a: "Oui. Compte professionnel, paiement à quinze jours, cadre volume après trois missions test, astreinte 24 h.",
+  },
+  {
+    q: "Faites-vous une expertise ?",
+    a: "Non. Contrôle visuel de vingt points, photos. Ce n’est pas une expertise, ni un rapport opposable.",
+  },
+  {
+    q: "Le GPS est-il de la surveillance ?",
+    a: "Non. Suivi temporaire du véhicule pendant la mission, avec consentement, retiré à la remise. Pas de sécurité privée.",
   },
 ];
 
@@ -59,148 +70,281 @@ function Home() {
     <main>
       <HeroStage />
 
-      <div className="mx-auto -mt-6 max-w-6xl px-4 sm:px-6">
-        <Link
-          to="/simulateur"
-          className="flex h-14 w-full items-center justify-center rounded-full bg-coral text-base font-semibold text-surface transition-colors hover:bg-navy"
-        >
-          Estimer ma livraison
-        </Link>
-      </div>
-
-      <section className="mx-auto mt-16 grid max-w-6xl gap-6 px-4 sm:px-6 md:grid-cols-3">
-        {SERVICES.map((s) => (
-          <Link
-            key={s.to}
-            to={s.to}
-            className="tilt-hover group overflow-hidden rounded-[1.6rem] border border-line bg-surface"
-          >
-            <img src={s.image} alt={s.alt} className="h-44 w-full object-cover" />
-            <div className="p-5">
-              <h2 className="font-display text-xl text-navy">{s.title}</h2>
-              <p className="mt-2 text-sm text-muted">{s.text}</p>
-              <p className="mt-3 text-sm font-semibold text-coral group-hover:underline">Ouvrir →</p>
-            </div>
-          </Link>
-        ))}
-      </section>
-
-      <section className="mx-auto mt-14 grid max-w-6xl gap-3 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-5">
-        {[
-          { icon: Clock, t: "7 j/7" },
-          { icon: Check, t: "EDL photo" },
-          { icon: Shield, t: "DS / Renault / Mercedes-Benz" },
-          { icon: Star, t: "Notes clients suivies" },
-          { icon: Shield, t: "Gestion de crise" },
-        ].map((p) => (
-          <div key={p.t} className="flex items-center gap-3 rounded-2xl border border-line bg-sand px-4 py-4">
-            <p.icon className="size-5 text-coral" />
-            <p className="text-sm font-medium text-navy">{p.t}</p>
-          </div>
-        ))}
-      </section>
-
-      <section className="mx-auto mt-16 grid max-w-6xl gap-8 px-4 sm:px-6 lg:grid-cols-2">
-        <div>
-          <h2 className="font-display text-3xl tracking-tight text-navy sm:text-4xl">De l’idée à la remise, en 4 étapes</h2>
-          <ol className="mt-6 space-y-5">
-            {[
-              ["01", "Demande", "Simulateur ou appel. Départ, arrivée, type de véhicule."],
-              ["02", "Coordonnées", "Le prix s’affiche après nom, téléphone et e-mail."],
-              ["03", "EDL + prise en charge", "Photos horodatées, documents, départ."],
-              ["04", "Remise et compte-rendu", "Clés en main propre, rapport de mission."],
-            ].map(([n, t, d]) => (
-              <li key={n} className="flex gap-4">
-                <span className="font-display text-2xl font-semibold text-coral">{n}</span>
-                <div>
-                  <p className="font-display text-lg text-navy">{t}</p>
-                  <p className="text-sm text-muted">{d}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
-        <HomeEstimator />
-      </section>
-
-      <section className="mx-auto mt-16 max-w-6xl px-4 sm:px-6">
-        <div className="overflow-hidden rounded-[1.8rem] bg-navy text-surface lg:grid lg:grid-cols-2">
-          <img
-            src="/images/08_securite.jpg"
-            alt="Clés sous scellé et état des lieux photo"
-            className="h-64 w-full object-cover lg:h-full"
-          />
-          <div className="p-8 sm:p-10">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-surface/50">Sécurité</p>
-            <h2 className="mt-3 font-display text-3xl tracking-tight">Le véhicule n’est pas un colis.</h2>
-            <p className="mt-4 text-sm leading-relaxed text-surface/75">
-              EDL photo, clés sous scellé, option traqueur GPS, gestion de crise. Le même réflexe
-              qu’une remise en réseau DS, Renault ou Mercedes-Benz.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link to="/securite-vehicule" className="text-sm font-semibold text-coral">
-                Protocole sécurité →
-              </Link>
-              <Link to="/traqueur-gps" className="text-sm font-semibold text-surface/80">
-                Traqueur GPS →
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto mt-16 max-w-6xl px-4 sm:px-6">
-        <div className="flex items-end justify-between gap-4">
-          <h2 className="font-display text-3xl tracking-tight text-navy">Zones</h2>
-          <AppLink to="/destinations" className="text-sm font-semibold text-coral">
-            Toutes les destinations →
-          </AppLink>
-        </div>
-        <p className="mt-2 max-w-2xl text-sm text-muted">
-          Bretagne, France, Europe — Pologne, Monaco, Serbie incluses. Chaque bassin a sa page, sans
-          tarif affiché.
-        </p>
-        <div className="mt-6 flex flex-wrap gap-2">
-          {[
-            ["/convoyage-quimper", "Quimper"],
-            ["/convoyage-brest", "Brest"],
-            ["/convoyage-rennes", "Rennes"],
-            ["/convoyage-paris", "Paris"],
-            ["/convoyage-pologne", "Pologne"],
-            ["/convoyage-monaco", "Monaco"],
-            ["/convoyage-serbie", "Serbie"],
-            ["/traqueur-gps", "GPS"],
-            ["/securite-vehicule", "Sécurité"],
-          ].map(([to, label]) => (
-            <AppLink
-              key={to}
-              to={to}
-              className="rounded-full border border-line bg-surface px-4 py-2 text-sm text-navy hover:border-coral"
-            >
-              {label}
-            </AppLink>
+      <section className="mx-auto max-w-6xl px-5 pt-20 sm:px-8 sm:pt-28">
+        <Reveal>
+          <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Plus qu’un convoyage</p>
+          <h2 className="mt-4 max-w-3xl font-display text-4xl text-navy sm:text-5xl">
+            Transfert, préparation, contrôle, remise.
+          </h2>
+        </Reveal>
+        <div className="mt-14 grid gap-6 sm:grid-cols-2">
+          {PILLARS.map((p, i) => (
+            <Reveal key={p.k} delay={i * 60} className="rounded-[1.8rem] border border-line bg-surface p-8">
+              <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">{p.k}</p>
+              <h3 className="mt-3 font-display text-2xl text-navy">{p.t}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-muted">{p.d}</p>
+            </Reveal>
           ))}
         </div>
       </section>
 
-      <section className="mx-auto mt-16 max-w-6xl px-4 sm:px-6">
-        <h2 className="font-display text-3xl tracking-tight text-navy">Les notes clients sont notre tableau de bord</h2>
-        <p className="mt-3 max-w-2xl text-muted">
-          Chaque mission est une remise, pas un trajet. Les avis Google seront publiés ici dès les
-          premières livraisons. Pas de notes inventées.
-        </p>
-        <Button className="mt-5" variant="ghost" asChild>
-          <Link to="/avis">Page avis</Link>
-        </Button>
+      <section className="mx-auto mt-24 max-w-6xl px-5 sm:px-8">
+        <Reveal>
+          <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Particuliers</p>
+          <h2 className="mt-4 font-display text-4xl text-navy">Vous n’avez pas à prendre le train.</h2>
+        </Reveal>
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {B2C_CASES.map((c) => (
+            <div key={c.t} className="rounded-[1.5rem] bg-sand px-6 py-7">
+              <h3 className="font-display text-xl text-navy">{c.t}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted">{c.d}</p>
+            </div>
+          ))}
+        </div>
       </section>
 
-      <section className="mx-auto mt-16 max-w-3xl px-4 sm:px-6">
-        <h2 className="mb-4 font-display text-3xl tracking-tight text-navy">Questions fréquentes</h2>
-        <Faq items={FAQ} />
-        <FaqJsonLd items={FAQ} />
+      <section className="mx-auto mt-24 max-w-6xl px-5 sm:px-8">
+        <Reveal>
+          <div className="overflow-hidden rounded-[2.2rem] bg-navy text-surface lg:grid lg:grid-cols-2">
+            <div className="p-10 sm:p-14">
+              <p className="text-xs font-semibold tracking-[0.22em] text-surface/50 uppercase">Professionnels</p>
+              <h2 className="mt-4 font-display text-4xl">Partenaires B2B et concessions.</h2>
+              <p className="mt-5 text-base leading-relaxed text-surface/75">
+                Garages, marchands VO, concessions, carrosseries de Bretagne. Un interlocuteur, un compte-rendu, une facture.
+              </p>
+              <ul className="mt-8 space-y-4 text-sm text-surface/80">
+                {B2B_OFFERS.map((c) => (
+                  <li key={c.t}>
+                    <span className="font-semibold text-surface">{c.t}.</span> {c.d}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-10 flex flex-wrap gap-3">
+                <Link
+                  to="/professionnels"
+                  className="inline-flex h-12 items-center rounded-full bg-coral px-6 text-sm font-semibold"
+                >
+                  Demander une grille tarifaire partenaire Pro
+                </Link>
+                <a
+                  href={SITE.phoneHref}
+                  className="inline-flex h-12 items-center rounded-full border border-surface/30 px-6 text-sm font-semibold"
+                >
+                  {SITE.phone}
+                </a>
+              </div>
+            </div>
+            <img src="/images/12_garage_b2b.jpg" alt="Transfert de véhicule depuis un garage en Bretagne" className="h-72 w-full object-cover lg:h-full" />
+          </div>
+        </Reveal>
       </section>
 
-      <div className="mt-16">
+      <section className="mx-auto mt-24 max-w-6xl px-5 sm:px-8">
+        <Reveal>
+          <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Formules</p>
+          <h2 className="mt-4 font-display text-4xl text-navy">Standard ou Premium VIP.</h2>
+          <p className="mt-4 max-w-2xl text-lg text-muted">
+            Vous composez le convoyage. La formule fixe le niveau de remise. Le montant s’affiche après vos coordonnées.
+          </p>
+        </Reveal>
+        <div className="mt-10 grid gap-6 lg:grid-cols-2">
+          {FORMULAS.map((f) => (
+            <div key={f.id} className="rounded-[1.8rem] border border-line bg-surface p-8">
+              <p className="text-xs font-semibold tracking-[0.16em] text-coral uppercase">{f.tag}</p>
+              <h3 className="mt-3 font-display text-2xl text-navy">{f.name}</h3>
+              <ul className="mt-6 space-y-2 text-sm text-muted">
+                {f.items.map((it) => (
+                  <li key={it}>{it}</li>
+                ))}
+              </ul>
+              <Link to="/simulateur" className="mt-8 inline-flex text-sm font-semibold text-coral">
+                Choisir cette formule
+              </Link>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto mt-24 max-w-6xl px-5 sm:px-8">
+        <Reveal>
+          <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Packs</p>
+          <h2 className="mt-4 font-display text-4xl text-navy">Mise à la route.</h2>
+          <p className="mt-4 max-w-2xl text-lg text-muted">
+            Trois niveaux. Prix indicatifs, à confirmer. Le convoyage se calcule à part, après vos coordonnées.
+          </p>
+        </Reveal>
+        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+          {PACKS.map((p) => (
+            <div key={p.id} className="flex flex-col rounded-[1.8rem] border border-line bg-surface p-8">
+              <p className="text-xs font-semibold tracking-[0.16em] text-coral uppercase">{p.tag}</p>
+              <h3 className="mt-3 font-display text-2xl text-navy">{p.name}</h3>
+              <p className="mt-2 text-sm text-muted">À partir de {p.from} €</p>
+              <ul className="mt-6 flex-1 space-y-2 text-sm text-muted">
+                {p.items.map((it) => (
+                  <li key={it}>{it}</li>
+                ))}
+              </ul>
+              <Link to="/pack-mise-a-la-route" className="mt-8 text-sm font-semibold text-coral">
+                Voir le pack
+              </Link>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto mt-24 max-w-6xl px-5 sm:px-8">
+        <Reveal>
+          <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">{PROTOCOL.name}</p>
+          <h2 className="mt-4 font-display text-4xl text-navy">Avant, pendant, après.</h2>
+        </Reveal>
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
+          {[
+            { t: "Avant", d: "Identification, kilométrage, carburant, photos, carrosserie, intérieur, documents." },
+            { t: "Pendant", d: "Suivi, communication, signalement, consignes. GPS temporaire si demandé." },
+            { t: "Après", d: "Kilométrage, carburant, photos, clés, compte-rendu." },
+          ].map((b) => (
+            <div key={b.t} className="rounded-[1.6rem] border border-line bg-surface p-8">
+              <h3 className="font-display text-2xl text-navy">{b.t}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-muted">{b.d}</p>
+            </div>
+          ))}
+        </div>
+        <AppLink to="/protocole-clement" className="mt-8 inline-flex text-sm font-semibold text-coral">
+          Lire le protocole
+        </AppLink>
+      </section>
+
+      <section className="mx-auto mt-24 max-w-6xl px-5 sm:px-8">
+        <Reveal>
+          <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Sécurité et rigueur</p>
+          <h2 className="mt-4 font-display text-4xl text-navy">Le véhicule n’est pas un colis.</h2>
+        </Reveal>
+        <div className="mt-10 grid gap-5 sm:grid-cols-2">
+          {SECURITY.map((s) => (
+            <div key={s.t} className="rounded-[1.6rem] border border-line bg-surface p-7">
+              <h3 className="font-display text-xl text-navy">{s.t}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted">{s.d}</p>
+            </div>
+          ))}
+        </div>
+        <img src="/images/08_securite.jpg" alt="Clés sous scellé, protocole de remise" className="mt-8 h-64 w-full rounded-[1.8rem] object-cover" />
+      </section>
+
+      <section className="mx-auto mt-24 grid max-w-6xl gap-10 px-5 sm:px-8 lg:grid-cols-2">
+        <Reveal>
+          <div className="overflow-hidden rounded-[2rem] border border-line">
+            <img src="/images/03_nettoyage.jpg" alt="Préparation d’un véhicule avant remise" className="h-64 w-full object-cover" />
+            <div className="p-8">
+              <h2 className="font-display text-3xl text-navy">Préparation et nettoyage</h2>
+              <p className="mt-4 text-muted">
+                Lavage, aspiration, vitres, plein ou recharge. Pas un centre de detailing. Une préparation de remise, réaliste.
+              </p>
+              <Link to="/preparation-vehicule" className="mt-6 inline-flex text-sm font-semibold text-coral">
+                Préparation véhicule
+              </Link>
+            </div>
+          </div>
+        </Reveal>
+        <Reveal delay={80}>
+          <div className="rounded-[2rem] bg-navy px-8 py-10 text-surface">
+            <p className="text-xs font-semibold tracking-[0.2em] text-surface/50 uppercase">Toujours inclus</p>
+            <ul className="mt-8 space-y-5">
+              {INCLUDED.map((item) => (
+                <li key={item.t}>
+                  <p className="font-display text-xl">{item.t}</p>
+                  <p className="mt-1 text-sm text-surface/70">{item.d}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
+      </section>
+
+      <section className="mx-auto mt-24 max-w-6xl px-5 sm:px-8">
+        <Reveal>
+          <h2 className="font-display text-4xl text-navy">France et Europe</h2>
+          <p className="mt-4 max-w-2xl text-lg text-muted">
+            Base Quimper. Bretagne d’abord. France entière. Europe selon mission.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-2">
+            {[
+              ["/convoyage-quimper", "Quimper"],
+              ["/convoyage-brest", "Brest"],
+              ["/convoyage-lorient", "Lorient"],
+              ["/convoyage-rennes", "Rennes"],
+              ["/convoyage-nantes", "Nantes"],
+              ["/convoyage-paris", "Paris"],
+              ["/convoyage-pologne", "Pologne"],
+              ["/convoyage-monaco", "Monaco"],
+              ["/destinations", "Toutes les destinations"],
+            ].map(([to, label]) => (
+              <AppLink
+                key={to}
+                to={to}
+                className="rounded-full border border-line bg-surface px-5 py-2.5 text-sm text-navy hover:border-coral"
+              >
+                {label}
+              </AppLink>
+            ))}
+          </div>
+        </Reveal>
+      </section>
+
+      <section className="mx-auto mt-24 grid max-w-6xl gap-16 px-5 sm:px-8 lg:grid-cols-2">
+        <Reveal>
+          <h2 className="font-display text-4xl text-navy">Comment ça marche</h2>
+          <ol className="mt-10 space-y-8">
+            {PROCESS.map((s) => (
+              <li key={s.n} className="grid grid-cols-[auto_1fr] gap-6">
+                <span className="font-display text-2xl text-coral">{s.n}</span>
+                <div>
+                  <p className="font-display text-2xl text-navy">{s.t}</p>
+                  <p className="mt-1 text-muted">{s.d}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </Reveal>
+        <Reveal delay={80}>
+          <HomeEstimator />
+        </Reveal>
+      </section>
+
+      <section className="mx-auto mt-24 max-w-6xl px-5 sm:px-8">
+        <Reveal>
+          <h2 className="font-display text-4xl text-navy">Pourquoi Convoyage BZH</h2>
+        </Reveal>
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {WHY.map((w) => (
+            <div key={w.t} className="rounded-[1.5rem] border border-line bg-surface p-6">
+              <h3 className="font-display text-xl text-navy">{w.t}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted">{w.d}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto mt-24 max-w-6xl px-5 sm:px-8">
+        <Reveal>
+          <h2 className="font-display text-4xl text-navy">Avis</h2>
+          <p className="mt-5 max-w-2xl text-lg text-muted">
+            Les avis Google seront publiés ici dès les premières missions. Pas de notes inventées. {SITE.phone}.
+          </p>
+          <Link to="/avis" className="mt-6 inline-flex text-sm font-semibold text-coral">
+            Page avis
+          </Link>
+        </Reveal>
+      </section>
+
+      <section className="mx-auto mt-24 max-w-3xl px-5 sm:px-8">
+        <Reveal>
+          <h2 className="mb-8 font-display text-4xl text-navy">Questions</h2>
+          <Faq items={FAQ} />
+          <FaqJsonLd items={FAQ} />
+        </Reveal>
+      </section>
+
+      <div className="mt-24 mb-8">
         <CtaBar />
       </div>
     </main>

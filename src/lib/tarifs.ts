@@ -11,7 +11,6 @@ export type City = {
 export const OPTIONS = {
   lavageExterieur: 25,
   lavageComplet: 45,
-  miseEnMain: 35,
   rechargeVe: 25,
   urgencePct: 0.25,
   samediPct: 0.2,
@@ -20,6 +19,37 @@ export const OPTIONS = {
   prestigePct: 0.2,
   gps: 120,
   securite: 75,
+  plein: 65,
+  controleVisuel: 49,
+  coffretArmor: 45,
+  coffretChampagne: 79,
+  packEssentiel: 89,
+  packConfort: 149,
+  packPremium: 229,
+  kitBienvenue: 19,
+} as const;
+
+/** Coûts d’achat indicatifs (Amazon / GMS, TTC). Marge ≥ 50 % du prix client. Jamais affichés. */
+export const COFFRET_COST = {
+  armor: {
+    sell: 45,
+    cost: 20,
+    items: [
+      "Palets / galettes St Michel ou La Trinitaine. ~6 €",
+      "Caramels au beurre salé 200 g. ~7 €",
+      "Cidre breton 75 cl. ~4 €",
+      "Boîte kraft + ruban + carte Convoyage BZH. ~3 €",
+    ],
+  },
+  champagne: {
+    sell: 79,
+    cost: 36,
+    items: [
+      "Champagne brut 75 cl type Nicolas Feuillatte. ~18 €",
+      "Ballotin chocolats 200 g (Lindt / équivalent). ~14 €",
+      "Écrin + papier de soie + ruban. ~4 €",
+    ],
+  },
 } as const;
 
 export const EUROPE_MAJORATION = 0.2;
@@ -211,6 +241,9 @@ export type VehicleKind = "vp" | "utilitaire" | "prestige" | "ve";
 export type WhenKind = "standard" | "urgent" | "samedi" | "dimanche";
 export type ZoneKind = "france" | "europe";
 
+export type PackKind = "aucun" | "essentiel" | "confort" | "premium";
+export type FormulaKind = "aucun" | "standard" | "premium";
+
 export type QuoteInput = {
   from: string;
   to: string;
@@ -219,10 +252,16 @@ export type QuoteInput = {
   vehicle: VehicleKind;
   when: WhenKind;
   lavage: "aucun" | "exterieur" | "complet";
-  miseEnMain: boolean;
   rechargeVe: boolean;
   gps: boolean;
   securite: boolean;
+  plein: boolean;
+  controleVisuel: boolean;
+  coffret: "aucun" | "armor" | "champagne";
+  pack: PackKind;
+  kitBienvenue: boolean;
+  formula: FormulaKind;
+  model?: string;
 };
 
 export type QuoteResult = {
@@ -297,18 +336,47 @@ export function computeQuote(input: QuoteInput): QuoteResult {
   if (input.when === "dimanche") base = Math.round(base * (1 + OPTIONS.dimanchePct));
 
   let options = 0;
-  if (input.lavage === "exterieur") options += OPTIONS.lavageExterieur;
-  if (input.lavage === "complet") options += OPTIONS.lavageComplet;
-  if (input.miseEnMain) options += OPTIONS.miseEnMain;
+  const packed = input.pack !== "aucun";
+  const formulaOn = input.formula !== "aucun";
+
+  if (input.pack === "essentiel") options += OPTIONS.packEssentiel;
+  else if (input.pack === "confort") options += OPTIONS.packConfort;
+  else if (input.pack === "premium") options += OPTIONS.packPremium;
+
+  if (input.formula === "standard" || input.formula === "premium") {
+    options += OPTIONS.gps + OPTIONS.securite;
+  } else {
+    if (input.gps) options += OPTIONS.gps;
+    if (input.securite) options += OPTIONS.securite;
+  }
+
+  const washInPack = input.pack === "confort" || input.pack === "premium";
+  const washInFormula = input.formula === "premium";
+  if (!washInPack && !washInFormula) {
+    if (input.lavage === "exterieur") options += OPTIONS.lavageExterieur;
+    if (input.lavage === "complet") options += OPTIONS.lavageComplet;
+  }
+
+  const controlInPack = packed;
+  if (input.controleVisuel && !controlInPack) options += OPTIONS.controleVisuel;
+
   if (input.rechargeVe || input.vehicle === "ve") options += OPTIONS.rechargeVe;
-  if (input.gps) options += OPTIONS.gps;
-  if (input.securite) options += OPTIONS.securite;
+  if (input.plein) options += OPTIONS.plein;
+
+  if (input.formula === "premium") {
+    options += input.coffret === "champagne" ? OPTIONS.coffretChampagne : OPTIONS.coffretArmor;
+  } else {
+    if (input.coffret === "armor") options += OPTIONS.coffretArmor;
+    if (input.coffret === "champagne") options += OPTIONS.coffretChampagne;
+  }
+
+  if (input.kitBienvenue && input.pack !== "premium") options += OPTIONS.kitBienvenue;
 
   const total = Math.max(MINIMUM_LOCAL, base + options);
 
-  let delay = "24–48 h";
-  if (km > 400) delay = "J+2 / J+3";
-  if (km > 800) delay = "J+3 / J+4";
+  let delay = "24 à 48 h";
+  if (km > 400) delay = "J+2 à J+3";
+  if (km > 800) delay = "J+3 à J+4";
   if (input.when === "urgent") delay = "sous 24 h (selon dispo)";
   if (europeForced) delay = "J+2 à J+4";
 

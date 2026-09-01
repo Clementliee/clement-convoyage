@@ -3,18 +3,17 @@ import { CtaBar } from "@/components/CtaBar";
 import { Faq } from "@/components/Faq";
 import { FaqJsonLd } from "@/components/JsonLd";
 import { PageHero } from "@/components/PageHero";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/securite-vehicule")({
-  head: () => ({
-    meta: [
-      { title: "Sécurité du véhicule convoyé · CLÉMENT CONVOYAGE" },
-      {
-        name: "description",
-        content:
-          "Protocole sécurité : EDL photo, clés sous scellé, traqueur GPS, gestion de crise. Standard DS, Renault, Mercedes-Benz. Base Quimper.",
-      },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      title: "Sécurité du véhicule convoyé. Protocole Convoyage BZH",
+      description:
+        "Protocole sécurité convoyage. État des lieux photo, clés sous scellé, traqueur GPS, gestion de crise. Standard concession, base Quimper.",
+      path: "/securite-vehicule",
+      image: "/images/08_securite.jpg",
+    }),
   component: Page,
 });
 
@@ -57,7 +56,7 @@ function Page() {
             },
             {
               t: "Suivi",
-              d: "Option traqueur GPS. Points de contrôle. Un interlocuteur unique, joignable 7 j/7, astreinte 24 h pour les professionnels.",
+              d: "Option traqueur GPS. Points de contrôle. Un interlocuteur unique, joignable tous les jours, astreinte 24 h pour les professionnels.",
             },
           ].map((b) => (
             <div key={b.t} className="rounded-[1.6rem] border border-line bg-surface p-6">
@@ -87,7 +86,7 @@ function Page() {
               vitrine tarifaire.
             </p>
             <Link to="/traqueur-gps" className="inline-flex font-semibold text-coral">
-              Voir le traqueur GPS →
+              Voir le traqueur GPS
             </Link>
           </div>
         </div>

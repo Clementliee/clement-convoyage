@@ -3,6 +3,7 @@ import { AuthProvider } from "@/lib/auth/provider";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { StickyCall } from "@/components/StickyCall";
 import { LocalBusinessJsonLd } from "@/components/JsonLd";
 import { SITE } from "@/lib/site";
 import appCss from "../styles.css?url";
@@ -12,13 +13,15 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: `${SITE.name} · ${SITE.baseline}` },
+      { title: `${SITE.name}. Convoyage de voiture à Quimper.` },
       {
         name: "description",
         content:
-          "Convoyage de véhicules depuis Quimper. France et Europe, GPS, protocole sécurité, EDL photo. Devis après coordonnées.",
+          "Convoyage automobile depuis Quimper. Livraison de véhicule en Bretagne, France, Europe. État des lieux photo, mise en main offerte, devis sous 2 h.",
       },
-      { name: "theme-color", content: "#f5f5f7" },
+      { name: "theme-color", content: "#f4f1ea" },
+      { name: "format-detection", content: "telephone=yes" },
+      { name: "author", content: SITE.name },
     ],
     links: [
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
@@ -29,7 +32,7 @@ export const Route = createRootRoute({
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap",
       },
     ],
   }),
@@ -43,12 +46,13 @@ function Root() {
       <head>
         <HeadContent />
       </head>
-      <body className="min-h-dvh bg-bg font-sans text-fg">
+      <body className="min-h-dvh bg-bg pb-20 font-sans text-fg md:pb-0">
         <PreviewHostBridge />
         <AuthProvider>
           <Header />
           <Outlet />
           <Footer />
+          <StickyCall />
         </AuthProvider>
         <LocalBusinessJsonLd />
         <Scripts />
@@ -59,11 +63,11 @@ function Root() {
 
 function NotFound() {
   return (
-    <main className="mx-auto max-w-xl px-4 py-24 text-center">
-      <p className="text-sm font-semibold uppercase tracking-widest text-coral">404</p>
-      <h1 className="mt-2 font-display text-4xl text-navy">Page introuvable</h1>
-      <p className="mt-3 text-muted">Le trajet n’existe pas. Estimez une livraison depuis l’accueil.</p>
-      <a href="/" className="mt-6 inline-flex h-12 items-center rounded-full bg-coral px-6 font-medium text-surface">
+    <main className="mx-auto max-w-xl px-5 py-28 text-center">
+      <p className="text-sm font-semibold tracking-widest text-coral uppercase">404</p>
+      <h1 className="mt-3 font-display text-4xl text-navy">Page introuvable</h1>
+      <p className="mt-4 text-muted">Le trajet n’existe pas. Estimez une livraison depuis l’accueil.</p>
+      <a href="/" className="mt-8 inline-flex h-12 items-center rounded-full bg-coral px-6 font-medium text-surface">
         Retour à l’accueil
       </a>
     </main>

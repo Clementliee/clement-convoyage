@@ -21,16 +21,26 @@ export function QuoteGate({
 }) {
   const range = quoteRange(quote.total);
   const extras = [
-    input.lavage !== "aucun" ? EXTRAS[input.lavage] : "",
-    input.miseEnMain ? "Mise en main" : "",
+    input.formula === "standard" ? "Formule Standard" : "",
+    input.formula === "premium" ? "Formule Premium VIP" : "",
+    input.pack === "essentiel" ? "Pack Essentiel" : "",
+    input.pack === "confort" ? "Pack Confort" : "",
+    input.pack === "premium" ? "Pack Premium" : "",
+    input.lavage !== "aucun" && input.formula !== "premium" && input.pack === "aucun" ? EXTRAS[input.lavage] : "",
+    "Mise en main offerte",
+    input.plein ? "Plein à la remise" : "",
     input.rechargeVe ? "Recharge VE" : "",
-    input.gps ? "Traqueur GPS" : "",
-    input.securite ? "Protocole sécurité" : "",
+    input.controleVisuel && input.pack === "aucun" ? "Inspection, contrôle visuel 20 points" : "",
+    input.gps || input.formula !== "aucun" ? "Suivi GPS temporaire" : "",
+    input.securite || input.formula !== "aucun" ? "Protocole sécurité, clés sous scellé" : "",
+    input.coffret === "champagne" ? "Coffret Champagne" : input.coffret === "armor" || input.formula === "premium" ? "Coffret Armor" : "",
+    input.kitBienvenue || input.pack === "premium" ? "Kit de bienvenue" : "",
+    input.model ? `Véhicule : ${input.model}` : "",
     input.vehicle === "prestige" ? "Prestige" : "",
     input.vehicle === "utilitaire" ? "Utilitaire" : "",
     input.when === "urgent" ? "Urgent" : "",
     input.when === "samedi" ? "Samedi" : "",
-    input.when === "dimanche" ? "Dimanche / férié" : "",
+    input.when === "dimanche" ? "Dimanche, férié" : "",
   ]
     .filter(Boolean)
     .join(", ");
@@ -61,9 +71,9 @@ export function QuoteGate({
       const view = window.innerHeight / 2;
       const p = Math.max(-1, Math.min(1, (mid - view) / view));
       setTilt({
-        x: revealed ? 0 : 6 * p + 4,
-        y: revealed ? 0 : -8 * p,
-        z: revealed ? 1 : 0.94 + (1 - Math.abs(p)) * 0.06,
+        x: revealed ? 0 : 8 * p + 3,
+        y: revealed ? 0 : -10 * p,
+        z: revealed ? 1 : 0.93 + (1 - Math.abs(p)) * 0.07,
       });
     };
     onScroll();
@@ -106,34 +116,34 @@ export function QuoteGate({
   };
 
   return (
-    <div className="mt-4 grid items-start gap-10 lg:grid-cols-2">
+    <div className="mt-4 grid items-start gap-12 lg:grid-cols-2">
       <div ref={scene} className="perspective-scene px-1 pb-6 pt-8 lg:sticky lg:top-24">
         <div
-          className="card-3d min-h-[340px] rounded-[2rem] bg-navy p-8 text-surface shadow-[0_40px_80px_-24px_rgba(0,0,0,0.45)]"
+          className="card-3d min-h-[360px] rounded-[2.2rem] bg-navy p-10 text-surface shadow-[0_40px_80px_-24px_rgba(0,0,0,0.45)]"
           style={{
             transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) scale(${tilt.z})`,
-            transition: "transform 400ms cubic-bezier(0.2, 0, 0, 1)",
+            transition: "transform 500ms cubic-bezier(0.2, 0, 0, 1)",
           }}
         >
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-surface/50">
-            {quote.fromName} → {quote.toName}
+          <p className="text-xs font-semibold tracking-[0.22em] text-surface/50 uppercase">
+            {quote.fromName} vers {quote.toName}
           </p>
           {revealed ? (
             <>
-              <p className="mt-6 text-sm text-surface/70">Fourchette indicative</p>
-              <p className="mt-2 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-                {formatEuro(range.low)} – {formatEuro(range.high)}
+              <p className="mt-8 text-sm text-surface/70">Fourchette indicative</p>
+              <p className="mt-3 font-display text-4xl tracking-tight sm:text-5xl">
+                de {formatEuro(range.low)} à {formatEuro(range.high)}
               </p>
-              <p className="mt-3 text-sm text-surface/70">
-                Autour de {formatEuro(range.mid)} · {quote.km} km · {quote.delay}
+              <p className="mt-4 text-sm text-surface/70">
+                Autour de {formatEuro(range.mid)}. {quote.km} km. {quote.delay}.
               </p>
-              <p className="mt-6 max-w-sm text-sm leading-relaxed text-surface/75">
+              <p className="mt-8 max-w-sm text-sm leading-relaxed text-surface/75">
                 Prix indicatif, à confirmer avec un professionnel avant toute mission. Un PDF vient
                 d’être téléchargé. Un e-mail de confirmation part sur votre boîte.
               </p>
               <Button
                 type="button"
-                className="mt-6"
+                className="mt-8"
                 onClick={() =>
                   void downloadQuotePdf({
                     firstName,
@@ -154,22 +164,22 @@ export function QuoteGate({
                 Télécharger le PDF
               </Button>
               {!mailOk ? (
-                <p className="mt-3 text-xs text-surface/60">
+                <p className="mt-4 text-xs text-surface/60">
                   Si l’e-mail automatique n’arrive pas, votre messagerie s’est ouverte en secours.
                 </p>
               ) : null}
             </>
           ) : (
             <>
-              <p className="mt-8 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+              <p className="mt-10 font-display text-4xl tracking-tight sm:text-5xl">
                 Votre estimation
                 <br />
                 est prête.
               </p>
-              <p className="mt-6 select-none font-display text-5xl font-semibold tracking-tight text-surface/25 blur-sm">
-                ••• €
+              <p className="mt-8 select-none font-display text-5xl tracking-tight text-surface/20 blur-[6px]">
+                Prix masqué
               </p>
-              <p className="mt-6 max-w-sm text-sm leading-relaxed text-surface/70">
+              <p className="mt-8 max-w-sm text-sm leading-relaxed text-surface/70">
                 Laissez vos coordonnées pour afficher la fourchette, recevoir le PDF et un e-mail de
                 confirmation.
               </p>
@@ -179,46 +189,40 @@ export function QuoteGate({
       </div>
 
       {revealed ? (
-        <div className="rounded-[1.6rem] border border-line bg-surface p-6 sm:p-8">
-          <p className="font-display text-2xl tracking-tight text-navy">C’est envoyé.</p>
-          <p className="mt-3 text-sm leading-relaxed text-muted">
-            {firstName}, la fourchette {formatEuro(range.low)} – {formatEuro(range.high)} est
+        <div className="rounded-[2rem] border border-line bg-surface p-8 sm:p-10">
+          <p className="font-display text-3xl text-navy">C’est envoyé.</p>
+          <p className="mt-4 text-base leading-relaxed text-muted">
+            {firstName}, la fourchette de {formatEuro(range.low)} à {formatEuro(range.high)} est
             indicative. Clément confirme le prix ferme sous 2 heures ouvrées.
           </p>
         </div>
       ) : (
-        <form onSubmit={submit} className="rounded-[1.6rem] border border-line bg-surface p-6 sm:p-8">
-          <p className="font-display text-2xl tracking-tight text-navy">Pour voir le prix</p>
-          <p className="mt-1 text-sm text-muted">Nom, téléphone et e-mail sont obligatoires.</p>
-          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+        <form onSubmit={submit} className="rounded-[2rem] border border-line bg-surface p-8 sm:p-10">
+          <p className="font-display text-3xl text-navy">Pour voir le prix</p>
+          <p className="mt-2 text-sm leading-relaxed text-muted">Nom, téléphone et e-mail sont obligatoires.</p>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
             <Field label="Prénom" value={firstName} onChange={setFirstName} autoComplete="given-name" />
             <Field label="Nom" value={lastName} onChange={setLastName} autoComplete="family-name" />
           </div>
-          <div className="mt-3 grid grid-cols-2 gap-3">
+          <div className="mt-4 grid grid-cols-2 gap-3">
             <KindButton active={kind === "part"} onClick={() => setKind("part")} label="Particulier" />
             <KindButton active={kind === "pro"} onClick={() => setKind("pro")} label="Professionnel" />
           </div>
           {kind === "pro" ? (
-            <div className="mt-3">
+            <div className="mt-4">
               <Field label="Société" value={company} onChange={setCompany} autoComplete="organization" />
             </div>
           ) : null}
-          <div className="mt-3">
+          <div className="mt-4">
             <Field label="Téléphone" value={phone} onChange={setPhone} type="tel" autoComplete="tel" />
           </div>
-          <div className="mt-3">
-            <Field
-              label="E-mail"
-              value={email}
-              onChange={setEmail}
-              type="email"
-              autoComplete="email"
-            />
+          <div className="mt-4">
+            <Field label="E-mail" value={email} onChange={setEmail} type="email" autoComplete="email" />
           </div>
-          <Button type="submit" className="mt-6 w-full" size="lg" disabled={busy}>
+          <Button type="submit" className="mt-8 w-full" size="lg" disabled={busy}>
             {busy ? "Envoi…" : "Afficher ma fourchette"}
           </Button>
-          <p className="mt-3 text-xs leading-relaxed text-muted">
+          <p className="mt-4 text-xs leading-relaxed text-muted">
             Vos données servent uniquement à ce devis. Pas de revente. Un e-mail part vers vous et
             vers {SITE_EMAIL}.
           </p>
@@ -252,7 +256,8 @@ function Field({
         value={value}
         autoComplete={autoComplete}
         onChange={(e) => onChange(e.target.value)}
-        className="mt-1 w-full rounded-2xl border border-line bg-bg px-3 py-3 text-base text-navy"
+        className="mt-2 w-full rounded-2xl border border-line bg-bg px-4 py-3.5 text-base text-navy"
+        suppressHydrationWarning
       />
     </label>
   );
@@ -271,7 +276,7 @@ function KindButton({
     <button
       type="button"
       onClick={onClick}
-      className={`rounded-2xl border px-3 py-3 text-sm font-medium transition-colors ${
+      className={`rounded-2xl border px-3 py-3.5 text-sm font-medium transition-colors ${
         active ? "border-navy bg-navy text-surface" : "border-line bg-bg text-navy"
       }`}
     >

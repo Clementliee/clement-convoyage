@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 export function PageHero({
   kicker,
   title,
@@ -13,19 +15,45 @@ export function PageHero({
   image?: string;
   alt?: string;
 }) {
+  const [t, setT] = useState(0);
+
+  useEffect(() => {
+    if (!image) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) return;
+    const onScroll = () => setT(Math.min(1, Math.max(0, window.scrollY / 420)));
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [image]);
+
   return (
     <section className="relative overflow-hidden">
       {image ? (
-        <div className="relative h-64 w-full sm:h-80">
-          <img src={image} alt={alt ?? ""} className="h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-navy/45" />
+        <div className="perspective-scene relative h-72 w-full overflow-hidden sm:h-[28rem]">
+          <div
+            className="absolute inset-[-10%] will-change-transform"
+            style={{
+              transform: `translateY(${t * 48}px) scale(${1.12 - t * 0.06}) rotateX(${t * 5}deg)`,
+            }}
+          >
+            <img
+              src={image}
+              alt={alt ?? ""}
+              width={1600}
+              height={900}
+              decoding="async"
+              className="h-full w-full object-cover"
+            />
+          </div>
+          <div className="absolute inset-0 bg-navy/40" />
         </div>
       ) : null}
-      <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
+      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
         {kicker ? (
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-coral">{kicker}</p>
+          <p className="mb-5 text-xs font-semibold tracking-[0.22em] text-coral uppercase">{kicker}</p>
         ) : null}
-        <h1 className="max-w-3xl font-display text-4xl font-semibold leading-tight text-navy sm:text-5xl">
+        <h1 className="max-w-3xl font-display text-4xl text-navy sm:text-6xl">
           {title}
           {accent ? (
             <>
@@ -34,7 +62,7 @@ export function PageHero({
             </>
           ) : null}
         </h1>
-        {text ? <p className="mt-4 max-w-2xl text-lg text-muted">{text}</p> : null}
+        {text ? <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">{text}</p> : null}
       </div>
     </section>
   );

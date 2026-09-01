@@ -1,3 +1,5 @@
+import { SITE } from "@/lib/site";
+
 export type SeoPage = {
   slug: string;
   title: string;
@@ -11,6 +13,11 @@ export type SeoPage = {
   faq: { q: string; a: string }[];
   locality?: string;
   country?: string;
+  kicker?: string;
+  zones?: { t: string; d: string }[];
+  trajets?: { to: string; label: string; d: string }[];
+  services?: { to: string; t: string; d: string }[];
+  highlights?: { t: string; d: string }[];
 };
 
 const IMG = "/images/01_hero_bretagne.jpg";
@@ -29,19 +36,19 @@ function ville(
 ): SeoPage {
   return {
     slug,
-    title: `Convoyage de voiture à ${name} · CLÉMENT CONVOYAGE`,
+    title: `Convoyage de voiture à ${name}. Livraison depuis Quimper.`,
     h1: `Convoyage de voiture à ${name}`,
-    description: `Convoyage et livraison de véhicules à ${name}, depuis Quimper. EDL photo, protocole sécurité, devis sous 2 h. Pas de tarif affiché : fourchette après vos coordonnées.`,
+    description: `Convoyage automobile à ${name} depuis Quimper. Livraison de véhicule, état des lieux photo, mise en main offerte. Devis sous 2 h.`,
     kind: "ville",
     image: IMG,
     locality: name,
     country: "FR",
     intro: identity,
     body: [
-      `CLÉMENT CONVOYAGE est basé à Quimper. Pour ${name}, vous avez un interlocuteur local, joignable 7 j/7, qui connaît les délais, les axes et les remises en concession.`,
+      `Convoyage BZH est basé à Quimper. Pour ${name}, vous avez un interlocuteur local, joignable tous les jours, qui connaît les délais, les axes et les remises en concession.`,
       extra,
-      "Chaque mission comprend la conduite A → B, le carburant du véhicule convoyé, les péages, le retour du convoyeur, un état des lieux photo au départ et à l’arrivée, et la remise des clés.",
-      "Le prix n’est pas publié. Le simulateur prépare une fourchette indicative après vos coordonnées, à confirmer avec un professionnel. Options : lavage, mise en main, traqueur GPS, protocole sécurité.",
+      "Chaque mission comprend la conduite de A à B, le carburant du véhicule convoyé, les péages, le retour du convoyeur, un état des lieux photo au départ et à l’arrivée, la remise des clés et la mise en main offerte.",
+      "Le prix n’est pas publié. Le simulateur prépare une fourchette indicative après vos coordonnées, à confirmer avec un professionnel. Options : lavage, plein, contrôle visuel, coffret cadeau, traqueur GPS, protocole sécurité.",
       "Véhicules acceptés : particuliers, utilitaires et vans ≤ 3,5 t, en état de marche. Hors champ : plateau, poids lourd, non-roulant.",
     ],
     nearby,
@@ -56,7 +63,7 @@ function ville(
       },
       {
         q: "Comment obtenir le tarif ?",
-        a: "Via le simulateur : trajet, type de véhicule, options, puis nom, téléphone et e-mail. Une fourchette basse / haute s’affiche. Devis ferme sous 2 heures ouvrées.",
+        a: "Via le simulateur : trajet, type de véhicule, options, puis nom, téléphone et e-mail. Une fourchette basse et haute s’affiche. Devis ferme sous 2 heures ouvrées.",
       },
     ],
   };
@@ -71,9 +78,9 @@ function pays(
 ): SeoPage {
   return {
     slug,
-    title: `Convoyage de voiture vers ${name} · CLÉMENT CONVOYAGE`,
+    title: `Convoyage de voiture vers ${name}. Depuis Quimper.`,
     h1: `Convoyage de véhicule vers ${name}`,
-    description: `Livraison de voiture en ${name} depuis Quimper (${city}). Carte verte, mandat, EDL photo, option GPS. Devis indicatif après coordonnées.`,
+    description: `Livraison de voiture en ${name} depuis Quimper (${city}). Convoyage automobile, EDL photo, GPS. Devis après coordonnées.`,
     kind: "europe",
     image: EU,
     locality: city,
@@ -109,12 +116,103 @@ function pays(
 }
 
 export const SEO_PAGES: SeoPage[] = [
-  ville("convoyage-quimper", "Quimper", "Capitale de la Cornouaille : centre historique, Pluguffan, Ergué-Gabéric, tissu de concessions, garages et mandataires. C’est notre base.", "Les missions locales (CT, carrosserie, prêt de courtoisie, livraison client) partent le jour même quand le créneau le permet.", [
-    { to: "/convoyage-benodet", label: "Bénodet" },
-    { to: "/convoyage-concarneau", label: "Concarneau" },
-    { to: "/livraison-voiture-finistere", label: "Finistère" },
-  ]),
-  ville("convoyage-concarneau", "Concarneau", "Ville close, port et zones commerciales : Concarneau génère des livraisons VO, CT et retours atelier vers Quimper au quotidien.", "Axe Quimper–Concarneau fluide. Idéal pour les allers-retours concession / client.", [
+  {
+    slug: "convoyage-quimper",
+    title: "Convoyage automobile à Quimper. Convoyeur en Cornouaille.",
+    h1: "Convoyage automobile à Quimper",
+    description:
+      "Convoyeur automobile à Quimper. Livraison de voiture en Cornouaille, Finistère, France et Europe. État des lieux photo, mise en main offerte. 06 24 04 85 73.",
+    kind: "ville",
+    image: IMG,
+    locality: "Quimper",
+    country: "FR",
+    kicker: "Base Convoyage BZH",
+    intro:
+      "Quimper n’est pas une antenne. C’est la base. Clément y prend les véhicules, y rend les clés, y cadre les missions France et Europe.",
+    body: [
+      "Convoyage BZH est un convoyeur automobile basé à Quimper, en Cornouaille. Particuliers et professionnels. Véhicules jusqu’à 3,5 t, en état de marche. La remise se fait comme en concession : photos, documents, mise en main offerte.",
+      "L’agglomération tourne autour des concessions, des garages, des mandataires et des particuliers qui achètent à distance. Un convoyeur sur place évite de mobiliser un vendeur ou un mécanicien pour un aller-retour CT, une courtoisie ou une livraison client.",
+      "Les missions locales partent souvent le jour même, si le créneau tient. Bénodet, Fouesnant, Concarneau, Pont-l’Abbé, Douarnenez : le même interlocuteur. Brest, Lorient, Rennes, Nantes, Paris : le même protocole.",
+      "Toujours inclus : conduite, carburant du véhicule convoyé, péages, retour du convoyeur, état des lieux photo, clés, mise en main. Vous ajoutez lavage, pack mise à la route, plein, GPS temporaire, coffret.",
+      "Le tarif de convoyage n’est pas une grille publique. Une fourchette s’affiche après nom, téléphone et e-mail. Prix indicatif, à confirmer sous 2 heures ouvrées.",
+    ],
+    highlights: [
+      { t: "Base ici", d: "Pas une plateforme. Un interlocuteur à Quimper, tous les jours. Astreinte 24 h pour les professionnels." },
+      { t: "Jour même", d: "CT, carrosserie, courtoisie, livraison client. Si le créneau existe, on le prend. Sinon, on le dit." },
+      { t: "Cornouaille", d: "Pluguffan, Ergué-Gabéric, Penhars, Kerfeunteun, Creac’h Gwen. Puis tout le Finistère." },
+      { t: "France, Europe", d: "Le véhicule part de Quimper, ou y arrive. Même exigence qu’une remise en réseau DS, Renault, Mercedes-Benz." },
+    ],
+    zones: [
+      { t: "Quimper centre", d: "Remise en main propre, rues du centre, parkings convenus. Horaires tenus, pas d’attente improvisée." },
+      { t: "Pluguffan", d: "Aéroport Quimper-Bretagne, zones d’activités, accès RN165. Prises en charge rapides." },
+      { t: "Ergué-Gabéric", d: "Quartiers résidentiels, artisans, livraisons à domicile. EDL photo au pas de porte." },
+      { t: "Penhars, Kerfeunteun", d: "Quartiers d’habitation, garages de proximité, retours atelier." },
+      { t: "Creac’h Gwen, Poulguinan", d: "Pôle commercial et concessions. Livraisons clients, transferts inter-sites, VO." },
+      { t: "Cornouaille proche", d: "Bénodet, Fouesnant, Beg-Meil, Concarneau, Pont-l’Abbé, Douarnenez, Audierne, Pont-Aven." },
+    ],
+    trajets: [
+      { to: "/convoyage-benodet", label: "Quimper, Bénodet", d: "Littoral, saisonnalité. Créneaux d’été à réserver." },
+      { to: "/convoyage-concarneau", label: "Quimper, Concarneau", d: "Allers-retours concession, CT, particuliers. Axe fluide." },
+      { to: "/convoyage-brest", label: "Quimper, Brest", d: "RN165. Missions du jour ou J+1 selon charge." },
+      { to: "/convoyage-lorient", label: "Quimper, Lorient", d: "Est du Finistère, Morbihan proche. Utilitaires fréquents." },
+      { to: "/convoyage-rennes", label: "Quimper, Rennes", d: "Capitale régionale. Mandataires, VO, livraisons entreprises." },
+      { to: "/convoyage-nantes", label: "Quimper, Nantes", d: "Pays de la Loire. Longue distance, même protocole." },
+      { to: "/convoyage-paris", label: "Quimper, Paris", d: "Longue distance. GPS souvent. Délai J+1 à J+2." },
+      { to: "/livraison-europe", label: "Quimper, Europe", d: "Belgique, Allemagne, Pologne, Monaco, Serbie. Formalités cadrées." },
+    ],
+    services: [
+      { to: "/livraison-vehicule-particulier", t: "Particuliers", d: "Achat à distance, Leboncoin, mandataire, déménagement. Remise à domicile." },
+      { to: "/professionnels", t: "Professionnels", d: "Concessions, garages, marchands VO. Compte, quinze jours, compte-rendu." },
+      { to: "/pack-mise-a-la-route", t: "Packs mise à la route", d: "Essentiel, Confort, Premium. Le véhicule arrive prêt." },
+      { to: "/preparation-vehicule", t: "Préparation", d: "Lavage, niveaux, pression, plein ou recharge. Pas du detailing de concours." },
+      { to: "/protocole-clement", t: "Protocole Clément", d: "Photos, kilométrage, documents, compte-rendu. Avant, pendant, après." },
+      { to: "/traqueur-gps", t: "GPS temporaire", d: "Suivi du véhicule le temps de la mission. Retrait à la remise." },
+    ],
+    nearby: [
+      { to: "/livraison-voiture-finistere", label: "Finistère" },
+      { to: "/convoyage-bretagne", label: "Bretagne" },
+      { to: "/convoyage-benodet", label: "Bénodet" },
+      { to: "/convoyage-concarneau", label: "Concarneau" },
+      { to: "/convoyage-brest", label: "Brest" },
+      { to: "/professionnels", label: "Professionnels" },
+      { to: "/a-propos", label: "À propos" },
+    ],
+    faq: [
+      {
+        q: "Où se trouve Convoyage BZH à Quimper ?",
+        a: "Base Quimper, Cornouaille. Prise en charge et remise sur rendez-vous : centre, Pluguffan, Ergué-Gabéric, concessions, domicile. Téléphone 06 24 04 85 73.",
+      },
+      {
+        q: "Faites-vous du convoyage le jour même à Quimper ?",
+        a: "Oui, pour les missions locales, si le créneau existe. CT, carrosserie, courtoisie, livraison client. Si ça ne tient pas, on le dit avant.",
+      },
+      {
+        q: "Combien coûte un convoyage à Quimper ?",
+        a: "Un forfait local existe pour les courtes distances. Le montant dépend du trajet, du véhicule et des options. La fourchette s’affiche après vos coordonnées. Prix indicatif, à confirmer.",
+      },
+      {
+        q: "Intervenez-vous à Pluguffan et Ergué-Gabéric ?",
+        a: "Oui. Toute l’agglomération, puis Bénodet, Fouesnant, Concarneau, Pont-l’Abbé, Douarnenez, et le reste du Finistère.",
+      },
+      {
+        q: "Travaillez-vous avec les concessions et garages de Quimper ?",
+        a: "Oui. Livraison client, transferts, VO, retours atelier. Compte professionnel, paiement à quinze jours, astreinte 24 h.",
+      },
+      {
+        q: "Quels véhicules acceptez-vous ?",
+        a: "Particuliers et utilitaires jusqu’à 3,5 t, en état de marche, permis B. Pas de plateau, pas de non-roulant, pas de poids lourd.",
+      },
+      {
+        q: "La mise en main est-elle facturée ?",
+        a: "Non. Offerte à chaque remise à Quimper, comme partout ailleurs.",
+      },
+      {
+        q: "Livrez-vous hors de Quimper ?",
+        a: "Oui. Bretagne, France, Europe. Le véhicule part de Quimper ou y arrive. Même protocole.",
+      },
+    ],
+  },
+  ville("convoyage-concarneau", "Concarneau", "Ville close, port et zones commerciales : Concarneau génère des livraisons VO, CT et retours atelier vers Quimper au quotidien.", "Axe Quimper, Concarneau fluide. Idéal pour les allers-retours concession / client.", [
     { to: "/convoyage-quimper", label: "Quimper" },
     { to: "/convoyage-fouesnant", label: "Fouesnant" },
     { to: "/livraison-voiture-finistere", label: "Finistère" },
@@ -144,7 +242,7 @@ export const SEO_PAGES: SeoPage[] = [
     { to: "/convoyage-quimper", label: "Quimper" },
     { to: "/convoyage-pont-aven", label: "Pont-Aven" },
   ]),
-  ville("convoyage-brest", "Brest", "Métropole du Finistère nord, Brest et Guipavas concentrent concessions, loueurs et flux vers le sud Cornouaille.", "Le trajet Brest–Quimper est un classique : VO, SAV, livraisons clients. Protocole EDL strict.", [
+  ville("convoyage-brest", "Brest", "Métropole du Finistère nord, Brest et Guipavas concentrent concessions, loueurs et flux vers le sud Cornouaille.", "Le trajet Brest, Quimper est un classique : VO, SAV, livraisons clients. Protocole EDL strict.", [
     { to: "/convoyage-quimper", label: "Quimper" },
     { to: "/convoyage-morlaix", label: "Morlaix" },
     { to: "/livraison-voiture-finistere", label: "Finistère" },
@@ -239,7 +337,7 @@ export const SEO_PAGES: SeoPage[] = [
     { to: "/convoyage-orleans", label: "Orléans" },
     { to: "/convoyage-bordeaux", label: "Bordeaux" },
   ]),
-  ville("convoyage-orleans", "Orléans", "Orléans, porte sud de l’Île-de-France. Flux Paris et Centre.", "Utile en relais Paris–ouest. EDL photo, option GPS.", [
+  ville("convoyage-orleans", "Orléans", "Orléans, porte sud de l’Île-de-France. Flux Paris et Centre.", "Utile en relais Paris, ouest. EDL photo, option GPS.", [
     { to: "/convoyage-paris", label: "Paris" },
     { to: "/convoyage-tours", label: "Tours" },
     { to: "/convoyage-le-mans", label: "Le Mans" },
@@ -254,7 +352,7 @@ export const SEO_PAGES: SeoPage[] = [
     { to: "/convoyage-paris", label: "Paris" },
     { to: "/convoyage-lille", label: "Lille" },
   ]),
-  ville("convoyage-paris", "Paris", "Île-de-France : Paris et petite couronne. Livraisons clients, mandataires, retours Bretagne.", "Le trajet Quimper–Paris est fréquent. EDL photo, option GPS, remise sur rendez-vous.", [
+  ville("convoyage-paris", "Paris", "Île-de-France : Paris et petite couronne. Livraisons clients, mandataires, retours Bretagne.", "Le trajet Quimper, Paris est fréquent. EDL photo, option GPS, remise sur rendez-vous.", [
     { to: "/convoyage-le-mans", label: "Le Mans" },
     { to: "/convoyage-rennes", label: "Rennes" },
     { to: "/convoyage-voiture-france", label: "France" },
@@ -264,7 +362,7 @@ export const SEO_PAGES: SeoPage[] = [
     { to: "/convoyage-paris", label: "Paris" },
     { to: "/convoyage-reims", label: "Reims" },
   ]),
-  ville("convoyage-reims", "Reims", "Reims, Champagne. Relais Paris–est, livraisons mandataires.", "Axe vers Metz, Luxembourg, Allemagne. EDL et option GPS.", [
+  ville("convoyage-reims", "Reims", "Reims, Champagne. Relais Paris, est, livraisons mandataires.", "Axe vers Metz, Luxembourg, Allemagne. EDL et option GPS.", [
     { to: "/convoyage-paris", label: "Paris" },
     { to: "/convoyage-metz", label: "Metz" },
     { to: "/convoyage-lille", label: "Lille" },
@@ -279,7 +377,7 @@ export const SEO_PAGES: SeoPage[] = [
     { to: "/convoyage-allemagne", label: "Allemagne" },
     { to: "/convoyage-suisse", label: "Suisse" },
   ]),
-  ville("convoyage-dijon", "Dijon", "Dijon, Bourgogne. Relais Lyon–Paris, livraisons Centre-Est.", "Mission France. Même exigence de remise, délai J+2 / J+3.", [
+  ville("convoyage-dijon", "Dijon", "Dijon, Bourgogne. Relais Lyon, Paris, livraisons Centre-Est.", "Mission France. Même exigence de remise, délai J+2 / J+3.", [
     { to: "/convoyage-lyon", label: "Lyon" },
     { to: "/convoyage-paris", label: "Paris" },
     { to: "/convoyage-strasbourg", label: "Strasbourg" },
@@ -299,7 +397,7 @@ export const SEO_PAGES: SeoPage[] = [
     { to: "/convoyage-la-rochelle", label: "La Rochelle" },
     { to: "/convoyage-toulouse", label: "Toulouse" },
   ]),
-  ville("convoyage-la-rochelle", "La Rochelle", "La Rochelle, Charente-Maritime. Livraisons atlantique, île de Ré sur devis.", "Relais Nantes–Bordeaux. Saisonnalité estivale.", [
+  ville("convoyage-la-rochelle", "La Rochelle", "La Rochelle, Charente-Maritime. Livraisons atlantique, île de Ré sur devis.", "Relais Nantes, Bordeaux. Saisonnalité estivale.", [
     { to: "/convoyage-nantes", label: "Nantes" },
     { to: "/convoyage-bordeaux", label: "Bordeaux" },
     { to: "/convoyage-angers", label: "Angers" },
@@ -314,7 +412,7 @@ export const SEO_PAGES: SeoPage[] = [
     { to: "/convoyage-bordeaux", label: "Bordeaux" },
     { to: "/convoyage-espagne", label: "Espagne" },
   ]),
-  ville("convoyage-clermont-ferrand", "Clermont-Ferrand", "Clermont-Ferrand, Massif central. Relais Lyon–Bordeaux.", "Trajet moins linéaire. On calcule au GPS, pas à vol d’oiseau affiché.", [
+  ville("convoyage-clermont-ferrand", "Clermont-Ferrand", "Clermont-Ferrand, Massif central. Relais Lyon, Bordeaux.", "Trajet moins linéaire. On calcule au GPS, pas à vol d’oiseau affiché.", [
     { to: "/convoyage-lyon", label: "Lyon" },
     { to: "/convoyage-bordeaux", label: "Bordeaux" },
     { to: "/convoyage-dijon", label: "Dijon" },
@@ -324,7 +422,7 @@ export const SEO_PAGES: SeoPage[] = [
     { to: "/convoyage-monaco", label: "Monaco" },
     { to: "/convoyage-montpellier", label: "Montpellier" },
   ]),
-  ville("convoyage-montpellier", "Montpellier", "Montpellier, axe languedocien. Relais Toulouse–Marseille.", "Mission sud. Option lavage et GPS selon le véhicule.", [
+  ville("convoyage-montpellier", "Montpellier", "Montpellier, axe languedocien. Relais Toulouse, Marseille.", "Mission sud. Option lavage et GPS selon le véhicule.", [
     { to: "/convoyage-marseille", label: "Marseille" },
     { to: "/convoyage-perpignan", label: "Perpignan" },
     { to: "/convoyage-toulouse", label: "Toulouse" },
@@ -341,7 +439,7 @@ export const SEO_PAGES: SeoPage[] = [
   ]),
   {
     slug: "convoyage-bretagne",
-    title: "Convoyage de véhicules en Bretagne · CLÉMENT CONVOYAGE",
+    title: "Convoyage de véhicules en Bretagne, Convoyage BZH",
     h1: "Convoyage de véhicules en Bretagne",
     description: "Livraison de voitures dans toute la Bretagne depuis Quimper. Finistère, Morbihan, Côtes-d’Armor, Ille-et-Vilaine. Devis sous 2 h.",
     kind: "region",
@@ -364,7 +462,7 @@ export const SEO_PAGES: SeoPage[] = [
   },
   {
     slug: "livraison-voiture-finistere",
-    title: "Livraison de voiture dans le Finistère · CLÉMENT CONVOYAGE",
+    title: "Livraison de voiture dans le Finistère, Convoyage BZH",
     h1: "Livraison de voiture dans le Finistère",
     description: "Convoyage Finistère : Quimper, Brest, Concarneau, Bénodet, Douarnenez, Pont-l'Abbé, Morlaix. Devis sous 2 h.",
     kind: "region",
@@ -386,7 +484,7 @@ export const SEO_PAGES: SeoPage[] = [
   },
   {
     slug: "convoyage-voiture-france",
-    title: "Convoyage de voiture en France · CLÉMENT CONVOYAGE",
+    title: "Convoyage de voiture en France, Convoyage BZH",
     h1: "Convoyage de voiture en France",
     description: "Livraison de véhicules partout en France métropolitaine depuis Quimper. Paris, Lyon, Bordeaux, Marseille, Nice, Lille, Strasbourg. Devis sous 2 h.",
     kind: "france",
@@ -407,7 +505,7 @@ export const SEO_PAGES: SeoPage[] = [
   },
   {
     slug: "livraison-vehicule-particulier",
-    title: "Livraison de véhicule pour particulier · CLÉMENT CONVOYAGE",
+    title: "Livraison de véhicule pour particulier, Convoyage BZH",
     h1: "Livraison de véhicule pour particulier",
     description: "Achat à distance, Leboncoin, mandataire : nous convoyons jusqu’à chez vous. EDL photo, GPS optionnel, paiement avant départ.",
     kind: "metier",
@@ -415,7 +513,7 @@ export const SEO_PAGES: SeoPage[] = [
     intro: "Vous n’avez pas à prendre le train. Nous amenons le véhicule, photos horodatées, remise en main propre.",
     body: [
       "Cas typiques : achat Leboncoin, mandataire, concession hors département, donation familiale.",
-      "Virement avant départ. Options : lavage, mise en main, traqueur GPS, protocole sécurité.",
+      "Virement avant départ. Options : lavage, traqueur GPS, protocole sécurité. Mise en main offerte.",
     ],
     nearby: [
       { to: "/simulateur", label: "Estimer" },
@@ -426,7 +524,7 @@ export const SEO_PAGES: SeoPage[] = [
   },
   {
     slug: "convoyage-concession",
-    title: "Convoyage pour concessions et garages · CLÉMENT CONVOYAGE",
+    title: "Convoyage pour concessions et garages, Convoyage BZH",
     h1: "Convoyage pour concessions et garages",
     description: "Transferts inter-sites, livraisons clients VO, CT et SAV. Standard issu des réseaux DS, Renault et Mercedes-Benz.",
     kind: "metier",
@@ -445,7 +543,7 @@ export const SEO_PAGES: SeoPage[] = [
   },
   {
     slug: "convoyage-mandataire",
-    title: "Convoyage pour mandataire auto · CLÉMENT CONVOYAGE",
+    title: "Convoyage pour mandataire auto, Convoyage BZH",
     h1: "Convoyage pour mandataire automobile",
     description: "Livraison des véhicules mandataire depuis les plates-formes vers la Bretagne et la France. EDL, GPS, remise client.",
     kind: "metier",
@@ -464,7 +562,7 @@ export const SEO_PAGES: SeoPage[] = [
   },
   {
     slug: "convoyage-prestige",
-    title: "Convoyage de véhicule prestige · CLÉMENT CONVOYAGE",
+    title: "Convoyage de véhicule prestige, Convoyage BZH",
     h1: "Convoyage de véhicule prestige",
     description: "Livraison de berlines, sportives et prestige depuis Quimper. Protocole sécurité, GPS, EDL renforcée. Standard Mercedes / DS.",
     kind: "metier",
@@ -483,14 +581,14 @@ export const SEO_PAGES: SeoPage[] = [
   },
   {
     slug: "convoyage-electrique",
-    title: "Convoyage de véhicule électrique · CLÉMENT CONVOYAGE",
+    title: "Convoyage de véhicule électrique, Convoyage BZH",
     h1: "Convoyage de véhicule électrique",
     description: "Livraison VE depuis Quimper. Plan de recharge, EDL, remise avec niveau de batterie convenu.",
     kind: "metier",
     image: "/images/03_nettoyage.jpg",
     intro: "Un VE ne se convoyage pas comme un thermique. Autonomie, bornes, contrat de recharge.",
     body: [
-      "Plan de trajet avec recharges. Remise à un niveau de batterie convenu. Option mise en main.",
+      "Plan de trajet avec recharges. Remise à un niveau de batterie convenu. Mise en main offerte.",
       "Pas de tarification publiée. Le simulateur intègre l’option recharge.",
     ],
     nearby: [
@@ -501,7 +599,7 @@ export const SEO_PAGES: SeoPage[] = [
   },
   {
     slug: "convoyage-utilitaire",
-    title: "Convoyage d’utilitaire et van · CLÉMENT CONVOYAGE",
+    title: "Convoyage d’utilitaire et van, Convoyage BZH",
     h1: "Convoyage d’utilitaire et van",
     description: "Livraison d’utilitaires et vans ≤ 3,5 t depuis Quimper. Artisans, loueurs, flottes. EDL photo.",
     kind: "metier",
@@ -520,7 +618,7 @@ export const SEO_PAGES: SeoPage[] = [
   },
   {
     slug: "etat-des-lieux-convoyage",
-    title: "État des lieux photo convoyage · CLÉMENT CONVOYAGE",
+    title: "État des lieux photo convoyage, Convoyage BZH",
     h1: "État des lieux photo",
     description: "EDL photo horodaté au départ et à l’arrivée. Preuve, sérénité, standard concession.",
     kind: "metier",
@@ -538,7 +636,7 @@ export const SEO_PAGES: SeoPage[] = [
   },
   {
     slug: "convoyage-urgence",
-    title: "Convoyage urgent de véhicule · CLÉMENT CONVOYAGE",
+    title: "Convoyage urgent de véhicule, Convoyage BZH",
     h1: "Convoyage urgent",
     description: "Livraison de véhicule sous 24 h selon disponibilité, depuis Quimper. Astreinte professionnels, EDL photo.",
     kind: "metier",
@@ -557,12 +655,12 @@ export const SEO_PAGES: SeoPage[] = [
   },
   {
     slug: "convoyage-week-end",
-    title: "Convoyage le week-end · CLÉMENT CONVOYAGE",
+    title: "Convoyage le week-end, Convoyage BZH",
     h1: "Convoyage samedi, dimanche et férié",
-    description: "Livraison de véhicule le week-end depuis Quimper. 7 j/7, EDL photo, devis après coordonnées.",
+    description: "Livraison de véhicule le week-end depuis Quimper. tous les jours, EDL photo, devis après coordonnées.",
     kind: "metier",
     image: IMG,
-    intro: "Les remises ne tombent pas toutes un mardi. Nous roulons 7 j/7.",
+    intro: "Les remises ne tombent pas toutes un mardi. Nous roulons tous les jours.",
     body: [
       "Samedi, dimanche, jours fériés : possibles. Le simulateur le prend en compte dans la fourchette, sans publier de majoration.",
       "Utile pour les particuliers qui reçoivent le véhicule chez eux, et pour les concessions en rush.",
@@ -576,7 +674,7 @@ export const SEO_PAGES: SeoPage[] = [
   },
   {
     slug: "convoyage-import",
-    title: "Convoyage de véhicule import · CLÉMENT CONVOYAGE",
+    title: "Convoyage de véhicule import, Convoyage BZH",
     h1: "Convoyage de véhicule importé",
     description: "Ramener un véhicule acheté en Belgique, Allemagne, Pologne, Espagne. EDL, GPS, formalités, base Quimper.",
     kind: "metier",
@@ -596,7 +694,7 @@ export const SEO_PAGES: SeoPage[] = [
   },
   {
     slug: "convoyage-occasion",
-    title: "Convoyage de véhicule d’occasion · CLÉMENT CONVOYAGE",
+    title: "Convoyage de véhicule d’occasion, Convoyage BZH",
     h1: "Convoyage de véhicule d’occasion",
     description: "Livraison VO : Leboncoin, concession, particulier. EDL photo stricte, option GPS, depuis Quimper.",
     kind: "metier",
@@ -615,9 +713,9 @@ export const SEO_PAGES: SeoPage[] = [
   },
   {
     slug: "convoyage-location",
-    title: "Convoyage pour loueurs · CLÉMENT CONVOYAGE",
+    title: "Convoyage pour loueurs, Convoyage BZH",
     h1: "Convoyage pour agences de location",
-    description: "Transferts de flotte, one-way, rééquilibrage. EDL photo, 7 j/7, base Quimper.",
+    description: "Transferts de flotte, one-way, rééquilibrage. EDL photo, tous les jours, base Quimper.",
     kind: "metier",
     image: KEYS,
     intro: "Une flotte qui n’est pas au bon endroit ne se loue pas. Nous rééquilibrons.",
@@ -634,14 +732,14 @@ export const SEO_PAGES: SeoPage[] = [
   },
   {
     slug: "convoyage-suivi-gps",
-    title: "Suivi GPS d’un véhicule convoyé · CLÉMENT CONVOYAGE",
+    title: "Suivi GPS d’un véhicule convoyé, Convoyage BZH",
     h1: "Suivi GPS pendant le convoyage",
     description: "Traqueur GPS temporaire sur le véhicule livré. Pose discrète, retrait à la remise. Prestige, import, Europe.",
     kind: "metier",
     image: GPS,
     intro: "Savoir où il est, sans en faire un spectacle. Pose le temps de la mission.",
     body: [
-      "Complément de la page Traqueur GPS : ici le point de vue métier — import, prestige, Pologne, Serbie, Royaume-Uni, Monaco.",
+      "Complément de la page Traqueur GPS : ici le point de vue métier. import, prestige, Pologne, Serbie, Royaume-Uni, Monaco.",
       "Ce n’est pas de la surveillance de chauffeur. C’est la tenue d’une concession qui sait où est sa démonstration.",
     ],
     nearby: [
@@ -653,7 +751,7 @@ export const SEO_PAGES: SeoPage[] = [
   },
   {
     slug: "protocole-securite-convoyage",
-    title: "Protocole sécurité convoyage · CLÉMENT CONVOYAGE",
+    title: "Protocole sécurité convoyage, Convoyage BZH",
     h1: "Protocole sécurité du véhicule",
     description: "Clés sous scellé, EDL photo, GPS, gestion de crise. Standard DS / Renault / Mercedes-Benz, base Quimper.",
     kind: "metier",
@@ -708,6 +806,261 @@ export const SEO_PAGES: SeoPage[] = [
   pays("convoyage-chypre", "Chypre", "Nicosie", "Chypre : Nicosie. Trajet mer / air, devis spécifique.", "Pas un convoyage routier classique. Devis sur dossier, hors simulateur standard."),
   pays("convoyage-liechtenstein", "Liechtenstein", "Vaduz", "Liechtenstein : Vaduz. Prestige, discrétion, voisin de la Suisse.", "Formalités type Suisse. Protocole sécurité."),
   pays("convoyage-geneve", "Genève", "Genève", "Genève, pour les recherches locales. Voir aussi la page Suisse.", "Même formalités que la Suisse. Prestige fréquent."),
+  {
+    slug: "coffret-livraison-vehicule",
+    title: "Coffret cadeau à la livraison de véhicule, Convoyage BZH",
+    h1: "Coffret cadeau à la livraison",
+    description: "Deux coffrets maison remis avec les clés : Armor (galettes, caramels, cidre) ou Champagne (brut + chocolats). Composés à Quimper.",
+    kind: "metier",
+    image: "/images/09_coffret_armor.jpg",
+    intro: "La remise n’est pas un colis. Un coffret, composé ici, posé avec les clés.",
+    body: [
+      "Deux compositions, pas un catalogue. Coffret Armor : galettes, caramels au beurre salé, cidre. Coffret Champagne : brut 75 cl et chocolats.",
+      "Clément va chercher les produits et assemble. Ce n’est pas une boîte Amazon étiquetée. Un coffret par mission, coché au simulateur. Tarif dans la fourchette, jamais en vitrine.",
+    ],
+    nearby: [
+      { to: "/coffrets-livraison", label: "Les deux coffrets" },
+      { to: "/simulateur", label: "Simulateur" },
+      { to: "/nettoyage-vehicule", label: "Préparation" },
+    ],
+    faq: [{ q: "Puis-je commander les deux ?", a: "Un coffret par mission. Armor ou Champagne." }],
+  },
+  {
+    slug: "controle-visuel-vehicule",
+    title: "Contrôle visuel véhicule convoyé, Convoyage BZH",
+    h1: "Contrôle visuel du véhicule convoyé",
+    description: "Contrôle visuel 20 points au départ et à l’arrivée. Niveaux, pneus, éclairage, carrosserie. Ce n’est pas une expertise automobile.",
+    kind: "metier",
+    image: EDL,
+    intro: "Un regard de concession, pas un rapport d’expert. Vingt points, des photos.",
+    body: [
+      "Ce n’est pas une expertise. Pas de rapport opposable. Un contrôle visuel de présentation : niveaux, éclairage, pneus, carrosserie visible, témoins, documents.",
+      "Si un point bloque le départ, la mission s’arrête et le client est appelé. Option au simulateur, tarif dans la fourchette.",
+    ],
+    nearby: [
+      { to: "/controle-vehicule", label: "Page contrôle visuel" },
+      { to: "/etat-des-lieux-convoyage", label: "État des lieux" },
+      { to: "/securite-vehicule", label: "Sécurité" },
+    ],
+    faq: [{ q: "Remplace-t-il le contrôle technique ?", a: "Non. Il documente l’état présenté, rien d’autre." }],
+  },
+  {
+    slug: "plein-carburant-livraison",
+    title: "Plein de carburant à la livraison, Convoyage BZH",
+    h1: "Plein de carburant à la livraison",
+    description: "Plein à la remise du véhicule convoyé. Carburant au réel, forfait dans la fourchette. Base Quimper.",
+    kind: "metier",
+    image: "/images/11_plein.jpg",
+    intro: "Une remise avec la réserve allumée, ce n’est pas une concession.",
+    body: [
+      "Le plein se fait à l’arrivée. Le carburant est repris au réel. Un forfait entre dans la fourchette du simulateur, à confirmer.",
+      "Souvent couplé au lavage et au contrôle visuel. Pour les VE, c’est la recharge au niveau convenu.",
+    ],
+    nearby: [
+      { to: "/nettoyage-vehicule", label: "Préparation" },
+      { to: "/simulateur", label: "Simulateur" },
+      { to: "/convoyage-electrique", label: "Véhicule électrique" },
+    ],
+    faq: [{ q: "Le plein est-il inclus dans le convoyage ?", a: "Le carburant du trajet l’est. Le plein à la remise est une option." }],
+  },
+  {
+    slug: "convoyage-automobile",
+    title: "Convoyage automobile depuis Quimper. Convoyage BZH",
+    h1: "Convoyage automobile",
+    description: "Convoyage automobile depuis Quimper. Livraison de voiture en conduite, Bretagne, France, Europe. EDL photo, devis sous 2 h.",
+    kind: "metier",
+    image: IMG,
+    locality: SITE.city,
+    country: "FR",
+    intro: "Le convoyage automobile, c’est amener un véhicule d’un point A à un point B, en conduite, comme en concession.",
+    body: [
+      "Convoyage BZH livre des véhicules particuliers et utilitaires jusqu’à 3,5 t, en état de marche. Base Quimper. Bretagne, France, Europe.",
+      "Chaque mission comprend la conduite, le carburant du véhicule convoyé, les péages, le retour du convoyeur, un état des lieux photo et la mise en main offerte.",
+      "Ce n’est pas un transport plateau. Ce n’est pas un taxi. C’est une remise. Le prix n’est pas publié. Le simulateur prépare une fourchette après vos coordonnées.",
+    ],
+    nearby: [
+      { to: "/livraison-vehicule", label: "Livraison France" },
+      { to: "/convoyeur-automobile", label: "Convoyeur" },
+      { to: "/simulateur", label: "Simulateur" },
+      { to: "/convoyage-quimper", label: "Quimper" },
+    ],
+    faq: [
+      {
+        q: "Quelle est la différence avec un transporteur ?",
+        a: "Nous roulons le véhicule. Permis B, jusqu’à 3,5 t, en état de marche. Un plateau, un poids lourd ou un non-roulant, ce n’est pas notre métier.",
+      },
+      {
+        q: "Où intervenez-vous ?",
+        a: "Depuis Quimper, toute la Bretagne, la France, puis l’Europe. Pologne, Monaco, Serbie comprises.",
+      },
+    ],
+  },
+  {
+    slug: "convoyeur-automobile",
+    title: "Convoyeur automobile à Quimper. Convoyage BZH",
+    h1: "Convoyeur automobile, base Quimper",
+    description: "Convoyeur automobile basé à Quimper. Livraison de véhicules tous les jours, France et Europe. Un interlocuteur, EDL photo.",
+    kind: "metier",
+    image: KEYS,
+    locality: SITE.city,
+    country: "FR",
+    intro: "Un convoyeur, pas une plateforme. Clément pilote Convoyage BZH depuis Quimper.",
+    body: [
+      "Vous parlez à quelqu’un qui connaît les axes, les concessions et les remises. Expérience DS Automobiles, Renault, Mercedes-Benz. Gestion de crise.",
+      "Particuliers, mandataires, garages, loueurs. Astreinte 24 h pour les professionnels. Tous les jours.",
+      "Le simulateur prépare le trajet. Le devis ferme arrive sous 2 heures ouvrées.",
+    ],
+    nearby: [
+      { to: "/a-propos", label: "À propos" },
+      { to: "/convoyage-automobile", label: "Convoyage automobile" },
+      { to: "/contact", label: "Contact" },
+    ],
+    faq: [
+      {
+        q: "Travaillez-vous avec les professionnels ?",
+        a: "Oui. Concessions, garages, mandataires, loueurs. Paiement à quinze jours. Un cadre volume après trois missions test.",
+      },
+    ],
+  },
+  {
+    slug: "livraison-voiture-neuve",
+    title: "Livraison de voiture neuve. Convoyage BZH",
+    h1: "Livraison de voiture neuve",
+    description: "Livraison de voiture neuve depuis Quimper. Remise comme en concession, état des lieux photo, mise en main offerte.",
+    kind: "metier",
+    image: KEYS,
+    locality: SITE.city,
+    country: "FR",
+    intro: "Une voiture neuve n’arrive pas dans un parking. Elle arrive préparée.",
+    body: [
+      "Convoyage depuis la concession, le constructeur ou le mandataire jusqu’au client. Lavage, plein, mise en main offerte.",
+      "L’état des lieux photo protège le vendeur et l’acheteur. Option GPS sur les flux prestige et import.",
+      "Le tarif n’est pas affiché. Fourchette après vos coordonnées, à confirmer.",
+    ],
+    nearby: [
+      { to: "/convoyage-concession", label: "Concessions" },
+      { to: "/nettoyage-vehicule", label: "Préparation" },
+      { to: "/coffrets-livraison", label: "Coffret cadeau" },
+      { to: "/simulateur", label: "Simulateur" },
+    ],
+    faq: [
+      {
+        q: "Faites-vous la mise en main ?",
+        a: "Oui. Offerte à chaque remise. Vingt à trente minutes. Commandes, options, charge.",
+      },
+    ],
+  },
+  {
+    slug: "transport-voiture-conduite",
+    title: "Transport de voiture en conduite. Convoyage BZH",
+    h1: "Transport de voiture en conduite",
+    description: "Transport de voiture en conduite depuis Quimper. Convoyage, pas de plateau. Particuliers et utilitaires jusqu’à 3,5 t.",
+    kind: "metier",
+    image: IMG,
+    locality: SITE.city,
+    country: "FR",
+    intro: "Le véhicule roule. Nous le conduisons. Carburant, péages, retour, photos.",
+    body: [
+      "Le transport en conduite convient aux véhicules en état de marche, permis B, jusqu’à 3,5 t. Sinon, un transporteur plateau.",
+      "Inclus : conduite, carburant du véhicule convoyé, péages, retour du convoyeur, état des lieux photo, mise en main.",
+      "France et Europe. Devis après coordonnées, jamais de grille publique.",
+    ],
+    nearby: [
+      { to: "/convoyage-automobile", label: "Convoyage automobile" },
+      { to: "/livraison-vehicule", label: "Livraison France" },
+      { to: "/simulateur", label: "Simulateur" },
+    ],
+    faq: [
+      {
+        q: "Le véhicule doit-il être assuré ?",
+        a: "Oui. En règle, roulant, documents à bord. Un doute, on n’embarque pas.",
+      },
+    ],
+  },
+  {
+    slug: "convoyage-garage",
+    title: "Convoyage pour garage automobile. Convoyage BZH",
+    h1: "Convoyage pour garage",
+    description: "CT, carrosserie, retours atelier. Un garage qui garde ses techniciens au banc. Convoyage depuis Quimper.",
+    kind: "metier",
+    image: EDL,
+    locality: SITE.city,
+    country: "FR",
+    intro: "Un mécanicien sur la route ne répare rien.",
+    body: [
+      "Convoyage BZH prend les allers-retours CT, carrosserie, prêts. État des lieux photo. Compte-rendu.",
+      "Compte professionnel, paiement à quinze jours, cadre volume après trois missions test.",
+    ],
+    nearby: [
+      { to: "/professionnels", label: "Compte professionnel" },
+      { to: "/convoyage-concession", label: "Concessions" },
+      { to: "/simulateur", label: "Estimer" },
+    ],
+    faq: [{ q: "Utilitaires d’atelier ?", a: "Oui, jusqu’à 3,5 t, vides, permis B." }],
+  },
+  {
+    slug: "convoyage-marchand-vo",
+    title: "Convoyage pour marchand VO. Convoyage BZH",
+    h1: "Convoyage pour marchand de véhicules d’occasion",
+    description: "Rééquilibrage, livraisons, photos. Convoyage pour marchands VO depuis Quimper. Import possible.",
+    kind: "metier",
+    image: KEYS,
+    locality: SITE.city,
+    country: "FR",
+    intro: "Un VO mal placé ne se vend pas. Un VO mal documenté se discute.",
+    body: [
+      "EDL photo stricte. Flux plates-formes, enchères, livraisons clients. Import Allemagne, Belgique, Pologne.",
+      "GPS souvent. Cadre volume possible. Pas de grille publique.",
+    ],
+    nearby: [
+      { to: "/professionnels", label: "Professionnels" },
+      { to: "/convoyage-occasion", label: "Occasion" },
+      { to: "/traqueur-gps", label: "GPS" },
+    ],
+    faq: [{ q: "Paiement ?", a: "Quinze jours. Acompte possible au premier dossier." }],
+  },
+  {
+    slug: "convoyage-flotte",
+    title: "Convoyage de flotte d’entreprise. Convoyage BZH",
+    h1: "Convoyage de flotte",
+    description: "Transfert de flotte, leasing, entreprises. Interlocuteur unique, facturation, compte-rendu. Base Quimper.",
+    kind: "metier",
+    image: KEYS,
+    locality: SITE.city,
+    country: "FR",
+    intro: "Plusieurs véhicules, un interlocuteur. Pas une plateforme.",
+    body: [
+      "Entreprises, leasing, loueurs. Transferts, one-way, rééquilibrage. EDL et rapports standardisés.",
+      "Compte professionnel. L’espace client viendra. Aujourd’hui : téléphone, e-mail, facture.",
+    ],
+    nearby: [
+      { to: "/professionnels", label: "Compte professionnel" },
+      { to: "/convoyage-location", label: "Loueurs" },
+      { to: "/contact", label: "Contact" },
+    ],
+    faq: [{ q: "Facturation mensuelle ?", a: "Oui, une fois le cadre volume posé." }],
+  },
+  {
+    slug: "preparation-livraison-automobile",
+    title: "Préparation avant livraison automobile. Convoyage BZH",
+    h1: "Préparation avant livraison automobile",
+    description: "Lavage, contrôle, carburant, photos avant remise client. Pour concessions et particuliers, depuis Quimper.",
+    kind: "metier",
+    image: "/images/03_nettoyage.jpg",
+    locality: SITE.city,
+    country: "FR",
+    intro: "La préparation fait la remise. Ce n’est pas du detailing de concours.",
+    body: [
+      "Packs Essentiel, Confort, Premium. Contrôle visuel, nettoyage, kit. Prix indicatifs, à confirmer.",
+      "Les concessions y gagnent un client qui récupère un véhicule présentable. Sans mobiliser l’atelier.",
+    ],
+    nearby: [
+      { to: "/pack-mise-a-la-route", label: "Packs" },
+      { to: "/preparation-vehicule", label: "Préparation" },
+      { to: "/professionnels", label: "Professionnels" },
+    ],
+    faq: [{ q: "Délai ?", a: "La préparation se fait dans le temps de la mission, ou avant si convenu." }],
+  },
 ];
 
 export function seoBySlug(slug: string) {

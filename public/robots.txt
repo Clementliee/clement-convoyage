@@ -1,10 +1,22 @@
 User-agent: *
 Allow: /
 
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
 User-agent: GPTBot
 Allow: /
 
 User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
 Allow: /
 
 User-agent: Google-Extended
@@ -23,6 +35,9 @@ User-agent: Applebot-Extended
 Allow: /
 
 User-agent: CCBot
+Allow: /
+
+User-agent: Bytespider
 Allow: /
 
 Sitemap: https://clement-convoyage.vercel.app/sitemap.xml

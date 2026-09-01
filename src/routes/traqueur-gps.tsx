@@ -3,18 +3,17 @@ import { CtaBar } from "@/components/CtaBar";
 import { Faq } from "@/components/Faq";
 import { FaqJsonLd } from "@/components/JsonLd";
 import { PageHero } from "@/components/PageHero";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/traqueur-gps")({
-  head: () => ({
-    meta: [
-      { title: "Traqueur GPS convoyage · CLÉMENT CONVOYAGE" },
-      {
-        name: "description",
-        content:
-          "Pose de traqueur GPS sur le véhicule convoyé. Suivi discret pendant la mission, retrait à la remise. Prestige, import, Europe. Devis après coordonnées.",
-      },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      title: "Traqueur GPS convoyage. Pose le temps de la mission.",
+      description:
+        "Traqueur GPS sur le véhicule convoyé. Pose discrète, suivi pendant la mission, retrait à la remise. Prestige, import, Europe.",
+      path: "/traqueur-gps",
+      image: "/images/07_gps.jpg",
+    }),
   component: Page,
 });
 
@@ -49,29 +48,31 @@ function Page() {
           <p>
             Sur un véhicule de valeur, un import, un trajet Europe, le client ne devrait pas
             attendre un SMS « on est arrivés ». Le traqueur GPS est une option : pose au départ,
-            suivi pendant le convoyage, retrait à la remise — ou conservation si vous le souhaitez.
+            suivi pendant le convoyage, retrait à la remise. ou conservation si vous le souhaitez.
           </p>
           <p>
             Ce n’est pas de la surveillance de chauffeur. C’est la même exigence qu’une concession
             qui sait où est sa démonstration. Clément vient des réseaux DS Automobiles, Renault et
             Mercedes-Benz : on documente, on ne raconte pas.
           </p>
-          <ul className="space-y-2">
+          <div className="space-y-4">
             {[
-              "Pose discrète, sans percer, sans laisser de trace",
-              "Activation le temps de la mission",
-              "Retrait à la remise, avec l’EDL photo",
-              "Recommandé : prestige, import, Pologne, Serbie, Royaume-Uni, Monaco",
+              "Pose discrète, sans percer, sans laisser de trace.",
+              "Activation le temps de la mission.",
+              "Retrait à la remise, avec l’état des lieux photo.",
+              "Recommandé : prestige, import, Pologne, Serbie, Royaume-Uni, Monaco.",
             ].map((i) => (
-              <li key={i}>• {i}</li>
+              <p key={i} className="text-muted">
+                {i}
+              </p>
             ))}
-          </ul>
+          </div>
           <p className="text-sm">
             Le montant n’est pas affiché ici. Cochez l’option dans le simulateur : elle entre dans
             la fourchette, à confirmer.
           </p>
           <Link to="/simulateur" className="inline-flex font-semibold text-coral">
-            Ajouter le GPS à une estimation →
+            Ajouter le GPS à une estimation
           </Link>
         </div>
         <img

@@ -4,14 +4,16 @@ import { PageHero } from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
 import { mailtoFallback, sendDevisLead } from "@/lib/send-devis";
 import { SITE } from "@/lib/site";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: "Contact · CLÉMENT CONVOYAGE" },
-      { name: "description", content: "Devis sous 2 h. Quimper, 7j/7. Laissez vos coordonnées, un e-mail part tout de suite." },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      title: "Contact convoyage voiture Quimper. Devis sous 2 h.",
+      description:
+        "Contactez Convoyage BZH à Quimper. Devis sous 2 heures. Téléphone 06 24 04 85 73, e-mail. Tous les jours.",
+      path: "/contact",
+    }),
   component: Page,
 });
 
@@ -128,11 +130,14 @@ function Page() {
             </a>
           </p>
           <p>
-            {SITE.city} · {SITE.region}
+            {SITE.street}
             <br />
-            {SITE.coords}
+            {SITE.postalCode} {SITE.city}
+            <br />
+            {SITE.region}
           </p>
-          <p>SIRET : {SITE.siret}</p>
+          <p>SIRET {SITE.siret}</p>
+          <p className="text-sm">{SITE.form}. {SITE.vat}.</p>
         </div>
       </section>
     </main>

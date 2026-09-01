@@ -2,18 +2,19 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppLink } from "@/components/AppLink";
 import { CtaBar } from "@/components/CtaBar";
 import { PageHero } from "@/components/PageHero";
+import { Reveal } from "@/components/Reveal";
+import { INCLUDED } from "@/lib/site";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/livraison-vehicule")({
-  head: () => ({
-    meta: [
-      { title: "Livraison de véhicules France · CLÉMENT CONVOYAGE" },
-      {
-        name: "description",
-        content:
-          "Convoyage VL et utilitaires ≤ 3,5 t partout en France depuis Quimper. Carburant, péages, EDL photo. Fourchette après vos coordonnées.",
-      },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      title: "Livraison de véhicule en France. Depuis Quimper.",
+      description:
+        "Convoyage de voiture partout en France depuis Quimper. Particuliers et utilitaires jusqu’à 3,5 t. État des lieux photo, mise en main offerte.",
+      path: "/livraison-vehicule",
+      image: "/images/02_remise_cles.jpg",
+    }),
   component: Page,
 });
 
@@ -38,58 +39,58 @@ function Page() {
       <PageHero
         kicker="Livraison France"
         title="Convoyage en conduite,"
-        accent="A vers B."
-        text="Véhicules légers et utilitaires ≤ 3,5 t, en état de marche. Le prix n’est pas affiché."
+        accent="de A à B."
+        text="Véhicules légers et utilitaires jusqu’à 3,5 t, en état de marche. Le prix n’est pas affiché."
         image="/images/02_remise_cles.jpg"
         alt="Remise des clés d’un véhicule convoyé"
       />
-      <section className="mx-auto grid max-w-6xl gap-10 px-4 pb-16 sm:px-6 lg:grid-cols-2">
-        <div>
-          <h2 className="font-display text-2xl text-navy">Inclus</h2>
-          <ul className="mt-4 space-y-2 text-muted">
-            {[
-              "Conduite professionnelle A → B",
-              "Carburant du véhicule convoyé",
-              "Péages du trajet",
-              "Retour du convoyeur",
-              "État des lieux photo",
-              "Remise des clés et documents",
-            ].map((i) => (
-              <li key={i}>• {i}</li>
+      <section className="mx-auto grid max-w-6xl gap-16 px-5 pb-24 sm:px-8 lg:grid-cols-2">
+        <Reveal>
+          <h2 className="font-display text-3xl text-navy">Toujours inclus</h2>
+          <ul className="mt-8 space-y-6">
+            {INCLUDED.map((item) => (
+              <li key={item.t}>
+                <p className="font-display text-xl text-navy">{item.t}</p>
+                <p className="mt-1 text-muted">{item.d}</p>
+              </li>
             ))}
           </ul>
-          <h2 className="mt-8 font-display text-2xl text-navy">Hors champ</h2>
-          <p className="mt-3 text-muted">Plateau, non-roulant, poids lourd. International : voir Europe.</p>
-        </div>
-        <div className="rounded-[1.6rem] border border-line bg-surface p-6">
-          <p className="font-display text-xl text-navy">Pas de grille publique</p>
-          <p className="mt-3 text-sm leading-relaxed text-muted">
-            Chaque trajet a un retour à vide, un créneau et un véhicule différents. La fourchette
-            s’affiche après vos coordonnées, à confirmer avec un professionnel.
+          <h2 className="mt-12 font-display text-3xl text-navy">Hors champ</h2>
+          <p className="mt-4 text-lg leading-relaxed text-muted">
+            Plateau, non-roulant, poids lourd. Pour l’international, voir l’Europe.
           </p>
-          <Link to="/simulateur" className="mt-5 inline-flex text-sm font-semibold text-coral">
-            Lancer le simulateur →
-          </Link>
-        </div>
+        </Reveal>
+        <Reveal delay={80}>
+          <div className="rounded-[2rem] border border-line bg-surface p-8 sm:p-10">
+            <p className="font-display text-2xl text-navy">Pas de grille publique</p>
+            <p className="mt-4 text-base leading-relaxed text-muted">
+              Chaque trajet a un retour à vide, un créneau et un véhicule différents. La fourchette
+              s’affiche après vos coordonnées, à confirmer avec un professionnel.
+            </p>
+            <Link to="/simulateur" className="mt-6 inline-flex text-sm font-semibold text-coral">
+              Composer ma livraison
+            </Link>
+          </div>
+        </Reveal>
       </section>
-      <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
-        <h2 className="font-display text-2xl text-navy">Villes desservies</h2>
-        <p className="mt-2 text-sm text-muted">Chaque ville a sa page. Aucun tarif n’y figure.</p>
-        <div className="mt-6 flex flex-wrap gap-2">
+      <section className="mx-auto max-w-6xl px-5 pb-24 sm:px-8">
+        <h2 className="font-display text-3xl text-navy">Villes desservies</h2>
+        <p className="mt-3 text-muted">Chaque ville a sa page. Aucun tarif n’y figure.</p>
+        <div className="mt-8 flex flex-wrap gap-2">
           {CITIES.map(([to, label]) => (
             <AppLink
               key={to}
               to={to}
-              className="rounded-full border border-line bg-surface px-4 py-2 text-sm text-navy hover:border-coral"
+              className="rounded-full border border-line bg-surface px-5 py-2.5 text-sm text-navy hover:border-coral"
             >
               {label}
             </AppLink>
           ))}
           <AppLink
             to="/destinations"
-            className="rounded-full border border-navy bg-navy px-4 py-2 text-sm text-surface"
+            className="rounded-full border border-navy bg-navy px-5 py-2.5 text-sm text-surface"
           >
-            Toutes les destinations →
+            Toutes les destinations
           </AppLink>
         </div>
       </section>

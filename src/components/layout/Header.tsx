@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Menu, Phone, X } from "lucide-react";
 import { useState } from "react";
+import { BrandMark } from "@/components/BrandMark";
 import { Button } from "@/components/ui/button";
 import { NAV, SITE } from "@/lib/site";
 
@@ -8,12 +9,11 @@ export function Header() {
   const [open, setOpen] = useState(false);
   return (
     <header className="sticky top-0 z-40 border-b border-line/70 bg-bg/80 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-        <Link to="/" className="flex flex-col leading-none" onClick={() => setOpen(false)}>
-          <span className="font-display text-sm font-bold tracking-wide text-navy">{SITE.name}</span>
-          <span className="text-[11px] text-muted">Quimper · Bretagne</span>
+      <div className="mx-auto flex h-[4.5rem] max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
+        <Link to="/" className="min-w-0" onClick={() => setOpen(false)}>
+          <BrandMark />
         </Link>
-        <nav className="hidden items-center gap-6 lg:flex">
+        <nav className="hidden items-center gap-8 lg:flex">
           {NAV.map((item) => (
             <Link
               key={item.to}
@@ -25,13 +25,13 @@ export function Header() {
             </Link>
           ))}
         </nav>
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-4 md:flex">
           <a href={SITE.phoneHref} className="flex items-center gap-2 text-sm font-medium text-navy">
             <Phone className="size-4" />
             {SITE.phone}
           </a>
           <Button asChild size="md">
-            <Link to="/simulateur">Devis sous 2 h</Link>
+            <Link to="/simulateur">Estimer</Link>
           </Button>
         </div>
         <button
@@ -44,7 +44,7 @@ export function Header() {
         </button>
       </div>
       {open ? (
-        <div className="border-t border-line bg-bg px-4 py-4 lg:hidden">
+        <div className="border-t border-line bg-bg px-5 py-5 lg:hidden">
           <nav className="flex flex-col gap-1">
             {NAV.map((item) => (
               <Link
@@ -61,7 +61,7 @@ export function Header() {
             </a>
             <Button asChild className="mt-2 w-full">
               <Link to="/simulateur" onClick={() => setOpen(false)}>
-                Estimer ma livraison
+                Estimer mon convoyage
               </Link>
             </Button>
           </nav>

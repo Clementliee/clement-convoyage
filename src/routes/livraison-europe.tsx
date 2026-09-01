@@ -2,18 +2,17 @@ import { createFileRoute } from "@tanstack/react-router";
 import { AppLink } from "@/components/AppLink";
 import { PageHero } from "@/components/PageHero";
 import { CtaBar } from "@/components/CtaBar";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/livraison-europe")({
-  head: () => ({
-    meta: [
-      { title: "Livraison de véhicules en Europe · CLÉMENT CONVOYAGE" },
-      {
-        name: "description",
-        content:
-          "Convoyage Europe depuis Quimper : Belgique, Suisse, Allemagne, Pologne, Monaco, Serbie, Espagne, Italie, Royaume-Uni. Devis après coordonnées.",
-      },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      title: "Livraison de véhicule en Europe. Depuis Quimper.",
+      description:
+        "Convoyage Europe depuis Quimper. Belgique, Suisse, Allemagne, Pologne, Monaco, Serbie, Espagne, Italie, Royaume-Uni. Devis après coordonnées.",
+      path: "/livraison-europe",
+      image: "/images/04_europe_nuit.jpg",
+    }),
   component: Page,
 });
 

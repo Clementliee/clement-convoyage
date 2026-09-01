@@ -2,14 +2,16 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageHero } from "@/components/PageHero";
 import { CtaBar } from "@/components/CtaBar";
 import { SITE } from "@/lib/site";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/avis")({
-  head: () => ({
-    meta: [
-      { title: "Avis clients · CLÉMENT CONVOYAGE" },
-      { name: "description", content: "Les notes clients sont suivies. Les avis Google seront publiés dès les premières missions." },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      title: "Avis clients. Convoyage BZH, Quimper.",
+      description:
+        "Les notes clients sont le tableau de bord de Convoyage BZH. Les avis Google seront publiés dès les premières missions. Pas de notes inventées.",
+      path: "/avis",
+    }),
   component: Page,
 });
 

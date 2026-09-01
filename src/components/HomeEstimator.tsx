@@ -9,22 +9,23 @@ export function HomeEstimator() {
   const [to, setTo] = useState("");
   return (
     <form
-      className="rounded-[1.6rem] border border-line bg-surface p-5 shadow-sm sm:p-6"
+      className="rounded-[2rem] border border-line bg-surface p-7 shadow-sm sm:p-9"
       onSubmit={(e) => {
         e.preventDefault();
         void navigate({ to: "/simulateur", search: { from, to } });
       }}
     >
-      <p className="font-display text-lg font-semibold tracking-tight text-navy">Estimer en 30 secondes</p>
-      <p className="mt-1 text-sm text-muted">Le prix s’affiche après vos coordonnées.</p>
-      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+      <p className="font-display text-2xl text-navy">Estimer en trente secondes</p>
+      <p className="mt-2 text-sm leading-relaxed text-muted">Le prix s’affiche après vos coordonnées.</p>
+      <div className="mt-6 grid gap-4 sm:grid-cols-2">
         <label className="text-sm text-muted">
           Départ
           <input
             list="cities-home"
             value={from}
             onChange={(e) => setFrom(e.target.value)}
-            className="mt-1 w-full rounded-2xl border border-line bg-bg px-3 py-3 text-navy"
+            className="mt-2 w-full rounded-2xl border border-line bg-bg px-4 py-3.5 text-navy"
+            suppressHydrationWarning
           />
         </label>
         <label className="text-sm text-muted">
@@ -33,8 +34,9 @@ export function HomeEstimator() {
             list="cities-home"
             value={to}
             onChange={(e) => setTo(e.target.value)}
-            className="mt-1 w-full rounded-2xl border border-line bg-bg px-3 py-3 text-navy"
+            className="mt-2 w-full rounded-2xl border border-line bg-bg px-4 py-3.5 text-navy"
             placeholder="Rennes, Paris, Bruxelles…"
+            suppressHydrationWarning
           />
         </label>
       </div>
@@ -43,7 +45,7 @@ export function HomeEstimator() {
           <option key={c.name} value={c.name} />
         ))}
       </datalist>
-      <Button type="submit" className="mt-4 w-full" size="lg">
+      <Button type="submit" className="mt-6 w-full" size="lg">
         Obtenir mon estimation
       </Button>
     </form>

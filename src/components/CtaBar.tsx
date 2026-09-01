@@ -1,25 +1,28 @@
-import { Link } from "@tanstack/react-router";
+import { AppLink } from "@/components/AppLink";
 import { Button } from "@/components/ui/button";
-import { SITE } from "@/lib/site";
 
 export function CtaBar({
-  title = "Estimer ma livraison",
-  text = "Fourchette indicative après vos coordonnées. Confirmation sous 2 heures ouvrées.",
+  title = "Besoin de déplacer un véhicule ?",
+  text = "Estimation indicative après vos coordonnées. Confirmation sous 2 heures ouvrées.",
+  secondaryTo = "/professionnels",
+  secondaryLabel = "Compte professionnel",
 }: {
   title?: string;
   text?: string;
+  secondaryTo?: string;
+  secondaryLabel?: string;
 }) {
   return (
-    <section className="mx-auto max-w-6xl px-4 sm:px-6">
-      <div className="rounded-[1.8rem] bg-navy px-6 py-10 text-center text-surface sm:px-12">
-        <p className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">{title}</p>
-        <p className="mt-2 text-sm text-surface/70">{text}</p>
-        <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+    <section className="mx-auto max-w-6xl px-5 sm:px-8">
+      <div className="rounded-[2.2rem] bg-navy px-8 py-14 text-center text-surface sm:px-16">
+        <p className="font-display text-3xl tracking-tight sm:text-4xl">{title}</p>
+        <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-surface/70">{text}</p>
+        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Button asChild>
-            <Link to="/simulateur">Lancer le simulateur</Link>
+            <AppLink to="/simulateur">Estimer mon convoyage</AppLink>
           </Button>
           <Button variant="ghost" className="border-0 bg-surface/10 text-surface hover:bg-surface/20" asChild>
-            <a href={SITE.phoneHref}>Appeler {SITE.phone}</a>
+            <AppLink to={secondaryTo}>{secondaryLabel}</AppLink>
           </Button>
         </div>
       </div>

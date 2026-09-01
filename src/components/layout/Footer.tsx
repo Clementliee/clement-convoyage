@@ -2,13 +2,16 @@ import { AppLink } from "@/components/AppLink";
 import { SITE } from "@/lib/site";
 
 const PRESTATIONS = [
-  { to: "/livraison-vehicule", label: "Livraison France" },
-  { to: "/nettoyage-vehicule", label: "Nettoyage" },
-  { to: "/livraison-europe", label: "Livraison Europe" },
-  { to: "/traqueur-gps", label: "Traqueur GPS" },
-  { to: "/securite-vehicule", label: "Sécurité" },
-  { to: "/destinations", label: "Destinations" },
-  { to: "/simulateur", label: "Simulateur" },
+  { to: "/convoyage", label: "Convoyage" },
+  { to: "/professionnels", label: "Professionnels" },
+  { to: "/pack-mise-a-la-route", label: "Packs mise à la route" },
+  { to: "/preparation-vehicule", label: "Préparation" },
+  { to: "/protocole-clement", label: "Protocole Clément" },
+  { to: "/livraison-vehicule", label: "France" },
+  { to: "/livraison-europe", label: "Europe" },
+  { to: "/blog", label: "Journal" },
+  { to: "/faq", label: "FAQ" },
+  { to: "/simulateur", label: "Estimer" },
 ];
 
 const BRETAGNE = [
@@ -33,19 +36,21 @@ const EUROPE = [
 
 export function Footer() {
   return (
-    <footer className="mt-16 border-t border-line bg-navy text-surface">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-4">
+    <footer className="mt-24 border-t border-line bg-navy text-surface">
+      <div className="mx-auto grid max-w-6xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-4">
         <div>
-          <p className="font-display text-sm font-bold">{SITE.name}</p>
-          <p className="mt-2 text-sm text-surface/70">{SITE.baseline}</p>
-          <p className="mt-4 text-sm text-surface/70">
+          <p className="font-display text-lg font-semibold">
+            Convoyage <span className="text-coral">BZH</span>
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-surface/70">{SITE.baseline}</p>
+          <p className="mt-6 text-sm leading-relaxed text-surface/70">
             {SITE.city}
             <br />
             {SITE.region}
             <br />
-            {SITE.coords}
+            SIRET {SITE.siret}
           </p>
-          <p className="mt-3 text-sm">
+          <p className="mt-4 text-sm">
             <a href={SITE.phoneHref} className="hover:text-coral">
               {SITE.phone}
             </a>
@@ -60,9 +65,9 @@ export function Footer() {
         <FooterCol title="Europe" links={EUROPE} />
       </div>
       <div className="border-t border-surface/15">
-        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-4 text-xs text-surface/60 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <p>Conçu à Quimper · {SITE.coords}</p>
-          <p className="flex flex-wrap gap-3">
+        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-5 py-5 text-xs text-surface/60 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+          <p>Conçu à Quimper. {SITE.coords}</p>
+          <p className="flex flex-wrap gap-4">
             <AppLink to="/mentions-legales" className="hover:text-surface">
               Mentions légales
             </AppLink>
@@ -82,8 +87,8 @@ export function Footer() {
 function FooterCol({ title, links }: { title: string; links: { to: string; label: string }[] }) {
   return (
     <div>
-      <p className="font-display text-xs font-semibold uppercase tracking-wider text-coral">{title}</p>
-      <ul className="mt-3 space-y-2 text-sm text-surface/80">
+      <p className="font-display text-xs font-semibold tracking-wider text-coral uppercase">{title}</p>
+      <ul className="mt-4 space-y-2.5 text-sm text-surface/80">
         {links.map((l) => (
           <li key={l.to}>
             <AppLink to={l.to} className="hover:text-coral">

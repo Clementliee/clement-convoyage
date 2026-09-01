@@ -1,20 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #f5f5f7;
+  --color-bg: #f4f1ea;
   --color-fg: #1d1d1f;
   --color-navy: #1d1d1f;
   --color-coral: #0071e3;
   --color-copper: #6e6e73;
-  --color-line: #d2d2d7;
+  --color-line: #e4dfd6;
   --color-muted: #6e6e73;
-  --color-surface: #ffffff;
-  --color-sand: #e8e8ed;
+  --color-surface: #fffcf7;
+  --color-sand: #ebe6dc;
   --color-success: #248a3d;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --radius-lg: 1.2rem;
-  --radius-xl: 1.8rem;
+  --font-display: "Newsreader", "Iowan Old Style", "Palatino Linotype", serif;
+  --radius-lg: 1.4rem;
+  --radius-xl: 2rem;
   --radius-full: 9999px;
 }
 
@@ -24,20 +24,24 @@
     -moz-osx-font-smoothing: grayscale;
     background: var(--color-bg);
     color: var(--color-fg);
+    scroll-behavior: smooth;
   }
   body {
     font-family: var(--font-sans);
     background: var(--color-bg);
     color: var(--color-fg);
+    line-height: 1.65;
   }
   h1,
   h2,
   h3,
   h4 {
     font-family: var(--font-display);
-    letter-spacing: -0.035em;
+    letter-spacing: -0.02em;
     text-wrap: balance;
     color: var(--color-navy);
+    font-weight: 500;
+    line-height: 1.12;
   }
   p {
     text-wrap: pretty;
@@ -53,8 +57,8 @@
 
 @layer utilities {
   .perspective-scene {
-    perspective: 1400px;
-    perspective-origin: 50% 35%;
+    perspective: 1600px;
+    perspective-origin: 50% 28%;
   }
   .card-3d {
     transform-style: preserve-3d;
@@ -62,14 +66,29 @@
     will-change: transform;
   }
   .tilt-hover {
-    transition: transform 500ms cubic-bezier(0.2, 0, 0, 1);
+    transition: transform 600ms cubic-bezier(0.2, 0, 0, 1);
   }
   .tilt-hover:hover {
-    transform: perspective(1100px) rotateY(-7deg) translateZ(16px);
+    transform: perspective(1200px) rotateY(-6deg) translateZ(20px);
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(36px) rotateX(9deg);
+    transform-origin: 50% 100%;
+    transition:
+      opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-on {
+    opacity: 1;
+    transform: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   *,
   *::before,
   *::after {
@@ -78,7 +97,9 @@
     transition-duration: 0.01ms !important;
   }
   .tilt-hover:hover,
-  .card-3d {
+  .card-3d,
+  .reveal {
     transform: none !important;
+    opacity: 1 !important;
   }
 }
