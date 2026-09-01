@@ -7,7 +7,7 @@ import { HeroStage } from "@/components/HeroStage";
 import { HomeEstimator } from "@/components/HomeEstimator";
 import { Reveal } from "@/components/Reveal";
 import { pageHead } from "@/lib/seo";
-import { PILLARS, PROCESS, B2B_OFFERS, PACKS } from "@/lib/offers";
+import { PILLARS, PROCESS, B2B_OFFERS, PACKS, PRESTIGE_PROTOCOL } from "@/lib/offers";
 import { OPTIONS } from "@/lib/tarifs";
 import { formatEuro } from "@/lib/utils";
 
@@ -234,6 +234,34 @@ function Home() {
             Assurance professionnelle tous risques, gestion des imprévus, clés remises en main propre, confidentialité. Le niveau d’exigence des réseaux de distribution premium.
           </p>
         </Reveal>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 pb-28 sm:px-8">
+        <Reveal>
+          <p className="text-xs font-semibold tracking-[0.28em] text-coral uppercase">{PRESTIGE_PROTOCOL.kicker}</p>
+          <h2 className="mt-5 font-display text-4xl text-navy sm:text-5xl">{PRESTIGE_PROTOCOL.name}</h2>
+          <p className="mt-4 max-w-xl text-lg leading-relaxed text-muted">{PRESTIGE_PROTOCOL.promise}</p>
+        </Reveal>
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {PRESTIGE_PROTOCOL.items.map((item) => (
+            <div key={item.t} className="rounded-[1.8rem] border border-line bg-surface p-7">
+              <p className="font-display text-2xl text-navy">{item.t}</p>
+              <p className="mt-3 text-sm leading-relaxed text-muted">{item.d}</p>
+            </div>
+          ))}
+        </div>
+        <p className="mt-8 max-w-3xl text-sm leading-relaxed text-muted">{PRESTIGE_PROTOCOL.disclaimer}</p>
+        <div className="mt-8 flex flex-wrap items-center gap-5">
+          <AppLink to={PRESTIGE_PROTOCOL.href} className="text-sm font-semibold text-coral hover:underline">
+            En savoir plus
+          </AppLink>
+          <Link
+            to="/simulateur"
+            className="inline-flex h-12 items-center rounded-full bg-coral px-6 text-sm font-semibold text-white"
+          >
+            {PRESTIGE_PROTOCOL.cta}
+          </Link>
+        </div>
       </section>
 
       <section className="mx-auto max-w-2xl px-5 pb-28 sm:px-8">

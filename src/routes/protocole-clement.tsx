@@ -1,8 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { AppLink } from "@/components/AppLink";
 import { CtaBar } from "@/components/CtaBar";
 import { PageHero } from "@/components/PageHero";
 import { pageHead } from "@/lib/seo";
-import { PROTOCOL } from "@/lib/offers";
+import { PRESTIGE_PROTOCOL, PROTOCOL } from "@/lib/offers";
+import { formatEuro } from "@/lib/utils";
 
 export const Route = createFileRoute("/protocole-clement")({
   head: () =>
@@ -62,6 +64,15 @@ function Page() {
       <section className="mx-auto max-w-3xl px-5 pb-16 sm:px-8">
         <p className="text-lg leading-relaxed text-muted">
           Le GPS n’est pas de la surveillance, ni de la sécurité privée. C’est un suivi temporaire du véhicule, avec consentement lorsque nécessaire, retiré à la remise. Les photos et données servent la mission, pas autre chose.
+        </p>
+      </section>
+      <section className="mx-auto max-w-3xl px-5 pb-16 sm:px-8">
+        <p className="rounded-[1.8rem] border border-line bg-surface p-6 text-base leading-relaxed text-muted">
+          Pour une sportive, un prestige ou un import :{" "}
+          <AppLink to={PRESTIGE_PROTOCOL.href} className="font-semibold text-coral">
+            {PRESTIGE_PROTOCOL.name}
+          </AppLink>
+          . Même méthode, plus de cadre. {formatEuro(PRESTIGE_PROTOCOL.price)}.
         </p>
       </section>
       <CtaBar title="Une mission tracée" />

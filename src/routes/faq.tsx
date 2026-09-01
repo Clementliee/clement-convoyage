@@ -24,6 +24,7 @@ const ITEMS = [
   { q: "Comment se passe une mission ?", a: "Demande, devis, prise en charge, convoyage, remise, compte-rendu. Protocole Clément." },
   { q: "Professionnels ?", a: "Oui. Compte, quinze jours, astreinte 24 h, cadre volume." },
   { q: "GPS ?", a: "Option. Suivi temporaire, retiré à la remise. Pas de sécurité privée." },
+  { q: "C’est de la sécurité privée ?", a: "Non. C’est un cadre de convoyage : photos, scellés des clés et documents du véhicule, GPS le temps de la mission, conduite adaptée. Pas de protection de personnes, pas de transport de fonds." },
   { q: "Expertise ?", a: "Non. Contrôle visuel 20 points, photos." },
   { q: "Paiement ?", a: "Particulier : virement avant départ. Professionnel : quinze jours." },
   { q: "Week-end ?", a: "Oui, tous les jours, selon créneau." },

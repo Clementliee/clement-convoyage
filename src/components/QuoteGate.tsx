@@ -27,6 +27,7 @@ export function QuoteGate({
         ? "Nettoyage intérieur et extérieur 90 €"
         : "",
     input.gps ? "Balise traqueur GPS 4G autonome, 12 mois inclus" : "",
+    input.protocolePrestige ? `Protocole Prestige ${OPTIONS.protocolePrestige} €` : "",
     "Mise en main personnalisée, offerte",
     input.plein
       ? `Plein carburant : passage à la pompe ${OPTIONS.pleinService} € + carburant ${OPTIONS.carburantLitre} €/L`

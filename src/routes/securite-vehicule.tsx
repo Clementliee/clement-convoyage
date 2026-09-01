@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { AppLink } from "@/components/AppLink";
 import { CtaBar } from "@/components/CtaBar";
 import { PageHero } from "@/components/PageHero";
 import { pageHead } from "@/lib/seo";
@@ -34,8 +35,16 @@ function Page() {
           Si quelque chose coince en route, on prévient. C’est tout.
         </p>
         <p>
-          Le traqueur GPS n’est pas ça. C’est une option à 5 €, pour l’acheteur, laissée dans sa voiture.
+          Le traqueur GPS 4G à 199 € est une option séparée : il reste dans la voiture de l’acheteur, 12 mois inclus. Le suivi temporaire d’une mission prestige est inclus dans le Protocole Prestige, 150 €. Ce n’est pas de la sécurité privée.
         </p>
+        <div className="flex flex-wrap gap-4 text-sm font-semibold">
+          <AppLink to="/traqueur-gps" className="text-coral">
+            Traqueur GPS 4G
+          </AppLink>
+          <AppLink to="/convoyage-prestige" className="text-coral">
+            Protocole Prestige
+          </AppLink>
+        </div>
         <Link to="/simulateur" className="inline-flex font-semibold text-coral">
           Estimer une livraison
         </Link>

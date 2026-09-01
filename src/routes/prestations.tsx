@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { AppLink } from "@/components/AppLink";
 import { PageHero } from "@/components/PageHero";
 import { CtaBar } from "@/components/CtaBar";
 import { SERVICES } from "@/lib/site";
@@ -69,6 +70,13 @@ function Page() {
             <p className="mt-3 text-muted">Majoration 25 %. Pour un besoin serré.</p>
           </div>
         </div>
+        <p className="mt-10 max-w-2xl text-muted">
+          Sportive, prestige ou import :{" "}
+          <AppLink to="/convoyage-prestige" className="font-semibold text-coral">
+            Protocole Prestige
+          </AppLink>
+          . Même convoyage conduit, plus de cadre.
+        </p>
       </section>
 
       <section className="mx-auto grid max-w-6xl gap-8 px-5 pb-20 sm:px-8 md:grid-cols-2">

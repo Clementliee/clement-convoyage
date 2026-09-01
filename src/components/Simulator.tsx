@@ -18,6 +18,7 @@ import {
   type WhenKind,
   type ZoneKind,
 } from "@/lib/tarifs";
+import { PRESTIGE_PROTOCOL } from "@/lib/offers";
 import { formatEuro } from "@/lib/utils";
 
 const STEPS = [
@@ -76,7 +77,7 @@ export function Simulator({
     lavage: "aucun",
     rechargeVe: false,
     gps: false,
-    securite: false,
+    protocolePrestige: false,
     plein: false,
     controleVisuel: false,
     coffret: "aucun",
@@ -231,7 +232,13 @@ export function Simulator({
             { v: "ve", l: "Véhicule électrique", h: "Plan de recharge" },
           ]}
           onPick={(v) => {
-            setInput((s) => ({ ...s, vehicle: v as VehicleKind, rechargeVe: v === "ve" }));
+            const vehicle = v as VehicleKind;
+            setInput((s) => ({
+              ...s,
+              vehicle,
+              rechargeVe: vehicle === "ve",
+              protocolePrestige: vehicle === "prestige" ? true : s.protocolePrestige,
+            }));
             next();
           }}
         />
@@ -445,6 +452,18 @@ export function Simulator({
               </div>
             </OptionGroup>
           ) : null}
+
+          <OptionGroup title="Cadre de remise">
+            <Toggle
+              label={`${PRESTIGE_PROTOCOL.name} — ${formatEuro(OPTIONS.protocolePrestige)}`}
+              text={PRESTIGE_PROTOCOL.simulator}
+              on={input.protocolePrestige}
+              onClick={() => setInput((s) => ({ ...s, protocolePrestige: !s.protocolePrestige }))}
+            />
+            {input.vehicle === "prestige" ? (
+              <p className="mt-2 text-sm leading-relaxed text-muted">{PRESTIGE_PROTOCOL.prestigeHint}</p>
+            ) : null}
+          </OptionGroup>
 
           <div className="rounded-[1.4rem] border border-line px-5 py-5">
             <p className="text-sm text-muted">Options sélectionnées</p>

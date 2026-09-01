@@ -1,8 +1,43 @@
 /** Offres commerciales. Prix packs = indicatifs, à confirmer. Convoyage : fourchette après coordonnées. */
 
+import { OPTIONS } from "@/lib/tarifs";
+
 export const PROTOCOL = {
   name: "Protocole Clément",
   promise: "Avant, pendant, après. Photos, faits, compte-rendu.",
+} as const;
+
+export const PRESTIGE_PROTOCOL = {
+  name: "Protocole Prestige",
+  kicker: "Prestige",
+  price: OPTIONS.protocolePrestige,
+  promise: "Pour sportives, prestige, collection et imports. Même convoyage conduit. Plus de cadre.",
+  items: [
+    {
+      t: "Scellés",
+      d: "Clés et documents du véhicule sous scellé numéroté. Mallette dédiée. Remise à la personne nommée.",
+    },
+    {
+      t: "Suivi",
+      d: "Balise GPS le temps de la mission, lien partagé au donneur d’ordre. Retirée à la remise.",
+    },
+    {
+      t: "Conduite",
+      d: "Mode Comfort. Montée en température. Autoroute privilégiée pour les bas de caisse. Pauses en stations éclairées. Aucune sous-traitance.",
+    },
+    {
+      t: "Trace",
+      d: "Photos départ et arrivée. Compte-rendu factuel le soir même.",
+    },
+  ],
+  simulator:
+    "Scellés numérotés des clés et documents du véhicule, mallette dédiée, suivi GPS le temps de la mission, conduite adaptée, pauses en zones éclairées, compte-rendu, zéro sous-traitance.",
+  prestigeHint:
+    "Majoration véhicule prestige déjà incluse dans le trajet (+20 %). Le protocole est le cadre de remise.",
+  disclaimer:
+    "Le protocole porte sur le véhicule et ses documents de circulation. Ce n’est pas une activité de sécurité privée, ni un transport de fonds ou de valeurs. L’acceptation dépend de la valeur déclarée et des plafonds d’assurance.",
+  href: "/convoyage-prestige",
+  cta: "Estimer une mission",
 } as const;
 
 export const PILLARS = [
@@ -104,7 +139,7 @@ export const B2C_CASES = [
   { t: "Import", d: "Belgique, Allemagne, Pologne, Espagne. Documents vérifiés avant départ." },
   { t: "Déménagement", d: "Le véhicule suit, ou précède. Un interlocuteur, un créneau." },
   { t: "Électrique", d: "Plan de recharge, niveau de batterie convenu à la remise." },
-  { t: "Prestige", d: "Photos, clés en main, mise en main offerte. Option GPS 4G pour l’acheteur." },
+  { t: "Prestige", d: "Protocole Prestige : scellés, GPS le temps de la mission, conduite adaptée, remise à la personne nommée. Option 150 €." },
 ] as const;
 
 export const B2B_CASES = [

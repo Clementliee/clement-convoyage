@@ -73,6 +73,7 @@ function SimpleCity({ page }: { page: SeoPage }) {
           {p}
         </p>
       ))}
+      {page.disclaimer ? <p className="text-sm leading-relaxed text-muted">{page.disclaimer}</p> : null}
       <SimLine />
       <Nearby page={page} />
       <FaqBlock page={page} />
@@ -89,6 +90,7 @@ function RichCity({ page }: { page: SeoPage }) {
             {p}
           </p>
         ))}
+        {page.disclaimer ? <p className="text-sm leading-relaxed text-muted">{page.disclaimer}</p> : null}
       </article>
 
       {page.highlights ? (

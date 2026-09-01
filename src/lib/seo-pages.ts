@@ -1,3 +1,4 @@
+import { PRESTIGE_PROTOCOL } from "@/lib/offers";
 import { SITE } from "@/lib/site";
 
 export type SeoPage = {
@@ -18,6 +19,7 @@ export type SeoPage = {
   trajets?: { to: string; label: string; d: string }[];
   services?: { to: string; t: string; d: string }[];
   highlights?: { t: string; d: string }[];
+  disclaimer?: string;
 };
 
 const IMG = "/images/convoyage-voiture-france.jpg";
@@ -642,22 +644,37 @@ export const SEO_PAGES: SeoPage[] = [
   },
   {
     slug: "convoyage-prestige",
-    title: "Convoyage de véhicule prestige, Convoyage BZH",
+    title: "Convoyage véhicule prestige. Protocole de remise. Convoyage BZH",
     h1: "Convoyage de véhicule prestige",
-    description: "Livraison de berlines, sportives et prestige depuis Quimper. Protocole sécurité, GPS, photos du véhicule. standard de remise.",
+    description:
+      "Pour sportives, prestige, collection et imports. Même convoyage conduit. Plus de cadre.",
     kind: "metier",
+    kicker: PRESTIGE_PROTOCOL.kicker,
     image: KEYS,
     intro: "Au-dessus d’un certain seuil de valeur, ce n’est plus un trajet. C’est une remise.",
     body: [
-      "Protocole : photos du véhicule détaillée, clés en main propre, option traqueur GPS, conduite souple, horaires tenus.",
-      "Issu des habitudes de remise en réseau premium. Si ça coince, on prévient si incident, météo, client absent.",
+      "Protocole Prestige : photos détaillées, clés et documents du véhicule sous scellé numéroté, mallette dédiée, suivi GPS le temps de la mission, conduite souple, horaires tenus, compte-rendu, remise à la personne nommée. Issu des habitudes de remise en réseau premium. Clément conduit. Pas d’intermédiaire.",
+      "Si ça coince — incident, météo, destinataire absent — on prévient.",
+      "Option 150 €, en plus du convoyage. Sur un véhicule marqué prestige, le trajet est déjà majoré de 20 %. Le protocole est le cadre, pas une seconde taxe kilométrique.",
+      "Hors périmètre : fonds, bijoux, documents autres que ceux du véhicule, protection d’une personne, remorque fermée. Véhicule non roulant : orientation plateau.",
     ],
+    highlights: PRESTIGE_PROTOCOL.items.map((item) => ({ t: item.t, d: item.d })),
+    disclaimer: PRESTIGE_PROTOCOL.disclaimer,
     nearby: [
-      { to: "/securite-vehicule", label: "Sécurité" },
-      { to: "/traqueur-gps", label: "GPS" },
-      { to: "/convoyage-monaco", label: "Monaco" },
+      { to: "/protocole-clement", label: "Protocole Clément" },
+      { to: "/traqueur-gps", label: "GPS 199 €" },
+      { to: "/simulateur", label: "Estimer une mission" },
     ],
-    faq: [{ q: "Acceptez-vous les collection et jeunes timers ?", a: "Oui s’ils sont roulants, assurés, ≤ 3,5 t, permis B. Sinon orientation plateau." }],
+    faq: [
+      {
+        q: "Acceptez-vous collection et youngtimers ?",
+        a: "Oui s’ils sont roulants, assurés, ≤ 3,5 t, permis B. Sinon orientation plateau.",
+      },
+      {
+        q: "Le GPS 199 € est-il le protocole ?",
+        a: "Non. 199 € = traceur laissé à l’acheteur, 12 mois inclus. 150 € = cadre de la mission, GPS temporaire retiré à la remise. Les deux peuvent se cumuler.",
+      },
+    ],
   },
   {
     slug: "convoyage-electrique",
@@ -838,13 +855,13 @@ export const SEO_PAGES: SeoPage[] = [
     image: SEC,
     intro: "Le véhicule n’est pas un colis. Clés, documents, carrosserie, trajet : un ordre.",
     body: [
-      "Même exigence qu’une remise en réseau premium. Le protocole se coche au simulateur, il n’a pas de prix affiché.",
+      "Même exigence qu’une remise en réseau premium. Le Protocole Prestige se coche au simulateur. Option 150 €.",
       "Incident, client absent, contrôle, météo : escalade, faits, photos, prochaine action.",
     ],
     nearby: [
       { to: "/securite-vehicule", label: "Page sécurité" },
+      { to: "/convoyage-prestige", label: "Protocole Prestige" },
       { to: "/traqueur-gps", label: "GPS" },
-      { to: "/a-propos", label: "À propos" },
     ],
     faq: [{ q: "C’est obligatoire ?", a: "L’photos du véhicule l’est. Le scellé et le GPS se cochent selon la valeur et la destination." }],
   },

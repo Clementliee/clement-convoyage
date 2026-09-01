@@ -18,7 +18,7 @@ export const OPTIONS = {
   utilitairePct: 0.15,
   prestigePct: 0.2,
   gps: 199,
-  securite: 75,
+  protocolePrestige: 150,
   plein: 149,
   pleinService: 49,
   carburantLitre: 2,
@@ -353,7 +353,7 @@ export type QuoteInput = {
   lavage: "aucun" | "exterieur" | "complet";
   rechargeVe: boolean;
   gps: boolean;
-  securite: boolean;
+  protocolePrestige: boolean;
   plein: boolean;
   controleVisuel: boolean;
   coffret: "aucun" | "armor" | "champagne";
@@ -524,6 +524,8 @@ export function computeQuote(input: QuoteInput): QuoteResult {
     if (input.coffret === "armor") options += OPTIONS.coffretArmor;
     if (input.coffret === "champagne") options += OPTIONS.coffretChampagne;
   }
+
+  if (input.protocolePrestige) options += OPTIONS.protocolePrestige;
 
   const total = Math.max(MINIMUM_LOCAL, base + options);
 

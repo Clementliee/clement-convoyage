@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { AppLink } from "@/components/AppLink";
 import { CtaBar } from "@/components/CtaBar";
 import { Faq } from "@/components/Faq";
 import { FaqJsonLd } from "@/components/JsonLd";
@@ -51,6 +52,13 @@ function Page() {
           </p>
           <p>
             Ce n’est pas une balise à 5 €. C’est un vrai boîtier 4G, collé par aimant, sans trou dans la carrosserie.
+          </p>
+          <p>
+            Distinct du{" "}
+            <AppLink to="/convoyage-prestige" className="font-semibold text-coral">
+              Protocole Prestige
+            </AppLink>
+            : 199 € = traceur laissé à l’acheteur. 150 € = GPS temporaire le temps de la mission, retiré à la remise. Les deux peuvent se cumuler.
           </p>
           <p className="font-display text-3xl text-navy">{OPTIONS.gps} €</p>
           <p>Matériel + 12 mois. Vous cochez l’option, ou non. La mise en main reste offerte.</p>

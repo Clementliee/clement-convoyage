@@ -54,6 +54,13 @@ function Page() {
             <p className="mt-4 text-sm text-muted">Astreinte 24 h. Tous les jours. {SITE.phone}.</p>
           </div>
         </div>
+        <p className="mt-10 max-w-3xl text-muted">
+          Livraison client final prestige : même interlocuteur, compte-rendu au service qui commande, image de marque tenue.{" "}
+          <AppLink to="/convoyage-prestige" className="font-semibold text-coral">
+            Protocole Prestige
+          </AppLink>
+          .
+        </p>
         <div className="mt-16 grid gap-5 lg:grid-cols-3">
           {B2B_OFFERS.map((c) => (
             <div key={c.t} className="rounded-[1.5rem] bg-sand p-6">
