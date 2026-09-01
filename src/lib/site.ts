@@ -118,7 +118,7 @@ export const SERVICES = [
   {
     to: "/jockey-gares-aeroports",
     title: "Jockey gares et aéroports",
-    text: "Bretagne. Dépose ou rapatriement, photos. Pas de gardiennage. Pas de transport de passagers.",
+    text: "Bretagne, Rennes, Nantes. Dépose ou rapatriement, photos. Pas de gardiennage. Pas de transport de passagers.",
     image: "/images/jockey-gare-quimper.jpg",
     alt: "Berline qui attend sur le parvis d’une gare",
     badge: "Nouveau",

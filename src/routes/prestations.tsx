@@ -43,7 +43,7 @@ function Page() {
           <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">Nouveau</p>
           <h2 className="mt-3 font-display text-3xl text-navy sm:text-4xl">Jockey gares et aéroports</h2>
           <p className="mt-4 flex-1 text-muted">
-            Bretagne. Dépose à la gare ou à l’aéroport, ou rapatriement à domicile. Photos. Pas de gardiennage.
+            Bretagne, Rennes, Nantes. Dépose à la gare ou à l’aéroport, ou rapatriement à domicile. Photos. Pas de gardiennage.
           </p>
           <Link
             to="/jockey-gares-aeroports"

@@ -664,7 +664,7 @@ function JockeyFlow({
   onBack: () => void;
 }) {
   const [step, setStep] = useState(0);
-  const steps = ["Le trajet", "Le lieu, en Bretagne", "Horaires", "Options"];
+  const steps = ["Le trajet", "Le domicile", "Gare ou aéroport", "Horaires", "Options"];
 
   if (gate && quote.ok) {
     return (
@@ -704,24 +704,37 @@ function JockeyFlow({
 
       {step === 1 && (
         <div className="mt-8">
+          <CityField
+            id="jockey-home"
+            name="jockey-home"
+            label="Ville du domicile"
+            value={input.from}
+            onChange={(from) => setInput((s) => ({ ...s, from }))}
+          />
+          <p className="mt-3 text-sm text-muted">Le tarif se calcule entre le domicile et la gare ou l’aéroport.</p>
+        </div>
+      )}
+
+      {step === 2 && (
+        <div className="mt-8">
           <Choice
             options={JOCKEY_POINTS.map((p) => ({
               v: p.name,
               l: p.name,
-              h: `${formatEuro(p.forfait)} · aller et retour ${formatEuro(p.allerRetour)}`,
+              h: `À partir de ${formatEuro(p.forfait)} · aller et retour ${formatEuro(p.allerRetour)}`,
             }))}
             onPick={(v) => {
-              setInput((s) => ({ ...s, jockeyPoint: v, from: v, to: "Domicile" }));
-              setStep(2);
+              setInput((s) => ({ ...s, jockeyPoint: v, to: v }));
+              setStep(3);
             }}
           />
         </div>
       )}
 
-      {step === 2 && (
+      {step === 3 && (
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
           <label className="block text-sm text-muted sm:col-span-2">
-            Numéro de train ou de vol, facultatif
+            Numéro de train ou de vol
             <input
               value={input.jockeyRef}
               onChange={(e) => setInput((s) => ({ ...s, jockeyRef: e.target.value }))}
@@ -729,24 +742,28 @@ function JockeyFlow({
               placeholder="TGV 8690, AF7521"
             />
           </label>
-          <label className="block text-sm text-muted">
-            Date et heure d’aller
-            <input
-              type="datetime-local"
-              value={input.jockeyAller}
-              onChange={(e) => setInput((s) => ({ ...s, jockeyAller: e.target.value }))}
-              className="mt-2 w-full rounded-2xl border border-line bg-bg px-4 py-3.5 text-navy"
-            />
-          </label>
-          <label className="block text-sm text-muted">
-            Date et heure de retour, facultatif
-            <input
-              type="datetime-local"
-              value={input.jockeyRetour}
-              onChange={(e) => setInput((s) => ({ ...s, jockeyRetour: e.target.value }))}
-              className="mt-2 w-full rounded-2xl border border-line bg-bg px-4 py-3.5 text-navy"
-            />
-          </label>
+          {input.jockeySens !== "rapatriement" ? (
+            <label className="block text-sm text-muted">
+              Date et heure de dépose
+              <input
+                type="datetime-local"
+                value={input.jockeyAller}
+                onChange={(e) => setInput((s) => ({ ...s, jockeyAller: e.target.value }))}
+                className="mt-2 w-full rounded-2xl border border-line bg-bg px-4 py-3.5 text-navy"
+              />
+            </label>
+          ) : null}
+          {input.jockeySens !== "depose" ? (
+            <label className="block text-sm text-muted">
+              Date et heure de rapatriement
+              <input
+                type="datetime-local"
+                value={input.jockeyRetour}
+                onChange={(e) => setInput((s) => ({ ...s, jockeyRetour: e.target.value }))}
+                className="mt-2 w-full rounded-2xl border border-line bg-bg px-4 py-3.5 text-navy"
+              />
+            </label>
+          ) : null}
         </div>
       )}
 
@@ -789,7 +806,7 @@ function JockeyFlow({
             />
           </div>
           <p className="text-sm text-muted">
-            Bretagne uniquement. Photos au départ et à l’arrivée. Un double des clés peut rester chez nous. Pas de gardiennage. Pas de transport de passagers. Prix indicatif, à confirmer.
+            Bretagne, Rennes, Nantes. Photos. Un double des clés peut rester chez nous. Pas de gardiennage. Pas de transport de passagers. Prix indicatif, à confirmer.
           </p>
         </div>
       )}
@@ -802,7 +819,7 @@ function JockeyFlow({
           <Button
             type="button"
             onClick={() => setStep((s) => s + 1)}
-            disabled={step === 1 && !input.jockeyPoint}
+            disabled={(step === 1 && !input.from.trim()) || (step === 2 && !input.jockeyPoint)}
           >
             Continuer
           </Button>

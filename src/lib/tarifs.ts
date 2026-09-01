@@ -313,13 +313,16 @@ export const JOCKEY_SENS = [
 ] as const;
 
 export const JOCKEY_POINTS = [
-  { id: "quimper-gare", name: "Gare de Quimper", forfait: 89, allerRetour: 159 },
-  { id: "lorient-aero", name: "Aéroport Lorient-Bretagne Sud", forfait: 159, allerRetour: 279 },
-  { id: "lorient-gare", name: "Gare de Lorient", forfait: 149, allerRetour: 259 },
-  { id: "brest-aero", name: "Aéroport Brest-Bretagne", forfait: 169, allerRetour: 299 },
-  { id: "brest-gare", name: "Gare de Brest", forfait: 149, allerRetour: 259 },
-  { id: "vannes-gare", name: "Gare de Vannes", forfait: 189, allerRetour: 339 },
-  { id: "rennes-gare", name: "Gare de Rennes", forfait: 289, allerRetour: 519 },
+  { id: "quimper-gare", name: "Gare de Quimper", lat: 47.994, lng: -4.092, forfait: 89, allerRetour: 159 },
+  { id: "lorient-aero", name: "Aéroport Lorient-Bretagne Sud", lat: 47.761, lng: -3.44, forfait: 159, allerRetour: 279 },
+  { id: "lorient-gare", name: "Gare de Lorient", lat: 47.749, lng: -3.366, forfait: 149, allerRetour: 259 },
+  { id: "brest-aero", name: "Aéroport Brest-Bretagne", lat: 48.447, lng: -4.419, forfait: 169, allerRetour: 299 },
+  { id: "brest-gare", name: "Gare de Brest", lat: 48.388, lng: -4.48, forfait: 149, allerRetour: 259 },
+  { id: "vannes-gare", name: "Gare de Vannes", lat: 47.665, lng: -2.752, forfait: 189, allerRetour: 339 },
+  { id: "rennes-gare", name: "Gare de Rennes", lat: 48.103, lng: -1.672, forfait: 289, allerRetour: 519 },
+  { id: "rennes-aero", name: "Aéroport Rennes-Saint-Jacques", lat: 48.069, lng: -1.735, forfait: 299, allerRetour: 539 },
+  { id: "nantes-gare", name: "Gare de Nantes", lat: 47.217, lng: -1.542, forfait: 329, allerRetour: 589 },
+  { id: "nantes-aero", name: "Aéroport Nantes-Atlantique", lat: 47.153, lng: -1.611, forfait: 349, allerRetour: 629 },
 ] as const;
 
 export type QuoteInput = {
@@ -376,33 +379,57 @@ export function computeQuote(input: QuoteInput): QuoteResult {
         total: 0,
         delay: "",
         fromName: input.jockeyPoint || "Point de rendez-vous",
-        toName: "Domicile ou parking",
+        toName: "Domicile",
         europe: false,
       };
     }
+    const home = findCity(input.from);
+    const dest = {
+      name: point.name,
+      aliases: [] as string[],
+      lat: point.lat,
+      lng: point.lng,
+    };
+    const km = home ? roadKm(home, dest) : 0;
     const round = input.jockeySens === "allerRetour";
-    let base: number = round ? point.allerRetour : point.forfait;
+    let base = home && km ? Math.max(point.forfait, prixBareme(km)) : point.forfait;
+    if (round) base = home && km ? Math.round(Math.max(point.forfait, prixBareme(km)) * 1.8) : point.allerRetour;
     if (input.when === "urgent") base = Math.round(base * (1 + OPTIONS.urgencePct));
     let options = 0;
     if (input.jockeyWash === "standard") options += OPTIONS.jockeyLavage;
     if (input.jockeyWash === "prestige") options += OPTIONS.jockeyLavagePrestige;
     if (input.plein) options += OPTIONS.plein;
     if (input.jockeyCt) options += OPTIONS.jockeyCt;
-    const dest =
+    const homeName = home?.name ?? (input.from.trim() || "Domicile");
+    const label =
       input.jockeySens === "depose"
-        ? `Dépose, ${point.name}`
+        ? `Dépose ${homeName} → ${point.name}`
         : input.jockeySens === "rapatriement"
-          ? `Rapatriement au domicile, depuis ${point.name}`
-          : `Aller et retour, ${point.name}`;
+          ? `Rapatriement ${point.name} → ${homeName}`
+          : `Aller et retour ${homeName} ↔ ${point.name}`;
+    if (!input.from.trim()) {
+      return {
+        ok: false,
+        message: "Indiquez la ville du domicile.",
+        km,
+        base: 0,
+        options: 0,
+        total: 0,
+        delay: "",
+        fromName: homeName,
+        toName: point.name,
+        europe: false,
+      };
+    }
     return {
       ok: true,
-      km: 0,
+      km,
       base,
       options,
       total: base + options,
-      delay: "Bretagne. Créneau sous 2 h, sous réserve.",
-      fromName: input.jockeySens === "depose" ? "Domicile" : point.name,
-      toName: dest,
+      delay: "Créneau sous 2 h, sous réserve.",
+      fromName: homeName,
+      toName: label,
       europe: false,
     };
   }

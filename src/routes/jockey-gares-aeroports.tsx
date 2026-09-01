@@ -13,7 +13,7 @@ export const Route = createFileRoute("/jockey-gares-aeroports")({
     pageHead({
       title: "Jockey gares et aéroports en Bretagne | Convoyage BZH",
       description:
-        "Dépose ou rapatriement de véhicule en Bretagne. Gare de Quimper, aéroports de Brest et Lorient. Photos. Pas de gardiennage, pas de transport de passagers. Devis en ligne.",
+        "Dépose ou rapatriement de véhicule. Gares et aéroports de Bretagne, Rennes et Nantes. Domicile renseigné, devis selon le trajet. Photos. Pas de gardiennage.",
       path: "/jockey-gares-aeroports",
       image: "/images/jockey-gare-quimper.jpg",
     }),
@@ -31,7 +31,7 @@ const FAQ = [
   },
   {
     q: "Où intervenez-vous ?",
-    a: "En Bretagne uniquement. Gares de Quimper, Lorient, Brest, Vannes, Rennes. Aéroports de Brest-Bretagne et Lorient-Bretagne Sud.",
+    a: "En Bretagne, à Rennes et à Nantes. Gares de Quimper, Lorient, Brest, Vannes, Rennes, Nantes. Aéroports de Brest-Bretagne, Lorient, Rennes-Saint-Jacques et Nantes-Atlantique.",
   },
   {
     q: "Le nettoyage est-il possible sans jockey ?",
@@ -46,7 +46,7 @@ function Page() {
         kicker="Bretagne"
         title="Jockey gares et aéroports."
         accent=""
-        text="Nous déposons votre véhicule, ou nous le ramenons à domicile. Photos. Un double des clés si vous voulez. Pas de gardiennage."
+        text="Nous déposons votre véhicule, ou nous le ramenons à domicile. Gares et aéroports de Bretagne, Rennes et Nantes. Photos. Pas de gardiennage."
         image="/images/jockey-gare-quimper.jpg"
         alt="Berline sur le parvis d’une gare en Bretagne"
       />
@@ -80,16 +80,16 @@ function Page() {
       </section>
 
       <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8">
-        <h2 className="font-display text-3xl text-navy">Tarifs, Bretagne.</h2>
+        <h2 className="font-display text-3xl text-navy">Gares et aéroports.</h2>
         <p className="mt-3 max-w-2xl text-muted">
-          Prix indicatifs, à confirmer. Photos au départ et à l’arrivée, incluses.
+          Le tarif se calcule entre votre domicile et le point choisi. Prix indicatifs, à confirmer. Photos incluses.
         </p>
         <div className="mt-8 divide-y divide-line border-y border-line">
           {JOCKEY_POINTS.map((p) => (
             <div key={p.id} className="flex flex-col gap-1 py-5 sm:flex-row sm:items-baseline sm:justify-between">
               <p className="text-lg text-navy">{p.name}</p>
               <p className="text-sm text-muted">
-                {formatEuro(p.forfait)} · aller et retour {formatEuro(p.allerRetour)}
+                À partir de {formatEuro(p.forfait)} · aller et retour {formatEuro(p.allerRetour)}
               </p>
             </div>
           ))}
@@ -121,7 +121,7 @@ function Page() {
       </section>
       <CtaBar
         title="Un véhicule à déposer ou à ramener ?"
-        text="Bretagne uniquement. Devis en deux minutes."
+        text="Domicile, gare ou aéroport, aller, retour ou les deux. Devis en quelques minutes."
         secondaryTo="/simulateur"
         secondaryLabel="Devis jockey"
       />
