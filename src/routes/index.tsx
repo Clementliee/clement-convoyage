@@ -25,7 +25,7 @@ export const Route = createFileRoute("/")({
 const FAQ = [
   {
     q: "Qui êtes-vous ?",
-    a: "Convoyage BZH, basé à Quimper. Clément pilote les missions. Expérience DS Automobiles, Renault, Mercedes-Benz. Convoyage, préparation, contrôle, remise.",
+    a: "Convoyage BZH, basé à Quimper. Clément pilote les missions. Expérience la remise en concession. Convoyage, préparation, contrôle, remise.",
   },
   {
     q: "Quels véhicules convoyez-vous ?",
@@ -227,7 +227,7 @@ function Home() {
             </div>
           ))}
         </div>
-        <img src="/images/08_securite.jpg" alt="Clés sous scellé, protocole de remise" className="mt-8 h-64 w-full rounded-[1.8rem] object-cover" />
+        <img src="/images/13_cles_carre.jpg" alt="Remise des clés" className="mt-8 h-72 w-full rounded-[1.8rem] object-cover object-center" />
       </section>
 
       <section className="mx-auto mt-24 grid max-w-6xl gap-10 px-5 sm:px-8 lg:grid-cols-2">

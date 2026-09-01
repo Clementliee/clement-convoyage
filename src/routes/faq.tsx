@@ -17,7 +17,7 @@ export const Route = createFileRoute("/faq")({
 });
 
 const ITEMS = [
-  { q: "Qui est Convoyage BZH ?", a: "Un convoyeur automobile basé à Quimper. Clément pilote. Expérience DS Automobiles, Renault, Mercedes-Benz." },
+  { q: "Qui est Convoyage BZH ?", a: "Un convoyeur automobile basé à Quimper. Clément pilote. Expérience la remise en concession." },
   { q: "Quels véhicules ?", a: "Particuliers et utilitaires jusqu’à 3,5 t, en état de marche. Pas de plateau, pas de non-roulant." },
   { q: "Où ?", a: "Bretagne, France, Europe selon mission." },
   { q: "Combien ?", a: "Selon distance, véhicule, date, options. Fourchette après coordonnées. Packs à partir de 89 €, indicatifs." },

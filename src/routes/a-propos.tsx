@@ -9,7 +9,7 @@ export const Route = createFileRoute("/a-propos")({
     pageHead({
       title: "À propos. Convoyage BZH, Quimper.",
       description:
-        "Clément, convoyeur à Quimper. Expérience DS Automobiles, Renault, Mercedes-Benz. Gestion de crise. Livraison tous les jours.",
+        "Clément, convoyeur à Quimper. Photos, clés en main, mise en main offerte. Livraison tous les jours.",
       path: "/a-propos",
       image: "/images/05_fondateur.jpg",
     }),
@@ -23,7 +23,7 @@ function Page() {
         kicker="À propos"
         title="Une remise."
         accent="Pas un trajet."
-        text="Base Quimper. Standard issu des réseaux premium."
+        text="Base Quimper. Un interlocuteur, une remise propre."
       />
       <section className="mx-auto grid max-w-6xl items-start gap-16 px-5 pb-24 sm:px-8 lg:grid-cols-[minmax(0,400px)_1fr]">
         <Reveal>
@@ -39,16 +39,13 @@ function Page() {
           <p className="text-xs font-semibold tracking-[0.2em] text-coral uppercase">Direction, Quimper</p>
           <h2 className="font-display text-4xl text-navy">Clément</h2>
           <p>
-            Clément a travaillé au contact des grandes marques : DS Automobiles, Renault, Mercedes-Benz.
-            Il y a appris le niveau d’exigence d’une remise client en concession. Véhicule propre, état
-            des lieux, horaires tenus, zéro improvisation.
+            Clément livre des véhicules depuis Quimper. Photos au départ et à l’arrivée, clés en main propre, mise en main offerte.
           </p>
           <p>
-            Avant l’automobile, il a servi dans l’armée française. La procédure, la ponctualité, la
-            gestion des imprévus : ça reste. Ce n’est pas un argument de force. C’est une façon de travailler.
+            Si le créneau ne tient pas, on le dit avant. Si ça coince en route, on prévient.
           </p>
           <p>
-            Il est formé à la gestion de crise. Incident de parcours, véhicule immobilisé, client
+            Il est formé à la si ça coince, on prévient. Incident de parcours, véhicule immobilisé, client
             absent, météo, document manquant. Protocoles, escalade, communication factuelle.
           </p>
           <p>

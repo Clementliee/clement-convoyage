@@ -69,7 +69,7 @@ export const ARTICLES: Article[] = [
     image: "/images/04_europe_nuit.jpg",
     intro: "Si ça roule, on le conduit. Si ça ne roule pas, ce n’est plus nous.",
     body: [
-      { h: "Convoyage", p: "Moins cher sur longue distance qu’un plateau, plus rapide à organiser, le véhicule arrive avec des kilomètres de trajet. EDL photo indispensable." },
+      { h: "Convoyage", p: "Moins cher sur longue distance qu’un plateau, plus rapide à organiser, le véhicule arrive avec des kilomètres de trajet. photos du véhicule indispensable." },
       { h: "Plateau", p: "Non-roulant, collection fragile, sinistre. Nous orientons. Nous ne le faisons pas." },
     ],
     faq: [{ q: "Et un jeune timer ?", a: "S’il est roulant, assuré, permis B : oui." }],
