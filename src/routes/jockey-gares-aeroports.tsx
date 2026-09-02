@@ -4,16 +4,15 @@ import { Faq } from "@/components/Faq";
 import { FaqJsonLd } from "@/components/JsonLd";
 import { PageHero } from "@/components/PageHero";
 import { pageHead } from "@/lib/seo";
-import { JOCKEY_POINTS, JOCKEY_SENS, OPTIONS } from "@/lib/tarifs";
+import { CONCIERGE_CATALOGUE, CONCIERGE_EXTRAS, CONCIERGE_STEPS } from "@/lib/conciergerie";
 import { SITE } from "@/lib/site";
-import { formatEuro } from "@/lib/utils";
 
 export const Route = createFileRoute("/jockey-gares-aeroports")({
   head: () =>
     pageHead({
-      title: "Conciergerie de véhicules en Bretagne | Convoyage BZH",
+      title: "Conciergerie automobile en Bretagne | Convoyage BZH",
       description:
-        "Conciergerie automobile en Bretagne. Gare, aéroport, location, accompagnement à l’achat, CT, attente. À la carte. Pas de gardiennage.",
+        "Conciergerie de véhicules en Bretagne. Gare, aéroport, atelier, flotte, roulage prestige, achat accompagné. Devis sur dossier. Pas de gardiennage.",
       path: "/jockey-gares-aeroports",
       image: "/images/mission-tiguan-gare.jpg",
     }),
@@ -27,23 +26,27 @@ const FAQ = [
   },
   {
     q: "Vous gardez la voiture pendant mon absence ?",
-    a: "Non. Pas de gardiennage. Soit nous déposons le véhicule à la gare ou à l’aéroport, soit nous le ramenons à votre domicile, soit les deux. Un double des clés peut rester chez nous pour le prochain départ.",
+    a: "Non. Pas de gardiennage. Dépose, rapatriement, ou les deux. Un double des clés peut rester chez nous pour le prochain départ.",
   },
   {
-    q: "Vous récupérez une location ?",
-    a: "Oui. Agence ou aéroport. On prend le véhicule, photos, on le ramène chez vous. On peut aussi le restituer à l’agence pendant que vous prenez l’avion.",
+    q: "Qui prend le rendez-vous à l’atelier ?",
+    a: "Nous. Entretien, carrosserie, contrôle technique. Nous appelons, nous bloquons le créneau, nous déposons le véhicule, nous le reprenons. La facture de l’atelier reste la vôtre.",
   },
   {
-    q: "Vous m’accompagnez pour un achat ?",
-    a: "Oui. On y va à deux voitures. Contrôle visuel sur place : carrosserie, compteur, intérieur, documents, photos. Si vous achetez, vous repartez au volant. On ramène l’autre véhicule.",
+    q: "Le roulage, c’est quoi ?",
+    a: "Une mise en température pour un véhicule qui reste trop longtemps à l’arrêt. Compteur, photos, compte rendu. Mensuel si vous le souhaitez. Prestige compris.",
+  },
+  {
+    q: "Vous gérez une flotte ?",
+    a: "Oui. Entreprises, professions libérales, petites flottes. Planning, rendez-vous, déplacements, nettoyage, compte rendu. Un interlocuteur.",
   },
   {
     q: "Où intervenez-vous ?",
     a: "En Bretagne, à Rennes et à Nantes. Gares de Quimper, Lorient, Brest, Vannes, Rennes, Nantes. Aéroports de Brest-Bretagne, Lorient, Rennes-Saint-Jacques et Nantes-Atlantique.",
   },
   {
-    q: "Pourquoi à la carte ici, et pas sur le convoyage ?",
-    a: "La conciergerie est une prestation locale, souvent courte. On compose : lavage, CT, plein, attente d’une personne. Le convoyage A vers B se vend en packs, particulier ou professionnel.",
+    q: "Pourquoi aucun tarif sur cette page ?",
+    a: "Chaque mission est chiffrée sur dossier. Ville, créneau, atelier, flotte. Le montant apparaît sur le devis, après vos coordonnées.",
   },
 ];
 
@@ -51,21 +54,20 @@ function Page() {
   return (
     <main>
       <PageHero
-        kicker="Conciergerie Bretagne"
-        title="Le véhicule, sans vous."
-        accent=""
-        text="Gare, aéroport, location, achat accompagné, contrôle technique. Nous déplaçons la voiture. Vous prenez le train. Photos. Pas de gardiennage."
+        kicker="Conciergerie · Bretagne"
+        title="Le véhicule. Sans vous."
+        text="Gare, atelier, flotte, prestige. Nous prenons les clés. Nous rendons le véhicule. Le devis se fait sur dossier."
         image="/images/mission-tiguan-gare.jpg"
         alt="Volkswagen Tiguan sur le parvis d’une gare en Bretagne"
       />
 
-      <section className="mx-auto flex max-w-6xl flex-col gap-4 px-5 pb-12 sm:flex-row sm:px-8">
+      <section className="mx-auto flex max-w-6xl flex-col gap-4 px-5 pb-16 sm:flex-row sm:px-8">
         <Link
           to="/simulateur"
           search={{ mission: "jockey" }}
           className="inline-flex h-14 items-center justify-center rounded-full bg-coral px-8 text-sm font-semibold text-white"
         >
-          Devis conciergerie
+          Établir un devis
         </Link>
         <a
           href={SITE.phoneHref}
@@ -75,98 +77,67 @@ function Page() {
         </a>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8">
-        <h2 className="font-display text-3xl text-navy">Trois possibilités.</h2>
-        <div className="mt-8 grid gap-6 lg:grid-cols-3">
-          {JOCKEY_SENS.map((s) => (
-            <div key={s.id} className="rounded-[1.6rem] border border-line bg-surface p-7">
-              <h3 className="font-display text-2xl text-navy">{s.name}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted">{s.hint}</p>
-            </div>
+      <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
+        <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Déroulement</p>
+        <h2 className="mt-4 max-w-xl font-display text-3xl text-navy sm:text-4xl">Cinq étapes. Une mission.</h2>
+        <ol className="mt-12">
+          {CONCIERGE_STEPS.map((s) => (
+            <li key={s.n} className="grid gap-4 border-t border-line py-10 sm:grid-cols-[5.5rem_1fr] sm:gap-10">
+              <p className="font-display text-2xl text-coral">{s.n}</p>
+              <div>
+                <h3 className="font-display text-2xl text-navy sm:text-3xl">{s.title}</h3>
+                <p className="mt-3 max-w-xl text-base leading-relaxed text-muted">{s.text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
+        <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Prestations</p>
+        <h2 className="mt-4 max-w-xl font-display text-3xl text-navy sm:text-4xl">Ce que nous faisons.</h2>
+        <div className="mt-12 grid gap-6 lg:grid-cols-2">
+          {CONCIERGE_CATALOGUE.map((item) => (
+            <article key={item.id} className="overflow-hidden rounded-[1.6rem] border border-line bg-surface">
+              <img src={item.image} alt={item.alt} className="h-52 w-full object-cover" />
+              <div className="p-8">
+                <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">{item.kicker}</p>
+                <h3 className="mt-3 font-display text-2xl text-navy sm:text-3xl">{item.title}</h3>
+                <p className="mt-3 max-w-md text-sm leading-relaxed text-muted">{item.text}</p>
+              </div>
+            </article>
           ))}
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8">
-        <h2 className="font-display text-3xl text-navy">Aussi, à la carte.</h2>
-        <div className="mt-8 grid gap-6 lg:grid-cols-3">
-          <div className="overflow-hidden rounded-[1.6rem] border border-line bg-surface">
-            <img src="/images/mission-golf-aeroport.jpg" alt="Volkswagen Golf de location sur un aéroport breton" className="h-44 w-full object-cover" />
-            <div className="p-7">
-              <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">Location</p>
-              <h3 className="mt-3 font-display text-2xl text-navy">Récupérer ou restituer.</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted">
-                On va chercher la location à l’agence ou à l’aéroport. On la ramène chez vous. Ou l’inverse : on restitue pendant que vous prenez l’avion. Photos. Ticket carburant si le contrat l’exige.
-              </p>
-            </div>
+      <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
+        <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center">
+          <div>
+            <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Compléments</p>
+            <h2 className="mt-4 font-display text-3xl text-navy sm:text-4xl">Autour de la mission.</h2>
+            <p className="mt-4 max-w-md text-muted">
+              Nettoyage, plein, attente, prise de rendez-vous. Ajoutés au devis. Jamais affichés ici.
+            </p>
           </div>
-          <div className="overflow-hidden rounded-[1.6rem] border border-line bg-surface">
-            <img src="/images/mission-bmw-controle.jpg" alt="Contrôle visuel d’une BMW Série 3 avant achat" className="h-44 w-full object-cover" />
-            <div className="p-7">
-              <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">Achat</p>
-              <h3 className="mt-3 font-display text-2xl text-navy">Deux voitures. Contrôle visuel.</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted">
-                Vous allez voir un véhicule. On vous y rejoint. Contrôle visuel : carrosserie, compteur, intérieur, documents, photos. Si vous achetez, vous repartez au volant. On ramène l’autre.
-              </p>
-            </div>
-          </div>
-          <div className="overflow-hidden rounded-[1.6rem] border border-line bg-surface">
-            <img src="/images/mission-golf-atelier.jpg" alt="Volkswagen Golf dans un atelier de garage" className="h-44 w-full object-cover" />
-            <div className="p-7">
-              <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">Atelier</p>
-              <h3 className="mt-3 font-display text-2xl text-navy">CT, carrosserie, concession.</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted">
-                On dépose le véhicule au centre, au garage, chez le mandataire. On le reprend. Vous n’immobilisez pas votre journée.
-              </p>
-            </div>
+          <div className="grid gap-px overflow-hidden rounded-[1.6rem] border border-line bg-line sm:grid-cols-2">
+            {CONCIERGE_EXTRAS.map((x) => (
+              <div key={x.title} className="bg-surface p-7">
+                <p className="font-display text-xl text-navy">{x.title}</p>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{x.text}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8">
-        <h2 className="font-display text-3xl text-navy">Gares et aéroports.</h2>
-        <p className="mt-3 max-w-2xl text-muted">
-          Le tarif se calcule entre votre domicile et le point choisi. Prix indicatifs, à confirmer. Photos incluses.
-        </p>
-        <div className="mt-8 divide-y divide-line border-y border-line">
-          {JOCKEY_POINTS.map((p) => (
-            <div key={p.id} className="flex flex-col gap-1 py-5 sm:flex-row sm:items-baseline sm:justify-between">
-              <p className="text-lg text-navy">{p.name}</p>
-              <p className="text-sm text-muted">
-                À partir de {formatEuro(p.forfait)} · aller et retour {formatEuro(p.allerRetour)}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8">
-        <h2 className="font-display text-3xl text-navy">À la carte, uniquement en conciergerie.</h2>
-        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          <div className="rounded-[1.6rem] bg-sand p-7">
-            <p className="font-display text-xl text-navy">Nettoyage</p>
-            <p className="mt-2 text-sm text-muted">Intérieur et extérieur. {formatEuro(OPTIONS.jockeyLavage)}. Prestige {formatEuro(OPTIONS.jockeyLavagePrestige)}.</p>
-          </div>
-          <div className="rounded-[1.6rem] bg-sand p-7">
-            <p className="font-display text-xl text-navy">Contrôle technique</p>
-            <p className="mt-2 text-sm text-muted">Nous emmenons le véhicule. {formatEuro(OPTIONS.jockeyCt)}, hors facture du centre.</p>
-          </div>
-          <div className="rounded-[1.6rem] bg-sand p-7">
-            <p className="font-display text-xl text-navy">Plein carburant</p>
-            <p className="mt-2 text-sm text-muted">Passage à la pompe {formatEuro(OPTIONS.pleinService)} + {OPTIONS.carburantLitre} €/L. Environ {formatEuro(OPTIONS.plein)} pour 50 L.</p>
-          </div>
-          <div className="rounded-[1.6rem] bg-sand p-7">
-            <p className="font-display text-xl text-navy">Attente</p>
-            <p className="mt-2 text-sm text-muted">Quelqu’un vient chercher le véhicule. Nous restons. {formatEuro(OPTIONS.jockeyAttente)}.</p>
-          </div>
-          <div className="rounded-[1.6rem] bg-sand p-7">
-            <p className="font-display text-xl text-navy">Contrôle visuel d’achat</p>
-            <p className="mt-2 text-sm text-muted">Carrosserie, compteur, intérieur, documents, photos. {formatEuro(OPTIONS.controleVisuel)}.</p>
-          </div>
-          <div className="rounded-[1.6rem] bg-sand p-7">
-            <p className="font-display text-xl text-navy">Double des clés</p>
-            <p className="mt-2 text-sm text-muted">Possible, pour les prochains départs. Inclus.</p>
-          </div>
+      <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
+        <div className="rounded-[2rem] bg-navy px-8 py-12 text-surface sm:px-14 sm:py-16">
+          <p className="text-xs font-semibold tracking-[0.22em] text-white/45 uppercase">Périmètre</p>
+          <h2 className="mt-4 max-w-xl font-display text-3xl text-white sm:text-4xl">Bretagne. Rennes. Nantes.</h2>
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-white/70">
+            La conciergerie reste locale. Le convoyage, lui, va en France et en Europe. Pas de gardiennage. Pas de
+            transport de passagers. Chaque mission est chiffrée depuis Quimper.
+          </p>
         </div>
       </section>
 
@@ -176,10 +147,10 @@ function Page() {
         <FaqJsonLd items={FAQ} />
       </section>
       <CtaBar
-        title="Un véhicule à déposer, ramener, inspecter ?"
-        text="Gare, aéroport, location, achat accompagné. Devis en quelques minutes."
+        title="Un véhicule à déposer, entretenir, faire rouler ?"
+        text="Le devis se fait sur dossier. Particulier, professionnel, flotte."
         secondaryTo="/simulateur"
-        secondaryLabel="Devis conciergerie"
+        secondaryLabel="Établir un devis"
       />
     </main>
   );

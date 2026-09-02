@@ -241,6 +241,36 @@ export const CASES: MissionCase[] = [
     image: "/images/mission-bmw-controle.jpg",
     alt: "Contrôle visuel d’une BMW Série 3 avant achat",
   },
+  {
+    id: "roulage-911",
+    kind: "conciergerie",
+    tag: "Prestige",
+    pack: "Roulage",
+    from: "Bénodet",
+    to: "Bénodet",
+    title: "Roulage mensuel, 911, Bénodet.",
+    lead: "Le véhicule reste trop longtemps à l’arrêt. Nous le faisons tourner.",
+    story:
+      "Prise en charge au garage. Mise en température. Quarante kilomètres. Photos. Compte rendu le jour même. Le mois suivant, même créneau.",
+    image: "/images/mission-roulage.jpg",
+    alt: "Porsche 911 en roulage sur une route bretonne",
+    mission: "jockey",
+  },
+  {
+    id: "flotte-quimper",
+    kind: "conciergerie",
+    tag: "Flotte",
+    pack: "Entreprise",
+    from: "Quimper",
+    to: "Quimper",
+    title: "Flotte, trois Audi, siège à Quimper.",
+    lead: "Entretien, carrosserie, planning. Un interlocuteur.",
+    story:
+      "Nous prenons les rendez-vous. Nous déposons. Nous reprenons. Compte rendu le soir. Le dirigeant n’immobilise plus un salarié pour la route.",
+    image: "/images/mission-flotte.jpg",
+    alt: "Flotte d’Audi A4 devant un siège d’entreprise",
+    mission: "jockey",
+  },
 ];
 
 export function featuredCases() {

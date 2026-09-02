@@ -83,9 +83,9 @@ export const ADDONS = [
   },
   {
     to: "/jockey-gares-aeroports",
-    title: "Conciergerie à la carte",
-    text: "Gare, aéroport, location, accompagnement à l’achat, CT. À la carte. Pas de gardiennage.",
-    price: "À la carte",
+    title: "Conciergerie",
+    text: "Gare, atelier, flotte, prestige. Bretagne. Le devis se fait sur dossier.",
+    price: "Sur devis",
     image: "/images/mission-tiguan-gare.jpg",
     alt: "Volkswagen Tiguan sur le parvis d’une gare",
   },
@@ -111,7 +111,7 @@ export const SERVICES = [
   {
     to: "/jockey-gares-aeroports",
     title: "Conciergerie de véhicules",
-    text: "Bretagne, Rennes, Nantes. Gare, aéroport, location, accompagnement à l’achat, CT. À la carte. Pas de gardiennage.",
+    text: "Bretagne. Gare, atelier, flotte, prestige. Devis sur dossier. Pas de gardiennage.",
     image: "/images/mission-tiguan-gare.jpg",
     alt: "Volkswagen Tiguan sur le parvis d’une gare",
     badge: "Nouveau",

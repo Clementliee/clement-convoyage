@@ -32,6 +32,7 @@ function baseInput(over: Partial<QuoteInput> = {}): QuoteInput {
     clientKind: "part",
     tripMode: "aller",
     jockeySens: "rapatriement",
+    jockeyService: "mouvement",
     jockeyPoint: "",
     jockeyRef: "",
     jockeyAller: "",
@@ -39,6 +40,9 @@ function baseInput(over: Partial<QuoteInput> = {}): QuoteInput {
     jockeyCt: false,
     jockeyAttente: false,
     jockeyWash: "aucun",
+    jockeyRdv: false,
+    jockeyCarrosserie: false,
+    flotteNb: 1,
     ...over,
   };
 }
@@ -146,6 +150,55 @@ describe("jockey conciergerie keeps à la carte", () => {
       OPTIONS.jockeyCt + OPTIONS.jockeyAttente + OPTIONS.jockeyLavage + OPTIONS.controleVisuel,
     );
     assert.equal(extra.total - bare.total, extra.options);
+  });
+});
+
+describe("conciergerie atelier, roulage, flotte", () => {
+  it("bills approach from Quimper for an atelier in Vannes", () => {
+    const q = computeQuote(
+      baseInput({
+        mission: "jockey",
+        jockeyService: "atelier",
+        from: "Vannes",
+        to: "Vannes",
+        jockeyRdv: true,
+      }),
+    );
+    assert.equal(q.ok, true);
+    assert.ok(q.prixApproche > 0);
+    assert.ok(q.prixRetour > 0);
+    assert.ok(q.options >= OPTIONS.jockeyRdv);
+    assert.ok(q.total >= 180);
+  });
+
+  it("quotes a local Quimper roulage without approach", () => {
+    const q = computeQuote(
+      baseInput({
+        mission: "jockey",
+        jockeyService: "roulage",
+        from: "Quimper",
+        to: "Quimper",
+        vehicle: "prestige",
+      }),
+    );
+    assert.equal(q.ok, true);
+    assert.equal(q.prixApproche, 0);
+    assert.ok(q.prixTrajet >= OPTIONS.jockeyRoulage);
+  });
+
+  it("adds monthly coordination on a fleet quote", () => {
+    const q = computeQuote(
+      baseInput({
+        mission: "jockey",
+        jockeyService: "flotte",
+        from: "Quimper",
+        to: "Quimper",
+        flotteNb: 3,
+        clientKind: "pro",
+      }),
+    );
+    assert.equal(q.ok, true);
+    assert.ok(q.options >= OPTIONS.flotteVehiculeMois * 3);
   });
 });
 

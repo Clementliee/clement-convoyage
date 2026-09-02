@@ -18,4 +18,6 @@ export const IMG = {
   securite: "/images/mission-ds7-vauban.jpg",
   prestige: "/images/mission-porsche-911.jpg",
   longTrajet: "/images/mission-audi-a4.jpg",
+  roulage: "/images/mission-roulage.jpg",
+  flotte: "/images/mission-flotte.jpg",
 } as const;

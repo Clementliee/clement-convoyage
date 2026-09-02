@@ -209,7 +209,7 @@ function Home() {
             <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Conciergerie</p>
             <h2 className="mt-5 font-display text-4xl text-navy sm:text-5xl">Conciergerie de véhicules.</h2>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-muted">
-              Bretagne. Gare, aéroport, location, achat accompagné, CT. À la carte. Pas de gardiennage.
+              Bretagne. Gare, atelier, flotte, prestige. Le devis se fait sur dossier.
             </p>
             <Link
               to="/jockey-gares-aeroports"

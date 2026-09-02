@@ -43,7 +43,13 @@ export const OPTIONS = {
   jockeyCt: 55,
   jockeyLavage: 90,
   jockeyLavagePrestige: 125,
-  jockeyAttente: 39,
+  jockeyAttente: 49,
+  jockeyRdv: 39,
+  jockeyAtelierMin: 129,
+  jockeyRoulage: 129,
+  jockeyRoulageKm: 40,
+  jockeyAchatMin: 149,
+  flotteVehiculeMois: 59,
 } as const;
 
 /** Économie interne. Les tarifs client sont des prix de vente, URSSAF déjà absorbée. */
@@ -393,6 +399,40 @@ export function applyPack(input: QuoteInput, pack: PackKind): QuoteInput {
 }
 
 export type JockeySens = "depose" | "rapatriement" | "allerRetour";
+export type JockeyService = "mouvement" | "location" | "atelier" | "roulage" | "achat" | "flotte";
+
+export const JOCKEY_SERVICES = [
+  {
+    id: "mouvement" as const,
+    name: "Gare et aéroport",
+    hint: "Dépose, rapatriement, aller et retour.",
+  },
+  {
+    id: "location" as const,
+    name: "Location",
+    hint: "Récupération ou restitution d’un véhicule de location.",
+  },
+  {
+    id: "atelier" as const,
+    name: "Atelier",
+    hint: "Entretien, carrosserie, contrôle technique. Nous prenons le rendez-vous.",
+  },
+  {
+    id: "roulage" as const,
+    name: "Roulage prestige",
+    hint: "Mise en température. Véhicules peu utilisés.",
+  },
+  {
+    id: "achat" as const,
+    name: "Achat accompagné",
+    hint: "Deux véhicules. Contrôle visuel. Vous repartez au volant.",
+  },
+  {
+    id: "flotte" as const,
+    name: "Flotte d’entreprise",
+    hint: "Planning, rendez-vous, déplacements, compte rendu.",
+  },
+] as const;
 
 export const JOCKEY_SENS = [
   {
@@ -447,6 +487,7 @@ export type QuoteInput = {
   clientKind: ClientKind;
   tripMode: TripMode;
   jockeySens: JockeySens;
+  jockeyService: JockeyService;
   jockeyPoint: string;
   jockeyRef: string;
   jockeyAller: string;
@@ -454,6 +495,9 @@ export type QuoteInput = {
   jockeyCt: boolean;
   jockeyAttente: boolean;
   jockeyWash: "aucun" | "standard" | "prestige";
+  jockeyRdv: boolean;
+  jockeyCarrosserie: boolean;
+  flotteNb: number;
 };
 
 export function defaultQuoteInput(over: Partial<QuoteInput> = {}): QuoteInput {
@@ -477,6 +521,7 @@ export function defaultQuoteInput(over: Partial<QuoteInput> = {}): QuoteInput {
     clientKind: "part",
     tripMode: "aller",
     jockeySens: "rapatriement",
+    jockeyService: "mouvement",
     jockeyPoint: "",
     jockeyRef: "",
     jockeyAller: "",
@@ -484,6 +529,9 @@ export function defaultQuoteInput(over: Partial<QuoteInput> = {}): QuoteInput {
     jockeyCt: false,
     jockeyAttente: false,
     jockeyWash: "aucun",
+    jockeyRdv: false,
+    jockeyCarrosserie: false,
+    flotteNb: 1,
     ...over,
   };
 }
@@ -567,91 +615,229 @@ export function prixApproche(kmFromBase: number) {
   return Math.round(kmFromBase * ECONOMICS.approcheEurKm);
 }
 
-export function computeQuote(input: QuoteInput): QuoteResult {
-  if (input.mission === "jockey") {
-    const point = JOCKEY_POINTS.find((p) => p.name === input.jockeyPoint);
-    if (!point) {
-      return failQuote({
-        message: "Choisissez un point de rendez-vous.",
-        fromName: input.jockeyPoint || "Point de rendez-vous",
-        toName: "Domicile",
-      });
+function jockeyExtras(input: QuoteInput): { options: number; lines: QuoteLine[] } {
+  let options = 0;
+  const lines: QuoteLine[] = [];
+  if (input.jockeyWash === "standard") {
+    options += OPTIONS.jockeyLavage;
+    lines.push({ label: "Nettoyage intérieur et extérieur", amount: OPTIONS.jockeyLavage });
+  }
+  if (input.jockeyWash === "prestige") {
+    options += OPTIONS.jockeyLavagePrestige;
+    lines.push({ label: "Nettoyage prestige", amount: OPTIONS.jockeyLavagePrestige });
+  }
+  if (input.plein) {
+    const p = prixPlein(input.vehicle);
+    options += p;
+    lines.push({ label: "Plein carburant", amount: p });
+  }
+  if (input.jockeyCt) {
+    options += OPTIONS.jockeyCt;
+    lines.push({ label: "Passage contrôle technique", amount: OPTIONS.jockeyCt });
+  }
+  if (input.jockeyAttente) {
+    options += OPTIONS.jockeyAttente;
+    lines.push({ label: "Attente / remise à une personne", amount: OPTIONS.jockeyAttente });
+  }
+  if (input.controleVisuel) {
+    options += OPTIONS.controleVisuel;
+    lines.push({ label: "Contrôle visuel d’achat", amount: OPTIONS.controleVisuel });
+  }
+  if (input.jockeyRdv) {
+    options += OPTIONS.jockeyRdv;
+    lines.push({ label: "Prise de rendez-vous", amount: OPTIONS.jockeyRdv });
+  }
+  return { options, lines };
+}
+
+function computeJockeyQuote(input: QuoteInput): QuoteResult {
+  const service = input.jockeyService ?? "mouvement";
+  const home = findCity(input.from);
+  const quimper = findCity("Quimper")!;
+  const homeName = home?.name ?? (input.from.trim() || "Domicile");
+  const extras = jockeyExtras(input);
+
+  if (!input.from.trim()) {
+    return failQuote({
+      message: "Indiquez la ville.",
+      fromName: homeName,
+      toName: "Mission",
+    });
+  }
+
+  const finish = (args: {
+    base: number;
+    km: number;
+    kmApproche: number;
+    kmRetour: number;
+    prixApproche: number;
+    prixRetour: number;
+    toName: string;
+    tripLines: QuoteLine[];
+    extraOptions?: number;
+    extraLines?: QuoteLine[];
+    round?: boolean;
+  }): QuoteResult => {
+    let base = args.base;
+    let prixApproche = args.prixApproche;
+    let prixRetour = args.prixRetour;
+    if (input.when === "urgent") {
+      base = Math.round(base * (1 + OPTIONS.urgencePct));
+      prixApproche = Math.round(prixApproche * (1 + OPTIONS.urgencePct));
+      prixRetour = Math.round(prixRetour * (1 + OPTIONS.urgencePct));
     }
-    const home = findCity(input.from);
-    const dest = {
-      name: point.name,
-      aliases: [] as string[],
-      lat: point.lat,
-      lng: point.lng,
-    };
-    const km = home ? roadKm(home, dest) : 0;
-    const round = input.jockeySens === "allerRetour";
-    let base = home && km ? Math.max(point.forfait, prixBareme(km)) : point.forfait;
-    if (round) base = home && km ? Math.round(Math.max(point.forfait, prixBareme(km)) * 1.8) : point.allerRetour;
-    if (input.when === "urgent") base = Math.round(base * (1 + OPTIONS.urgencePct));
-    let options = 0;
-    const lines: QuoteLine[] = [{ label: round ? "Aller et retour" : "Trajet jockey", amount: base }];
-    if (input.jockeyWash === "standard") {
-      options += OPTIONS.jockeyLavage;
-      lines.push({ label: "Nettoyage intérieur et extérieur", amount: OPTIONS.jockeyLavage });
-    }
-    if (input.jockeyWash === "prestige") {
-      options += OPTIONS.jockeyLavagePrestige;
-      lines.push({ label: "Nettoyage prestige", amount: OPTIONS.jockeyLavagePrestige });
-    }
-    if (input.plein) {
-      const p = prixPlein(input.vehicle);
-      options += p;
-      lines.push({ label: "Plein carburant", amount: p });
-    }
-    if (input.jockeyCt) {
-      options += OPTIONS.jockeyCt;
-      lines.push({ label: "Passage contrôle technique", amount: OPTIONS.jockeyCt });
-    }
-    if (input.jockeyAttente) {
-      options += OPTIONS.jockeyAttente;
-      lines.push({ label: "Attente / remise à une personne", amount: OPTIONS.jockeyAttente });
-    }
-    if (input.controleVisuel) {
-      options += OPTIONS.controleVisuel;
-      lines.push({ label: "Contrôle visuel d’achat", amount: OPTIONS.controleVisuel });
-    }
-    const homeName = home?.name ?? (input.from.trim() || "Domicile");
-    const label =
-      input.jockeySens === "depose"
-        ? `Dépose ${homeName} → ${point.name}`
-        : input.jockeySens === "rapatriement"
-          ? `Rapatriement ${point.name} → ${homeName}`
-          : `Aller et retour ${homeName} ↔ ${point.name}`;
-    if (!input.from.trim()) {
-      return failQuote({
-        message: "Indiquez la ville du domicile.",
-        km,
-        fromName: homeName,
-        toName: point.name,
-      });
-    }
-    const total = base + options;
+    const optionAmt = extras.options + (args.extraOptions ?? 0);
+    const lines = [
+      ...args.tripLines.map((l) => (l.label.startsWith("Prestation") || l.label.includes("Trajet") || l.label.includes("Aller") ? { ...l, amount: base } : l)),
+      ...(prixApproche ? [{ label: "Approche depuis Quimper", amount: prixApproche }] : []),
+      ...(prixRetour ? [{ label: "Retour chauffeur", amount: prixRetour }] : []),
+      ...(args.extraLines ?? []),
+      ...extras.lines,
+    ];
+    const total = base + prixApproche + prixRetour + optionAmt;
     return {
       ok: true,
-      km,
-      base,
-      options,
+      km: args.km,
+      base: base + prixApproche + prixRetour,
+      options: optionAmt,
       total,
       delay: "Créneau sous 2 h, sous réserve.",
       fromName: homeName,
-      toName: label,
+      toName: args.toName,
       europe: false,
-      tripMode: round ? "retourVehicule" : "aller",
-      kmApproche: 0,
-      kmMission: km,
-      kmRetour: round ? km : 0,
-      prixApproche: 0,
+      tripMode: args.round ? "retourVehicule" : "aller",
+      kmApproche: args.kmApproche,
+      kmMission: args.km,
+      kmRetour: args.kmRetour,
+      prixApproche,
       prixTrajet: base,
-      prixRetour: 0,
+      prixRetour,
       lines,
       netApresUrssaf: Math.round(total * (1 - ECONOMICS.urssaf)),
     };
+  };
+
+  if (service === "mouvement" || service === "location") {
+    const agence = service === "location" && input.jockeyPoint === "Agence de location";
+    const point = JOCKEY_POINTS.find((p) => p.name === input.jockeyPoint);
+    if (!point && !agence) {
+      return failQuote({
+        message: "Choisissez un lieu.",
+        fromName: input.jockeyPoint || "Lieu",
+        toName: homeName,
+      });
+    }
+    const round = input.jockeySens === "allerRetour";
+    if (point) {
+      const dest = { name: point.name, aliases: [] as string[], lat: point.lat, lng: point.lng };
+      const km = home ? roadKm(home, dest) : 0;
+      let base = home && km ? Math.max(point.forfait, prixBareme(km)) : point.forfait;
+      if (round) base = home && km ? Math.round(Math.max(point.forfait, prixBareme(km)) * 1.8) : point.allerRetour;
+      const label =
+        input.jockeySens === "depose"
+          ? `Dépose ${homeName} → ${point.name}`
+          : input.jockeySens === "rapatriement"
+            ? `Rapatriement ${point.name} → ${homeName}`
+            : `Aller et retour ${homeName} ↔ ${point.name}`;
+      return finish({
+        base,
+        km,
+        kmApproche: 0,
+        kmRetour: round ? km : 0,
+        prixApproche: 0,
+        prixRetour: 0,
+        toName: label,
+        tripLines: [{ label: round ? "Aller et retour" : "Trajet", amount: base }],
+        round,
+      });
+    }
+    const kmApproche = home ? roadKm(quimper, home) : 0;
+    const base = round ? Math.round(MINIMUM_LOCAL * 1.8) : MINIMUM_LOCAL;
+    return finish({
+      base,
+      km: 12,
+      kmApproche,
+      kmRetour: kmApproche,
+      prixApproche: prixApproche(kmApproche),
+      prixRetour: prixRetourChauffeur(kmApproche, 12),
+      toName: round ? `Location, aller et retour, ${homeName}` : `Location, ${homeName}`,
+      tripLines: [{ label: round ? "Aller et retour" : "Trajet", amount: base }],
+      round,
+    });
+  }
+
+  const dest = findCity(input.to) || home;
+  const km = home && dest ? roadKm(home, dest) : 0;
+  const kmApproche = home ? roadKm(quimper, home) : 0;
+  const prixApp = prixApproche(kmApproche);
+  const prixRet = prixRetourChauffeur(kmApproche, Math.max(km, 30));
+
+  if (service === "roulage") {
+    let base: number = OPTIONS.jockeyRoulage;
+    const extraKm = Math.max(0, km - OPTIONS.jockeyRoulageKm);
+    if (extraKm) base += Math.round(extraKm * 0.73);
+    if (input.vehicle === "prestige") base = Math.round(base * (1 + OPTIONS.prestigePct));
+    return finish({
+      base,
+      km: Math.max(km, OPTIONS.jockeyRoulageKm),
+      kmApproche,
+      kmRetour: kmApproche,
+      prixApproche: prixApp,
+      prixRetour: prixRet,
+      toName: `Roulage, ${homeName}`,
+      tripLines: [{ label: "Prestation roulage", amount: base }],
+    });
+  }
+
+  if (service === "achat") {
+    const base = Math.max(OPTIONS.jockeyAchatMin, prixBareme(Math.max(km, 1)));
+    return finish({
+      base,
+      km,
+      kmApproche,
+      kmRetour: kmApproche,
+      prixApproche: prixApp,
+      prixRetour: prixRet,
+      toName: dest ? `Achat accompagné, ${dest.name}` : `Achat accompagné, ${homeName}`,
+      tripLines: [{ label: "Prestation achat", amount: base }],
+    });
+  }
+
+  if (service === "flotte") {
+    const n = Math.max(1, input.flotteNb || 1);
+    const coord = OPTIONS.flotteVehiculeMois * n;
+    const base = Math.max(OPTIONS.jockeyAtelierMin, prixBareme(Math.max(km, 1)));
+    return finish({
+      base,
+      km,
+      kmApproche,
+      kmRetour: kmApproche,
+      prixApproche: prixApp,
+      prixRetour: prixRet,
+      toName: `Flotte, ${n} véhicule${n > 1 ? "s" : ""}, ${homeName}`,
+      tripLines: [{ label: "Prestation type", amount: base }],
+      extraOptions: coord,
+      extraLines: [{ label: `Coordination mensuelle, ${n} véhicule${n > 1 ? "s" : ""}`, amount: coord }],
+    });
+  }
+
+  let base = Math.max(OPTIONS.jockeyAtelierMin, prixBareme(Math.max(km, 1)));
+  if (input.jockeyCarrosserie) base = Math.round(base * 1.78);
+  return finish({
+    base,
+    km,
+    kmApproche,
+    kmRetour: kmApproche,
+    prixApproche: prixApp,
+    prixRetour: prixRet,
+    toName: dest && dest.name !== homeName ? `Atelier ${homeName} → ${dest.name}` : `Atelier, ${homeName}`,
+    tripLines: [{ label: input.jockeyCarrosserie ? "Prestation carrosserie" : "Prestation atelier", amount: base }],
+  });
+}
+
+export function computeQuote(input: QuoteInput): QuoteResult {
+  if (input.mission === "jockey") {
+    return computeJockeyQuote(input);
   }
 
   const fromCity = findCity(input.from);

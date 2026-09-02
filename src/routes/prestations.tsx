@@ -23,7 +23,7 @@ function Page() {
         kicker="Prestations"
         title="Livraison de véhicule."
         accent="Conciergerie."
-        text="Convoyage France et Europe. Conciergerie : gares, location, achat accompagné. Tous les jours."
+        text="Convoyage France et Europe. Conciergerie en Bretagne : gare, atelier, flotte, prestige."
       />
 
       <section className="mx-auto grid max-w-6xl gap-6 px-5 pb-16 sm:px-8 lg:grid-cols-3">
@@ -47,9 +47,9 @@ function Page() {
           <img src="/images/mission-tiguan-gare.jpg" alt="Volkswagen Tiguan à la gare" className="h-44 w-full object-cover" />
           <div className="flex flex-1 flex-col p-8 sm:p-10">
             <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">Conciergerie</p>
-            <h2 className="mt-3 font-display text-3xl text-navy sm:text-4xl">Gare, aéroport, location</h2>
+            <h2 className="mt-3 font-display text-3xl text-navy sm:text-4xl">Gare, atelier, flotte</h2>
             <p className="mt-4 flex-1 text-muted">
-              Dépose, rapatriement, récupération ou restitution d’une location, CT, attente. À la carte. Pas de gardiennage.
+              Dépose, entretien, carrosserie, roulage, achat accompagné. Le devis se fait sur dossier. Pas de gardiennage.
             </p>
             <Link
               to="/jockey-gares-aeroports"

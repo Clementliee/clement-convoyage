@@ -240,7 +240,7 @@ export const WHY = [
   { t: "Photos", d: "Au départ et à l’arrivée. Compteur, carrosserie, intérieur." },
   { t: "Mise en main offerte", d: "À chaque livraison. On prend le temps d’expliquer le véhicule." },
   { t: "Horaires tenus", d: "Si le créneau ne tient pas, on le dit avant." },
-  { t: "Packs, pas d’à la carte", d: "Trois packs particulier, trois packs professionnel. La conciergerie reste composable." },
+  { t: "Packs, pas d’à la carte", d: "Trois packs particulier, trois packs professionnel. La conciergerie se compose sur devis." },
   { t: "Professionnels", d: "Concessions, garages, flottes. Facture, quinze jours." },
 ] as const;
 

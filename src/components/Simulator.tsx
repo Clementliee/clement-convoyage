@@ -9,6 +9,7 @@ import {
   computeQuote,
   JOCKEY_POINTS,
   JOCKEY_SENS,
+  JOCKEY_SERVICES,
   OPTIONS,
   packPrice,
   prixPlein,
@@ -70,6 +71,7 @@ export function Simulator({
     clientKind: "part",
     tripMode: "aller",
     jockeySens: "rapatriement",
+    jockeyService: "mouvement",
     jockeyPoint: "",
     jockeyRef: "",
     jockeyAller: "",
@@ -77,6 +79,9 @@ export function Simulator({
     jockeyCt: false,
     jockeyAttente: false,
     jockeyWash: "aucun",
+    jockeyRdv: false,
+    jockeyCarrosserie: false,
+    flotteNb: 1,
   });
   const [kmManual, setKmManual] = useState("");
 
@@ -129,7 +134,7 @@ export function Simulator({
               {
                 v: "jockey",
                 l: "Conciergerie de véhicules",
-                h: "Gare, aéroport, CT, à la carte",
+                h: "Bretagne. Gare, atelier, flotte, prestige.",
               },
             ]}
             onPick={(v) => {
@@ -150,6 +155,7 @@ export function Simulator({
         input={input}
         setInput={setInput}
         client={client}
+        setClient={setClient}
         gate={gate}
         setGate={setGate}
         quote={quote}
@@ -548,6 +554,7 @@ function JockeyFlow({
   input,
   setInput,
   client,
+  setClient,
   gate,
   setGate,
   quote,
@@ -556,19 +563,50 @@ function JockeyFlow({
   input: QuoteInput;
   setInput: (fn: (s: QuoteInput) => QuoteInput) => void;
   client: ClientKind;
+  setClient: (v: ClientKind) => void;
   gate: boolean;
   setGate: (v: boolean) => void;
   quote: ReturnType<typeof computeQuote>;
   onBack: () => void;
 }) {
   const [step, setStep] = useState(0);
-  const steps = ["Le trajet", "Le domicile", "Gare ou aéroport", "Horaires", "À la carte"];
+  const service = input.jockeyService;
+  const needsLieu = service === "mouvement" || service === "location" || service === "atelier" || service === "achat";
+  const steps =
+    service === "flotte"
+      ? ["Profil", "Prestation", "Siège", "Flotte"]
+      : needsLieu
+        ? ["Profil", "Prestation", "Ville", "Lieu", "Mission"]
+        : ["Profil", "Prestation", "Ville", "Mission"];
+
+  const goNext = () => {
+    if (step === 2 && !needsLieu && service !== "flotte") {
+      setStep(3);
+      return;
+    }
+    setStep((s) => s + 1);
+  };
+  const goPrev = () => {
+    if (step === 3 && !needsLieu && service !== "flotte") {
+      setStep(2);
+      return;
+    }
+    setStep((s) => s - 1);
+  };
+
+  const last = steps.length - 1;
+  const lieuOk =
+    service === "mouvement" || service === "location"
+      ? Boolean(input.jockeyPoint)
+      : service === "atelier" || service === "achat"
+        ? Boolean(input.to.trim())
+        : true;
 
   if (gate && quote.ok) {
     return (
       <div>
         <button type="button" onClick={() => setGate(false)} className="mb-6 text-sm text-muted hover:text-navy">
-          Modifier le créneau
+          Modifier la mission
         </button>
         <QuoteGate quote={quote} client={client} input={input} />
       </div>
@@ -591,9 +629,19 @@ function JockeyFlow({
       {step === 0 && (
         <div className="mt-8">
           <Choice
-            options={JOCKEY_SENS.map((s) => ({ v: s.id, l: s.name, h: s.hint }))}
+            options={[
+              { v: "part", l: "Particulier", h: "Un véhicule. Une mission." },
+              { v: "pro", l: "Professionnel", h: "Concession, garage, mandataire." },
+              { v: "flotte", l: "Flotte d’entreprise", h: "Plusieurs véhicules. Un interlocuteur." },
+            ]}
             onPick={(v) => {
-              setInput((s) => ({ ...s, jockeySens: v as QuoteInput["jockeySens"] }));
+              if (v === "flotte") {
+                setClient("pro");
+                setInput((s) => ({ ...s, clientKind: "pro", jockeyService: "flotte" }));
+              } else {
+                setClient(v as ClientKind);
+                setInput((s) => ({ ...s, clientKind: v as ClientKind }));
+              }
               setStep(1);
             }}
           />
@@ -602,62 +650,44 @@ function JockeyFlow({
 
       {step === 1 && (
         <div className="mt-8">
-          <CityField
-            id="jockey-home"
-            name="jockey-home"
-            label="Ville du domicile"
-            value={input.from}
-            onChange={(from) => setInput((s) => ({ ...s, from }))}
-          />
-          <p className="mt-3 text-sm text-muted">Le tarif se calcule entre le domicile et la gare ou l’aéroport.</p>
-        </div>
-      )}
-
-      {step === 2 && (
-        <div className="mt-8">
           <Choice
-            options={JOCKEY_POINTS.map((p) => ({
-              v: p.name,
-              l: p.name,
-              h: `À partir de ${formatEuro(p.forfait)} · aller et retour ${formatEuro(p.allerRetour)}`,
-            }))}
+            options={JOCKEY_SERVICES.map((s) => ({ v: s.id, l: s.name, h: s.hint }))}
             onPick={(v) => {
-              setInput((s) => ({ ...s, jockeyPoint: v, to: v }));
-              setStep(3);
+              const next = v as QuoteInput["jockeyService"];
+              setInput((s) => ({
+                ...s,
+                jockeyService: next,
+                jockeyRdv: next === "atelier" || next === "flotte",
+                controleVisuel: next === "achat" ? true : s.controleVisuel,
+                clientKind: next === "flotte" ? "pro" : s.clientKind,
+                jockeyPoint: next === "mouvement" || next === "location" ? s.jockeyPoint : "",
+              }));
+              if (next === "flotte") setClient("pro");
+              setStep(2);
             }}
           />
         </div>
       )}
 
-      {step === 3 && (
-        <div className="mt-8 grid gap-4 sm:grid-cols-2">
-          <label className="block text-sm text-muted sm:col-span-2">
-            Numéro de train ou de vol
-            <input
-              value={input.jockeyRef}
-              onChange={(e) => setInput((s) => ({ ...s, jockeyRef: e.target.value }))}
-              className="mt-2 w-full rounded-2xl border border-line bg-bg px-4 py-3.5 text-navy"
-              placeholder="TGV 8690, AF7521"
-            />
-          </label>
-          {input.jockeySens !== "rapatriement" ? (
-            <label className="block text-sm text-muted">
-              Date et heure de dépose
+      {step === 2 && (
+        <div className="mt-8">
+          <CityField
+            id="jockey-home"
+            name="jockey-home"
+            label={service === "flotte" ? "Ville du siège" : "Ville"}
+            value={input.from}
+            onChange={(from) => setInput((s) => ({ ...s, from, to: s.to || from }))}
+          />
+          <p className="mt-3 text-sm text-muted">Bretagne, Rennes, Nantes. Le devis part de Quimper.</p>
+          {service === "flotte" ? (
+            <label className="mt-6 block text-sm text-muted">
+              Nombre de véhicules
               <input
-                type="datetime-local"
-                value={input.jockeyAller}
-                onChange={(e) => setInput((s) => ({ ...s, jockeyAller: e.target.value }))}
-                className="mt-2 w-full rounded-2xl border border-line bg-bg px-4 py-3.5 text-navy"
-              />
-            </label>
-          ) : null}
-          {input.jockeySens !== "depose" ? (
-            <label className="block text-sm text-muted">
-              Date et heure de rapatriement
-              <input
-                type="datetime-local"
-                value={input.jockeyRetour}
-                onChange={(e) => setInput((s) => ({ ...s, jockeyRetour: e.target.value }))}
+                type="number"
+                min={1}
+                max={40}
+                value={input.flotteNb}
+                onChange={(e) => setInput((s) => ({ ...s, flotteNb: Math.max(1, Number(e.target.value) || 1) }))}
                 className="mt-2 w-full rounded-2xl border border-line bg-bg px-4 py-3.5 text-navy"
               />
             </label>
@@ -665,74 +695,70 @@ function JockeyFlow({
         </div>
       )}
 
-      {step === 4 && (
-        <div className="mt-8 space-y-6">
-          <p className="text-sm text-muted">
-            La conciergerie se compose à la carte. Gare, aéroport, location, achat accompagné, nettoyage, CT, plein, attente. Pas de gardiennage. Pas de transport de passagers.
-          </p>
-          <div className="grid gap-3 sm:grid-cols-2">
-            <Toggle
-              label="Nettoyage intérieur et extérieur"
-              text="Uniquement avec la conciergerie. 90 €."
-              price={formatEuro(OPTIONS.jockeyLavage)}
-              image="/images/preparation-esthetique-vehicule.jpg"
-              on={input.jockeyWash === "standard"}
-              onClick={() =>
-                setInput((s) => ({ ...s, jockeyWash: s.jockeyWash === "standard" ? "aucun" : "standard" }))
-              }
-            />
-            <Toggle
-              label="Nettoyage prestige"
-              text="Véhicule haut de gamme. 125 €."
-              price={formatEuro(OPTIONS.jockeyLavagePrestige)}
-              on={input.jockeyWash === "prestige"}
-              onClick={() =>
-                setInput((s) => ({ ...s, jockeyWash: s.jockeyWash === "prestige" ? "aucun" : "prestige" }))
-              }
-            />
-            <Toggle
-              label="Contrôle technique"
-              text="Nous emmenons le véhicule au CT. 55 €, hors facture du centre."
-              price={formatEuro(OPTIONS.jockeyCt)}
-              on={input.jockeyCt}
-              onClick={() => setInput((s) => ({ ...s, jockeyCt: !s.jockeyCt }))}
-            />
-            <Toggle
-              label="Plein carburant"
-              text={`Passage à la pompe ${formatEuro(OPTIONS.pleinService)} + ${litresPlein(input.vehicle)} L à ${OPTIONS.carburantLitre} € le litre. Ajusté au ticket.`}
-              price={formatEuro(prixPlein(input.vehicle))}
-              image="/images/plein-carburant-vehicule.jpg"
-              on={input.plein}
-              onClick={() => setInput((s) => ({ ...s, plein: !s.plein }))}
-            />
-            <Toggle
-              label="Attente / remise à une personne"
-              text="Quelqu’un vient chercher le véhicule. Nous restons sur place. 39 €."
-              price={formatEuro(OPTIONS.jockeyAttente)}
-              on={input.jockeyAttente}
-              onClick={() => setInput((s) => ({ ...s, jockeyAttente: !s.jockeyAttente }))}
-            />
-            <Toggle
-              label="Contrôle visuel d’achat"
-              text="Carrosserie, compteur, intérieur, documents, photos. Pour un achat accompagné."
-              price={formatEuro(OPTIONS.controleVisuel)}
-              image="/images/etat-des-lieux-vehicule.jpg"
-              on={input.controleVisuel}
-              onClick={() => setInput((s) => ({ ...s, controleVisuel: !s.controleVisuel }))}
-            />
-          </div>
+      {step === 3 && service === "mouvement" && (
+        <div className="mt-8 space-y-8">
+          <Choice
+            options={JOCKEY_SENS.map((s) => ({ v: s.id, l: s.name, h: s.hint }))}
+            onPick={(v) => setInput((s) => ({ ...s, jockeySens: v as QuoteInput["jockeySens"] }))}
+          />
+          <Choice
+            options={JOCKEY_POINTS.map((p) => ({ v: p.name, l: p.name, h: "Bretagne" }))}
+            onPick={(v) => {
+              setInput((s) => ({ ...s, jockeyPoint: v, to: v }));
+              setStep(4);
+            }}
+          />
         </div>
+      )}
+
+      {step === 3 && service === "location" && (
+        <div className="mt-8">
+          <Choice
+            options={[
+              { v: "Agence de location", l: "Agence de location", h: "Même ville, ou à préciser." },
+              ...JOCKEY_POINTS.filter((p) => p.name.includes("Aéroport")).map((p) => ({
+                v: p.name,
+                l: p.name,
+                h: "Aéroport",
+              })),
+            ]}
+            onPick={(v) => {
+              setInput((s) => ({ ...s, jockeyPoint: v, to: v, jockeySens: "rapatriement" }));
+              setStep(4);
+            }}
+          />
+        </div>
+      )}
+
+      {step === 3 && (service === "atelier" || service === "achat") && (
+        <div className="mt-8">
+          <CityField
+            id="jockey-dest"
+            name="jockey-dest"
+            label={service === "achat" ? "Ville du véhicule" : "Ville de l’atelier"}
+            value={input.to}
+            onChange={(to) => setInput((s) => ({ ...s, to }))}
+          />
+        </div>
+      )}
+
+      {step === 3 && service === "flotte" && (
+        <JockeyOptions input={input} setInput={setInput} />
+      )}
+
+      {((step === 4 && needsLieu) || (step === 3 && !needsLieu && service !== "flotte")) && (
+        <JockeyOptions input={input} setInput={setInput} />
       )}
 
       <div className="mt-10 flex items-center justify-between gap-3">
-        <Button variant="ghost" type="button" onClick={() => (step === 0 ? onBack() : setStep((s) => s - 1))}>
+        <Button variant="ghost" type="button" onClick={() => (step === 0 ? onBack() : goPrev())}>
           Retour
         </Button>
-        {step < steps.length - 1 ? (
+        {step < last ? (
           <Button
             type="button"
-            onClick={() => setStep((s) => s + 1)}
-            disabled={(step === 1 && !input.from.trim()) || (step === 2 && !input.jockeyPoint)}
+            onClick={goNext}
+            disabled={(step === 2 && !input.from.trim()) || (step === 3 && needsLieu && !lieuOk)}
           >
             Continuer
           </Button>
@@ -741,6 +767,95 @@ function JockeyFlow({
             Générer mon devis officiel
           </Button>
         )}
+      </div>
+    </div>
+  );
+}
+
+function JockeyOptions({
+  input,
+  setInput,
+}: {
+  input: QuoteInput;
+  setInput: (fn: (s: QuoteInput) => QuoteInput) => void;
+}) {
+  const service = input.jockeyService;
+  return (
+    <div className="mt-8 space-y-6">
+      <p className="text-sm text-muted">
+        Le montant n’apparaît qu’après vos coordonnées. Pas de gardiennage. Pas de transport de passagers.
+      </p>
+      {service === "mouvement" ? (
+        <label className="block text-sm text-muted">
+          Numéro de train ou de vol
+          <input
+            value={input.jockeyRef}
+            onChange={(e) => setInput((s) => ({ ...s, jockeyRef: e.target.value }))}
+            className="mt-2 w-full rounded-2xl border border-line bg-bg px-4 py-3.5 text-navy"
+            placeholder="TGV 8690, AF7521"
+          />
+        </label>
+      ) : null}
+      <div className="grid gap-3 sm:grid-cols-2">
+        {service === "atelier" || service === "flotte" ? (
+          <Toggle
+            label="Carrosserie"
+            text="Deux passages. Dépôt, puis reprise."
+            on={input.jockeyCarrosserie}
+            onClick={() => setInput((s) => ({ ...s, jockeyCarrosserie: !s.jockeyCarrosserie }))}
+          />
+        ) : null}
+        {service === "atelier" || service === "flotte" || service === "location" ? (
+          <Toggle
+            label="Prise de rendez-vous"
+            text="Nous appelons l’atelier. Nous bloquons le créneau."
+            on={input.jockeyRdv}
+            onClick={() => setInput((s) => ({ ...s, jockeyRdv: !s.jockeyRdv }))}
+          />
+        ) : null}
+        <Toggle
+          label="Nettoyage intérieur et extérieur"
+          text="Remise propre."
+          image="/images/preparation-esthetique-vehicule.jpg"
+          on={input.jockeyWash === "standard"}
+          onClick={() => setInput((s) => ({ ...s, jockeyWash: s.jockeyWash === "standard" ? "aucun" : "standard" }))}
+        />
+        <Toggle
+          label="Nettoyage prestige"
+          text="Véhicule haut de gamme."
+          on={input.jockeyWash === "prestige"}
+          onClick={() => setInput((s) => ({ ...s, jockeyWash: s.jockeyWash === "prestige" ? "aucun" : "prestige" }))}
+        />
+        {service !== "roulage" ? (
+          <Toggle
+            label="Contrôle technique"
+            text="Nous emmenons le véhicule. Hors facture du centre."
+            on={input.jockeyCt}
+            onClick={() => setInput((s) => ({ ...s, jockeyCt: !s.jockeyCt }))}
+          />
+        ) : null}
+        <Toggle
+          label="Plein carburant"
+          text="Passage à la pompe. Ticket joint."
+          image="/images/plein-carburant-vehicule.jpg"
+          on={input.plein}
+          onClick={() => setInput((s) => ({ ...s, plein: !s.plein }))}
+        />
+        <Toggle
+          label="Attente"
+          text="Remise à une personne. Nous restons sur place."
+          on={input.jockeyAttente}
+          onClick={() => setInput((s) => ({ ...s, jockeyAttente: !s.jockeyAttente }))}
+        />
+        {service === "achat" || service === "mouvement" ? (
+          <Toggle
+            label="Contrôle visuel"
+            text="Carrosserie, compteur, intérieur, documents, photos."
+            image="/images/mission-bmw-controle.jpg"
+            on={input.controleVisuel}
+            onClick={() => setInput((s) => ({ ...s, controleVisuel: !s.controleVisuel }))}
+          />
+        ) : null}
       </div>
     </div>
   );
