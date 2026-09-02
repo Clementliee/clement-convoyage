@@ -28,7 +28,7 @@ function Page() {
       <PageHero
         kicker="Simulateur"
         title="Demander un devis"
-        text="Quelques questions, puis vos coordonnées. Fourchette indicative. Devis ferme sous deux heures ouvrées."
+        text="Trajet, formule, puis vos coordonnées. Le montant s’affiche ensuite. Devis ferme sous deux heures ouvrées."
       />
       <section className="mx-auto max-w-5xl px-5 pb-24 sm:px-8">
         <Simulator

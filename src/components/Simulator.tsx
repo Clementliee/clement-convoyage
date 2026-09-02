@@ -7,6 +7,8 @@ import {
   TRIP_MODES,
   applyPack,
   computeQuote,
+  defaultQuoteInput,
+  findCity,
   JOCKEY_POINTS,
   JOCKEY_SENS,
   JOCKEY_SERVICES,
@@ -17,21 +19,10 @@ import {
   type TripMode,
   type VehicleKind,
   type WhenKind,
-  type ZoneKind,
 } from "@/lib/tarifs";
 import { PACKS_PART, PACKS_PRO } from "@/lib/offers";
-import { formatEuro } from "@/lib/utils";
 
-const STEPS = [
-  "Qui commande ?",
-  "Type de véhicule",
-  "Départ",
-  "Arrivée",
-  "Sens de mission",
-  "Zone",
-  "Quand",
-  "Votre pack",
-];
+const STEPS = ["Trajet", "Formule"];
 
 export function Simulator({
   initialFrom = "",
@@ -46,59 +37,22 @@ export function Simulator({
   const [step, setStep] = useState(0);
   const [gate, setGate] = useState(false);
   const [client, setClient] = useState<ClientKind>("part");
-  const [input, setInput] = useState<QuoteInput>({
-    from: initialFrom || "Quimper",
-    to: initialTo,
-    zone: "france",
-    vehicle: "vp",
-    when: "standard",
-    lavage: "aucun",
-    rechargeVe: false,
-    gps: false,
-    protocolePrestige: false,
-    plein: false,
-    controleVisuel: false,
-    coffret: "aucun",
-    pack: "essentiel",
-    kitBienvenue: false,
-    formula: "aucun",
-    mission: initialMission === "jockey" ? "jockey" : "convoyage",
-    clientKind: "part",
-    tripMode: "aller",
-    pickupDate: "",
-    gpsMission: false,
-    videoLivraison: false,
-    jockeySens: "rapatriement",
-    jockeyService: "mouvement",
-    jockeyPoint: "",
-    jockeyRef: "",
-    jockeyAller: "",
-    jockeyRetour: "",
-    jockeyCt: false,
-    jockeyAttente: false,
-    jockeyWash: "aucun",
-    jockeyRdv: false,
-    jockeyCarrosserie: false,
-    flotteNb: 1,
-  });
+  const [input, setInput] = useState<QuoteInput>(
+    defaultQuoteInput({
+      from: initialFrom || "Quimper",
+      to: initialTo,
+      mission: initialMission === "jockey" ? "jockey" : "convoyage",
+    }),
+  );
   const [kmManual, setKmManual] = useState("");
 
   const quote = useMemo(
     () => computeQuote({ ...input, kmManual: kmManual ? Number(kmManual) : undefined }),
     [input, kmManual],
   );
-  const standardBase = useMemo(
-    () =>
-      computeQuote({
-        ...input,
-        when: "standard",
-        kmManual: kmManual ? Number(kmManual) : undefined,
-      }).base,
-    [input, kmManual],
-  );
+  const europeAuto = Boolean(findCity(input.from)?.europe || findCity(input.to)?.europe);
 
-  const canNext =
-    step === 2 ? Boolean(input.from.trim() || kmManual) : step === 3 ? Boolean(input.to.trim() || kmManual) : true;
+  const canNext = Boolean(input.from.trim() && (input.to.trim() || kmManual));
 
   const next = () => {
     if (!canNext) return;
@@ -189,123 +143,121 @@ export function Simulator({
           <div className="h-full bg-coral transition-all" style={{ width: `${((step + 1) / STEPS.length) * 100}%` }} />
         </div>
         <h2 className="mt-6 font-display text-3xl text-navy">{STEPS[step]}</h2>
-        {step === 4 ? (
-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted">
-            Base opérationnelle à Quimper. Si le départ n’est pas Quimper, l’approche depuis la base est intégrée au devis.
-            En aller simple, le retour du chauffeur est inclus.
-          </p>
-        ) : null}
-        {step === 6 ? (
-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted">
-            Délai à partir de la confirmation du devis, sous réserve de disponibilité des équipes. Week-end et jours
-            fériés inclus.
-          </p>
-        ) : null}
-        {step === 7 ? (
-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted">
-            {client === "pro"
-              ? "Trois formules professionnelles. Coffret, nettoyage et protocole sont inclus selon la formule retenue."
-              : "Trois formules particulières. Plein et traceur GPS sont inclus selon la formule retenue."}
-          </p>
-        ) : null}
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
+          {step === 0
+            ? "Base Quimper. L’approche et le retour du chauffeur sont intégrés. L’Europe est détectée d’après les villes."
+            : client === "pro"
+              ? "Trois formules professionnelles. Coffret, nettoyage et protocole selon la formule."
+              : "Trois formules particulières. Plein et traceur GPS selon la formule."}
+        </p>
       </div>
 
-      {step === 0 && (
-        <Choice
-          options={[
-            { v: "part", l: "Particulier", h: "Règlement avant départ" },
-            { v: "pro", l: "Professionnel", h: "Paiement à quinze jours" },
-          ]}
-          onPick={(v) => {
-            const kind = v as ClientKind;
-            setClient(kind);
-            setInput((s) => applyPack({ ...s, clientKind: kind }, s.pack));
-            next();
-          }}
-        />
-      )}
-      {step === 1 && (
-        <Choice
-          options={[
-            { v: "vp", l: "Véhicule particulier", h: "Berline, SUV, citadine" },
-            { v: "utilitaire", l: "Utilitaire, van", h: "Permis B, jusqu’à 3,5 t" },
-            { v: "prestige", l: "Prestige", h: "Berline, sportive" },
-            { v: "ve", l: "Véhicule électrique", h: "Plan de recharge" },
-          ]}
-          onPick={(v) => {
-            const vehicle = v as VehicleKind;
-            setInput((s) => ({
-              ...s,
-              vehicle,
-              rechargeVe: vehicle === "ve",
-            }));
-            next();
-          }}
-        />
-      )}
-      {step === 2 && (
-        <CityField
-          id="from-city"
-          name="from"
-          label="Ville de départ"
-          value={input.from}
-          onChange={(from) => setInput((s) => ({ ...s, from }))}
-        />
-      )}
-      {step === 3 && (
-        <CityField
-          id="to-city"
-          name="to"
-          label="Ville d’arrivée"
-          value={input.to}
-          onChange={(to) => setInput((s) => ({ ...s, to }))}
-        />
-      )}
-      {step === 4 && (
-        <Choice
-          options={TRIP_MODES.map((m) => ({ v: m.id, l: m.name, h: m.hint }))}
-          onPick={(v) => {
-            setInput((s) => ({ ...s, tripMode: v as TripMode }));
-            next();
-          }}
-        />
-      )}
-      {step === 5 && (
-        <Choice
-          options={[
-            { v: "france", l: "Bretagne, France", h: "Métropole" },
-            { v: "europe", l: "Europe", h: "Formalités de frontière" },
-          ]}
-          onPick={(v) => {
-            setInput((s) => ({ ...s, zone: v as ZoneKind }));
-            next();
-          }}
-        />
-      )}
-      {step === 6 && (
-        <div className="space-y-6">
-          <WhenPicker
-            base={quote.ok ? standardBase : 0}
-            showEuro={false}
-            onPick={(v) => {
-              setInput((s) => ({ ...s, when: v }));
-            }}
-          />
+      {step === 0 ? (
+        <div className="space-y-8">
+          <div>
+            <p className="mb-3 text-sm text-muted">Qui commande</p>
+            <Choice
+              value={client}
+              options={[
+                { v: "part", l: "Particulier", h: "Règlement avant départ" },
+                { v: "pro", l: "Professionnel", h: "Paiement à quinze jours" },
+              ]}
+              onPick={(v) => {
+                const kind = v as ClientKind;
+                setClient(kind);
+                setInput((s) => applyPack({ ...s, clientKind: kind }, s.pack));
+              }}
+            />
+          </div>
+          <div>
+            <p className="mb-3 text-sm text-muted">Véhicule</p>
+            <Choice
+              value={input.vehicle}
+              options={[
+                { v: "vp", l: "Véhicule particulier", h: "Berline, SUV, citadine" },
+                { v: "utilitaire", l: "Utilitaire, van", h: "Permis B, jusqu’à 3,5 t" },
+                { v: "prestige", l: "Prestige", h: "Berline, sportive" },
+                { v: "ve", l: "Véhicule électrique", h: "Plan de recharge" },
+              ]}
+              onPick={(v) => {
+                const vehicle = v as VehicleKind;
+                setInput((s) => ({ ...s, vehicle, rechargeVe: vehicle === "ve" }));
+              }}
+            />
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <CityField
+              id="from-city"
+              name="from"
+              label="Ville de départ"
+              value={input.from}
+              onChange={(from) => setInput((s) => ({ ...s, from }))}
+            />
+            <CityField
+              id="to-city"
+              name="to"
+              label="Ville d’arrivée"
+              value={input.to}
+              onChange={(to) => setInput((s) => ({ ...s, to }))}
+            />
+          </div>
           <label className="block text-sm text-muted">
-            Date de prise en charge souhaitée
+            Kilomètres GPS si la ville n’est pas dans la liste
             <input
-              type="date"
-              value={input.pickupDate ?? ""}
-              onChange={(e) => setInput((s) => ({ ...s, pickupDate: e.target.value }))}
+              name="km"
+              type="number"
+              min={1}
+              value={kmManual}
+              onChange={(e) => setKmManual(e.target.value)}
               className="mt-2 w-full rounded-2xl border border-line bg-bg px-4 py-3.5 text-navy"
+              placeholder="exemple, 210"
+              suppressHydrationWarning
             />
           </label>
-          <p className="text-sm text-muted">
-            Vous proposez une date. Convoyage BZH confirme le créneau, ou vous contacte.
-          </p>
+          {europeAuto ? (
+            <p className="text-sm text-muted">Trajet européen. Formalités de frontière intégrées au devis.</p>
+          ) : (
+            <button
+              type="button"
+              onClick={() =>
+                setInput((s) => ({ ...s, zone: s.zone === "europe" ? "france" : "europe" }))
+              }
+              className={`rounded-full border px-4 py-2 text-sm ${
+                input.zone === "europe" ? "border-navy bg-sand text-navy" : "border-line text-muted"
+              }`}
+            >
+              {input.zone === "europe" ? "Trajet européen" : "Marquer comme trajet européen"}
+            </button>
+          )}
+          <div>
+            <p className="mb-3 text-sm text-muted">Sens de mission</p>
+            <Choice
+              value={input.tripMode}
+              options={TRIP_MODES.map((m) => ({ v: m.id, l: m.name, h: m.hint }))}
+              onPick={(v) => setInput((s) => ({ ...s, tripMode: v as TripMode }))}
+            />
+          </div>
+          <div>
+            <p className="mb-3 text-sm text-muted">Quand</p>
+            <WhenPicker
+              value={input.when}
+              onPick={(v) => setInput((s) => ({ ...s, when: v }))}
+            />
+            <label className="mt-4 block text-sm text-muted">
+              Date de prise en charge souhaitée
+              <input
+                type="date"
+                value={input.pickupDate ?? ""}
+                onChange={(e) => setInput((s) => ({ ...s, pickupDate: e.target.value }))}
+                className="mt-2 w-full rounded-2xl border border-line bg-bg px-4 py-3.5 text-navy"
+              />
+            </label>
+            <p className="mt-2 text-sm text-muted">
+              Vous proposez une date. Convoyage BZH confirme le créneau, ou vous contacte.
+            </p>
+          </div>
         </div>
-      )}
-      {step === 7 && (
+      ) : (
         <div className="space-y-8">
           <div className="rounded-[1.4rem] bg-sand px-5 py-5">
             <p className="text-sm text-muted">Mise en main personnalisée</p>
@@ -314,7 +266,6 @@ export function Simulator({
               À chaque pack. Configuration des aides à la conduite, multimédia, recharge.
             </p>
           </div>
-
           <div className="grid gap-4 lg:grid-cols-3">
             {packs.map((p) => {
               const on = input.pack === p.id;
@@ -340,7 +291,6 @@ export function Simulator({
               );
             })}
           </div>
-
           <div className="grid gap-3 sm:grid-cols-2">
             {client === "pro" ? (
               <Toggle
@@ -379,29 +329,18 @@ export function Simulator({
               onClick={() => setInput((s) => ({ ...s, coffret: s.coffret === "armor" ? "aucun" : "armor" }))}
             />
           </div>
-
           {quote.ok ? (
             <p className="text-sm leading-relaxed text-muted">
-              Le montant détaillé s’affiche après vos coordonnées.
+              {quote.fromName} → {quote.toName}
+              {quote.km ? ` · ${quote.km} km` : ""}
+              {quote.europe ? " · Europe" : ""}
+              {input.tripMode === "retourVehicule" ? " · véhicule à reprendre" : " · aller simple"}. Le
+              montant des trois formules s’affiche après vos coordonnées.
             </p>
-          ) : null}
+          ) : (
+            <p className="text-sm text-muted">{quote.message}</p>
+          )}
         </div>
-      )}
-
-      {(step === 2 || step === 3) && (
-        <label className="mt-6 block text-sm text-muted">
-          Kilomètres GPS si la ville n’est pas dans la liste
-          <input
-            name="km"
-            type="number"
-            min={1}
-            value={kmManual}
-            onChange={(e) => setKmManual(e.target.value)}
-            className="mt-2 w-full rounded-2xl border border-line bg-bg px-4 py-3.5 text-navy"
-            placeholder="exemple, 210"
-            suppressHydrationWarning
-          />
-        </label>
       )}
 
       <div className="mt-10 flex items-center justify-between gap-3">
@@ -419,12 +358,8 @@ export function Simulator({
         )}
       </div>
 
-      {step === STEPS.length - 1 && !quote.ok ? (
-        <p className="mt-6 text-sm text-muted">{quote.message}</p>
-      ) : null}
-
       <p className="mt-6 text-center text-xs leading-relaxed text-muted">
-        Base Quimper. Approche et retour du chauffeur intégrés au devis.
+        Base Quimper. Approche et retour du chauffeur intégrés au devis.{" "}
         <Link to="/contact" className="text-coral">
           Contact
         </Link>
@@ -434,24 +369,24 @@ export function Simulator({
 }
 
 function WhenPicker({
-  base,
-  showEuro,
+  value,
   onPick,
 }: {
-  base: number;
-  showEuro: boolean;
+  value: WhenKind;
   onPick: (v: WhenKind) => void;
 }) {
   return (
     <div className="grid gap-3">
       {WHEN_OFFERS.map((w) => {
-        const extra = Math.round(base * w.extraPct);
+        const on = value === w.id;
         return (
           <button
             key={w.id}
             type="button"
             onClick={() => onPick(w.id)}
-            className="flex flex-col gap-2 rounded-2xl border border-line bg-bg px-5 py-5 text-left transition-colors hover:border-navy sm:flex-row sm:items-center sm:justify-between"
+            className={`flex flex-col gap-2 rounded-2xl border px-5 py-5 text-left transition-colors sm:flex-row sm:items-center sm:justify-between ${
+              on ? "border-navy bg-sand" : "border-line bg-bg hover:border-navy"
+            }`}
           >
             <span>
               <span className="block font-medium text-navy">{w.name}</span>
@@ -459,13 +394,7 @@ function WhenPicker({
                 {w.delay}. {w.hint}
               </span>
             </span>
-            <span className="shrink-0 text-sm font-semibold text-coral">
-              {w.extraPct === 0
-                ? w.extraLabel
-                : showEuro && extra > 0
-                  ? `${w.extraLabel} · ${formatEuro(extra)}`
-                  : w.extraLabel}
-            </span>
+            <span className="shrink-0 text-sm font-semibold text-coral">{w.extraLabel}</span>
           </button>
         );
       })}
@@ -476,23 +405,30 @@ function WhenPicker({
 function Choice({
   options,
   onPick,
+  value,
 }: {
   options: { v: string; l: string; h: string }[];
   onPick: (v: string) => void;
+  value?: string;
 }) {
   return (
     <div className="grid gap-3">
-      {options.map((o) => (
-        <button
-          key={o.v}
-          type="button"
-          onClick={() => onPick(o.v)}
-          className="flex flex-col gap-1 rounded-2xl border border-line bg-bg px-5 py-5 text-left transition-colors hover:border-navy sm:flex-row sm:items-center sm:justify-between"
-        >
-          <span className="font-medium text-navy">{o.l}</span>
-          <span className="text-sm text-muted">{o.h}</span>
-        </button>
-      ))}
+      {options.map((o) => {
+        const on = value === o.v;
+        return (
+          <button
+            key={o.v}
+            type="button"
+            onClick={() => onPick(o.v)}
+            className={`flex flex-col gap-1 rounded-2xl border px-5 py-5 text-left transition-colors sm:flex-row sm:items-center sm:justify-between ${
+              on ? "border-navy bg-sand" : "border-line bg-bg hover:border-navy"
+            }`}
+          >
+            <span className="font-medium text-navy">{o.l}</span>
+            <span className="text-sm text-muted">{o.h}</span>
+          </button>
+        );
+      })}
     </div>
   );
 }

@@ -1,30 +1,31 @@
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { downloadQuotePdf } from "@/lib/quote-pdf";
 import { mailtoFallback, sendDevisLead } from "@/lib/send-devis";
 import { SITE } from "@/lib/site";
-import { quoteRange, type QuoteInput, type QuoteResult } from "@/lib/tarifs";
+import { PACKS_PART, PACKS_PRO } from "@/lib/offers";
+import {
+  packQuotes,
+  quoteRange,
+  type PackKind,
+  type QuoteInput,
+  type QuoteResult,
+} from "@/lib/tarifs";
 import { formatEuro } from "@/lib/utils";
 
-export function QuoteGate({
-  quote,
-  client,
-  input,
-}: {
-  quote: QuoteResult;
-  client: "part" | "pro";
-  input: QuoteInput;
-}) {
-  const range = quoteRange(quote.total);
-  const extras = [
+function packLabel(kind: "part" | "pro", pack: PackKind) {
+  const list = kind === "pro" ? PACKS_PRO : PACKS_PART;
+  return list.find((p) => p.id === pack)?.name ?? "Formule";
+}
+
+function extrasLine(input: QuoteInput, pack: PackKind, kind: "part" | "pro") {
+  return [
     input.mission === "jockey" ? `Conciergerie ${input.jockeySens} · domicile ${input.from} · ${input.jockeyPoint}` : "",
     input.mission === "jockey" && input.jockeyRef ? `Train ou vol ${input.jockeyRef}` : "",
     input.mission === "convoyage" && input.tripMode === "retourVehicule" ? "Véhicule à reprendre au retour" : "",
     input.mission === "convoyage" && input.tripMode === "aller" ? "Aller simple, retour chauffeur inclus" : "",
-    input.clientKind === "pro" ? "Client professionnel" : "Client particulier",
-    input.pack === "essentiel" ? (input.clientKind === "pro" ? "Pack Atelier" : "Pack Route") : "",
-    input.pack === "confort" ? (input.clientKind === "pro" ? "Pack Livraison client" : "Pack Sérénité") : "",
-    input.pack === "premium" ? (input.clientKind === "pro" ? "Pack Signature réseau" : "Pack Sécurisé") : "",
+    kind === "pro" ? "Client professionnel" : "Client particulier",
+    packLabel(kind, pack),
     input.gps ? "Traceur GPS 4G cédé, 12 mois" : "",
     input.gpsMission ? "Suivi GPS le temps de la mission" : "",
     input.videoLivraison ? "Livraison vidéo" : "",
@@ -39,10 +40,21 @@ export function QuoteGate({
   ]
     .filter(Boolean)
     .join(", ");
+}
 
+export function QuoteGate({
+  quote,
+  client,
+  input,
+}: {
+  quote: QuoteResult;
+  client: "part" | "pro";
+  input: QuoteInput;
+}) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [kind, setKind] = useState<"part" | "pro">(client);
+  const [pack, setPack] = useState<PackKind>(input.pack);
   const [company, setCompany] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -50,10 +62,18 @@ export function QuoteGate({
   const [busy, setBusy] = useState(false);
   const [revealed, setRevealed] = useState(false);
   const [accepted, setAccepted] = useState(false);
-  const [mailOk, setMailOk] = useState(true);
   const [contactError, setContactError] = useState("");
   const [tilt, setTilt] = useState({ x: 8, y: -8, z: 0.96 });
   const scene = useRef<HTMLDivElement>(null);
+
+  const convoyage = input.mission !== "jockey";
+  const scenarios = useMemo(
+    () => (convoyage ? packQuotes({ ...input, clientKind: kind }) : []),
+    [convoyage, input, kind],
+  );
+  const currentQuote = scenarios.find((s) => s.pack === pack)?.quote ?? quote;
+  const range = quoteRange(currentQuote.total);
+  const extrasLabel = extrasLine({ ...input, pickupDate }, pack, kind) || "Aucune option";
 
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -79,8 +99,6 @@ export function QuoteGate({
     return () => window.removeEventListener("scroll", onScroll);
   }, [revealed]);
 
-  const extrasLabel = extras || "Aucune option";
-
   const payloadBase = () => ({
     firstName: firstName.trim(),
     lastName: lastName.trim(),
@@ -88,10 +106,10 @@ export function QuoteGate({
     company: company.trim(),
     email: email.trim() || SITE.email,
     phone: phone.trim(),
-    fromName: quote.fromName,
-    toName: quote.toName,
-    km: quote.km,
-    delay: quote.delay,
+    fromName: currentQuote.fromName,
+    toName: currentQuote.toName,
+    km: currentQuote.km,
+    delay: currentQuote.delay,
     range,
     extras: extrasLabel,
     pickupDate: pickupDate.trim(),
@@ -116,7 +134,6 @@ export function QuoteGate({
     const payload = payloadBase();
     try {
       const sent = await sendDevisLead(payload);
-      setMailOk(sent.ok);
       await downloadQuotePdf(payload);
       setRevealed(true);
       if (!sent.ok) {
@@ -138,6 +155,8 @@ export function QuoteGate({
     }
   };
 
+  const packs = kind === "pro" ? PACKS_PRO : PACKS_PART;
+
   return (
     <div className="mt-4 grid items-start gap-12 lg:grid-cols-2">
       <div ref={scene} className="perspective-scene px-1 pb-6 pt-8 lg:sticky lg:top-24">
@@ -149,16 +168,16 @@ export function QuoteGate({
           }}
         >
           <p className="text-xs font-semibold tracking-[0.22em] text-surface/50 uppercase">
-            {quote.fromName} vers {quote.toName}
+            {currentQuote.fromName} vers {currentQuote.toName}
           </p>
           {revealed ? (
             <>
-              <p className="mt-8 text-sm text-surface/70">Devis chiffré, à confirmer</p>
+              <p className="mt-8 text-sm text-surface/70">{packLabel(kind, pack)}</p>
               <p className="mt-3 font-display text-4xl tracking-tight sm:text-5xl">
                 de {formatEuro(range.low)} à {formatEuro(range.high)}
               </p>
               <p className="mt-4 text-sm text-surface/70">
-                Autour de {formatEuro(range.mid)}. {quote.km} km. {quote.delay}.
+                Autour de {formatEuro(range.mid)}. {currentQuote.km} km. {currentQuote.delay}.
               </p>
               {pickupDate ? (
                 <p className="mt-3 text-sm text-surface/70">Prise en charge souhaitée : {pickupDate}</p>
@@ -207,6 +226,34 @@ export function QuoteGate({
             Fourchette de {formatEuro(range.low)} à {formatEuro(range.high)}. Le créneau n’est pas bloqué tant que
             Clément n’a pas confirmé.
           </p>
+          {convoyage && scenarios.length ? (
+            <div className="mt-6 grid gap-2">
+              <p className="text-sm text-muted">Comparer les trois formules</p>
+              {scenarios.map((s) => {
+                const r = quoteRange(s.quote.total);
+                const meta = packs.find((p) => p.id === s.pack);
+                const on = pack === s.pack;
+                return (
+                  <button
+                    key={s.pack}
+                    type="button"
+                    onClick={() => setPack(s.pack)}
+                    className={`flex items-center justify-between gap-3 rounded-2xl border px-4 py-3 text-left ${
+                      on ? "border-navy bg-sand" : "border-line bg-bg hover:border-navy"
+                    }`}
+                  >
+                    <span>
+                      <span className="block font-medium text-navy">{meta?.name}</span>
+                      <span className="block text-xs text-muted">{meta?.tag}</span>
+                    </span>
+                    <span className="shrink-0 text-sm font-semibold text-coral">
+                      de {formatEuro(r.low)} à {formatEuro(r.high)}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          ) : null}
           <Button type="button" className="mt-8 w-full" size="lg" disabled={busy} onClick={() => void acceptQuote()}>
             {busy ? "Envoi…" : "J’accepte ce devis"}
           </Button>

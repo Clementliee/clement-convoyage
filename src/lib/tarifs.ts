@@ -59,6 +59,7 @@ export const ECONOMICS = {
   urssaf: 0.11,
   baseCity: "Quimper",
   approcheEurKm: 0.25,
+  approcheMin: 25,
   retourChauffeurEurKm: 0.28,
   retourVehiculeCoeff: 0.78,
   approcheSeuilKm: 20,
@@ -272,7 +273,18 @@ function norm(s: string) {
 export function findCity(input: string): City | undefined {
   const n = norm(input);
   if (!n) return undefined;
-  return CITIES.find((c) => norm(c.name) === n || c.aliases.some((a) => norm(a) === n) || n.includes(norm(c.name)));
+  const exact = CITIES.find((c) => norm(c.name) === n || c.aliases.some((a) => norm(a) === n));
+  if (exact) return exact;
+  if (n.length < 4) return undefined;
+  const qualified = CITIES.filter((c) => {
+    const names = [norm(c.name), ...c.aliases.map(norm)];
+    return names.some((nm) => nm.startsWith(n) || n.startsWith(`${nm} `) || n.startsWith(`${nm}-`));
+  });
+  if (qualified.length === 1) return qualified[0];
+  return qualified.find((c) => {
+    const names = [norm(c.name), ...c.aliases.map(norm)];
+    return names.some((nm) => n.startsWith(`${nm} `) || n.startsWith(`${nm}-`));
+  });
 }
 
 function haversineKm(a: City, b: City) {
@@ -321,7 +333,7 @@ export const WHEN_OFFERS = [
     delay: "5 jours",
     hint: "Du lundi au vendredi. Prise en charge sous cinq jours environ, sous réserve de disponibilité des équipes. Week-end et jours fériés inclus.",
     extraPct: 0,
-    extraLabel: "Tarif de base",
+    extraLabel: "Délai de base",
   },
   {
     id: "urgent" as const,
@@ -329,7 +341,7 @@ export const WHEN_OFFERS = [
     delay: "Sous 72 h",
     hint: "Prise en charge sous 72 heures, sous réserve de disponibilité des équipes. Week-end et jours fériés inclus.",
     extraPct: 0.25,
-    extraLabel: "+ 25 %",
+    extraLabel: "Créneau serré",
   },
 ] as const;
 export type ZoneKind = "france" | "europe";
@@ -347,7 +359,7 @@ export const TRIP_MODES = [
   {
     id: "retourVehicule" as const,
     name: "Véhicule à reprendre",
-    hint: "Un véhicule à l’aller, un autre au retour. Pas de rentrée à vide. Le second trajet est facturé à 78 %.",
+    hint: "Un véhicule à l’aller, un autre au retour. Pas de rentrée à vide. Le second trajet est intégré au devis.",
   },
 ] as const;
 
@@ -620,7 +632,7 @@ export function prixRetourChauffeur(kmToBase: number, missionKm: number) {
 
 export function prixApproche(kmFromBase: number) {
   if (kmFromBase <= ECONOMICS.approcheSeuilKm) return 0;
-  return Math.round(kmFromBase * ECONOMICS.approcheEurKm);
+  return Math.max(ECONOMICS.approcheMin, Math.round(kmFromBase * ECONOMICS.approcheEurKm));
 }
 
 function jockeyExtras(input: QuoteInput): { options: number; lines: QuoteLine[] } {
@@ -886,7 +898,8 @@ export function computeQuote(input: QuoteInput): QuoteResult {
   const kmRetourBase = toCity ? roadKm(toCity, quimper) : kmMission;
 
   let prixTrajet = prixBareme(kmMission);
-  const europeForced = input.zone === "europe" || fromCity?.europe || toCity?.europe;
+  const namedEurope = Boolean(fromCity?.europe || toCity?.europe);
+  const europeForced = namedEurope || (input.zone === "europe" && !(fromCity && toCity));
   if (europeForced) {
     const named = EUROPE_DISPLAY.find((e) => e.name === toCity?.name || e.name === fromCity?.name);
     if (named) prixTrajet = Math.max(prixTrajet, named.prix);
@@ -921,14 +934,14 @@ export function computeQuote(input: QuoteInput): QuoteResult {
     lines.push({
       label: "Approche depuis Quimper",
       amount: prixApprocheVal,
-      hint: `${kmApprocheRaw} km × ${ECONOMICS.approcheEurKm.toFixed(2).replace(".", ",")} €`,
+      hint: "Depuis la base",
     });
   }
   if (roundTrip && prixRetourVal > 0) {
     lines.push({
       label: `Véhicule retour ${toName} → ${fromName}`,
       amount: prixRetourVal,
-      hint: "78 % du trajet aller",
+      hint: "Second véhicule, même chauffeur",
     });
   } else if (!roundTrip && prixRetourVal > 0) {
     lines.push({
@@ -1017,5 +1030,26 @@ export function quoteRange(total: number): QuoteRange {
   let high = Math.round((total * 1.08) / 5) * 5;
   if (high <= low) high = low + 15;
   return { low, mid: total, high };
+}
+
+/** Trois formules, mêmes extras hors pack. Pour comparer après identité. */
+export function packQuotes(input: QuoteInput) {
+  const kinds: PackKind[] = ["essentiel", "confort", "premium"];
+  return kinds.map((pack) => {
+    const packed = applyPack({ ...input, pack }, pack);
+    const gpsExtra = Boolean(input.gps && input.pack !== "premium");
+    const coffret =
+      input.coffret !== "aucun" && input.coffret !== packed.coffret ? input.coffret : packed.coffret;
+    return {
+      pack,
+      quote: computeQuote({
+        ...packed,
+        videoLivraison: input.videoLivraison,
+        gpsMission: input.gpsMission,
+        gps: packed.gps || gpsExtra,
+        coffret,
+      }),
+    };
+  });
 }
 

@@ -5,8 +5,10 @@ import {
   computeQuote,
   defaultQuoteInput,
   ECONOMICS,
+  findCity,
   OPTIONS,
   packPrice,
+  packQuotes,
   priceExamples,
   type QuoteInput,
 } from "./tarifs.ts";
@@ -31,7 +33,10 @@ describe("Quimper → Rennes vs Driiveme chauffeur pro 220 € HT", () => {
     const fromVannes = computeQuote(baseInput({ from: "Vannes", to: "Rennes" }));
     assert.ok(fromVannes.prixApproche > 0);
     assert.ok(fromVannes.kmApproche > 80);
-    assert.equal(Math.round(fromVannes.kmApproche * ECONOMICS.approcheEurKm), fromVannes.prixApproche);
+    assert.equal(
+      Math.max(ECONOMICS.approcheMin, Math.round(fromVannes.kmApproche * ECONOMICS.approcheEurKm)),
+      fromVannes.prixApproche,
+    );
     assert.ok(fromVannes.total >= fromBase.total - 20, "same workday, not dumped");
   });
 
@@ -210,5 +215,43 @@ describe("options hors pack", () => {
       }),
     );
     assert.equal(q.options, OPTIONS.coffretChampagne);
+  });
+});
+
+describe("city match and approach floor", () => {
+  it("matches Paris 15 as Paris and rejects Pauillac as Pau", () => {
+    assert.equal(findCity("Paris 15")?.name, "Paris");
+    assert.equal(findCity("Pauillac"), undefined);
+    assert.equal(findCity("Quimper")?.name, "Quimper");
+  });
+
+  it("floors a short approach above the 20 km threshold", () => {
+    const q = computeQuote(baseInput({ from: "Concarneau", to: "Fouesnant" }));
+    assert.ok(q.prixApproche >= ECONOMICS.approcheMin);
+  });
+
+  it("does not apply Europe majoration on a French trip even if zone is europe", () => {
+    const fr = computeQuote(baseInput({ zone: "france" }));
+    const misclick = computeQuote(baseInput({ zone: "europe" }));
+    assert.equal(fr.total, misclick.total);
+    assert.equal(misclick.europe, false);
+  });
+});
+
+describe("multi-scenario pack quotes", () => {
+  it("ranks Route < Sérénité < Sécurisé on the same trip", () => {
+    const rows = packQuotes(baseInput());
+    assert.equal(rows.length, 3);
+    assert.ok(rows[0].quote.ok && rows[1].quote.ok && rows[2].quote.ok);
+    assert.equal(rows[1].quote.total - rows[0].quote.total, OPTIONS.packPartSerenite);
+    assert.equal(rows[2].quote.total - rows[0].quote.total, OPTIONS.packPartSecurise);
+    assert.ok(rows[0].quote.total >= 199 && rows[0].quote.total <= 239);
+  });
+
+  it("does not leak premium GPS onto Pack Route when comparing from a Sécurisé selection", () => {
+    const fromPremium = packQuotes(applyPack(baseInput(), "premium"));
+    const fromRoute = packQuotes(baseInput());
+    assert.equal(fromPremium[0].quote.total, fromRoute[0].quote.total);
+    assert.equal(fromPremium[2].quote.total, fromRoute[2].quote.total);
   });
 });
