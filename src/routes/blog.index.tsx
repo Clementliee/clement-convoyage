@@ -22,8 +22,8 @@ function Page() {
     <main>
       <PageHero
         kicker="Journal"
-        title="Le convoyage, expliqué."
-        text="Prix, déroulement, véhicules électriques, concessions et garages. Des articles utiles, depuis Quimper."
+        title="Journal du convoyage automobile"
+        text="Prix, déroulement, véhicules électriques, concessions et garages. Articles utiles, rédigés depuis Quimper."
         image="/images/blog-tarif.jpg"
         alt="Audi A4 Avant au péage, convoyage longue distance"
       />

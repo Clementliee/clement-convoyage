@@ -8,7 +8,7 @@ import { pageHead } from "@/lib/seo";
 export const Route = createFileRoute("/controle-vehicule")({
   head: () =>
     pageHead({
-      title: "Contrôle visuel véhicule à la livraison. Convoyage BZH",
+      title: "Contrôle visuel à la livraison | Convoyage BZH",
       description:
         "Contrôle visuel 20 points au départ et à l’arrivée. Niveaux, pneus, éclairage, carrosserie. Ce n’est pas une expertise.",
       path: "/controle-vehicule",
@@ -37,9 +37,8 @@ function Page() {
     <main>
       <PageHero
         kicker="Contrôle visuel"
-        title="Vérifier."
-        accent="Pas expertiser."
-        text="Vingt points, des photos, un compte-rendu. Ce n’est pas une expertise automobile."
+        title="Contrôle visuel à la livraison"
+        text="Vingt points de contrôle, photographies et compte rendu. Il ne s’agit pas d’une expertise automobile."
         image="/images/mission-bmw-controle.jpg"
         alt="État des lieux photo d’un véhicule avant convoyage"
       />

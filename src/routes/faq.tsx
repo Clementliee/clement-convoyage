@@ -8,9 +8,9 @@ import { pageHead } from "@/lib/seo";
 export const Route = createFileRoute("/faq")({
   head: () =>
     pageHead({
-      title: "FAQ convoyage automobile. Convoyage BZH",
+      title: "Questions fréquentes | Convoyage automobile | Convoyage BZH",
       description:
-        "Questions sur le convoyage de voiture. Prix, véhicules, zones, professionnels, GPS, packs, paiement. Base Quimper, missions partout.",
+        "Prix, véhicules, zones, professionnels, GPS, formules et paiement. Convoyage BZH, Quimper. Devis sous deux heures.",
       path: "/faq",
     }),
   component: Page,
@@ -33,7 +33,11 @@ const ITEMS = [
 function Page() {
   return (
     <main>
-      <PageHero kicker="FAQ" title="Les réponses utiles." text="Prix, zones, véhicules, professionnels. Sans superlatifs." />
+      <PageHero
+        kicker="Questions"
+        title="Questions fréquentes"
+        text="Zones, véhicules, formules, paiement. Les réponses utiles avant de demander un devis."
+      />
       <section className="mx-auto max-w-3xl px-5 pb-16 sm:px-8">
         <Faq items={ITEMS} />
         <FaqJsonLd items={ITEMS} />

@@ -9,9 +9,9 @@ import { pageHead } from "@/lib/seo";
 export const Route = createFileRoute("/livraison-vehicule")({
   head: () =>
     pageHead({
-      title: "Livraison de véhicule en France. Depuis Quimper.",
+      title: "Livraison de véhicule en France | Convoyage BZH",
       description:
-        "Convoyage de voiture partout en France. On récupère le véhicule où il se trouve, on le remet chez le client. Particuliers et utilitaires jusqu’à 3,5 t. Mise en main offerte.",
+        "Convoyage de véhicules en France. Prise en charge à l’adresse du véhicule, remise au destinataire. Particuliers et utilitaires jusqu’à 3,5 t. Devis sur dossier.",
       path: "/livraison-vehicule",
       image: "/images/mission-bmw-x3.jpg",
     }),
@@ -38,9 +38,8 @@ function Page() {
     <main>
       <PageHero
         kicker="Livraison France"
-        title="Convoyage en conduite,"
-        accent="de A à B."
-        text="Véhicules légers et utilitaires jusqu’à 3,5 t, en état de marche. Le prix n’est pas affiché."
+        title="Livraison de véhicule en France"
+        text="Véhicules légers et utilitaires jusqu’à 3,5 t, en état de marche. Prise en charge à l’adresse indiquée. Remise au destinataire. Le devis est établi sur dossier."
         image="/images/mission-bmw-x3.jpg"
         alt="Remise des clés d’un véhicule convoyé"
       />

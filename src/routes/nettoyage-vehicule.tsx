@@ -6,7 +6,7 @@ import { pageHead } from "@/lib/seo";
 export const Route = createFileRoute("/nettoyage-vehicule")({
   head: () =>
     pageHead({
-      title: "Nettoyage véhicule avant livraison. Convoyage BZH",
+      title: "Nettoyage avant livraison | Convoyage BZH",
       description:
         "Lavage, plein, recharge VE avant remise. Mise en main offerte. Préparation de véhicule convoyé depuis Quimper.",
       path: "/nettoyage-vehicule",
@@ -20,18 +20,17 @@ function Page() {
     <main>
       <PageHero
         kicker="Nettoyage"
-        title="Remis comme en"
-        accent="concession."
-        text="Nettoyage intérieur et extérieur, 90 €. Uniquement avec une livraison ou un jockey. Mise en main offerte."
+        title="Nettoyage avant livraison"
+        text="Intérieur et extérieur. Uniquement avec un convoyage ou une mission de conciergerie. Inclus au devis selon la formule."
         image="/images/preparation-esthetique-vehicule.jpg"
         alt="Nettoyage professionnel d’une berline blanche"
       />
       <section className="mx-auto grid max-w-6xl gap-6 px-5 pb-16 sm:grid-cols-2 sm:px-8 lg:grid-cols-3">
         {[
-          ["Nettoyage intérieur et extérieur, 90 €", "Carrosserie, habitacle, vitres. Uniquement avec une livraison ou un jockey."],
-          ["Mise en main, offerte", "À chaque remise. 20 à 30 min : commandes, options, charge."],
-          ["Plein carburant, 149 €", "Passage à la pompe 49 € + 50 L à 2 €/L. Prestige et utilitaire, volume plus élevé. Ajusté au ticket."],
-          ["Traqueur GPS 4G, 199 €", "Pour l’acheteur. Il le garde. 12 mois inclus."],
+          ["Nettoyage intérieur et extérieur", "Carrosserie, habitacle, vitres. Uniquement avec un convoyage ou une mission de conciergerie."],
+          ["Mise en main", "Offerte à chaque remise. Vingt à trente minutes : commandes, options, charge."],
+          ["Plein de carburant", "Passage en station. Ticket joint au compte rendu. Montant au réel, sur devis."],
+          ["Traceur GPS 4G", "Pour l’acquéreur. Douze mois de suivi inclus. Option au devis."],
         ].map(([t, p]) => (
           <div key={t} className="rounded-2xl border border-line bg-surface p-5">
             <p className="font-display text-lg text-navy">{t}</p>

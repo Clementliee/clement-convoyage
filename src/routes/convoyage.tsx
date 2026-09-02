@@ -7,7 +7,7 @@ import { PILLARS, PROCESS } from "@/lib/offers";
 export const Route = createFileRoute("/convoyage")({
   head: () =>
     pageHead({
-      title: "Convoyage automobile. Préparation, contrôle, remise.",
+      title: "Convoyage automobile | France et Europe | Convoyage BZH",
       description:
         "Convoyage de véhicules, base Quimper. Prise en charge partout en France et en Europe. Transfert, préparation, contrôle, remise. Particuliers et professionnels.",
       path: "/convoyage",
@@ -21,8 +21,8 @@ function Page() {
     <main>
       <PageHero
         kicker="Convoyage"
-        title="Plus qu’un A vers B."
-        text="Prise en charge complète : convoyage, contrôle, préparation, remise. Base Quimper."
+        title="Convoyage automobile"
+        text="Prise en charge, acheminement, contrôle, préparation et remise. Base Quimper. France et Europe."
         image="/images/mission-golf-brest.jpg"
         alt="Véhicule convoyé en Bretagne"
       />

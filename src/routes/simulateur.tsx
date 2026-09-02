@@ -13,9 +13,9 @@ export const Route = createFileRoute("/simulateur")({
   }),
   head: () =>
     pageHead({
-      title: "Simulateur convoyage voiture. Estimation France et Europe.",
+      title: "Devis de convoyage | Simulateur France et Europe | Convoyage BZH",
       description:
-        "Estimez un convoyage de voiture, prise en charge partout en France et en Europe. Sept questions, puis vos coordonnées. Fourchette indicative, PDF et e-mail.",
+        "Demandez un devis de convoyage. France et Europe. Formules particuliers et professionnels. Devis ferme sous deux heures ouvrées.",
       path: "/simulateur",
     }),
   component: Page,
@@ -27,9 +27,8 @@ function Page() {
     <main>
       <PageHero
         kicker="Simulateur"
-        title="Personnalisez"
-        accent="votre prestation."
-        text="Huit questions. Packs particuliers ou professionnels, aller simple ou véhicule à reprendre. Estimation après nom, téléphone et e-mail. Devis formel sous 2 heures ouvrées."
+        title="Demander un devis"
+        text="Quelques questions, puis vos coordonnées. Fourchette indicative. Devis ferme sous deux heures ouvrées."
       />
       <section className="mx-auto max-w-5xl px-5 pb-24 sm:px-8">
         <Simulator

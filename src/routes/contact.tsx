@@ -9,9 +9,9 @@ import { pageHead } from "@/lib/seo";
 export const Route = createFileRoute("/contact")({
   head: () =>
     pageHead({
-      title: "Contact convoyage voiture Quimper. Devis sous 2 h.",
+      title: "Contact et devis | Convoyage automobile à Quimper | Convoyage BZH",
       description:
-        "Contactez Convoyage BZH à Quimper. Devis sous 2 heures. Téléphone 06 24 04 85 73, e-mail. Tous les jours.",
+        "Demandez un devis à Convoyage BZH, Quimper. Réponse sous deux heures ouvrées. Téléphone 06 24 04 85 73.",
       path: "/contact",
     }),
   component: Page,
@@ -58,9 +58,8 @@ function Page() {
     <main>
       <PageHero
         kicker="Contact"
-        title="Devis sous"
-        accent="2 heures."
-        text={`${SITE.hours}. Base ${SITE.city}.`}
+        title="Demander un devis"
+        text={`Réponse sous deux heures ouvrées. ${SITE.hours}. Base ${SITE.city}.`}
       />
       <section className="mx-auto grid max-w-6xl gap-10 px-4 pb-16 sm:px-6 lg:grid-cols-2">
         {done ? (

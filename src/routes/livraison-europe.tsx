@@ -7,7 +7,7 @@ import { pageHead } from "@/lib/seo";
 export const Route = createFileRoute("/livraison-europe")({
   head: () =>
     pageHead({
-      title: "Livraison de véhicule en Europe. Depuis Quimper.",
+      title: "Livraison de véhicule en Europe | Convoyage BZH",
       description:
         "Convoyage Europe. Belgique, Suisse, Allemagne, Pologne, Monaco, Serbie, Espagne, Italie, Royaume-Uni. Prise en charge sur place, remise chez le client. Devis après coordonnées.",
       path: "/livraison-europe",
@@ -61,9 +61,8 @@ function Page() {
     <main>
       <PageHero
         kicker="Europe"
-        title="Le même standard,"
-        accent="au-delà des frontières."
-        text="Pas de tarif affiché. Documents, EDL, option GPS. Fourchette après vos coordonnées."
+        title="Livraison de véhicule en Europe"
+        text="Belgique, Allemagne, Pologne, Monaco, Espagne, Italie, Royaume-Uni. Documents vérifiés avant le départ. Le devis est établi sur dossier."
         image="/images/mission-passat.jpg"
         alt="Convoyage de nuit sur autoroute européenne"
       />

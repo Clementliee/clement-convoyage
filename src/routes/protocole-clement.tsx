@@ -4,12 +4,11 @@ import { CtaBar } from "@/components/CtaBar";
 import { PageHero } from "@/components/PageHero";
 import { pageHead } from "@/lib/seo";
 import { PRESTIGE_PROTOCOL, PROTOCOL } from "@/lib/offers";
-import { formatEuro } from "@/lib/utils";
 
 export const Route = createFileRoute("/protocole-clement")({
   head: () =>
     pageHead({
-      title: "Protocole Clément. Traçabilité du convoyage.",
+      title: "Protocole de mission | Traçabilité du convoyage | Convoyage BZH",
       description:
         "Avant, pendant, après. Photos, kilométrage, carburant, documents, compte-rendu. Traçabilité d’un véhicule convoyé depuis Quimper.",
       path: "/protocole-clement",
@@ -23,8 +22,8 @@ function Page() {
     <main>
       <PageHero
         kicker={PROTOCOL.name}
-        title="Rien ne part sans preuve."
-        text={PROTOCOL.promise}
+        title="Protocole de mission"
+        text="Identification, photographies, kilométrage, documents et compte rendu. Chaque étape est tracée."
         image="/images/etat-des-lieux-vehicule.jpg"
         alt="État des lieux photographique d’un véhicule"
       />
@@ -72,10 +71,10 @@ function Page() {
           <AppLink to={PRESTIGE_PROTOCOL.href} className="font-semibold text-coral">
             {PRESTIGE_PROTOCOL.name}
           </AppLink>
-          . Même méthode, plus de cadre. {formatEuro(PRESTIGE_PROTOCOL.price)}.
+          . Même méthode, un cadre renforcé. Montant au devis.
         </p>
       </section>
-      <CtaBar title="Une mission tracée" />
+      <CtaBar title="Demander un devis" text="Le devis est établi après étude du trajet." />
     </main>
   );
 }

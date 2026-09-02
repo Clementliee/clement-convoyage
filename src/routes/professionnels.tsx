@@ -12,7 +12,7 @@ import { SITE } from "@/lib/site";
 export const Route = createFileRoute("/professionnels")({
   head: () =>
     pageHead({
-      title: "Convoyage professionnel. Concessions, marchands VO, carrosseries.",
+      title: "Convoyage professionnel | Concessions et garages | Convoyage BZH",
       description:
         "Partenaire logistique des réseaux automobiles. Navettes atelier, rotations de stocks, livraison client final. Quimper, Bretagne, France.",
       path: "/professionnels",
@@ -26,9 +26,8 @@ function Page() {
     <main>
       <PageHero
         kicker="Réseaux automobiles"
-        title="Partenaire logistique des concessions, marchands et carrosseries."
-        accent=""
-        text="Navettes atelier, rotations de stocks, livraison client final. Packs professionnels distincts des packs particuliers. Facture à quinze jours."
+        title="Convoyage pour concessions, garages et marchands VO"
+        text="Navettes d’atelier, rotations de stocks, livraisons clients. Formules professionnelles. Facture à quinze jours."
         image="/images/mission-golf-atelier.jpg"
         alt="Berline propre dans un atelier automobile professionnel"
       />

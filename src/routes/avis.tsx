@@ -7,7 +7,7 @@ import { pageHead } from "@/lib/seo";
 export const Route = createFileRoute("/avis")({
   head: () =>
     pageHead({
-      title: "Avis clients. Convoyage BZH, Quimper.",
+      title: "Avis clients | Convoyage BZH, Quimper",
       description:
         "Les notes clients sont le tableau de bord de Convoyage BZH. Les avis Google seront publiés dès les premières missions. Pas de notes inventées.",
       path: "/avis",
@@ -20,9 +20,8 @@ function Page() {
     <main>
       <PageHero
         kicker="Avis"
-        title="Les notes, pas les"
-        accent="promesses."
-        text="Nous ne publions pas d’avis inventés. Cette page accueillera les avis Google dès les premières livraisons."
+        title="Avis clients"
+        text="Les avis Google seront publiés dès les premières missions. Aucun témoignage n’est inventé."
       />
       <section className="mx-auto max-w-2xl px-4 pb-16 sm:px-6">
         <div className="rounded-2xl border border-line bg-sand p-8">

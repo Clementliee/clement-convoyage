@@ -8,9 +8,9 @@ import { pageHead } from "@/lib/seo";
 export const Route = createFileRoute("/destinations")({
   head: () =>
     pageHead({
-      title: "Destinations convoyage. Bretagne, France, Europe.",
+      title: "Destinations | Bretagne, France, Europe | Convoyage BZH",
       description:
-        "Toutes les destinations de convoyage. Prise en charge partout en France et en Europe, base Quimper. Pologne, Monaco, Serbie. Pas de grille tarifaire publique.",
+        "Convoyage de véhicules en Bretagne, en France et en Europe. Prise en charge à l’adresse du véhicule. Base Quimper. Devis sur dossier.",
       path: "/destinations",
     }),
   component: Page,
@@ -48,10 +48,9 @@ function Page() {
   return (
     <main>
       <PageHero
-        kicker="GEO"
-        title="Chaque bassin,"
-        accent="une page."
-        text="On récupère le véhicule où il se trouve. On le remet chez le client. Quimper est la base, pas un départ obligatoire. Aucun tarif en vitrine : la fourchette s’affiche après vos coordonnées."
+        kicker="Destinations"
+        title="Zones d’intervention"
+        text="Le véhicule est pris en charge à l’adresse indiquée et remis au destinataire. Quimper est la base opérationnelle, pas un départ obligatoire. Le devis est établi sur dossier."
       />
       <Group title="Villes" kind="ville" />
       <Group title="Territoires" kind="region" />

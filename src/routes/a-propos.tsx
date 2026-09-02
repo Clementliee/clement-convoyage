@@ -7,9 +7,9 @@ import { pageHead } from "@/lib/seo";
 export const Route = createFileRoute("/a-propos")({
   head: () =>
     pageHead({
-      title: "À propos. Convoyage BZH, Quimper.",
+      title: "À propos | Convoyeur automobile à Quimper | Convoyage BZH",
       description:
-        "Clément, convoyeur à Quimper. Photos, clés en main, mise en main offerte. Livraison tous les jours.",
+        "Clément Leliège, convoyeur automobile à Quimper. Acheminement en France et en Europe. Photos, clés en main, mise en main offerte. Devis sous deux heures.",
       path: "/a-propos",
       image: "/images/fondateur-clement-quimper.jpg",
     }),
@@ -21,9 +21,8 @@ function Page() {
     <main>
       <PageHero
         kicker="À propos"
-        title="Une remise."
-        accent="Pas un trajet."
-        text="Base Quimper, Cornouaille. Un interlocuteur, une remise propre. Chauffeur professionnel."
+        title="Convoyeur automobile à Quimper"
+        text="Clément Leliège. Base opérationnelle en Cornouaille. Acheminement en France et en Europe. Un interlocuteur, une remise en main propre."
       />
       <section className="mx-auto grid max-w-6xl items-start gap-16 px-5 pb-24 sm:px-8 lg:grid-cols-[minmax(0,400px)_1fr]">
         <Reveal>
@@ -39,20 +38,18 @@ function Page() {
           <p className="text-xs font-semibold tracking-[0.2em] text-coral uppercase">Direction, Quimper</p>
           <h2 className="font-display text-4xl text-navy">Clément</h2>
           <p>
-            Clément achemine des véhicules depuis une base à Quimper, en Cornouaille. Prise en charge partout en France
-            et en Europe, remise chez le client. Photos au départ et à l’arrivée, clés en main, mise en main offerte.
+            Clément achemine des véhicules depuis Quimper. Prise en charge à l’adresse indiquée, en France et en Europe.
+            Remise au destinataire. État des lieux photographique. Clés en main. Mise en main offerte.
           </p>
           <p>
-            Si le créneau ne tient pas, on le dit avant. Si ça coince en route, on prévient.
+            Si le créneau ne tient pas, nous le disons avant. En cas d’imprévu, nous prévenons.
           </p>
           <p>
-            Panne, pluie, client absent, document manquant : on prévient, on dit ce qui se passe, on ne disparaît pas.
+            Panne, météo, destinataire absent, document manquant : nous informons. Nous ne disparaissons pas.
           </p>
           <p>
-            Convoyage BZH, depuis Quimper. Un numéro, un mail, une réponse. Tous les jours. Astreinte 24 h pour les
-            professionnels. France et Europe.
+            Un numéro, un e-mail, une réponse. Intervention tous les jours. Astreinte 24 h pour les professionnels.
           </p>
-          <p>On parle de tenue. Pas de « passion de l’automobile ».</p>
         </Reveal>
       </section>
       <CtaBar />

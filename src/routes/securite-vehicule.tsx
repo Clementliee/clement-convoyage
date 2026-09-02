@@ -7,9 +7,9 @@ import { pageHead } from "@/lib/seo";
 export const Route = createFileRoute("/securite-vehicule")({
   head: () =>
     pageHead({
-      title: "Photos du véhicule, clés en main. Convoyage BZH",
+      title: "Traçabilité et remise des clés | Convoyage BZH",
       description:
-        "On photographie le véhicule au départ et à l’arrivée. Les clés sont remises en main propre. Mise en main offerte. Quimper.",
+        "État des lieux photographique au départ et à l’arrivée. Clés remises en main propre. Mise en main offerte. Convoyage BZH, Quimper.",
       path: "/securite-vehicule",
       image: "/images/mission-ds7-vauban.jpg",
     }),
@@ -20,22 +20,21 @@ function Page() {
   return (
     <main>
       <PageHero
-        kicker="Inclus"
-        title="Des photos, des clés."
-        accent="Rien de plus compliqué."
-        text="On photographie le véhicule au départ et à l’arrivée. On remet les clés à la bonne personne. La mise en main est offerte."
+        kicker="Traçabilité"
+        title="Photographies et remise des clés"
+        text="Un état des lieux photographique est établi au départ et à l’arrivée. Les clés sont remises à la personne désignée. La mise en main est offerte."
         image="/images/mission-ds7-vauban.jpg"
         alt="Remise des clés d’un véhicule"
       />
       <section className="mx-auto max-w-3xl space-y-5 px-5 pb-16 text-lg leading-relaxed text-muted sm:px-8">
         <p>
-          Pas de sigle, pas de protocole à décoder. On prend des photos pour que personne ne discute d’une rayure. On ne laisse pas les clés sur un pneu.
+          Un état des lieux photographique évite toute discussion sur une rayure. Les clés ne sont pas laissées sur un pneu. Elles sont remises en main propre.
         </p>
         <p>
-          Si quelque chose coince en route, on prévient. C’est tout.
+          En cas d’imprévu, nous vous informons.
         </p>
         <p>
-          Le traqueur GPS 4G à 199 € est une option séparée : il reste dans la voiture de l’acheteur, 12 mois inclus. Le suivi temporaire d’une mission prestige est inclus dans le Protocole Prestige, 150 €. Ce n’est pas de la sécurité privée.
+          Le traceur GPS 4G est une option : il reste dans le véhicule de l’acquéreur, douze mois inclus. Le suivi temporaire d’une mission prestige est compris dans le protocole dédié. Il ne s’agit pas d’une activité de sécurité privée.
         </p>
         <div className="flex flex-wrap gap-4 text-sm font-semibold">
           <AppLink to="/traqueur-gps" className="text-coral">

@@ -6,7 +6,7 @@ import { pageHead } from "@/lib/seo";
 export const Route = createFileRoute("/preparation-vehicule")({
   head: () =>
     pageHead({
-      title: "Préparation de véhicule avant livraison. Quimper.",
+      title: "Préparation de véhicule avant livraison | Convoyage BZH",
       description:
         "Lavage, intérieur, vitres, jantes, désodorisation, contrôle visuel, carburant ou recharge. Préparation de remise, pas un centre de detailing.",
       path: "/preparation-vehicule",
@@ -29,8 +29,8 @@ function Page() {
     <main>
       <PageHero
         kicker="Préparation"
-        title="Le véhicule arrive propre, contrôlé, prêt."
-        text="Une préparation de remise. Pas une promesse de detailing haut de gamme."
+        title="Préparation du véhicule avant livraison"
+        text="Lavage, habitacle, contrôle visuel et carburant. Une préparation de remise, pas un centre de detailing."
         image="/images/preparation-esthetique-vehicule.jpg"
         alt="Nettoyage d’une berline avant livraison"
       />
