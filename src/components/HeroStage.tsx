@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { SITE } from "@/lib/site";
+import { IMG } from "@/lib/images";
 
 export function HeroStage() {
   const wrap = useRef<HTMLElement>(null);
@@ -39,8 +40,8 @@ export function HeroStage() {
     <section ref={wrap} className="relative h-[145vh] bg-[#1a2230]">
       <div className="sticky top-0 h-dvh overflow-hidden bg-[#1a2230]">
         <img
-          src="/images/convoyage-berline-bretagne.jpg"
-          alt="Berline premium sur la côte bretonne"
+          src={IMG.hero}
+          alt="Peugeot 308 en convoyage, Cornouaille"
           width={1792}
           height={1008}
           fetchPriority="high"
@@ -48,7 +49,7 @@ export function HeroStage() {
           className="absolute inset-0 h-full w-full object-cover object-[62%_58%]"
         />
         <img
-          src="/images/convoyage-berline-phares.jpg"
+          src={IMG.heroPhares}
           alt=""
           width={1792}
           height={1008}

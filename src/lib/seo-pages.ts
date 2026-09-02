@@ -22,12 +22,12 @@ export type SeoPage = {
   disclaimer?: string;
 };
 
-const IMG = "/images/convoyage-voiture-france.jpg";
-const EU = "/images/convoyage-europe-autoroute.jpg";
-const KEYS = "/images/remise-cles-vehicule.jpg";
-const EDL = "/images/etat-des-lieux-vehicule.jpg";
+const IMG = "/images/mission-golf-brest.jpg";
+const EU = "/images/mission-passat.jpg";
+const KEYS = "/images/mission-bmw-x3.jpg";
+const EDL = "/images/mission-bmw-controle.jpg";
 const GPS = "/images/balise-gps-4g-vehicule.jpg";
-const SEC = "/images/remise-cles-vehicule.jpg";
+const SEC = "/images/mission-ds7-vauban.jpg";
 
 function ville(
   slug: string,

@@ -18,7 +18,7 @@ export const Route = createFileRoute("/")({
       description:
         "Convoyeur professionnel à Quimper. Packs particuliers et professionnels, conciergerie de véhicules en Bretagne 7j/7. Mise en main offerte. Devis après coordonnées.",
       path: "/",
-      image: "/images/convoyage-berline-bretagne.jpg",
+      image: "/images/mission-308.jpg",
     }),
   component: Home,
 });
@@ -189,8 +189,8 @@ function Home() {
             </Link>
           </div>
           <img
-            src="/images/atelier-garage-professionnel.jpg?v=propre"
-            alt="Berline propre dans un atelier automobile professionnel"
+            src="/images/mission-golf-atelier.jpg"
+            alt="Volkswagen Golf dans un atelier professionnel"
             className="h-56 w-full object-cover sm:h-72 lg:h-full lg:min-h-[22rem]"
           />
         </div>
@@ -201,15 +201,15 @@ function Home() {
         <Reveal>
         <div className="overflow-hidden rounded-[2.4rem] bg-sand lg:grid lg:grid-cols-2">
           <img
-            src="/images/jockey-gare-quimper.jpg"
-            alt="Berline sur le parvis d’une gare"
+            src="/images/mission-tiguan-gare.jpg"
+            alt="Volkswagen Tiguan sur le parvis d’une gare"
             className="h-72 w-full object-cover lg:h-full"
           />
           <div className="flex flex-col justify-center p-12 sm:p-16">
             <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Conciergerie</p>
             <h2 className="mt-5 font-display text-4xl text-navy sm:text-5xl">Conciergerie de véhicules.</h2>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-muted">
-              Bretagne. Dépose à la gare ou à l’aéroport, rapatriement, CT, attente. À la carte. Pas de gardiennage.
+              Bretagne. Gare, aéroport, location, achat accompagné, CT. À la carte. Pas de gardiennage.
             </p>
             <Link
               to="/jockey-gares-aeroports"

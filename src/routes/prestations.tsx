@@ -27,44 +27,53 @@ function Page() {
       />
 
       <section className="mx-auto grid max-w-6xl gap-6 px-5 pb-16 sm:px-8 lg:grid-cols-3">
-        <article className="flex flex-col rounded-[1.8rem] bg-navy p-8 text-surface sm:p-10">
-          <p className="text-xs font-semibold tracking-[0.18em] text-surface/50 uppercase">Convoyage</p>
-          <h2 className="mt-3 font-display text-3xl sm:text-4xl">France et Europe</h2>
-          <p className="mt-4 flex-1 text-surface/70">
-            On récupère le véhicule où il se trouve. On le remet au destinataire. Bretagne, Paris, Lyon, Nice, Monaco, Bruxelles, Varsovie.
-          </p>
-          <Link
-            to="/simulateur"
-            className="mt-8 inline-flex h-12 w-fit items-center rounded-full bg-coral px-6 text-sm font-semibold"
-          >
-            Obtenir un devis
-          </Link>
+        <article className="flex flex-col overflow-hidden rounded-[1.8rem] bg-navy text-surface">
+          <img src="/images/mission-audi-a4.jpg" alt="Audi A4 Avant en convoyage France" className="h-44 w-full object-cover" />
+          <div className="flex flex-1 flex-col p-8 sm:p-10">
+            <p className="text-xs font-semibold tracking-[0.18em] text-surface/50 uppercase">Convoyage</p>
+            <h2 className="mt-3 font-display text-3xl sm:text-4xl">France et Europe</h2>
+            <p className="mt-4 flex-1 text-surface/70">
+              On récupère le véhicule où il se trouve. On le remet au destinataire. Bretagne, Paris, Lyon, Nice, Monaco, Bruxelles, Varsovie.
+            </p>
+            <Link
+              to="/simulateur"
+              className="mt-8 inline-flex h-12 w-fit items-center rounded-full bg-coral px-6 text-sm font-semibold"
+            >
+              Obtenir un devis
+            </Link>
+          </div>
         </article>
-        <article className="flex flex-col rounded-[1.8rem] border border-line bg-surface p-8 sm:p-10">
-          <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">Conciergerie</p>
-          <h2 className="mt-3 font-display text-3xl text-navy sm:text-4xl">Gare, aéroport, location</h2>
-          <p className="mt-4 flex-1 text-muted">
-            Dépose, rapatriement, récupération ou restitution d’une location, CT, attente. À la carte. Pas de gardiennage.
-          </p>
-          <Link
-            to="/jockey-gares-aeroports"
-            className="mt-8 inline-flex h-12 w-fit items-center rounded-full bg-navy px-6 text-sm font-semibold text-white"
-          >
-            Voir la conciergerie
-          </Link>
+        <article className="flex flex-col overflow-hidden rounded-[1.8rem] border border-line bg-surface">
+          <img src="/images/mission-tiguan-gare.jpg" alt="Volkswagen Tiguan à la gare" className="h-44 w-full object-cover" />
+          <div className="flex flex-1 flex-col p-8 sm:p-10">
+            <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">Conciergerie</p>
+            <h2 className="mt-3 font-display text-3xl text-navy sm:text-4xl">Gare, aéroport, location</h2>
+            <p className="mt-4 flex-1 text-muted">
+              Dépose, rapatriement, récupération ou restitution d’une location, CT, attente. À la carte. Pas de gardiennage.
+            </p>
+            <Link
+              to="/jockey-gares-aeroports"
+              className="mt-8 inline-flex h-12 w-fit items-center rounded-full bg-navy px-6 text-sm font-semibold text-white"
+            >
+              Voir la conciergerie
+            </Link>
+          </div>
         </article>
-        <article className="flex flex-col rounded-[1.8rem] border border-line bg-surface p-8 sm:p-10">
-          <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">Conciergerie</p>
-          <h2 className="mt-3 font-display text-3xl text-navy sm:text-4xl">Achat accompagné</h2>
-          <p className="mt-4 flex-1 text-muted">
-            On y va à deux voitures. Contrôle visuel sur place. Vous repartez au volant de l’achat, on ramène l’autre.
-          </p>
-          <Link
-            to="/jockey-gares-aeroports"
-            className="mt-8 inline-flex h-12 w-fit items-center rounded-full border border-navy px-6 text-sm font-semibold text-navy"
-          >
-            Comment ça se passe
-          </Link>
+        <article className="flex flex-col overflow-hidden rounded-[1.8rem] border border-line bg-surface">
+          <img src="/images/mission-bmw-controle.jpg" alt="Contrôle visuel d’une BMW Série 3" className="h-44 w-full object-cover" />
+          <div className="flex flex-1 flex-col p-8 sm:p-10">
+            <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">Conciergerie</p>
+            <h2 className="mt-3 font-display text-3xl text-navy sm:text-4xl">Achat accompagné</h2>
+            <p className="mt-4 flex-1 text-muted">
+              On y va à deux voitures. Contrôle visuel sur place. Vous repartez au volant de l’achat, on ramène l’autre.
+            </p>
+            <Link
+              to="/jockey-gares-aeroports"
+              className="mt-8 inline-flex h-12 w-fit items-center rounded-full border border-navy px-6 text-sm font-semibold text-navy"
+            >
+              Comment ça se passe
+            </Link>
+          </div>
         </article>
       </section>
 

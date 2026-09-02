@@ -15,7 +15,7 @@ export const Route = createFileRoute("/jockey-gares-aeroports")({
       description:
         "Conciergerie automobile en Bretagne. Gare, aéroport, location, accompagnement à l’achat, CT, attente. À la carte. Pas de gardiennage.",
       path: "/jockey-gares-aeroports",
-      image: "/images/jockey-gare-quimper.jpg",
+      image: "/images/mission-tiguan-gare.jpg",
     }),
   component: Page,
 });
@@ -55,8 +55,8 @@ function Page() {
         title="Le véhicule, sans vous."
         accent=""
         text="Gare, aéroport, location, achat accompagné, contrôle technique. Nous déplaçons la voiture. Vous prenez le train. Photos. Pas de gardiennage."
-        image="/images/jockey-gare-quimper.jpg"
-        alt="Berline sur le parvis d’une gare en Bretagne"
+        image="/images/mission-tiguan-gare.jpg"
+        alt="Volkswagen Tiguan sur le parvis d’une gare en Bretagne"
       />
 
       <section className="mx-auto flex max-w-6xl flex-col gap-4 px-5 pb-12 sm:flex-row sm:px-8">

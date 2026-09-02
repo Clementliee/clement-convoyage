@@ -11,7 +11,7 @@ export const Route = createFileRoute("/convoyage")({
       description:
         "Convoyage de véhicules, base Quimper. Prise en charge partout en France et en Europe. Transfert, préparation, contrôle, remise. Particuliers et professionnels.",
       path: "/convoyage",
-      image: "/images/convoyage-voiture-france.jpg",
+      image: "/images/mission-golf-brest.jpg",
     }),
   component: Page,
 });
@@ -23,7 +23,7 @@ function Page() {
         kicker="Convoyage"
         title="Plus qu’un A vers B."
         text="Prise en charge complète : convoyage, contrôle, préparation, remise. Base Quimper."
-        image="/images/convoyage-voiture-france.jpg"
+        image="/images/mission-golf-brest.jpg"
         alt="Véhicule convoyé en Bretagne"
       />
       <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8">

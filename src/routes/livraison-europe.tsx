@@ -11,7 +11,7 @@ export const Route = createFileRoute("/livraison-europe")({
       description:
         "Convoyage Europe. Belgique, Suisse, Allemagne, Pologne, Monaco, Serbie, Espagne, Italie, Royaume-Uni. Prise en charge sur place, remise chez le client. Devis après coordonnées.",
       path: "/livraison-europe",
-      image: "/images/convoyage-europe-autoroute.jpg",
+      image: "/images/mission-passat.jpg",
     }),
   component: Page,
 });
@@ -64,7 +64,7 @@ function Page() {
         title="Le même standard,"
         accent="au-delà des frontières."
         text="Pas de tarif affiché. Documents, EDL, option GPS. Fourchette après vos coordonnées."
-        image="/images/convoyage-europe-autoroute.jpg"
+        image="/images/mission-passat.jpg"
         alt="Convoyage de nuit sur autoroute européenne"
       />
       <section className="mx-auto max-w-6xl px-4 pb-10 sm:px-6">

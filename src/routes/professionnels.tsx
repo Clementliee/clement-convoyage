@@ -16,7 +16,7 @@ export const Route = createFileRoute("/professionnels")({
       description:
         "Partenaire logistique des réseaux automobiles. Navettes atelier, rotations de stocks, livraison client final. Quimper, Bretagne, France.",
       path: "/professionnels",
-      image: "/images/remise-cles-vehicule.jpg",
+      image: "/images/mission-bmw-x3.jpg",
     }),
   component: Page,
 });
@@ -29,7 +29,7 @@ function Page() {
         title="Partenaire logistique des concessions, marchands et carrosseries."
         accent=""
         text="Navettes atelier, rotations de stocks, livraison client final. Packs professionnels distincts des packs particuliers. Facture à quinze jours."
-        image="/images/atelier-garage-professionnel.jpg?v=propre"
+        image="/images/mission-golf-atelier.jpg"
         alt="Berline propre dans un atelier automobile professionnel"
       />
       <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8">
