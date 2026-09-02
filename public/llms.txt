@@ -27,7 +27,7 @@ Les tarifs de convoyage ne sont pas une grille publique. Fourchette après prén
 - [Protocole Clément](https://clement-convoyage.vercel.app/protocole-clement)
 - [Jockey gares et aéroports](https://clement-convoyage.vercel.app/jockey-gares-aeroports)
 - [Simulateur](https://clement-convoyage.vercel.app/simulateur)
-- [Journal](https://clement-convoyage.vercel.app/blog)
+- [Missions](https://clement-convoyage.vercel.app/missions)
 - [FAQ](https://clement-convoyage.vercel.app/faq)
 - [Contact](https://clement-convoyage.vercel.app/contact)
 

@@ -25,6 +25,25 @@ export const CASE_FILTERS: { id: CaseFilter; label: string }[] = [
   { id: "conciergerie", label: "Conciergerie" },
 ];
 
+export const MISSION_CADRE = [
+  {
+    t: "Véhicule roulant",
+    d: "Particulier ou utilitaire jusqu’à 3,5 t, permis B, en état de marche, assuré, documents à bord. C’est du convoyage. Un non-roulant, une épave ou un hors gabarit, c’est un plateau : nous n’en faisons pas.",
+  },
+  {
+    t: "État des lieux",
+    d: "Photographies au départ et à l’arrivée : compteur, carrosserie, habitacle, documents. Ce n’est pas une expertise agréée. C’est un constat, daté, joint au compte rendu.",
+  },
+  {
+    t: "Achat à distance",
+    d: "Leboncoin, garage, mandataire. Nous récupérons le véhicule une fois la vente conclue et le livrons à l’adresse convenue. Inspection avant achat : conciergerie, en Bretagne seulement.",
+  },
+  {
+    t: "Concession, garage, flotte",
+    d: "Livraison client, navette d’atelier, import, planning. Le commercial vend. Le mécanicien reste au banc. Facture à quinze jours. Un interlocuteur, un compte rendu par mission.",
+  },
+] as const;
+
 export const CASES: MissionCase[] = [
   {
     id: "leboncoin-rennes",

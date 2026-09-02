@@ -2,9 +2,11 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { CtaBar } from "@/components/CtaBar";
 import { PageHero } from "@/components/PageHero";
+import { QuoteCta } from "@/components/QuoteCta";
 import { Reveal } from "@/components/Reveal";
-import { CASE_FILTERS, filterCases, type CaseFilter } from "@/lib/cases";
+import { CASE_FILTERS, MISSION_CADRE, filterCases, type CaseFilter } from "@/lib/cases";
 import { pageHead } from "@/lib/seo";
+import { SITE } from "@/lib/site";
 
 export const Route = createFileRoute("/missions")({
   head: () =>
@@ -22,7 +24,7 @@ function Page() {
   const [filter, setFilter] = useState<CaseFilter>("all");
   const rows = filterCases(filter);
   return (
-    <main>
+    <main className="overflow-x-clip">
       <PageHero
         kicker="Missions"
         title="Missions réalisées"
@@ -30,6 +32,33 @@ function Page() {
         image="/images/mission-audi-a4.jpg"
         alt="Audi A4 Avant en convoyage sur autoroute"
       />
+
+      <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8">
+        <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Cadre</p>
+        <h2 className="mt-4 max-w-xl font-display text-3xl text-navy sm:text-4xl">Ce que nous convoyons. Ce que nous n’assurons pas.</h2>
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
+          Les missions ci-dessous sont des dossiers réels. Le cadre est le même à chaque fois : un véhicule roulant, un
+          chauffeur dédié, un état des lieux, une remise en main propre. Le montant figure sur le devis, après vos
+          coordonnées.
+        </p>
+        <div className="mt-10 grid gap-px overflow-hidden rounded-[1.6rem] border border-line bg-line sm:grid-cols-2">
+          {MISSION_CADRE.map((item) => (
+            <div key={item.t} className="bg-surface p-7 sm:p-8">
+              <p className="font-display text-xl text-navy">{item.t}</p>
+              <p className="mt-2 text-sm leading-relaxed text-muted">{item.d}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <QuoteCta search={{ mission: "convoyage" }}>Chiffrer une mission</QuoteCta>
+          <a
+            href={SITE.phoneHref}
+            className="inline-flex h-12 items-center justify-center rounded-full border border-navy px-6 text-sm font-semibold text-navy"
+          >
+            {SITE.phone}
+          </a>
+        </div>
+      </section>
 
       <section className="mx-auto max-w-6xl overflow-x-hidden px-5 pb-20 sm:px-8">
         <div className="flex flex-wrap gap-2">
@@ -79,7 +108,7 @@ function Page() {
                     }}
                     className="mt-7 inline-flex h-12 w-fit items-center rounded-full bg-coral px-6 text-sm font-semibold text-white"
                   >
-                    Demander un devis
+                    Chiffrer cette mission
                   </Link>
                 </div>
               </article>
@@ -91,6 +120,8 @@ function Page() {
       <CtaBar
         title="Une mission comparable ?"
         text="Indiquez le départ et l’arrivée. Devis ferme sous deux heures ouvrées."
+        primaryLabel="Chiffrer un trajet"
+        primarySearch={{ mission: "convoyage" }}
       />
     </main>
   );

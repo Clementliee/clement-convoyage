@@ -79,12 +79,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://clement-convoyage.vercel.app/blog</loc>
-    <lastmod>2026-09-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://clement-convoyage.vercel.app/contact</loc>
     <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
@@ -824,102 +818,6 @@
   </url>
   <url>
     <loc>https://clement-convoyage.vercel.app/preparation-livraison-automobile</loc>
-    <lastmod>2026-09-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://clement-convoyage.vercel.app/blog/combien-coute-un-convoyage-automobile</loc>
-    <lastmod>2026-09-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://clement-convoyage.vercel.app/blog/livrer-une-voiture-achetee-a-distance</loc>
-    <lastmod>2026-09-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://clement-convoyage.vercel.app/blog/comment-fonctionne-le-convoyage-automobile</loc>
-    <lastmod>2026-09-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://clement-convoyage.vercel.app/blog/convoyage-ou-plateau</loc>
-    <lastmod>2026-09-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://clement-convoyage.vercel.app/blog/preparer-une-voiture-avant-livraison</loc>
-    <lastmod>2026-09-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://clement-convoyage.vercel.app/blog/etat-des-lieux-avant-convoyage</loc>
-    <lastmod>2026-09-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://clement-convoyage.vercel.app/blog/acheter-une-voiture-a-distance-livraison</loc>
-    <lastmod>2026-09-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://clement-convoyage.vercel.app/blog/livrer-une-voiture-depuis-une-autre-region</loc>
-    <lastmod>2026-09-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://clement-convoyage.vercel.app/blog/convoyage-automobile-bretagne</loc>
-    <lastmod>2026-09-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://clement-convoyage.vercel.app/blog/convoyage-automobile-quimper</loc>
-    <lastmod>2026-09-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://clement-convoyage.vercel.app/blog/convoyage-voiture-electrique</loc>
-    <lastmod>2026-09-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://clement-convoyage.vercel.app/blog/livraison-vehicule-electrique</loc>
-    <lastmod>2026-09-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://clement-convoyage.vercel.app/blog/preparation-vehicule-avant-livraison-client</loc>
-    <lastmod>2026-09-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://clement-convoyage.vercel.app/blog/externaliser-convoyage-concession</loc>
-    <lastmod>2026-09-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://clement-convoyage.vercel.app/blog/garage-externaliser-convoyages</loc>
-    <lastmod>2026-09-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://clement-convoyage.vercel.app/blog/convoyage-marchand-vo</loc>
     <lastmod>2026-09-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

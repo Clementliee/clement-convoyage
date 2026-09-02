@@ -18,7 +18,6 @@ export const STATIC_PATHS = [
   "/preparation-vehicule",
   "/protocole-clement",
   "/faq",
-  "/blog",
   "/a-propos",
   "/avis",
   "/contact",

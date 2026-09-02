@@ -12,7 +12,6 @@ const PRESTATIONS = [
 
 const INFOS = [
   { to: "/faq", label: "FAQ" },
-  { to: "/blog", label: "Journal" },
   { to: "/a-propos", label: "À propos" },
   { to: "/contact", label: "Contact" },
   { to: "/destinations", label: "France et Europe" },
