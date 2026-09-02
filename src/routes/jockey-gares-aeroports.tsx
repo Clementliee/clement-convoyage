@@ -90,26 +90,35 @@ function Page() {
       <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8">
         <h2 className="font-display text-3xl text-navy">Aussi, à la carte.</h2>
         <div className="mt-8 grid gap-6 lg:grid-cols-3">
-          <div className="rounded-[1.6rem] border border-line bg-surface p-7">
-            <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">Location</p>
-            <h3 className="mt-3 font-display text-2xl text-navy">Récupérer ou restituer.</h3>
-            <p className="mt-3 text-sm leading-relaxed text-muted">
-              On va chercher la location à l’agence ou à l’aéroport. On la ramène chez vous. Ou l’inverse : on restitue pendant que vous prenez l’avion. Photos. Ticket carburant si le contrat l’exige.
-            </p>
+          <div className="overflow-hidden rounded-[1.6rem] border border-line bg-surface">
+            <img src="/images/mission-golf-aeroport.jpg" alt="Volkswagen Golf de location sur un aéroport breton" className="h-44 w-full object-cover" />
+            <div className="p-7">
+              <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">Location</p>
+              <h3 className="mt-3 font-display text-2xl text-navy">Récupérer ou restituer.</h3>
+              <p className="mt-3 text-sm leading-relaxed text-muted">
+                On va chercher la location à l’agence ou à l’aéroport. On la ramène chez vous. Ou l’inverse : on restitue pendant que vous prenez l’avion. Photos. Ticket carburant si le contrat l’exige.
+              </p>
+            </div>
           </div>
-          <div className="rounded-[1.6rem] border border-line bg-surface p-7">
-            <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">Achat</p>
-            <h3 className="mt-3 font-display text-2xl text-navy">Deux voitures. Contrôle visuel.</h3>
-            <p className="mt-3 text-sm leading-relaxed text-muted">
-              Vous allez voir un véhicule. On vous y rejoint. Contrôle visuel : carrosserie, compteur, intérieur, documents, photos. Si vous achetez, vous repartez au volant. On ramène l’autre.
-            </p>
+          <div className="overflow-hidden rounded-[1.6rem] border border-line bg-surface">
+            <img src="/images/mission-bmw-controle.jpg" alt="Contrôle visuel d’une BMW Série 3 avant achat" className="h-44 w-full object-cover" />
+            <div className="p-7">
+              <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">Achat</p>
+              <h3 className="mt-3 font-display text-2xl text-navy">Deux voitures. Contrôle visuel.</h3>
+              <p className="mt-3 text-sm leading-relaxed text-muted">
+                Vous allez voir un véhicule. On vous y rejoint. Contrôle visuel : carrosserie, compteur, intérieur, documents, photos. Si vous achetez, vous repartez au volant. On ramène l’autre.
+              </p>
+            </div>
           </div>
-          <div className="rounded-[1.6rem] border border-line bg-surface p-7">
-            <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">Atelier</p>
-            <h3 className="mt-3 font-display text-2xl text-navy">CT, carrosserie, concession.</h3>
-            <p className="mt-3 text-sm leading-relaxed text-muted">
-              On dépose le véhicule au centre, au garage, chez le mandataire. On le reprend. Vous n’immobilisez pas votre journée.
-            </p>
+          <div className="overflow-hidden rounded-[1.6rem] border border-line bg-surface">
+            <img src="/images/mission-golf-atelier.jpg" alt="Volkswagen Golf dans un atelier de garage" className="h-44 w-full object-cover" />
+            <div className="p-7">
+              <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">Atelier</p>
+              <h3 className="mt-3 font-display text-2xl text-navy">CT, carrosserie, concession.</h3>
+              <p className="mt-3 text-sm leading-relaxed text-muted">
+                On dépose le véhicule au centre, au garage, chez le mandataire. On le reprend. Vous n’immobilisez pas votre journée.
+              </p>
+            </div>
           </div>
         </div>
       </section>

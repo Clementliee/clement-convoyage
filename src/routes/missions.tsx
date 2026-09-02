@@ -12,7 +12,7 @@ export const Route = createFileRoute("/missions")({
       description:
         "Exemples de missions : Bretagne, Paris, Nice, Monaco, Bruxelles, Varsovie. Location, accompagnement à l’achat, gares. Base Quimper.",
       path: "/missions",
-      image: "/images/convoyage-voiture-france.jpg",
+      image: "/images/mission-audi-a4.jpg",
     }),
   component: Page,
 });
@@ -27,8 +27,8 @@ function Page() {
         title="Ce qu’on fait."
         accent="Concrètement."
         text="Bretagne, France, Europe. Convoyage, professionnels, conciergerie. Le prix se calcule au simulateur, après vos coordonnées."
-        image="/images/convoyage-voiture-france.jpg"
-        alt="Convoyage d’une berline sur route"
+        image="/images/mission-audi-a4.jpg"
+        alt="Audi A4 Avant en convoyage sur autoroute"
       />
 
       <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
