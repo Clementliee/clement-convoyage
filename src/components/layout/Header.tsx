@@ -16,7 +16,7 @@ export function Header() {
 
   return (
     <>
-      <header className="glass fixed inset-x-0 top-0 z-50 border-b border-line/70">
+      <header className={`fixed inset-x-0 top-0 z-50 border-b border-line/70 ${open ? "bg-bg" : "glass"}`}>
         <div className="mx-auto flex h-[4.5rem] max-w-6xl items-center justify-between gap-3 px-4 sm:px-8">
           <Link to="/" className="min-w-0" onClick={() => setOpen(false)}>
             <BrandMark />
@@ -68,7 +68,7 @@ export function Header() {
       </header>
       {open ? (
         <div className="fixed inset-0 z-40 bg-bg pt-[4.5rem] md:hidden">
-          <nav className="flex h-full flex-col px-6 py-8">
+          <nav className="flex h-full flex-col bg-bg px-6 py-10">
             {NAV.map((item) => (
               <Link
                 key={item.to}
@@ -81,11 +81,14 @@ export function Header() {
             ))}
             <Link
               to="/simulateur"
-              className="mt-8 inline-flex h-12 items-center justify-center rounded-full bg-coral text-sm font-semibold text-white"
+              className="mt-10 inline-flex h-12 items-center justify-center rounded-full bg-coral text-sm font-semibold text-white"
               onClick={() => setOpen(false)}
             >
               Obtenir un devis
             </Link>
+            <a href={SITE.phoneHref} className="mt-4 text-center text-sm text-muted">
+              {SITE.phone}
+            </a>
           </nav>
         </div>
       ) : null}

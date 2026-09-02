@@ -32,7 +32,7 @@ export function PageHero({
   return (
     <section className="relative overflow-hidden">
       {image ? (
-        <div className="perspective-scene relative h-52 w-full overflow-hidden sm:h-[28rem]">
+        <div className="perspective-scene relative h-44 w-full overflow-hidden sm:h-[28rem]">
           <div
             className="absolute inset-[-10%] will-change-transform"
             style={{
@@ -52,19 +52,21 @@ export function PageHero({
           <div className="absolute inset-0 bg-navy/10" />
         </div>
       ) : null}
-      <div className="mx-auto max-w-6xl px-5 py-10 sm:px-8 sm:py-24">
+      <div className="mx-auto max-w-6xl px-5 py-8 sm:px-8 sm:py-24">
         {kicker ? (
-          <p className="mb-5 text-xs font-semibold tracking-[0.22em] text-coral uppercase">{kicker}</p>
+          <p className="mb-3 text-xs font-semibold tracking-[0.22em] text-coral uppercase sm:mb-5">{kicker}</p>
         ) : null}
         <RiseWords
           as="h1"
           text={title}
           accent={accent}
-          className="max-w-3xl font-display text-4xl text-navy sm:text-6xl"
+          className="max-w-3xl font-display text-[1.85rem] text-navy sm:text-6xl"
         />
         {text ? (
           <Reveal>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">{text}</p>
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted line-clamp-3 sm:mt-6 sm:line-clamp-none sm:text-lg">
+              {text}
+            </p>
           </Reveal>
         ) : null}
       </div>

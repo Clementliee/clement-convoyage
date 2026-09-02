@@ -55,17 +55,17 @@ function Home() {
     <main>
       <HeroStage />
 
-      <section className="mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-28">
+      <section className="mx-auto max-w-6xl px-5 py-10 sm:px-8 sm:py-28">
         <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Vous êtes</p>
         <RiseWords text="Particulier ou professionnel" className="mt-4 max-w-xl font-display text-3xl text-navy sm:text-5xl" />
         <div className="mt-12 grid gap-6 lg:grid-cols-2">
           <Reveal>
             <article className="flex h-full flex-col overflow-hidden rounded-[1.8rem] bg-navy text-surface">
-              <img src="/images/mission-308.jpg" alt="Peugeot 308 en convoyage" className="h-40 w-full object-cover sm:h-48" />
-              <div className="flex flex-1 flex-col p-6 sm:p-10">
+              <img src="/images/mission-308.jpg" alt="Peugeot 308 en convoyage" className="h-28 w-full object-cover sm:h-48" />
+              <div className="flex flex-1 flex-col p-5 sm:p-10">
                 <p className="text-[11px] font-semibold tracking-[0.16em] text-white/45 uppercase">Particulier</p>
                 <h2 className="mt-3 font-display text-3xl text-white">Faire livrer mon véhicule</h2>
-                <p className="mt-4 flex-1 text-sm leading-relaxed text-white/70">
+                <p className="mt-3 line-clamp-3 flex-1 text-sm leading-relaxed text-white/70 sm:mt-4 sm:line-clamp-none">
                   Achat à distance, mutation, import. Prise en charge à l’adresse du véhicule, remise à domicile. État des
                   lieux photographique. Mise en main offerte.
                 </p>
@@ -77,11 +77,11 @@ function Home() {
           </Reveal>
           <Reveal delay={80}>
             <article className="flex h-full flex-col overflow-hidden rounded-[1.8rem] border border-line bg-surface">
-              <img src="/images/mission-bmw-x3.jpg" alt="Livraison concession" className="h-40 w-full object-cover sm:h-48" />
-              <div className="flex flex-1 flex-col p-6 sm:p-10">
+              <img src="/images/mission-bmw-x3.jpg" alt="Livraison concession" className="h-28 w-full object-cover sm:h-48" />
+              <div className="flex flex-1 flex-col p-5 sm:p-10">
                 <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">Professionnel</p>
                 <h2 className="mt-3 font-display text-3xl text-navy">Externaliser mes convoyages</h2>
-                <p className="mt-4 flex-1 text-sm leading-relaxed text-muted">
+                <p className="mt-3 line-clamp-3 flex-1 text-sm leading-relaxed text-muted sm:mt-4 sm:line-clamp-none">
                   Concessions, garages, mandataires, loueurs. Votre vendeur vend. Votre mécanicien reste au banc. Nous
                   déplaçons le véhicule.
                 </p>
@@ -215,7 +215,7 @@ function Home() {
       <section className="mx-auto max-w-6xl px-5 pb-14 sm:px-8 sm:pb-24">
         <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Preuves</p>
         <RiseWords text="Ce que vous voyez, c’est ce que nous faisons" className="mt-4 max-w-xl font-display text-3xl text-navy sm:text-4xl" />
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
           {[
             { src: "/images/mission-achat-inspection.jpg", alt: "Inspection photographique avant achat" },
             { src: "/images/remise-cles-vehicule.jpg", alt: "Remise des clés en main propre" },
@@ -230,7 +230,7 @@ function Home() {
               key={p.src}
               src={p.src}
               alt={p.alt}
-              className={`h-44 w-full rounded-[1.4rem] object-cover ${"fit" in p ? p.fit : ""}`}
+              className={`h-32 w-full rounded-[1.2rem] object-cover sm:h-44 sm:rounded-[1.4rem] ${"fit" in p ? p.fit : ""}`}
             />
           ))}
         </div>

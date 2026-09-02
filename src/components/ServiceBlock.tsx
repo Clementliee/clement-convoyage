@@ -30,13 +30,15 @@ export function ServiceBlock({ item, reverse = false, delay = 0 }: { item: Servi
           <img
             src={item.image}
             alt={item.alt}
-            className="h-48 w-full object-cover sm:h-64 lg:sticky lg:top-28 lg:h-[min(36rem,70vh)]"
+            className="h-40 w-full object-cover sm:h-64 lg:sticky lg:top-28 lg:h-[min(36rem,70vh)]"
           />
         </div>
-        <div className="flex flex-col p-6 sm:p-10 lg:p-12">
+        <div className="flex flex-col p-5 sm:p-10 lg:p-12">
           <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">{item.kicker}</p>
-          <h3 className="mt-3 font-display text-2xl text-navy sm:text-3xl">{item.title}</h3>
-          <p className="mt-3 text-[0.95rem] leading-relaxed text-navy sm:mt-4 sm:text-base">{item.lead}</p>
+          <h3 className="mt-2 font-display text-[1.65rem] text-navy sm:mt-3 sm:text-3xl">{item.title}</h3>
+          <p className="mt-2 line-clamp-3 text-[0.95rem] leading-relaxed text-navy sm:mt-4 sm:line-clamp-none sm:text-base">
+            {item.lead}
+          </p>
           <div className="mt-5 flex flex-wrap gap-3 sm:mt-6">
             <QuoteCta search={item.search}>{item.cta}</QuoteCta>
             <a
@@ -60,10 +62,8 @@ export function ServiceBlock({ item, reverse = false, delay = 0 }: { item: Servi
             </div>
           ) : null}
 
-          <details className="mt-6 lg:hidden">
-            <summary className="cursor-pointer list-none text-sm font-semibold text-navy underline-offset-4 hover:underline">
-              Lire le détail
-            </summary>
+          <details className="mt-5 lg:hidden">
+            <summary className="cursor-pointer list-none text-sm font-semibold text-coral">Lire le détail</summary>
             <div className="mt-5 space-y-4">
               {item.paragraphs.map((p) => (
                 <p key={p.slice(0, 48)} className="text-sm leading-relaxed text-muted">

@@ -33,7 +33,7 @@ export function SecteurSection({
         <>
           <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">{SECTEUR_INTRO.kicker}</p>
           <RiseWords text={title} className="mt-4 max-w-xl font-display text-3xl text-navy sm:text-4xl" />
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{text}</p>
+          <p className="mt-4 hidden max-w-2xl text-base leading-relaxed text-muted sm:block">{text}</p>
         </>
       ) : null}
 

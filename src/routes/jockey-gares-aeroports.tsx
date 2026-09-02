@@ -77,22 +77,23 @@ function Page() {
         alt="Volkswagen Tiguan sur le parvis d’une gare en Bretagne"
       />
 
-      <section className="mx-auto flex max-w-6xl flex-col gap-4 px-5 pb-16 sm:flex-row sm:px-8">
+      <section className="mx-auto flex max-w-6xl flex-col gap-4 px-5 pb-8 sm:flex-row sm:px-8 sm:pb-16">
         <QuoteCta search={{ mission: "jockey" }} className="h-14 px-8">
           Chiffrer une conciergerie
         </QuoteCta>
         <a
           href={SITE.phoneHref}
-          className="inline-flex h-14 items-center justify-center rounded-full border border-navy px-8 text-sm font-semibold text-navy"
+          className="hidden h-14 items-center justify-center rounded-full border border-navy px-8 text-sm font-semibold text-navy sm:inline-flex"
         >
           {SITE.phone}
         </a>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
+      <div className="flex flex-col">
+      <section className="order-2 mx-auto w-full max-w-6xl px-5 pb-14 sm:px-8 sm:pb-20 lg:order-1">
         <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Cadre</p>
         <RiseWords text="Ce que nous faisons. Ce que nous ne faisons pas." className="mt-4 max-w-2xl font-display text-3xl text-navy sm:text-4xl" />
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
+        <p className="mt-4 hidden max-w-2xl text-base leading-relaxed text-muted sm:block">
           La conciergerie est un déplacement local, en Bretagne. Elle n’est pas un parking, ni un VTC. Chaque mission a
           un début, une exécution, une restitution. Le bouton ouvre le devis, déjà orienté.
         </p>
@@ -109,12 +110,14 @@ function Page() {
         </QuoteCta>
       </section>
 
-      <SecteurSection mode="concierge" showTrajets={false} />
+      <div className="order-3 lg:order-2">
+        <SecteurSection mode="concierge" showTrajets={false} />
+      </div>
 
-      <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
+      <section className="order-1 mx-auto w-full max-w-6xl px-5 pb-14 sm:px-8 sm:pb-20 lg:order-3">
         <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Prestations</p>
         <RiseWords text="Prestations de conciergerie" className="mt-4 max-w-xl font-display text-3xl text-navy sm:text-4xl" />
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
+        <p className="mt-4 hidden max-w-2xl text-base leading-relaxed text-muted sm:block">
           Six prestations, trois familles. Chaque bloc décrit le cadre, le public, ce qui est inclus. Le bouton ouvre le
           devis, déjà orienté vers la mission correspondante. Le montant n’apparaît qu’après vos coordonnées.
         </p>
@@ -133,8 +136,8 @@ function Page() {
           {CONCIERGE_GROUPS.map((group) => (
             <div key={group.id} id={group.id} className="scroll-mt-28">
               <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">{group.title}</p>
-              <p className="mt-2 max-w-2xl text-base leading-relaxed text-muted">{group.text}</p>
-              <div className="mt-8 space-y-10">
+              <p className="mt-2 hidden max-w-2xl text-base leading-relaxed text-muted lg:block">{group.text}</p>
+              <div className="mt-6 space-y-8 sm:mt-8 sm:space-y-10">
                 {CONCIERGE_CATALOGUE.filter((item) => (group.ids as readonly string[]).includes(item.id)).map(
                   (item, i) => (
                     <ServiceBlock key={item.id} item={item} reverse={i % 2 === 1} delay={(i % 2) * 80} />
@@ -145,6 +148,7 @@ function Page() {
           ))}
         </div>
       </section>
+      </div>
 
       <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
         <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Pour le devis</p>

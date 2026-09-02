@@ -21,6 +21,7 @@ export const Route = createRootRoute({
       },
       { name: "theme-color", content: "#f4f1ea" },
       { name: "format-detection", content: "telephone=yes" },
+      { name: "cbzh-rev", content: "m3" },
       { name: "author", content: SITE.name },
     ],
     links: [

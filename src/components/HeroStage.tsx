@@ -63,36 +63,30 @@ export function HeroStage() {
           style={{ opacity: lights }}
           aria-hidden
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/82 via-black/40 to-black/10" />
-        <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col justify-end px-5 pb-10 pt-24 sm:px-8 sm:pb-24">
-          <div className="mb-4 flex flex-wrap gap-2">
-            {[
-              { l: "Base Quimper", always: true },
-              { l: "Chauffeur professionnel", always: false },
-              { l: "France et Europe", always: true },
-              { l: "Devis en 1 minute", always: false },
-            ].map((b) => (
+        <div className="absolute inset-0 bg-gradient-to-t from-black/78 via-black/25 to-black/5" />
+        <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col justify-end px-5 pb-12 pt-24 sm:px-8 sm:pb-24">
+          <div className="mb-5 hidden flex-wrap gap-2 sm:flex">
+            {["Base Quimper", "Chauffeur professionnel", "France et Europe", "Devis en 1 minute"].map((l) => (
               <span
-                key={b.l}
-                className={`rounded-full border border-white/40 bg-black/50 px-3 py-1 text-[10px] tracking-[0.16em] text-white uppercase ${
-                  b.always ? "" : "hidden sm:inline-flex"
-                }`}
+                key={l}
+                className="rounded-full border border-white/40 bg-black/50 px-3 py-1 text-[10px] tracking-[0.16em] text-white uppercase"
               >
-                {b.l}
+                {l}
               </span>
             ))}
           </div>
           <h1
-            className="max-w-3xl font-display text-[2rem] leading-[1.12] text-white sm:text-5xl lg:text-[3.4rem]"
+            className="max-w-3xl font-display text-[1.85rem] leading-[1.12] text-white sm:text-5xl lg:text-[3.4rem]"
             style={{ textShadow: "0 2px 28px rgba(0,0,0,0.7)" }}
           >
             Acheminement de votre véhicule
           </h1>
           <p
-            className="mt-4 max-w-xl text-[0.95rem] leading-relaxed text-white sm:mt-5 sm:text-lg"
+            className="mt-3 max-w-xl text-[0.95rem] leading-relaxed text-white/90 sm:mt-5 sm:text-lg sm:text-white"
             style={{ textShadow: "0 2px 18px rgba(0,0,0,0.7)" }}
           >
-            Convoyeur à Quimper. France et Europe. Devis en une minute, à signer.
+            <span className="sm:hidden">Quimper. France et Europe. Devis immédiat.</span>
+            <span className="hidden sm:inline">Convoyeur à Quimper. France et Europe. Devis en une minute, à signer.</span>
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap">
             <Link
