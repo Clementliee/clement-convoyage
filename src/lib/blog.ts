@@ -84,9 +84,9 @@ export const ARTICLES: Article[] = [
     image: "/images/preparation-esthetique-vehicule.jpg",
     intro: "Une remise sale n’est pas une remise. La préparation n’est pas du detailing de concours.",
     body: [
-      { h: "Le minimum", p: "Pression, niveaux, photos, documents. Pack Essentiel." },
-      { h: "Le standard concession", p: "Lavage intérieur et extérieur, désodorisation légère. Pack Confort." },
-      { h: "La remise soignée", p: "Dossier photo, kit, suivi. Pack Premium." },
+      { h: "Le minimum", p: "Pression, niveaux, photos, documents. Pack Route, ou Pack Atelier côté professionnel." },
+      { h: "Le standard concession", p: "Lavage intérieur et extérieur, désodorisation légère. Pack Sérénité, ou Pack Livraison client." },
+      { h: "La remise soignée", p: "Traceur GPS cédé, 12 mois. Pack Sécurisé. Côté réseau : Pack Signature, coffret et protocole." },
     ],
     faq: [{ q: "Est-ce du detailing ?", a: "Non. Une préparation de remise, avec les moyens d’une mission de convoyage." }],
     related: [{ to: "/preparation-vehicule", label: "Préparation" }, { to: "/pack-mise-a-la-route", label: "Packs" }],

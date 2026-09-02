@@ -8,9 +8,9 @@ import { pageHead } from "@/lib/seo";
 export const Route = createFileRoute("/prestations")({
   head: () =>
     pageHead({
-      title: "Prestations. Livraison de véhicule et jockey | Convoyage BZH",
+      title: "Prestations. Livraison de véhicule et conciergerie | Convoyage BZH",
       description:
-        "Livraison de véhicule en France et en Europe. Jockey gares et aéroports. Deux délais : standard 5 jours, urgent 72 h. Même tarif pour tous. Mise en main offerte.",
+        "Livraison de véhicule en France et en Europe. Conciergerie gares et aéroports en Bretagne. Packs particuliers et professionnels. Mise en main offerte.",
       path: "/prestations",
     }),
   component: Page,
@@ -22,8 +22,8 @@ function Page() {
       <PageHero
         kicker="Prestations"
         title="Livraison de véhicule."
-        accent="Jockey."
-        text="Deux délais. Un seul tarif, particulier ou professionnel."
+        accent="Conciergerie."
+        text="Packs particuliers et professionnels. Conciergerie à la carte en Bretagne. Tous les jours."
       />
 
       <section className="mx-auto grid max-w-6xl gap-6 px-5 pb-16 sm:px-8 lg:grid-cols-2">
@@ -42,9 +42,10 @@ function Page() {
         </article>
         <article className="flex flex-col rounded-[1.8rem] border border-line bg-surface p-8 sm:p-10">
           <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">Nouveau</p>
-          <h2 className="mt-3 font-display text-3xl text-navy sm:text-4xl">Jockey gares et aéroports</h2>
+          <h2 className="mt-3 font-display text-3xl text-navy sm:text-4xl">Conciergerie gares et aéroports</h2>
           <p className="mt-4 flex-1 text-muted">
-            Bretagne, Rennes, Nantes. Dépose à la gare ou à l’aéroport, ou rapatriement à domicile. Photos. Pas de gardiennage.
+            Quimper, Brest, Lorient, Vannes, Rennes, Nantes. Dépose, rapatriement, CT, attente. À la carte. Pas de
+            gardiennage.
           </p>
           <Link
             to="/jockey-gares-aeroports"
@@ -57,7 +58,10 @@ function Page() {
 
       <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8">
         <h2 className="font-display text-3xl text-navy">Deux délais.</h2>
-        <p className="mt-3 max-w-xl text-muted">Le même prix de base, que vous soyez particulier ou professionnel. Week-ends et jours fériés inclus. Sous réserve de disponibilité des équipes.</p>
+        <p className="mt-3 max-w-xl text-muted">
+          Pack Route ou Pack Atelier : le même trajet. Les packs au-dessus changent la remise, pas le kilomètre. Week-ends
+          et jours fériés inclus. Sous réserve de disponibilité.
+        </p>
         <div className="mt-10 grid gap-6 md:grid-cols-2">
           <div className="rounded-[1.6rem] border border-line bg-surface p-8">
             <p className="text-xs font-semibold tracking-[0.16em] text-muted uppercase">Standard</p>
@@ -97,7 +101,7 @@ function Page() {
         ))}
       </section>
 
-      <CtaBar title="Un véhicule à livrer ?" text="Le simulateur prépare le devis. Même tarif pour tous." secondaryTo="/contact" secondaryLabel="Nous écrire" />
+      <CtaBar title="Un véhicule à livrer ?" text="Le simulateur prépare le devis. Packs particuliers ou professionnels." secondaryTo="/contact" secondaryLabel="Nous écrire" />
     </main>
   );
 }

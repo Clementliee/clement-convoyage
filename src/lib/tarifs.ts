@@ -29,14 +29,31 @@ export const OPTIONS = {
   controleVisuel: 49,
   coffretArmor: 45,
   coffretChampagne: 89,
-  packEssentiel: 89,
-  packConfort: 129,
-  packConfortChampagne: 169,
-  packPremium: 329,
+  packEssentiel: 0,
+  packConfort: 189,
+  packConfortChampagne: 129,
+  packPremium: 349,
+  packPartRoute: 0,
+  packPartSerenite: 189,
+  packPartSecurise: 349,
+  packProAtelier: 0,
+  packProLivraison: 129,
+  packProSignature: 279,
   kitBienvenue: 19,
   jockeyCt: 55,
   jockeyLavage: 90,
   jockeyLavagePrestige: 125,
+  jockeyAttente: 39,
+} as const;
+
+/** Économie interne. Les tarifs client sont des prix de vente, URSSAF déjà absorbée. */
+export const ECONOMICS = {
+  urssaf: 0.11,
+  baseCity: "Quimper",
+  approcheEurKm: 0.25,
+  retourChauffeurEurKm: 0.28,
+  retourVehiculeCoeff: 0.78,
+  approcheSeuilKm: 20,
 } as const;
 
 /** Coûts d’achat indicatifs (Amazon / GMS, TTC). Marge ≥ 50 % du prix client. Jamais affichés. */
@@ -71,15 +88,16 @@ export const GPS_COST = {
 
 export const EUROPE_MAJORATION = 0.2;
 export const EUROPE_FORFAIT = 90;
-export const MINIMUM_LOCAL = 55;
+export const MINIMUM_LOCAL = 89;
 
+/** Trajet A→B uniquement. Retour chauffeur et approche Quimper sont facturés à part. */
 export const BAREME = [
-  { min: 0, max: 40, mode: "forfait" as const, prix: 55 },
-  { min: 41, max: 80, eurKm: 1.2, minimum: 70 },
-  { min: 81, max: 200, eurKm: 1.05, minimum: 100 },
-  { min: 201, max: 400, eurKm: 0.95, minimum: 210 },
-  { min: 401, max: 700, eurKm: 0.9, minimum: 380 },
-  { min: 701, max: 99999, eurKm: 0.85, minimum: 600 },
+  { min: 0, max: 40, mode: "forfait" as const, prix: 89 },
+  { min: 41, max: 80, eurKm: 1.0, minimum: 99 },
+  { min: 81, max: 200, eurKm: 0.8, minimum: 129 },
+  { min: 201, max: 400, eurKm: 0.73, minimum: 158 },
+  { min: 401, max: 700, eurKm: 0.68, minimum: 290 },
+  { min: 701, max: 99999, eurKm: 0.62, minimum: 470 },
 ];
 
 export const CITIES: City[] = [
@@ -261,7 +279,7 @@ function haversineKm(a: City, b: City) {
 }
 
 export function roadKm(a: City, b: City) {
-  return Math.max(8, Math.round(haversineKm(a, b) * 1.28));
+  return Math.max(8, Math.round(haversineKm(a, b) * 1.2));
 }
 
 export function prixBareme(km: number) {
@@ -272,6 +290,8 @@ export function prixBareme(km: number) {
 
 export type VehicleKind = "vp" | "utilitaire" | "prestige" | "ve";
 export type WhenKind = "standard" | "urgent";
+export type ClientKind = "part" | "pro";
+export type TripMode = "aller" | "retourVehicule";
 
 /** Passage à la pompe 49 € + carburant 2 €/L, volume selon le véhicule. Marge sur le déplacement. */
 export function litresPlein(vehicle: VehicleKind) {
@@ -306,9 +326,71 @@ export const WHEN_OFFERS = [
 ] as const;
 export type ZoneKind = "france" | "europe";
 
-export type PackKind = "aucun" | "essentiel" | "confort" | "premium";
+export type PackKind = "essentiel" | "confort" | "premium";
 export type FormulaKind = "aucun" | "standard" | "premium";
 export type MissionKind = "convoyage" | "jockey";
+
+export const TRIP_MODES = [
+  {
+    id: "aller" as const,
+    name: "Aller simple",
+    hint: "Un véhicule, A vers B. Le chauffeur rentre ensuite à Quimper. Train ou rapatriement inclus.",
+  },
+  {
+    id: "retourVehicule" as const,
+    name: "Véhicule à reprendre",
+    hint: "Un véhicule à l’aller, un autre au retour. Pas de rentrée à vide. Le second trajet est facturé à 78 %.",
+  },
+] as const;
+
+export function packPrice(kind: ClientKind, pack: PackKind) {
+  if (kind === "pro") {
+    if (pack === "confort") return OPTIONS.packProLivraison;
+    if (pack === "premium") return OPTIONS.packProSignature;
+    return OPTIONS.packProAtelier;
+  }
+  if (pack === "confort") return OPTIONS.packPartSerenite;
+  if (pack === "premium") return OPTIONS.packPartSecurise;
+  return OPTIONS.packPartRoute;
+}
+
+export function applyPack(input: QuoteInput, pack: PackKind): QuoteInput {
+  const pro = input.clientKind === "pro";
+  if (pack === "essentiel") {
+    return {
+      ...input,
+      pack,
+      lavage: "aucun",
+      gps: false,
+      coffret: "aucun",
+      controleVisuel: false,
+      plein: false,
+      protocolePrestige: input.vehicle === "prestige" ? input.protocolePrestige : false,
+    };
+  }
+  if (pack === "confort") {
+    return {
+      ...input,
+      pack,
+      lavage: "complet",
+      gps: false,
+      coffret: pro ? "armor" : "aucun",
+      controleVisuel: true,
+      plein: !pro,
+      protocolePrestige: false,
+    };
+  }
+  return {
+    ...input,
+    pack,
+    lavage: "complet",
+    gps: true,
+    coffret: pro ? "champagne" : "aucun",
+    controleVisuel: true,
+    plein: !pro,
+    protocolePrestige: pro,
+  };
+}
 
 export type JockeySens = "depose" | "rapatriement" | "allerRetour";
 
@@ -362,14 +444,74 @@ export type QuoteInput = {
   formula: FormulaKind;
   model?: string;
   mission: MissionKind;
+  clientKind: ClientKind;
+  tripMode: TripMode;
   jockeySens: JockeySens;
   jockeyPoint: string;
   jockeyRef: string;
   jockeyAller: string;
   jockeyRetour: string;
   jockeyCt: boolean;
+  jockeyAttente: boolean;
   jockeyWash: "aucun" | "standard" | "prestige";
 };
+
+export function defaultQuoteInput(over: Partial<QuoteInput> = {}): QuoteInput {
+  return {
+    from: "Quimper",
+    to: "Rennes",
+    zone: "france",
+    vehicle: "vp",
+    when: "standard",
+    lavage: "aucun",
+    rechargeVe: false,
+    gps: false,
+    protocolePrestige: false,
+    plein: false,
+    controleVisuel: false,
+    coffret: "aucun",
+    pack: "essentiel",
+    kitBienvenue: false,
+    formula: "aucun",
+    mission: "convoyage",
+    clientKind: "part",
+    tripMode: "aller",
+    jockeySens: "rapatriement",
+    jockeyPoint: "",
+    jockeyRef: "",
+    jockeyAller: "",
+    jockeyRetour: "",
+    jockeyCt: false,
+    jockeyAttente: false,
+    jockeyWash: "aucun",
+    ...over,
+  };
+}
+
+/** Exemples publics Pack Route, aller simple. Recalculés par le moteur. */
+export const PRICE_EXAMPLE_TRIPS = [
+  { from: "Quimper", to: "Brest", tag: "Finistère" },
+  { from: "Quimper", to: "Lorient", tag: "Sud Bretagne" },
+  { from: "Quimper", to: "Rennes", tag: "Le plus demandé" },
+  { from: "Quimper", to: "Paris", tag: "France" },
+  { from: "Vannes", to: "Rennes", tag: "Départ hors base" },
+] as const;
+
+export function priceExamples() {
+  return PRICE_EXAMPLE_TRIPS.map((trip) => {
+    const q = computeQuote(defaultQuoteInput({ from: trip.from, to: trip.to }));
+    return {
+      from: trip.from,
+      to: trip.to,
+      tag: trip.tag,
+      total: q.total,
+      km: q.km,
+      approche: q.prixApproche,
+    };
+  });
+}
+
+export type QuoteLine = { label: string; amount: number; hint?: string };
 
 export type QuoteResult = {
   ok: boolean;
@@ -382,24 +524,58 @@ export type QuoteResult = {
   fromName: string;
   toName: string;
   europe: boolean;
+  tripMode: TripMode;
+  kmApproche: number;
+  kmMission: number;
+  kmRetour: number;
+  prixApproche: number;
+  prixTrajet: number;
+  prixRetour: number;
+  lines: QuoteLine[];
+  netApresUrssaf: number;
 };
+
+function failQuote(partial: Partial<QuoteResult> & { message: string; fromName: string; toName: string }): QuoteResult {
+  return {
+    ok: false,
+    km: 0,
+    base: 0,
+    options: 0,
+    total: 0,
+    delay: "",
+    europe: false,
+    tripMode: "aller",
+    kmApproche: 0,
+    kmMission: 0,
+    kmRetour: 0,
+    prixApproche: 0,
+    prixTrajet: 0,
+    prixRetour: 0,
+    lines: [],
+    netApresUrssaf: 0,
+    ...partial,
+  };
+}
+
+export function prixRetourChauffeur(kmToBase: number, missionKm: number) {
+  if (missionKm <= 40) return 15;
+  return Math.max(35, Math.round(kmToBase * ECONOMICS.retourChauffeurEurKm));
+}
+
+export function prixApproche(kmFromBase: number) {
+  if (kmFromBase <= ECONOMICS.approcheSeuilKm) return 0;
+  return Math.round(kmFromBase * ECONOMICS.approcheEurKm);
+}
 
 export function computeQuote(input: QuoteInput): QuoteResult {
   if (input.mission === "jockey") {
     const point = JOCKEY_POINTS.find((p) => p.name === input.jockeyPoint);
     if (!point) {
-      return {
-        ok: false,
+      return failQuote({
         message: "Choisissez un point de rendez-vous.",
-        km: 0,
-        base: 0,
-        options: 0,
-        total: 0,
-        delay: "",
         fromName: input.jockeyPoint || "Point de rendez-vous",
         toName: "Domicile",
-        europe: false,
-      };
+      });
     }
     const home = findCity(input.from);
     const dest = {
@@ -414,10 +590,28 @@ export function computeQuote(input: QuoteInput): QuoteResult {
     if (round) base = home && km ? Math.round(Math.max(point.forfait, prixBareme(km)) * 1.8) : point.allerRetour;
     if (input.when === "urgent") base = Math.round(base * (1 + OPTIONS.urgencePct));
     let options = 0;
-    if (input.jockeyWash === "standard") options += OPTIONS.jockeyLavage;
-    if (input.jockeyWash === "prestige") options += OPTIONS.jockeyLavagePrestige;
-    if (input.plein) options += prixPlein(input.vehicle);
-    if (input.jockeyCt) options += OPTIONS.jockeyCt;
+    const lines: QuoteLine[] = [{ label: round ? "Aller et retour" : "Trajet jockey", amount: base }];
+    if (input.jockeyWash === "standard") {
+      options += OPTIONS.jockeyLavage;
+      lines.push({ label: "Nettoyage intérieur et extérieur", amount: OPTIONS.jockeyLavage });
+    }
+    if (input.jockeyWash === "prestige") {
+      options += OPTIONS.jockeyLavagePrestige;
+      lines.push({ label: "Nettoyage prestige", amount: OPTIONS.jockeyLavagePrestige });
+    }
+    if (input.plein) {
+      const p = prixPlein(input.vehicle);
+      options += p;
+      lines.push({ label: "Plein carburant", amount: p });
+    }
+    if (input.jockeyCt) {
+      options += OPTIONS.jockeyCt;
+      lines.push({ label: "Passage contrôle technique", amount: OPTIONS.jockeyCt });
+    }
+    if (input.jockeyAttente) {
+      options += OPTIONS.jockeyAttente;
+      lines.push({ label: "Attente / remise à une personne", amount: OPTIONS.jockeyAttente });
+    }
     const homeName = home?.name ?? (input.from.trim() || "Domicile");
     const label =
       input.jockeySens === "depose"
@@ -426,34 +620,39 @@ export function computeQuote(input: QuoteInput): QuoteResult {
           ? `Rapatriement ${point.name} → ${homeName}`
           : `Aller et retour ${homeName} ↔ ${point.name}`;
     if (!input.from.trim()) {
-      return {
-        ok: false,
+      return failQuote({
         message: "Indiquez la ville du domicile.",
         km,
-        base: 0,
-        options: 0,
-        total: 0,
-        delay: "",
         fromName: homeName,
         toName: point.name,
-        europe: false,
-      };
+      });
     }
+    const total = base + options;
     return {
       ok: true,
       km,
       base,
       options,
-      total: base + options,
+      total,
       delay: "Créneau sous 2 h, sous réserve.",
       fromName: homeName,
       toName: label,
       europe: false,
+      tripMode: round ? "retourVehicule" : "aller",
+      kmApproche: 0,
+      kmMission: km,
+      kmRetour: round ? km : 0,
+      prixApproche: 0,
+      prixTrajet: base,
+      prixRetour: 0,
+      lines,
+      netApresUrssaf: Math.round(total * (1 - ECONOMICS.urssaf)),
     };
   }
 
   const fromCity = findCity(input.from);
   const toCity = findCity(input.to);
+  const quimper = findCity("Quimper")!;
   let km = input.kmManual && input.kmManual > 0 ? input.kmManual : 0;
   let fromName = input.from.trim() || "Départ";
   let toName = input.to.trim() || "Arrivée";
@@ -463,79 +662,99 @@ export function computeQuote(input: QuoteInput): QuoteResult {
       km = roadKm(fromCity, toCity);
       fromName = fromCity.name;
       toName = toCity.name;
-      const quimper = findCity("Quimper")!;
-      if (fromCity.name === "Quimper" && toCity.forfaitFromQuimper) {
-        km = roadKm(quimper, toCity);
-      } else if (toCity.name === "Quimper" && fromCity.forfaitFromQuimper) {
-        km = roadKm(fromCity, quimper);
-      }
-    } else if (!fromCity || !toCity) {
-      return {
-        ok: false,
+    } else {
+      return failQuote({
         message: "Ville inconnue. Indiquez les kilomètres GPS ou choisissez une ville de la liste.",
-        km: 0,
-        base: 0,
-        options: 0,
-        total: 0,
-        delay: "",
         fromName,
         toName,
         europe: input.zone === "europe",
-      };
+      });
     }
+  } else if (fromCity) {
+    fromName = fromCity.name;
+    if (toCity) toName = toCity.name;
   }
 
-  let base = prixBareme(km);
-  if (fromCity?.name === "Quimper" && toCity?.forfaitFromQuimper) {
-    base = Math.max(base, toCity.forfaitFromQuimper);
-  }
-  if (toCity?.name === "Quimper" && fromCity?.forfaitFromQuimper) {
-    base = Math.max(base, fromCity.forfaitFromQuimper);
-  }
+  const kmMission = km;
+  const kmApprocheRaw = fromCity ? roadKm(quimper, fromCity) : 0;
+  const kmRetourBase = toCity ? roadKm(toCity, quimper) : kmMission;
 
+  let prixTrajet = prixBareme(kmMission);
   const europeForced = input.zone === "europe" || fromCity?.europe || toCity?.europe;
   if (europeForced) {
-    const named = EUROPE_DISPLAY.find(
-      (e) => e.name === toCity?.name || e.name === fromCity?.name,
-    );
-    if (named) base = Math.max(base, named.prix);
-    else base = Math.round(base * (1 + EUROPE_MAJORATION) + EUROPE_FORFAIT);
+    const named = EUROPE_DISPLAY.find((e) => e.name === toCity?.name || e.name === fromCity?.name);
+    if (named) prixTrajet = Math.max(prixTrajet, named.prix);
+    else prixTrajet = Math.round(prixTrajet * (1 + EUROPE_MAJORATION) + EUROPE_FORFAIT);
   }
 
-  if (input.vehicle === "utilitaire") base = Math.round(base * (1 + OPTIONS.utilitairePct));
-  if (input.vehicle === "prestige") base = Math.round(base * (1 + OPTIONS.prestigePct));
+  if (input.vehicle === "utilitaire") prixTrajet = Math.round(prixTrajet * (1 + OPTIONS.utilitairePct));
+  if (input.vehicle === "prestige") prixTrajet = Math.round(prixTrajet * (1 + OPTIONS.prestigePct));
 
-  if (input.when === "urgent") base = Math.round(base * (1 + OPTIONS.urgencePct));
+  const roundTrip = input.tripMode === "retourVehicule";
+  const driverHome = toCity?.name === "Quimper";
+  let prixApprocheVal = fromCity && fromCity.name !== "Quimper" ? prixApproche(kmApprocheRaw) : 0;
+  let prixRetourVal = 0;
+  if (roundTrip) prixRetourVal = Math.round(prixTrajet * ECONOMICS.retourVehiculeCoeff);
+  else if (!driverHome) prixRetourVal = prixRetourChauffeur(kmRetourBase, kmMission);
 
-  let options = 0;
-  const packed = input.pack !== "aucun";
-  const prestige = input.vehicle === "prestige";
-  const confortChampagne = packed && input.pack === "confort" && (prestige || input.coffret === "champagne");
-
-  if (input.pack === "essentiel") options += OPTIONS.packEssentiel;
-  else if (input.pack === "confort") options += confortChampagne ? OPTIONS.packConfortChampagne : OPTIONS.packConfort;
-  else if (input.pack === "premium") options += OPTIONS.packPremium;
-
-  if (!packed) {
-    if (input.lavage === "complet" || input.lavage === "exterieur") options += OPTIONS.lavageComplet;
-    if (input.controleVisuel) options += OPTIONS.controleVisuel;
-    if (input.gps) options += OPTIONS.gps;
-    if (input.plein) options += prixPlein(input.vehicle);
-    if (input.coffret === "armor") options += OPTIONS.coffretArmor;
-    if (input.coffret === "champagne") options += OPTIONS.coffretChampagne;
+  if (input.when === "urgent") {
+    const k = 1 + OPTIONS.urgencePct;
+    prixTrajet = Math.round(prixTrajet * k);
+    prixApprocheVal = Math.round(prixApprocheVal * k);
+    prixRetourVal = Math.round(prixRetourVal * k);
   }
 
-  if (input.protocolePrestige) options += OPTIONS.protocolePrestige;
+  const base = prixTrajet + prixApprocheVal + prixRetourVal;
+  const pack = input.pack;
+  const options = packPrice(input.clientKind, pack);
+
+  const lines: QuoteLine[] = [
+    { label: `Trajet ${fromName} → ${toName}`, amount: prixTrajet, hint: `${kmMission} km` },
+  ];
+  if (prixApprocheVal > 0) {
+    lines.push({
+      label: "Approche depuis Quimper",
+      amount: prixApprocheVal,
+      hint: `${kmApprocheRaw} km × ${ECONOMICS.approcheEurKm.toFixed(2).replace(".", ",")} €`,
+    });
+  }
+  if (roundTrip && prixRetourVal > 0) {
+    lines.push({
+      label: `Véhicule retour ${toName} → ${fromName}`,
+      amount: prixRetourVal,
+      hint: "78 % du trajet aller",
+    });
+  } else if (!roundTrip && prixRetourVal > 0) {
+    lines.push({
+      label: "Retour chauffeur à Quimper",
+      amount: prixRetourVal,
+      hint: "Train / rapatriement",
+    });
+  }
+  if (options > 0) {
+    const packLabel =
+      input.clientKind === "pro"
+        ? pack === "confort"
+          ? "Pack Livraison client"
+          : pack === "premium"
+            ? "Pack Signature réseau"
+            : "Pack Atelier"
+        : pack === "confort"
+          ? "Pack Sérénité"
+          : pack === "premium"
+            ? "Pack Sécurisé"
+            : "Pack Route";
+    lines.push({ label: packLabel, amount: options });
+  }
 
   const total = Math.max(MINIMUM_LOCAL, base + options);
 
   let delay = "5 jours, sous réserve de disponibilité";
   if (input.when === "urgent") delay = "sous 72 h, sous réserve de disponibilité";
-  if (europeForced && input.when === "standard") delay = "5 jours, sous réserve de disponibilité";
 
   return {
     ok: true,
-    km,
+    km: kmMission,
     base,
     options,
     total,
@@ -543,14 +762,24 @@ export function computeQuote(input: QuoteInput): QuoteResult {
     fromName,
     toName,
     europe: Boolean(europeForced),
+    tripMode: input.tripMode,
+    kmApproche: fromCity && fromCity.name !== "Quimper" ? kmApprocheRaw : 0,
+    kmMission,
+    kmRetour: roundTrip ? kmMission : driverHome ? 0 : kmRetourBase,
+    prixApproche: prixApprocheVal,
+    prixTrajet,
+    prixRetour: prixRetourVal,
+    lines,
+    netApresUrssaf: Math.round(total * (1 - ECONOMICS.urssaf)),
   };
 }
 
 export type QuoteRange = { low: number; mid: number; high: number };
 
 export function quoteRange(total: number): QuoteRange {
-  const low = Math.max(MINIMUM_LOCAL, Math.round((total * 0.9) / 5) * 5);
-  let high = Math.round((total * 1.12) / 5) * 5;
-  if (high <= low) high = low + 25;
+  const low = Math.max(MINIMUM_LOCAL, Math.round((total * 0.97) / 5) * 5);
+  let high = Math.round((total * 1.08) / 5) * 5;
+  if (high <= low) high = low + 15;
   return { low, mid: total, high };
 }
+

@@ -8,9 +8,15 @@
   </url>
   <url>
     <loc>https://clement-convoyage.vercel.app</loc>
-    <lastmod>2026-09-01</lastmod>
+    <lastmod>2026-09-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://clement-convoyage.vercel.app/tarifs</loc>
+    <lastmod>2026-09-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://clement-convoyage.vercel.app/convoyage</loc>

@@ -17,15 +17,15 @@ export const Route = createFileRoute("/faq")({
 });
 
 const ITEMS = [
-  { q: "Qui est Convoyage BZH ?", a: "Un convoyeur automobile basé à Quimper. Clément pilote. Expérience la remise en concession." },
+  { q: "Qui est Convoyage BZH ?", a: "Un convoyeur automobile basé à Quimper, en Cornouaille. Clément conduit. Remise comme en concession." },
   { q: "Quels véhicules ?", a: "Particuliers et utilitaires jusqu’à 3,5 t, en état de marche. Pas de plateau, pas de non-roulant." },
-  { q: "Où ?", a: "Prise en charge et remise partout en France, et en Europe selon mission. Quimper est la base, pas un départ obligatoire." },
-  { q: "Combien ?", a: "Selon distance, véhicule, date, options. Fourchette après coordonnées. Packs à partir de 89 €, indicatifs." },
-  { q: "Comment se passe une mission ?", a: "Demande, devis, prise en charge, convoyage, remise, compte-rendu. Protocole Clément." },
-  { q: "Professionnels ?", a: "Oui. Compte, quinze jours, astreinte 24 h, cadre volume." },
-  { q: "GPS ?", a: "Option. Suivi temporaire, retiré à la remise. Pas de sécurité privée." },
-  { q: "C’est de la sécurité privée ?", a: "Non. C’est un cadre de convoyage : photos, scellés des clés et documents du véhicule, GPS le temps de la mission, conduite adaptée. Pas de protection de personnes, pas de transport de fonds." },
-  { q: "Expertise ?", a: "Non. Contrôle visuel 20 points, photos." },
+  { q: "Où ?", a: "Prise en charge et remise partout en France, et en Europe. Quimper est la base, pas un départ obligatoire. Approche 0,25 €/km hors Quimper." },
+  { q: "Combien ?", a: "Pack Route aller simple : Quimper → Brest 134 €, Quimper → Rennes 218 €, Quimper → Paris 559 €. Indicatifs. Devis ferme sous 2 heures. Détail sur la page Tarifs." },
+  { q: "Pourquoi plus cher qu’une plateforme à 60 € ?", a: "Parce que c’est un chauffeur professionnel, pas un particulier. Photos, assurance tous risques, mise en main, créneau tenu." },
+  { q: "Comment se passe une mission ?", a: "Demande, devis, prise en charge, convoyage, remise, compte-rendu." },
+  { q: "Professionnels ?", a: "Oui. Packs Atelier, Livraison client, Signature réseau. Facture à quinze jours. Garages, mandataires, marchands VO, loueurs, flottes." },
+  { q: "GPS ?", a: "Inclus au Pack Sécurisé : traceur 4G cédé, 12 mois de suivi. Sur le Pack Signature réseau : GPS le temps de la mission." },
+  { q: "C’est de la sécurité privée ?", a: "Non. C’est un cadre de convoyage : photos, scellés des clés et documents, GPS le temps de la mission. Pas de protection de personnes, pas de transport de fonds." },
   { q: "Paiement ?", a: "Particulier : virement avant départ. Professionnel : quinze jours." },
   { q: "Week-end ?", a: "Oui, tous les jours, selon créneau." },
 ];

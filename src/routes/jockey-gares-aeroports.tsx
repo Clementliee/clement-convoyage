@@ -11,9 +11,9 @@ import { formatEuro } from "@/lib/utils";
 export const Route = createFileRoute("/jockey-gares-aeroports")({
   head: () =>
     pageHead({
-      title: "Jockey gares et aéroports en Bretagne | Convoyage BZH",
+      title: "Conciergerie de véhicules en Bretagne | Convoyage BZH",
       description:
-        "Dépose ou rapatriement de véhicule. Gares et aéroports de Bretagne, Rennes et Nantes. Domicile renseigné, devis selon le trajet. Photos. Pas de gardiennage.",
+        "Conciergerie automobile en Bretagne. Dépose gare ou aéroport, rapatriement, contrôle technique, attente, lavage. À la carte. Pas de gardiennage.",
       path: "/jockey-gares-aeroports",
       image: "/images/jockey-gare-quimper.jpg",
     }),
@@ -34,8 +34,8 @@ const FAQ = [
     a: "En Bretagne, à Rennes et à Nantes. Gares de Quimper, Lorient, Brest, Vannes, Rennes, Nantes. Aéroports de Brest-Bretagne, Lorient, Rennes-Saint-Jacques et Nantes-Atlantique.",
   },
   {
-    q: "Le nettoyage est-il possible sans jockey ?",
-    a: "Non. Le nettoyage n’est proposé qu’avec une livraison ou un jockey. 90 €, 125 € pour un véhicule prestige.",
+    q: "Pourquoi à la carte ici, et pas sur le convoyage ?",
+    a: "La conciergerie est une prestation locale, souvent courte. On compose : lavage, CT, plein, attente d’une personne. Le convoyage A vers B se vend en packs, particulier ou professionnel.",
   },
 ];
 
@@ -43,10 +43,10 @@ function Page() {
   return (
     <main>
       <PageHero
-        kicker="Bretagne"
-        title="Jockey gares et aéroports."
+        kicker="Conciergerie Bretagne"
+        title="Le véhicule, sans vous."
         accent=""
-        text="Nous déposons votre véhicule, ou nous le ramenons à domicile. Gares et aéroports de Bretagne, Rennes et Nantes. Photos. Pas de gardiennage."
+        text="Gare, aéroport, contrôle technique, remise à une personne. Nous déplaçons la voiture. Vous prenez le train. Photos. Pas de gardiennage."
         image="/images/jockey-gare-quimper.jpg"
         alt="Berline sur le parvis d’une gare en Bretagne"
       />
@@ -57,7 +57,7 @@ function Page() {
           search={{ mission: "jockey" }}
           className="inline-flex h-14 items-center justify-center rounded-full bg-coral px-8 text-sm font-semibold text-white"
         >
-          Obtenir un devis jockey
+          Devis conciergerie
         </Link>
         <a
           href={SITE.phoneHref}
@@ -97,8 +97,8 @@ function Page() {
       </section>
 
       <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8">
-        <h2 className="font-display text-3xl text-navy">Options, uniquement avec le jockey.</h2>
-        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <h2 className="font-display text-3xl text-navy">À la carte, uniquement en conciergerie.</h2>
+        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-5">
           <div className="rounded-[1.6rem] bg-sand p-7">
             <p className="font-display text-xl text-navy">Nettoyage</p>
             <p className="mt-2 text-sm text-muted">Intérieur et extérieur. {formatEuro(OPTIONS.jockeyLavage)}. Prestige {formatEuro(OPTIONS.jockeyLavagePrestige)}.</p>
@@ -110,6 +110,10 @@ function Page() {
           <div className="rounded-[1.6rem] bg-sand p-7">
             <p className="font-display text-xl text-navy">Plein carburant</p>
             <p className="mt-2 text-sm text-muted">Passage à la pompe {formatEuro(OPTIONS.pleinService)} + {OPTIONS.carburantLitre} €/L. Environ {formatEuro(OPTIONS.plein)} pour 50 L.</p>
+          </div>
+          <div className="rounded-[1.6rem] bg-sand p-7">
+            <p className="font-display text-xl text-navy">Attente</p>
+            <p className="mt-2 text-sm text-muted">Quelqu’un vient chercher le véhicule. Nous restons. {formatEuro(OPTIONS.jockeyAttente)}.</p>
           </div>
           <div className="rounded-[1.6rem] bg-sand p-7">
             <p className="font-display text-xl text-navy">Double des clés</p>
@@ -124,10 +128,10 @@ function Page() {
         <FaqJsonLd items={FAQ} />
       </section>
       <CtaBar
-        title="Un véhicule à déposer ou à ramener ?"
+        title="Un véhicule à déposer, ramener, ou présenter ?"
         text="Domicile, gare ou aéroport, aller, retour ou les deux. Devis en quelques minutes."
         secondaryTo="/simulateur"
-        secondaryLabel="Devis jockey"
+        secondaryLabel="Devis conciergerie"
       />
     </main>
   );

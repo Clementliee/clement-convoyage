@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { downloadQuotePdf } from "@/lib/quote-pdf";
 import { mailtoFallback, sendDevisLead } from "@/lib/send-devis";
-import { OPTIONS, quoteRange, type QuoteInput, type QuoteResult } from "@/lib/tarifs";
+import { quoteRange, type QuoteInput, type QuoteResult } from "@/lib/tarifs";
 import { formatEuro } from "@/lib/utils";
 
 export function QuoteGate({
@@ -16,29 +16,27 @@ export function QuoteGate({
 }) {
   const range = quoteRange(quote.total);
   const extras = [
-    input.mission === "jockey" ? `Jockey ${input.jockeySens} · domicile ${input.from} · ${input.jockeyPoint}` : "",
+    input.mission === "jockey" ? `Conciergerie ${input.jockeySens} · domicile ${input.from} · ${input.jockeyPoint}` : "",
     input.mission === "jockey" && input.jockeyRef ? `Train ou vol ${input.jockeyRef}` : "",
     input.mission === "jockey" && input.jockeyAller ? `Aller ${input.jockeyAller.replace("T", " ")}` : "",
     input.mission === "jockey" && input.jockeyRetour ? `Retour ${input.jockeyRetour.replace("T", " ")}` : "",
     input.mission === "jockey" && input.jockeyCt ? "Passage révision ou contrôle technique" : "",
+    input.mission === "jockey" && input.jockeyAttente ? "Attente / remise à une personne" : "",
     input.mission === "jockey" && input.jockeyWash === "prestige"
       ? "Nettoyage prestige 125 €"
       : input.mission === "jockey" && input.jockeyWash === "standard"
         ? "Nettoyage intérieur et extérieur 90 €"
         : "",
-    input.gps ? "Balise traqueur GPS 4G autonome, 12 mois inclus" : "",
-    input.protocolePrestige ? `Protocole Prestige ${OPTIONS.protocolePrestige} €` : "",
+    input.mission === "convoyage" && input.tripMode === "retourVehicule" ? "Véhicule à reprendre au retour" : "",
+    input.mission === "convoyage" && input.tripMode === "aller" ? "Aller simple, retour chauffeur inclus" : "",
+    input.clientKind === "pro" ? "Client professionnel" : "Client particulier",
+    input.pack === "essentiel" ? (input.clientKind === "pro" ? "Pack Atelier" : "Pack Route") : "",
+    input.pack === "confort" ? (input.clientKind === "pro" ? "Pack Livraison client" : "Pack Sérénité") : "",
+    input.pack === "premium" ? (input.clientKind === "pro" ? "Pack Signature réseau" : "Pack Sécurisé") : "",
+    input.gps && input.pack === "premium" ? "Traceur GPS 4G" : "",
     "Mise en main personnalisée, offerte",
-    input.plein
-      ? `Plein carburant : passage à la pompe ${OPTIONS.pleinService} € + carburant ${OPTIONS.carburantLitre} €/L`
-      : "",
-    input.rechargeVe ? "Recharge VE" : "",
-    input.controleVisuel || input.pack !== "aucun" ? "" : "",
+    input.plein ? `Plein carburant inclus au pack` : "",
     input.coffret === "champagne" ? "Coffret Prestige Champagne" : input.coffret === "armor" ? "Coffret Terroir Breton" : "",
-    input.kitBienvenue || input.pack === "premium" ? "Kit de bienvenue" : "",
-    input.pack === "essentiel" ? "Pack Standard" : "",
-    input.pack === "confort" ? "Pack Confort" : "",
-    input.pack === "premium" ? "Pack Signature" : "",
     input.model ? `Véhicule : ${input.model}` : "",
     input.vehicle === "prestige" ? "Prestige" : "",
     input.vehicle === "utilitaire" ? "Utilitaire" : "",

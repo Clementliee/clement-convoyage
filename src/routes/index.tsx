@@ -7,16 +7,16 @@ import { HeroStage } from "@/components/HeroStage";
 import { HomeEstimator } from "@/components/HomeEstimator";
 import { Reveal } from "@/components/Reveal";
 import { pageHead } from "@/lib/seo";
-import { PILLARS, PROCESS, B2B_OFFERS, PACKS, PRESTIGE_PROTOCOL } from "@/lib/offers";
-import { OPTIONS } from "@/lib/tarifs";
+import { PILLARS, PROCESS, B2B_OFFERS, PACKS_PART, PACKS_PRO, PRESTIGE_PROTOCOL, WHY_PRO_DRIVER } from "@/lib/offers";
 import { formatEuro } from "@/lib/utils";
+import { PriceExamples } from "@/components/PriceExamples";
 
 export const Route = createFileRoute("/")({
   head: () =>
     pageHead({
-      title: "Convoyage BZH | Convoyage automobile premium et conciergerie | Bretagne, France, Europe",
+      title: "Convoyage BZH | Convoyage automobile à Quimper, Cornouaille | Bretagne, France, Europe",
       description:
-        "Société de convoyage automobile professionnel et conciergerie VIP, basée à Quimper. Transfert VN et VO, mise à la route, préparation esthétique, livraison sécurisée 7j/7.",
+        "Convoyeur professionnel à Quimper. Packs particuliers et professionnels, conciergerie de véhicules en Bretagne 7j/7. Quimper → Rennes 218 € Pack Route. Mise en main offerte.",
       path: "/",
       image: "/images/convoyage-berline-bretagne.jpg",
     }),
@@ -38,20 +38,16 @@ const FAQ = [
   },
   {
     q: "Comment est établie la cotation ?",
-    a: "Selon l’itinéraire, le segment du véhicule, le délai et les prestations associées. La fourchette s’affiche après nom, téléphone et e-mail. Prix indicatif, à confirmer sous 2 heures ouvrées.",
+    a: "Base Quimper. Trajet, plus 0,25 €/km d’approche si le départ n’est pas à Quimper, plus le retour du chauffeur en aller simple. Packs particuliers et professionnels. Exemples publics sur la page Tarifs. Devis ferme sous 2 heures.",
+  },
+  {
+    q: "Pourquoi pas un particulier à 60 € ?",
+    a: "Un particulier n’est pas assuré comme un professionnel, ne fait pas d’état des lieux photo, ne fait pas la mise en main. Nous facturons un chauffeur, des photos, un créneau tenu.",
   },
   {
     q: "La mise en main est-elle facturée ?",
     a: "Non. Le protocole de mise en main est offert à chaque remise.",
   },
-];
-
-const OPTIONS_HOME = [
-  { t: "Nettoyage intérieur et extérieur", p: OPTIONS.lavageComplet },
-  { t: "Balise GPS 4G", p: OPTIONS.gps },
-  { t: "Plein carburant", p: OPTIONS.plein },
-  { t: "Coffret Terroir Breton", p: OPTIONS.coffretArmor },
-  { t: "Coffret Prestige Champagne", p: OPTIONS.coffretChampagne },
 ];
 
 function Home() {
@@ -77,36 +73,42 @@ function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-5xl px-5 pb-28 sm:px-8">
+      <section className="mx-auto max-w-6xl px-5 pb-28 sm:px-8">
         <Reveal>
-          <h2 className="font-display text-4xl text-navy sm:text-5xl">Menus de livraison.</h2>
-          <p className="mt-4 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
-            D’abord un pack. Sinon, à la carte. Mise en main offerte.
+          <h2 className="font-display text-4xl text-navy sm:text-5xl">Trois packs. Deux clientèles.</h2>
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+            Plus d’à la carte sur le convoyage. Un particulier n’a pas besoin d’un coffret terroir. Un concessionnaire n’a pas besoin d’un plein pour la route. Mise en main offerte.
           </p>
         </Reveal>
-        <div className="mt-16 divide-y divide-line border-y border-line">
-          <div className="flex items-baseline justify-between gap-6 py-8">
-            <p className="font-display text-3xl text-navy">Convoyage</p>
-            <p className="text-sm text-muted">Sur devis</p>
+        <div className="mt-16 grid gap-16 lg:grid-cols-2">
+          <div>
+            <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">Particulier</p>
+            <div className="mt-4 divide-y divide-line border-y border-line">
+              {PACKS_PART.map((p) => (
+                <div key={p.id} className="flex items-baseline justify-between gap-6 py-6">
+                  <div>
+                    <p className="text-lg text-navy">{p.name}</p>
+                    <p className="mt-1 text-sm text-muted">{p.items.slice(1).join(". ")}.</p>
+                  </div>
+                  <p className="shrink-0 text-sm text-muted">{p.from === 0 ? "Trajet" : `+ ${formatEuro(p.from)}`}</p>
+                </div>
+              ))}
+            </div>
           </div>
-          {PACKS.map((p) => (
-            <div key={p.id} className="flex items-baseline justify-between gap-6 py-6">
-              <div>
-                <p className="text-lg text-navy">{p.name}</p>
-                <p className="mt-1 text-sm text-muted">{p.items[0]}. {p.items[1]}.</p>
-              </div>
-              <p className="shrink-0 text-sm text-muted">{formatEuro(p.from)}</p>
+          <div>
+            <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">Professionnel</p>
+            <div className="mt-4 divide-y divide-line border-y border-line">
+              {PACKS_PRO.map((p) => (
+                <div key={p.id} className="flex items-baseline justify-between gap-6 py-6">
+                  <div>
+                    <p className="text-lg text-navy">{p.name}</p>
+                    <p className="mt-1 text-sm text-muted">{p.items.slice(1).join(". ")}.</p>
+                  </div>
+                  <p className="shrink-0 text-sm text-muted">{p.from === 0 ? "Trajet" : `+ ${formatEuro(p.from)}`}</p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        <p className="mt-14 text-xs font-semibold tracking-[0.18em] text-muted uppercase">Ou à la carte</p>
-        <div className="mt-4 divide-y divide-line border-y border-line">
-          {OPTIONS_HOME.map((o) => (
-            <div key={o.t} className="flex items-baseline justify-between gap-6 py-5">
-              <p className="text-lg text-navy">{o.t}</p>
-              <p className="text-sm text-muted">{formatEuro(o.p)}</p>
-            </div>
-          ))}
+          </div>
         </div>
         <Link
           to="/simulateur"
@@ -114,6 +116,39 @@ function Home() {
         >
           Obtenir un devis
         </Link>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 pb-28 sm:px-8">
+        <Reveal>
+          <p className="text-xs font-semibold tracking-[0.28em] text-coral uppercase">Tarifs</p>
+          <h2 className="mt-5 font-display text-4xl text-navy sm:text-5xl">Cinq trajets, prix publics.</h2>
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+            Pack Route, aller simple, base Quimper. Un chauffeur professionnel. Le simulateur applique le même barème.
+          </p>
+        </Reveal>
+        <div className="mt-12">
+          <PriceExamples />
+        </div>
+        <Link to="/tarifs" className="mt-8 inline-flex text-sm font-semibold text-coral hover:underline">
+          Comment c’est calculé
+        </Link>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 pb-28 sm:px-8">
+        <Reveal>
+          <h2 className="font-display text-4xl text-navy sm:text-5xl">Un professionnel. Pas un particulier.</h2>
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+            Les plateformes à 60 € mettent un conducteur amateur au volant. Nous non.
+          </p>
+        </Reveal>
+        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {WHY_PRO_DRIVER.map((w) => (
+            <div key={w.t}>
+              <p className="font-display text-2xl text-navy">{w.t}</p>
+              <p className="mt-3 text-sm leading-relaxed text-muted">{w.d}</p>
+            </div>
+          ))}
+        </div>
       </section>
 
       <section className="mx-auto max-w-6xl px-5 pb-28 sm:px-8">
@@ -157,15 +192,15 @@ function Home() {
           />
           <div className="flex flex-col justify-center p-12 sm:p-16">
             <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Conciergerie</p>
-            <h2 className="mt-5 font-display text-4xl text-navy sm:text-5xl">Voiturier gares et aéroports.</h2>
+            <h2 className="mt-5 font-display text-4xl text-navy sm:text-5xl">Conciergerie de véhicules.</h2>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-muted">
-              Bretagne. Dépose à la gare ou à l’aéroport, ou rapatriement à domicile. Photos. Pas de gardiennage.
+              Bretagne. Dépose à la gare ou à l’aéroport, rapatriement, CT, attente. À la carte. Pas de gardiennage.
             </p>
             <Link
               to="/jockey-gares-aeroports"
               className="mt-10 inline-flex h-12 w-fit items-center rounded-full bg-coral px-6 text-sm font-semibold text-white"
             >
-              Réserver un jockey
+              Réserver une conciergerie
             </Link>
           </div>
         </div>

@@ -1,6 +1,15 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { computeQuote, OPTIONS, type QuoteInput } from "./tarifs.ts";
+import {
+  applyPack,
+  computeQuote,
+  defaultQuoteInput,
+  ECONOMICS,
+  OPTIONS,
+  packPrice,
+  priceExamples,
+  type QuoteInput,
+} from "./tarifs.ts";
 
 function baseInput(over: Partial<QuoteInput> = {}): QuoteInput {
   return {
@@ -16,84 +25,136 @@ function baseInput(over: Partial<QuoteInput> = {}): QuoteInput {
     plein: false,
     controleVisuel: false,
     coffret: "aucun",
-    pack: "aucun",
+    pack: "essentiel",
     kitBienvenue: false,
     formula: "aucun",
     mission: "convoyage",
+    clientKind: "part",
+    tripMode: "aller",
     jockeySens: "rapatriement",
     jockeyPoint: "",
     jockeyRef: "",
     jockeyAller: "",
     jockeyRetour: "",
     jockeyCt: false,
+    jockeyAttente: false,
     jockeyWash: "aucun",
     ...over,
   };
 }
 
-describe("OPTIONS.protocolePrestige", () => {
-  it("is 150 and replaces securite", () => {
-    assert.equal(OPTIONS.protocolePrestige, 150);
-    assert.equal("securite" in OPTIONS, false);
+describe("Quimper → Rennes vs Driiveme chauffeur pro 220 € HT", () => {
+  it("stays competitive around 219 € for aller simple, pack Route", () => {
+    const q = computeQuote(baseInput());
+    assert.equal(q.ok, true);
+    assert.equal(q.prixApproche, 0);
+    assert.ok(q.prixRetour > 0, "retour chauffeur must be billed on aller simple");
+    assert.ok(q.total >= 199 && q.total <= 239, `got ${q.total}`);
+    assert.equal(q.options, 0);
+    assert.equal(q.netApresUrssaf, Math.round(q.total * (1 - ECONOMICS.urssaf)));
+  });
+
+  it("adds approche when the pickup is Vannes", () => {
+    const fromBase = computeQuote(baseInput());
+    const fromVannes = computeQuote(baseInput({ from: "Vannes", to: "Rennes" }));
+    assert.ok(fromVannes.prixApproche > 0);
+    assert.ok(fromVannes.kmApproche > 80);
+    assert.equal(Math.round(fromVannes.kmApproche * ECONOMICS.approcheEurKm), fromVannes.prixApproche);
+    assert.ok(fromVannes.total >= fromBase.total - 20, "same workday, not dumped");
+  });
+
+  it("drops chauffeur return and bills the second vehicle at 78 %", () => {
+    const aller = computeQuote(baseInput({ tripMode: "aller" }));
+    const round = computeQuote(baseInput({ tripMode: "retourVehicule" }));
+    assert.equal(round.ok, true);
+    assert.equal(Math.round(aller.prixTrajet * ECONOMICS.retourVehiculeCoeff), round.prixRetour);
+    assert.ok(round.total > aller.total, "two vehicles cost more than one");
+    assert.ok(round.total < aller.total * 1.7, "round trip cheaper than two one-ways");
+  });
+
+  it("does not bill chauffeur return when destination is Quimper", () => {
+    const q = computeQuote(baseInput({ from: "Rennes", to: "Quimper" }));
+    assert.equal(q.prixRetour, 0);
+    assert.ok(q.prixApproche > 0, "approche Rennes from Quimper");
   });
 });
 
-describe("computeQuote protocole prestige", () => {
-  it("adds 150 € as an option, not on the base", () => {
-    const off = computeQuote(baseInput());
-    const on = computeQuote(baseInput({ protocolePrestige: true }));
-    assert.equal(off.ok, true);
-    assert.equal(on.ok, true);
-    assert.equal(on.base, off.base);
-    assert.equal(on.options - off.options, OPTIONS.protocolePrestige);
-    assert.equal(on.total - off.total, OPTIONS.protocolePrestige);
+describe("packs particulier vs professionnel", () => {
+  it("exposes three distinct pack prices per client", () => {
+    assert.equal(packPrice("part", "essentiel"), 0);
+    assert.equal(packPrice("part", "confort"), OPTIONS.packPartSerenite);
+    assert.equal(packPrice("part", "premium"), OPTIONS.packPartSecurise);
+    assert.equal(packPrice("pro", "essentiel"), 0);
+    assert.equal(packPrice("pro", "confort"), OPTIONS.packProLivraison);
+    assert.equal(packPrice("pro", "premium"), OPTIONS.packProSignature);
+    assert.notEqual(packPrice("part", "confort"), packPrice("pro", "confort"));
   });
 
-  it("applies +20 % prestige on the base only", () => {
+  it("adds pack amount on top of the trip, never à la carte extras", () => {
+    const route = computeQuote(baseInput({ pack: "essentiel" }));
+    const serenite = computeQuote(baseInput({ pack: "confort", plein: true, lavage: "complet" }));
+    assert.equal(serenite.options, OPTIONS.packPartSerenite);
+    assert.equal(serenite.total - route.total, OPTIONS.packPartSerenite);
+    assert.equal(serenite.base, route.base);
+  });
+
+  it("applies pro Signature without double-billing GPS product", () => {
+    const packed = computeQuote(applyPack(baseInput({ clientKind: "pro" }), "premium"));
+    assert.equal(packed.options, OPTIONS.packProSignature);
+  });
+});
+
+describe("vehicle and urgency", () => {
+  it("applies +20 % prestige on the trip components only", () => {
     const vp = computeQuote(baseInput({ vehicle: "vp" }));
     const prestige = computeQuote(baseInput({ vehicle: "prestige" }));
-    assert.equal(prestige.base, Math.round(vp.base * (1 + OPTIONS.prestigePct)));
+    assert.equal(prestige.prixTrajet, Math.round(vp.prixTrajet * (1 + OPTIONS.prestigePct)));
     assert.equal(prestige.options, vp.options);
   });
 
-  it("stacks +20 % base and 150 € protocol", () => {
-    const vp = computeQuote(baseInput({ vehicle: "vp" }));
-    const both = computeQuote(baseInput({ vehicle: "prestige", protocolePrestige: true }));
-    assert.equal(both.base, Math.round(vp.base * (1 + OPTIONS.prestigePct)));
-    assert.equal(both.options, vp.options + OPTIONS.protocolePrestige);
+  it("applies +25 % urgent on trip, approche and return, not on the pack", () => {
+    const std = computeQuote(baseInput({ pack: "confort" }));
+    const urg = computeQuote(baseInput({ pack: "confort", when: "urgent" }));
+    assert.equal(urg.options, std.options);
+    assert.equal(urg.base, Math.round(std.prixTrajet * 1.25) + Math.round(std.prixApproche * 1.25) + Math.round(std.prixRetour * 1.25));
   });
+});
 
-  it("keeps protocol additional on Signature pack (GPS product already included)", () => {
-    const pack = computeQuote(baseInput({ pack: "premium", gps: true }));
-    const withProtocol = computeQuote(
-      baseInput({ pack: "premium", gps: true, protocolePrestige: true }),
-    );
-    assert.equal(pack.options, OPTIONS.packPremium);
-    assert.equal(withProtocol.options, OPTIONS.packPremium + OPTIONS.protocolePrestige);
-  });
-
-  it("does not bill GPS 199 € twice when Signature is packed", () => {
-    const packedGps = computeQuote(baseInput({ pack: "premium", gps: true }));
-    const packedNoGpsFlag = computeQuote(baseInput({ pack: "premium", gps: false }));
-    assert.equal(packedGps.options, packedNoGpsFlag.options);
-    assert.equal(packedGps.options, OPTIONS.packPremium);
-  });
-
-  it("can stack GPS 199 € product and protocol 150 € à la carte", () => {
-    const both = computeQuote(baseInput({ gps: true, protocolePrestige: true }));
-    assert.equal(both.options, OPTIONS.gps + OPTIONS.protocolePrestige);
-  });
-
-  it("does not add protocol on jockey missions", () => {
-    const jockey = computeQuote(
+describe("jockey conciergerie keeps à la carte", () => {
+  it("adds CT, wait and wash on top of the forfait", () => {
+    const bare = computeQuote(
       baseInput({
         mission: "jockey",
         from: "Quimper",
         jockeyPoint: "Gare de Quimper",
-        protocolePrestige: true,
       }),
     );
-    assert.equal(jockey.ok, true);
-    assert.equal(jockey.options, 0);
+    const extra = computeQuote(
+      baseInput({
+        mission: "jockey",
+        from: "Quimper",
+        jockeyPoint: "Gare de Quimper",
+        jockeyCt: true,
+        jockeyAttente: true,
+        jockeyWash: "standard",
+      }),
+    );
+    assert.equal(bare.ok, true);
+    assert.equal(extra.options, OPTIONS.jockeyCt + OPTIONS.jockeyAttente + OPTIONS.jockeyLavage);
+    assert.equal(extra.total - bare.total, extra.options);
+  });
+});
+
+describe("public price examples", () => {
+  it("matches the quote engine for Quimper → Rennes Pack Route", () => {
+    const rows = priceExamples();
+    const rennes = rows.find((r) => r.from === "Quimper" && r.to === "Rennes");
+    const engine = computeQuote(defaultQuoteInput());
+    assert.ok(rennes);
+    assert.equal(rennes.total, engine.total);
+    assert.ok(rennes.total >= 199 && rennes.total <= 239);
+    const vannes = rows.find((r) => r.from === "Vannes" && r.to === "Rennes");
+    assert.ok(vannes);
+    assert.ok(vannes.approche > 0);
   });
 });

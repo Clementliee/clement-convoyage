@@ -1,7 +1,10 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { CITIES } from "@/lib/tarifs";
+import { CITIES, computeQuote, defaultQuoteInput } from "@/lib/tarifs";
+import { formatEuro } from "@/lib/utils";
+
+const rennes = computeQuote(defaultQuoteInput({ from: "Quimper", to: "Rennes" }));
 
 export function HomeEstimator() {
   const navigate = useNavigate();
@@ -16,7 +19,9 @@ export function HomeEstimator() {
       }}
     >
       <p className="font-display text-2xl text-navy">Estimer en trente secondes</p>
-      <p className="mt-2 text-sm leading-relaxed text-muted">Le prix s’affiche après vos coordonnées.</p>
+      <p className="mt-2 text-sm leading-relaxed text-muted">
+        Quimper → Rennes : {formatEuro(rennes.total)} Pack Route. Devis ferme après vos coordonnées.
+      </p>
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         <label className="text-sm text-muted">
           Départ

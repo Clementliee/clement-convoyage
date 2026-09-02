@@ -1,4 +1,4 @@
-/** Offres commerciales. Prix packs = indicatifs, à confirmer. Convoyage : fourchette après coordonnées. */
+/** Offres commerciales. Trois packs particulier, trois packs professionnel. Pas d’à la carte sur le convoyage. */
 
 import { OPTIONS } from "@/lib/tarifs";
 
@@ -33,7 +33,7 @@ export const PRESTIGE_PROTOCOL = {
   simulator:
     "Scellés numérotés des clés et documents du véhicule, mallette dédiée, suivi GPS le temps de la mission, conduite adaptée, pauses en zones éclairées, compte-rendu, zéro sous-traitance.",
   prestigeHint:
-    "Majoration véhicule prestige déjà incluse dans le trajet (+20 %). Le protocole est le cadre de remise.",
+    "Majoration véhicule prestige déjà incluse dans le trajet (+20 %). Le protocole est le cadre de remise, inclus au Pack Signature réseau.",
   disclaimer:
     "Le protocole porte sur le véhicule et ses documents de circulation. Ce n’est pas une activité de sécurité privée, ni un transport de fonds ou de valeurs. L’acceptation dépend de la valeur déclarée et des plafonds d’assurance.",
   href: "/convoyage-prestige",
@@ -81,43 +81,80 @@ export const PROCESS = [
   },
 ] as const;
 
-export const PACKS = [
+export const PACKS_PART = [
   {
     id: "essentiel" as const,
-    name: "Pack Standard",
-    from: 89,
-    tag: "Livraison soignée",
+    name: "Pack Route",
+    from: 0,
+    tag: "Le trajet",
     items: [
-      "Nettoyage intérieur et extérieur",
-      "Contrôle visuel du véhicule",
-      "Mise en main offerte",
+      "Chauffeur professionnel, base Quimper",
+      "État des lieux photo, départ et arrivée",
+      "Assurance tous risques, mise en main offerte",
     ],
   },
   {
     id: "confort" as const,
-    name: "Pack Confort",
-    from: 129,
+    name: "Pack Sérénité",
+    from: OPTIONS.packPartSerenite,
     tag: "Le plus choisi",
     items: [
-      "Tout le Pack Standard",
-      "Coffret Terroir Breton, ou Prestige Champagne",
-      "Mise en main offerte",
+      "Tout le Pack Route",
+      "Nettoyage intérieur et extérieur",
+      "Plein carburant, ou recharge VE",
     ],
   },
   {
     id: "premium" as const,
-    name: "Pack Signature",
-    from: 329,
-    tag: "Remise complète",
+    name: "Pack Sécurisé",
+    from: OPTIONS.packPartSecurise,
+    tag: "Suivi et sérénité",
     items: [
-      "Nettoyage offert",
-      "Contrôle visuel",
-      "Coffret Prestige Champagne",
-      "Balise GPS 4G, cédée à l’acquéreur",
-      "Mise en main offerte",
+      "Tout le Pack Sérénité",
+      "Traceur GPS 4G cédé, 12 mois inclus",
+      "Suivi pendant la mission",
     ],
   },
 ] as const;
+
+export const PACKS_PRO = [
+  {
+    id: "essentiel" as const,
+    name: "Pack Atelier",
+    from: 0,
+    tag: "Réseau",
+    items: [
+      "Convoyage A → B, chauffeur dédié",
+      "État des lieux photo HD, compte-rendu",
+      "Facture à quinze jours",
+    ],
+  },
+  {
+    id: "confort" as const,
+    name: "Pack Livraison client",
+    from: OPTIONS.packProLivraison,
+    tag: "Le plus choisi",
+    items: [
+      "Tout le Pack Atelier",
+      "Nettoyage standard constructeur",
+      "Coffret Terroir Breton, mise en main client",
+    ],
+  },
+  {
+    id: "premium" as const,
+    name: "Pack Signature réseau",
+    from: OPTIONS.packProSignature,
+    tag: "Image de marque",
+    items: [
+      "Tout le Pack Livraison client",
+      "Coffret Prestige Champagne",
+      "GPS le temps de la mission, protocole de remise",
+    ],
+  },
+] as const;
+
+/** @deprecated Use PACKS_PART / PACKS_PRO. Kept for pages that still iterate a single list. */
+export const PACKS = PACKS_PART;
 
 export const KIT = {
   name: "Kit de bienvenue",
@@ -139,7 +176,7 @@ export const B2C_CASES = [
   { t: "Import", d: "Belgique, Allemagne, Pologne, Espagne. Documents vérifiés avant départ." },
   { t: "Déménagement", d: "Le véhicule suit, ou précède. Un interlocuteur, un créneau." },
   { t: "Électrique", d: "Plan de recharge, niveau de batterie convenu à la remise." },
-  { t: "Prestige", d: "Protocole Prestige : scellés, GPS le temps de la mission, conduite adaptée, remise à la personne nommée. Option 150 €." },
+  { t: "Prestige", d: "Protocole Prestige : scellés, GPS le temps de la mission, conduite adaptée, remise à la personne nommée. Inclus au Pack Signature réseau." },
 ] as const;
 
 export const B2B_CASES = [
@@ -203,6 +240,25 @@ export const WHY = [
   { t: "Photos", d: "Au départ et à l’arrivée. Compteur, carrosserie, intérieur." },
   { t: "Mise en main offerte", d: "À chaque livraison. On prend le temps d’expliquer le véhicule." },
   { t: "Horaires tenus", d: "Si le créneau ne tient pas, on le dit avant." },
-  { t: "Vous composez", d: "Livraison, puis nettoyage, GPS, plein, coffret. Prix des options affichés." },
+  { t: "Packs, pas d’à la carte", d: "Trois packs particulier, trois packs professionnel. La conciergerie reste composable." },
   { t: "Professionnels", d: "Concessions, garages, flottes. Facture, quinze jours." },
+] as const;
+
+export const WHY_PRO_DRIVER = [
+  {
+    t: "Un chauffeur professionnel",
+    d: "Permis, assurance tous risques, état des lieux. Pas un particulier qui prend le volant de votre achat pour 60 €.",
+  },
+  {
+    t: "Photos, pas une promesse",
+    d: "Compteur, carrosserie, habitacle. Départ et arrivée. Vous avez la trace.",
+  },
+  {
+    t: "Mise en main offerte",
+    d: "Vingt à trente minutes à la remise. Aides à la conduite, multimédia, recharge.",
+  },
+  {
+    t: "Créneau tenu",
+    d: "Tous les jours. Si ça ne tient pas, on le dit avant. Si ça coince en route, on prévient.",
+  },
 ] as const;

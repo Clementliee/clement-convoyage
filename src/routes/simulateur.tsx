@@ -29,7 +29,7 @@ function Page() {
         kicker="Simulateur"
         title="Personnalisez"
         accent="votre prestation."
-        text="Chaque transfert est unique. Options à prix affiché. Estimation du convoyage après nom, téléphone et e-mail. Devis formel sous 2 heures ouvrées."
+        text="Huit questions. Packs particuliers ou professionnels, aller simple ou véhicule à reprendre. Estimation après nom, téléphone et e-mail. Devis formel sous 2 heures ouvrées."
       />
       <section className="mx-auto max-w-5xl px-5 pb-24 sm:px-8">
         <Simulator

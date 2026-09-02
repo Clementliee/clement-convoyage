@@ -28,7 +28,7 @@ function Page() {
         kicker="Réseaux automobiles"
         title="Partenaire logistique des concessions, marchands et carrosseries."
         accent=""
-        text="Navettes atelier, rotations de stocks, livraison client final. Le tarif est le même que pour un particulier."
+        text="Navettes atelier, rotations de stocks, livraison client final. Packs professionnels distincts des packs particuliers. Facture à quinze jours."
         image="/images/atelier-garage-professionnel.jpg?v=propre"
         alt="Berline propre dans un atelier automobile professionnel"
       />

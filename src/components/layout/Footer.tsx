@@ -3,7 +3,8 @@ import { SITE } from "@/lib/site";
 
 const PRESTATIONS = [
   { to: "/prestations", label: "Prestations" },
-  { to: "/jockey-gares-aeroports", label: "Jockey gares et aéroports" },
+  { to: "/tarifs", label: "Tarifs" },
+  { to: "/jockey-gares-aeroports", label: "Conciergerie de véhicules" },
   { to: "/professionnels", label: "Concessions et garages" },
   { to: "/pack-mise-a-la-route", label: "Packs de livraison" },
   { to: "/simulateur", label: "Devis" },

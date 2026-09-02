@@ -50,7 +50,7 @@ function ville(
       `Convoyage BZH est basé à Quimper. Pour ${name}, vous avez un interlocuteur local, joignable tous les jours, qui connaît les délais, les axes et les remises en concession.`,
       extra,
       "Chaque mission comprend la conduite de A à B, le carburant du véhicule convoyé, les péages, le retour du convoyeur, un état des lieux photo au départ et à l’arrivée, la remise des clés et la mise en main offerte.",
-      "Le prix n’est pas publié. Le simulateur prépare une fourchette indicative après vos coordonnées, à confirmer avec un professionnel. Options : lavage, plein, contrôle visuel, coffret cadeau, traqueur GPS, protocole sécurité.",
+      "Les tarifs Pack Route sont publics : Quimper → Brest 134 €, Quimper → Rennes 218 €, Quimper → Paris 559 €, aller simple. Approche 0,25 €/km si le départ n’est pas Quimper. Packs particuliers et professionnels. Devis ferme sous 2 heures.",
       "Véhicules acceptés : particuliers, utilitaires et vans ≤ 3,5 t, en état de marche. Hors champ : plateau, poids lourd, non-roulant.",
     ],
     nearby,
@@ -65,7 +65,7 @@ function ville(
       },
       {
         q: "Comment obtenir le tarif ?",
-        a: "Via le simulateur : trajet, type de véhicule, options, puis nom, téléphone et e-mail. Une fourchette basse et haute s’affiche. Devis ferme sous 2 heures ouvrées.",
+        a: "Via le simulateur ou la page Tarifs. Pack Route aller simple depuis Quimper : exemples publics. Devis ferme sous 2 heures ouvrées.",
       },
     ],
   };
@@ -91,7 +91,7 @@ function pays(
     body: [
       `Même standard qu’en France : remise comme en concession, photos du véhicule, interlocuteur unique depuis Quimper. Destination type : ${city}.`,
       docs,
-      "Le tarif n’est pas affiché. Une fourchette indicative est calculée après vos coordonnées, à confirmer avec un professionnel. Délai type J+2 à J+4 selon axes et formalités.",
+      "Le tarif de base est public sur la page Tarifs. Une fourchette est calculée au simulateur, à confirmer sous 2 heures. Délai type J+2 à J+4 selon axes et formalités.",
       "Options recommandées à l’international : traqueur GPS, protocole sécurité, lavage avant remise.",
     ],
     nearby: [
@@ -135,8 +135,8 @@ export const SEO_PAGES: SeoPage[] = [
       "Convoyage BZH est un convoyeur automobile basé à Quimper, en Cornouaille. Particuliers et professionnels. Véhicules jusqu’à 3,5 t, en état de marche. La remise se fait comme en concession : photos, documents, mise en main offerte.",
       "L’agglomération tourne autour des concessions, des garages, des mandataires et des particuliers qui achètent à distance. Un convoyeur sur place évite de mobiliser un vendeur ou un mécanicien pour un aller-retour CT, une courtoisie ou une livraison client.",
       "Les missions locales partent souvent le jour même, si le créneau tient. Bénodet, Fouesnant, Concarneau, Pont-l’Abbé, Douarnenez : le même interlocuteur. Brest, Lorient, Rennes, Nantes, Paris : le même protocole.",
-      "Toujours inclus : conduite, carburant du véhicule convoyé, péages, retour du convoyeur, état des lieux photo, clés, mise en main. Vous ajoutez lavage, pack mise à la route, plein, GPS temporaire, coffret.",
-      "Le tarif de convoyage n’est pas une grille publique. Une fourchette s’affiche après nom, téléphone et e-mail. Prix indicatif, à confirmer sous 2 heures ouvrées.",
+      "Toujours inclus : conduite, carburant du véhicule convoyé, péages, retour du convoyeur, état des lieux photo, clés, mise en main. Packs particuliers (Route, Sérénité, Sécurisé) et professionnels (Atelier, Livraison client, Signature).",
+      "Tarifs Pack Route publics : Quimper → Brest 134 €, Quimper → Rennes 218 €, Quimper → Paris 559 €. Approche 0,25 €/km hors Quimper. Devis ferme sous 2 heures ouvrées.",
     ],
     highlights: [
       { t: "Base ici", d: "Pas une plateforme. Un interlocuteur à Quimper, tous les jours. Astreinte 24 h pour les professionnels." },

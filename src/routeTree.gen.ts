@@ -37,6 +37,7 @@ import { Route as ProfessionnelsRouteImport } from './routes/professionnels'
 import { Route as ProtocoleClementRouteImport } from './routes/protocole-clement'
 import { Route as SecuriteVehiculeRouteImport } from './routes/securite-vehicule'
 import { Route as SimulateurRouteImport } from './routes/simulateur'
+import { Route as TarifsRouteImport } from './routes/tarifs'
 import { Route as TraqueurGpsRouteImport } from './routes/traqueur-gps'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
@@ -180,6 +181,11 @@ const SimulateurRoute = SimulateurRouteImport.update({
   path: '/simulateur',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TarifsRoute = TarifsRouteImport.update({
+  id: '/tarifs',
+  path: '/tarifs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TraqueurGpsRoute = TraqueurGpsRouteImport.update({
   id: '/traqueur-gps',
   path: '/traqueur-gps',
@@ -220,6 +226,7 @@ export interface FileRoutesByFullPath {
   '/protocole-clement': typeof ProtocoleClementRoute
   '/securite-vehicule': typeof SecuriteVehiculeRoute
   '/simulateur': typeof SimulateurRoute
+  '/tarifs': typeof TarifsRoute
   '/traqueur-gps': typeof TraqueurGpsRoute
   '/blog/$slug': typeof BlogSlugRoute
 }
@@ -252,6 +259,7 @@ export interface FileRoutesByTo {
   '/protocole-clement': typeof ProtocoleClementRoute
   '/securite-vehicule': typeof SecuriteVehiculeRoute
   '/simulateur': typeof SimulateurRoute
+  '/tarifs': typeof TarifsRoute
   '/traqueur-gps': typeof TraqueurGpsRoute
   '/blog/$slug': typeof BlogSlugRoute
 }
@@ -285,6 +293,7 @@ export interface FileRoutesById {
   '/protocole-clement': typeof ProtocoleClementRoute
   '/securite-vehicule': typeof SecuriteVehiculeRoute
   '/simulateur': typeof SimulateurRoute
+  '/tarifs': typeof TarifsRoute
   '/traqueur-gps': typeof TraqueurGpsRoute
   '/blog/$slug': typeof BlogSlugRoute
 }
@@ -319,6 +328,7 @@ export interface FileRouteTypes {
     | '/protocole-clement'
     | '/securite-vehicule'
     | '/simulateur'
+    | '/tarifs'
     | '/traqueur-gps'
     | '/blog/$slug'
   fileRoutesByTo: FileRoutesByTo
@@ -351,6 +361,7 @@ export interface FileRouteTypes {
     | '/protocole-clement'
     | '/securite-vehicule'
     | '/simulateur'
+    | '/tarifs'
     | '/traqueur-gps'
     | '/blog/$slug'
   id:
@@ -383,6 +394,7 @@ export interface FileRouteTypes {
     | '/protocole-clement'
     | '/securite-vehicule'
     | '/simulateur'
+    | '/tarifs'
     | '/traqueur-gps'
     | '/blog/$slug'
   fileRoutesById: FileRoutesById
@@ -416,6 +428,7 @@ export interface RootRouteChildren {
   ProtocoleClementRoute: typeof ProtocoleClementRoute
   SecuriteVehiculeRoute: typeof SecuriteVehiculeRoute
   SimulateurRoute: typeof SimulateurRoute
+  TarifsRoute: typeof TarifsRoute
   TraqueurGpsRoute: typeof TraqueurGpsRoute
 }
 
@@ -617,6 +630,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SimulateurRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tarifs': {
+      id: '/tarifs'
+      path: '/tarifs'
+      fullPath: '/tarifs'
+      preLoaderRoute: typeof TarifsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/traqueur-gps': {
       id: '/traqueur-gps'
       path: '/traqueur-gps'
@@ -673,6 +693,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProtocoleClementRoute: ProtocoleClementRoute,
   SecuriteVehiculeRoute: SecuriteVehiculeRoute,
   SimulateurRoute: SimulateurRoute,
+  TarifsRoute: TarifsRoute,
   TraqueurGpsRoute: TraqueurGpsRoute,
 }
 export const routeTree = rootRouteImport

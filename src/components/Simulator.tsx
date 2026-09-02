@@ -1,24 +1,29 @@
 import { Link } from "@tanstack/react-router";
-import { useMemo, useState, type ReactNode } from "react";
+import { useMemo, useState } from "react";
 import { QuoteGate } from "@/components/QuoteGate";
 import { Button } from "@/components/ui/button";
 import {
   CITIES,
+  TRIP_MODES,
+  applyPack,
   computeQuote,
   JOCKEY_POINTS,
   JOCKEY_SENS,
   OPTIONS,
+  packPrice,
   prixPlein,
   litresPlein,
   WHEN_OFFERS,
+  type ClientKind,
   type MissionKind,
   type PackKind,
   type QuoteInput,
+  type TripMode,
   type VehicleKind,
   type WhenKind,
   type ZoneKind,
 } from "@/lib/tarifs";
-import { PRESTIGE_PROTOCOL } from "@/lib/offers";
+import { PACKS_PART, PACKS_PRO } from "@/lib/offers";
 import { formatEuro } from "@/lib/utils";
 
 const STEPS = [
@@ -26,33 +31,11 @@ const STEPS = [
   "Type de véhicule",
   "Départ",
   "Arrivée",
+  "Sens de mission",
   "Zone",
   "Quand",
-  "Configuration des prestations associées",
+  "Votre pack",
 ];
-
-function applyPack(s: QuoteInput, pack: PackKind): QuoteInput {
-  if (pack === "aucun") {
-    return {
-      ...s,
-      pack,
-      lavage: "aucun",
-      gps: false,
-      coffret: "aucun",
-      controleVisuel: false,
-      plein: false,
-      kitBienvenue: false,
-    };
-  }
-  if (pack === "essentiel") {
-    return { ...s, pack, lavage: "complet", gps: false, coffret: "aucun", controleVisuel: true };
-  }
-  if (pack === "confort") {
-    const coffret = s.vehicle === "prestige" ? "champagne" : s.coffret === "champagne" ? "champagne" : "armor";
-    return { ...s, pack, lavage: "complet", gps: false, coffret, controleVisuel: true };
-  }
-  return { ...s, pack, lavage: "complet", gps: true, coffret: "champagne", controleVisuel: true };
-}
 
 export function Simulator({
   initialFrom = "",
@@ -66,8 +49,7 @@ export function Simulator({
   const [flow, setFlow] = useState<"" | MissionKind>(initialMission || "");
   const [step, setStep] = useState(0);
   const [gate, setGate] = useState(false);
-  const [carteOpen, setCarteOpen] = useState(false);
-  const [client, setClient] = useState<"part" | "pro">("part");
+  const [client, setClient] = useState<ClientKind>("part");
   const [input, setInput] = useState<QuoteInput>({
     from: initialFrom || "Quimper",
     to: initialTo,
@@ -81,16 +63,19 @@ export function Simulator({
     plein: false,
     controleVisuel: false,
     coffret: "aucun",
-    pack: "aucun",
+    pack: "essentiel",
     kitBienvenue: false,
     formula: "aucun",
     mission: initialMission === "jockey" ? "jockey" : "convoyage",
+    clientKind: "part",
+    tripMode: "aller",
     jockeySens: "rapatriement",
     jockeyPoint: "",
     jockeyRef: "",
     jockeyAller: "",
     jockeyRetour: "",
     jockeyCt: false,
+    jockeyAttente: false,
     jockeyWash: "aucun",
   });
   const [kmManual, setKmManual] = useState("");
@@ -139,12 +124,12 @@ export function Simulator({
               {
                 v: "convoyage",
                 l: "Convoyage, livraison France et Europe",
-                h: "A vers B",
+                h: "A vers B, packs particuliers ou professionnels",
               },
               {
                 v: "jockey",
-                l: "Jockey gare ou aéroport",
-                h: "Parvis, navette locale",
+                l: "Conciergerie de véhicules",
+                h: "Gare, aéroport, CT, à la carte",
               },
             ]}
             onPick={(v) => {
@@ -165,7 +150,6 @@ export function Simulator({
         input={input}
         setInput={setInput}
         client={client}
-        setClient={setClient}
         gate={gate}
         setGate={setGate}
         quote={quote}
@@ -189,6 +173,8 @@ export function Simulator({
     );
   }
 
+  const packs = client === "pro" ? PACKS_PRO : PACKS_PART;
+
   return (
     <div className="rounded-[2rem] border border-line bg-surface p-6 shadow-sm sm:p-10">
       <div className="mb-8">
@@ -199,14 +185,23 @@ export function Simulator({
           <div className="h-full bg-coral transition-all" style={{ width: `${((step + 1) / STEPS.length) * 100}%` }} />
         </div>
         <h2 className="mt-6 font-display text-3xl text-navy">{STEPS[step]}</h2>
-        {step === 5 ? (
+        {step === 4 ? (
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted">
-            Délai à partir de la confirmation du devis, sous réserve de disponibilité des équipes. Week-end et jours fériés inclus.
+            Base opérationnelle à Quimper. Si le départ n’est pas Quimper, l’approche est facturée 0,25 €/km. En aller
+            simple, le retour du chauffeur est inclus.
           </p>
         ) : null}
         {step === 6 ? (
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted">
-            Trois menus de livraison, plus avantageux qu’à la carte. Ou aucune option, protocole de mise en main offert.
+            Délai à partir de la confirmation du devis, sous réserve de disponibilité des équipes. Week-end et jours
+            fériés inclus.
+          </p>
+        ) : null}
+        {step === 7 ? (
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted">
+            {client === "pro"
+              ? "Trois packs professionnels. Pas d’à la carte : le coffret, le nettoyage et le protocole sont dans le menu."
+              : "Trois packs particuliers. Pas d’à la carte : le plein et le traceur GPS sont dans le menu."}
           </p>
         ) : null}
       </div>
@@ -218,7 +213,9 @@ export function Simulator({
             { v: "pro", l: "Professionnel", h: "Paiement à quinze jours" },
           ]}
           onPick={(v) => {
-            setClient(v as "part" | "pro");
+            const kind = v as ClientKind;
+            setClient(kind);
+            setInput((s) => applyPack({ ...s, clientKind: kind }, s.pack));
             next();
           }}
         />
@@ -237,7 +234,6 @@ export function Simulator({
               ...s,
               vehicle,
               rechargeVe: vehicle === "ve",
-              protocolePrestige: vehicle === "prestige" ? true : s.protocolePrestige,
             }));
             next();
           }}
@@ -263,6 +259,15 @@ export function Simulator({
       )}
       {step === 4 && (
         <Choice
+          options={TRIP_MODES.map((m) => ({ v: m.id, l: m.name, h: m.hint }))}
+          onPick={(v) => {
+            setInput((s) => ({ ...s, tripMode: v as TripMode }));
+            next();
+          }}
+        />
+      )}
+      {step === 5 && (
+        <Choice
           options={[
             { v: "france", l: "Bretagne, France", h: "Métropole" },
             { v: "europe", l: "Europe", h: "Formalités de frontière" },
@@ -273,7 +278,7 @@ export function Simulator({
           }}
         />
       )}
-      {step === 5 && (
+      {step === 6 && (
         <WhenPicker
           base={quote.ok ? standardBase : 0}
           showEuro={quote.ok && standardBase > 0}
@@ -283,195 +288,78 @@ export function Simulator({
           }}
         />
       )}
-      {step === 6 && (
-        <div className="space-y-10">
+      {step === 7 && (
+        <div className="space-y-8">
           <div className="rounded-[1.4rem] bg-sand px-5 py-5">
             <p className="text-sm text-muted">Mise en main personnalisée</p>
             <p className="font-display text-3xl text-coral">Offerte</p>
             <p className="mt-2 text-sm text-muted">
-              Protocole de mise en main. Configuration des aides à la conduite, multimédia, recharge.
+              À chaque pack. Configuration des aides à la conduite, multimédia, recharge.
             </p>
           </div>
 
-          <OptionGroup title="Menus de livraison">
-            <p className="mb-4 text-sm text-muted">Moins cher qu’à la carte. Un seul menu.</p>
-            <div className="grid gap-3">
-              <Toggle
-                label="Pack Standard"
-                text="Nettoyage intérieur et extérieur. Contrôle visuel. Mise en main offerte."
-                price={formatEuro(OPTIONS.packEssentiel)}
-                on={input.pack === "essentiel"}
-                onClick={() => {
-                  setCarteOpen(false);
-                  setInput((s) => applyPack(s, "essentiel"));
-                }}
-              />
-              <Toggle
-                label="Pack Confort"
-                text={
-                  input.vehicle === "prestige"
-                    ? "Tout le Standard. Coffret Prestige Champagne. Mise en main offerte."
-                    : "Tout le Standard. Coffret Terroir Breton, ou Prestige Champagne. Mise en main offerte."
-                }
-                price={formatEuro(
-                  input.vehicle === "prestige" || input.coffret === "champagne"
-                    ? OPTIONS.packConfortChampagne
-                    : OPTIONS.packConfort,
-                )}
-                on={input.pack === "confort"}
-                onClick={() => {
-                  setCarteOpen(false);
-                  setInput((s) => applyPack(s, "confort"));
-                }}
-              />
-              <Toggle
-                label="Pack Signature"
-                text="Nettoyage offert. Contrôle visuel. Coffret Prestige. Balise GPS 4G. Mise en main offerte."
-                price={formatEuro(OPTIONS.packPremium)}
-                on={input.pack === "premium"}
-                onClick={() => {
-                  setCarteOpen(false);
-                  setInput((s) => applyPack(s, "premium"));
-                }}
-              />
-              <Toggle
-                label="Je ne souhaite pas de pack"
-                text="Mise en main offerte. 0 €. Vous pourrez composer à la carte, ou rien."
-                price="0 €"
-                on={carteOpen}
-                onClick={() => {
-                  setCarteOpen(true);
-                  setInput((s) => applyPack(s, "aucun"));
-                }}
-              />
-            </div>
-          </OptionGroup>
+          <div className="grid gap-4 lg:grid-cols-3">
+            {packs.map((p) => {
+              const priced = computeQuote({
+                ...input,
+                pack: p.id,
+                kmManual: kmManual ? Number(kmManual) : undefined,
+              });
+              const on = input.pack === p.id;
+              return (
+                <button
+                  key={p.id}
+                  type="button"
+                  onClick={() => setInput((s) => applyPack(s, p.id))}
+                  className={`flex flex-col rounded-[1.6rem] border p-5 text-left transition-colors ${
+                    on ? "border-navy bg-sand" : "border-line bg-bg hover:border-navy"
+                  }`}
+                >
+                  <span className="text-xs font-semibold tracking-[0.16em] text-coral uppercase">{p.tag}</span>
+                  <span className="mt-2 font-display text-2xl text-navy">{p.name}</span>
+                  <span className="mt-3 font-display text-3xl text-navy">
+                    {priced.ok ? formatEuro(priced.total) : "—"}
+                  </span>
+                  {packPrice(client, p.id) > 0 ? (
+                    <span className="mt-1 text-sm text-muted">dont {formatEuro(packPrice(client, p.id))} de pack</span>
+                  ) : (
+                    <span className="mt-1 text-sm text-muted">Trajet seul</span>
+                  )}
+                  <ul className="mt-4 flex-1 space-y-1.5 text-sm text-muted">
+                    {p.items.map((it) => (
+                      <li key={it}>{it}</li>
+                    ))}
+                  </ul>
+                  <span className="mt-5 text-sm font-semibold text-navy">{on ? "Sélectionné" : "Choisir"}</span>
+                </button>
+              );
+            })}
+          </div>
 
-          {input.pack === "confort" ? (
-            <OptionGroup title="Coffret du Pack Confort">
-              {input.vehicle === "prestige" ? (
-                <p className="text-sm leading-relaxed text-muted">
-                  Véhicule haut de gamme : Coffret Prestige Champagne inclus. Cidre, galettes, caramel pour le Terroir. Champagne brut et chocolats pour le Prestige.
-                </p>
-              ) : (
-                <div className="grid gap-3 sm:grid-cols-2">
-                  <Toggle
-                    label="Coffret Terroir Breton"
-                    text="Cidre d’exception, galettes fines, caramel au beurre salé."
-                    price="Inclus"
-                    image="/images/coffret-terroir-breton.jpg"
-                    on={input.coffret !== "champagne"}
-                    onClick={() => setInput((s) => ({ ...s, coffret: "armor" }))}
-                  />
-                  <Toggle
-                    label="Coffret Prestige Champagne"
-                    text="Champagne brut et chocolats fins."
-                    price={`+ ${formatEuro(OPTIONS.packConfortChampagne - OPTIONS.packConfort)}`}
-                    image="/images/coffret-prestige-champagne.jpg"
-                    on={input.coffret === "champagne"}
-                    onClick={() => setInput((s) => ({ ...s, coffret: "champagne" }))}
-                  />
-                </div>
-              )}
-            </OptionGroup>
-          ) : null}
-
-          {carteOpen && input.pack === "aucun" ? (
-            <OptionGroup title="À la carte">
-              <p className="mb-4 text-sm text-muted">Si vous ne prenez pas de menu. Ou aucune prestation supplémentaire.</p>
-              <div className="grid gap-3 sm:grid-cols-2">
-                <Toggle
-                  label="Aucune prestation supplémentaire"
-                  text="Mise en main offerte uniquement."
-                  price="0 €"
-                  on={
-                    !input.gps &&
-                    input.lavage === "aucun" &&
-                    !input.plein &&
-                    input.coffret === "aucun" &&
-                    !input.controleVisuel
-                  }
-                  onClick={() =>
-                    setInput((s) => ({
-                      ...s,
-                      lavage: "aucun",
-                      gps: false,
-                      plein: false,
-                      coffret: "aucun",
-                      controleVisuel: false,
-                    }))
-                  }
-                />
-                <Toggle
-                  label="Nettoyage intérieur et extérieur"
-                  text="Finition vitres et plastiques."
-                  price={formatEuro(OPTIONS.lavageComplet)}
-                  image="/images/preparation-esthetique-vehicule.jpg"
-                  on={input.lavage === "complet"}
-                  onClick={() => setInput((s) => ({ ...s, lavage: s.lavage === "complet" ? "aucun" : "complet" }))}
-                />
-                <Toggle
-                  label="Contrôle visuel"
-                  text="Pression, fluides, points de contrôle. Ce n’est pas une expertise."
-                  price={formatEuro(OPTIONS.controleVisuel)}
-                  on={input.controleVisuel}
-                  onClick={() => setInput((s) => ({ ...s, controleVisuel: !s.controleVisuel }))}
-                />
-                <Toggle
-                  label="Plein carburant"
-                  text={`Passage à la pompe ${formatEuro(OPTIONS.pleinService)} + ${litresPlein(input.vehicle)} L à ${OPTIONS.carburantLitre} €. Ajusté au volume réel.`}
-                  price={formatEuro(prixPlein(input.vehicle))}
-                  image="/images/plein-carburant-vehicule.jpg"
-                  on={input.plein}
-                  onClick={() => setInput((s) => ({ ...s, plein: !s.plein }))}
-                />
-                <Toggle
-                  label="Balise GPS 4G"
-                  text="Cédée à l’acquéreur. 12 mois inclus."
-                  price={formatEuro(OPTIONS.gps)}
-                  image="/images/balise-gps-4g-vehicule.jpg"
-                  on={input.gps}
-                  onClick={() => setInput((s) => ({ ...s, gps: !s.gps }))}
-                />
-                <Toggle
-                  label="Coffret Terroir Breton"
-                  text="Cidre, galettes, caramel au beurre salé."
-                  price={formatEuro(OPTIONS.coffretArmor)}
-                  image="/images/coffret-terroir-breton.jpg"
-                  on={input.coffret === "armor"}
-                  onClick={() => setInput((s) => ({ ...s, coffret: s.coffret === "armor" ? "aucun" : "armor" }))}
-                />
-                <Toggle
-                  label="Coffret Prestige Champagne"
-                  text="Champagne brut et chocolats fins."
-                  price={formatEuro(OPTIONS.coffretChampagne)}
-                  image="/images/coffret-prestige-champagne.jpg"
-                  on={input.coffret === "champagne"}
-                  onClick={() => setInput((s) => ({ ...s, coffret: s.coffret === "champagne" ? "aucun" : "champagne" }))}
-                />
+          {quote.ok ? (
+            <div className="rounded-[1.4rem] border border-line px-5 py-5">
+              <p className="text-xs font-semibold tracking-[0.16em] text-muted uppercase">Détail du devis</p>
+              <ul className="mt-4 space-y-2">
+                {quote.lines.map((l) => (
+                  <li key={l.label} className="flex items-baseline justify-between gap-4 text-sm">
+                    <span className="text-muted">
+                      {l.label}
+                      {l.hint ? <span className="text-muted/70"> · {l.hint}</span> : null}
+                    </span>
+                    <span className="shrink-0 font-medium text-navy">{formatEuro(l.amount)}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-4 flex items-baseline justify-between border-t border-line pt-4">
+                <span className="font-display text-xl text-navy">Total HT</span>
+                <span className="font-display text-2xl text-navy">{formatEuro(quote.total)}</span>
               </div>
-            </OptionGroup>
+              <p className="mt-3 text-xs leading-relaxed text-muted">
+                Micro-entreprise, TVA non applicable. Tarif de vente, charges sociales 11 % déjà absorbées. Devis formel
+                sous 2 heures ouvrées.
+              </p>
+            </div>
           ) : null}
-
-          <OptionGroup title="Cadre de remise">
-            <Toggle
-              label={`${PRESTIGE_PROTOCOL.name} — ${formatEuro(OPTIONS.protocolePrestige)}`}
-              text={PRESTIGE_PROTOCOL.simulator}
-              on={input.protocolePrestige}
-              onClick={() => setInput((s) => ({ ...s, protocolePrestige: !s.protocolePrestige }))}
-            />
-            {input.vehicle === "prestige" ? (
-              <p className="mt-2 text-sm leading-relaxed text-muted">{PRESTIGE_PROTOCOL.prestigeHint}</p>
-            ) : null}
-          </OptionGroup>
-
-          <div className="rounded-[1.4rem] border border-line px-5 py-5">
-            <p className="text-sm text-muted">Options sélectionnées</p>
-            <p className="font-display text-2xl text-navy">{formatEuro(quote.options)}</p>
-            <p className="mt-4 text-sm leading-relaxed text-muted">
-              Le convoyage se calcule ensuite, après vos coordonnées. Devis formel sous 2 heures ouvrées.
-            </p>
-          </div>
         </div>
       )}
 
@@ -511,7 +399,7 @@ export function Simulator({
       ) : null}
 
       <p className="mt-6 text-center text-xs leading-relaxed text-muted">
-        Le coût du convoyage s’ajuste selon la distance exacte. Devis formel sous 2 heures ouvrées.{" "}
+        Base Quimper. Approche 0,25 €/km hors base. Retour chauffeur inclus en aller simple.{" "}
         <Link to="/contact" className="text-coral">
           Contact
         </Link>
@@ -574,7 +462,7 @@ function Choice({
           key={o.v}
           type="button"
           onClick={() => onPick(o.v)}
-          className="flex items-center justify-between rounded-2xl border border-line bg-bg px-5 py-5 text-left transition-colors hover:border-navy"
+          className="flex flex-col gap-1 rounded-2xl border border-line bg-bg px-5 py-5 text-left transition-colors hover:border-navy sm:flex-row sm:items-center sm:justify-between"
         >
           <span className="font-medium text-navy">{o.l}</span>
           <span className="text-sm text-muted">{o.h}</span>
@@ -620,15 +508,6 @@ function CityField({
   );
 }
 
-function OptionGroup({ title, children }: { title: string; children: ReactNode }) {
-  return (
-    <div className="space-y-4">
-      <p className="text-xs font-semibold tracking-[0.18em] text-muted uppercase">{title}</p>
-      {children}
-    </div>
-  );
-}
-
 function Toggle({
   label,
   text,
@@ -669,7 +548,6 @@ function JockeyFlow({
   input,
   setInput,
   client,
-  setClient,
   gate,
   setGate,
   quote,
@@ -677,15 +555,14 @@ function JockeyFlow({
 }: {
   input: QuoteInput;
   setInput: (fn: (s: QuoteInput) => QuoteInput) => void;
-  client: "part" | "pro";
-  setClient: (v: "part" | "pro") => void;
+  client: ClientKind;
   gate: boolean;
   setGate: (v: boolean) => void;
   quote: ReturnType<typeof computeQuote>;
   onBack: () => void;
 }) {
   const [step, setStep] = useState(0);
-  const steps = ["Le trajet", "Le domicile", "Gare ou aéroport", "Horaires", "Options"];
+  const steps = ["Le trajet", "Le domicile", "Gare ou aéroport", "Horaires", "À la carte"];
 
   if (gate && quote.ok) {
     return (
@@ -704,7 +581,7 @@ function JockeyFlow({
         Changer de mission
       </button>
       <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">
-        Jockey, étape {step + 1} sur {steps.length}
+        Conciergerie, étape {step + 1} sur {steps.length}
       </p>
       <div className="mt-3 h-1 overflow-hidden rounded-full bg-sand">
         <div className="h-full bg-coral transition-all" style={{ width: `${((step + 1) / steps.length) * 100}%` }} />
@@ -790,10 +667,14 @@ function JockeyFlow({
 
       {step === 4 && (
         <div className="mt-8 space-y-6">
+          <p className="text-sm text-muted">
+            La conciergerie se compose à la carte. Nettoyage, CT, plein, attente d’une personne. Pas de gardiennage. Pas
+            de transport de passagers.
+          </p>
           <div className="grid gap-3 sm:grid-cols-2">
             <Toggle
               label="Nettoyage intérieur et extérieur"
-              text="Uniquement avec le jockey. 90 €."
+              text="Uniquement avec la conciergerie. 90 €."
               price={formatEuro(OPTIONS.jockeyLavage)}
               image="/images/preparation-esthetique-vehicule.jpg"
               on={input.jockeyWash === "standard"}
@@ -825,10 +706,14 @@ function JockeyFlow({
               on={input.plein}
               onClick={() => setInput((s) => ({ ...s, plein: !s.plein }))}
             />
+            <Toggle
+              label="Attente / remise à une personne"
+              text="Quelqu’un vient chercher le véhicule. Nous restons sur place. 39 €."
+              price={formatEuro(OPTIONS.jockeyAttente)}
+              on={input.jockeyAttente}
+              onClick={() => setInput((s) => ({ ...s, jockeyAttente: !s.jockeyAttente }))}
+            />
           </div>
-          <p className="text-sm text-muted">
-            Cochez nettoyage et CT si besoin. Ils s’ajoutent au devis. Pas de gardiennage. Pas de transport de passagers.
-          </p>
         </div>
       )}
 

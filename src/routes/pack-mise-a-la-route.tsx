@@ -2,14 +2,15 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { CtaBar } from "@/components/CtaBar";
 import { PageHero } from "@/components/PageHero";
 import { pageHead } from "@/lib/seo";
-import { PACKS } from "@/lib/offers";
+import { PACKS_PART, PACKS_PRO } from "@/lib/offers";
+import { formatEuro } from "@/lib/utils";
 
 export const Route = createFileRoute("/pack-mise-a-la-route")({
   head: () =>
     pageHead({
-      title: "Packs de livraison. Standard, Confort, Signature.",
+      title: "Packs de livraison. Particuliers et professionnels.",
       description:
-        "Trois menus de livraison : Standard 89 €, Confort dès 129 €, Signature 329 €. Moins cher qu’à la carte. Mise en main offerte.",
+        "Trois packs particuliers : Route, Sérénité, Sécurisé. Trois packs professionnels : Atelier, Livraison client, Signature réseau. Pas d’à la carte sur le convoyage.",
       path: "/pack-mise-a-la-route",
       image: "/images/preparation-esthetique-vehicule.jpg",
     }),
@@ -20,19 +21,37 @@ function Page() {
   return (
     <main>
       <PageHero
-        kicker="Menus de livraison"
+        kicker="Packs de livraison"
         title="Le véhicule arrive prêt."
-        text="Trois menus, moins chers qu’à la carte. Ou rien, mise en main offerte. Prix indicatifs, à confirmer."
+        text="Deux clientèles, trois packs chacune. Pas d’à la carte sur le convoyage. La conciergerie reste composable. Prix indicatifs, à confirmer."
         image="/images/preparation-esthetique-vehicule.jpg"
         alt="Préparation d’un véhicule avant livraison"
       />
       <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8">
-        <div className="grid gap-6 lg:grid-cols-3">
-          {PACKS.map((p) => (
+        <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">Particulier</p>
+        <h2 className="mt-3 font-display text-3xl text-navy">Route, Sérénité, Sécurisé.</h2>
+        <div className="mt-8 grid gap-6 lg:grid-cols-3">
+          {PACKS_PART.map((p) => (
             <article key={p.id} className="flex flex-col rounded-[1.8rem] border border-line bg-surface p-8">
               <p className="text-xs font-semibold tracking-[0.16em] text-coral uppercase">{p.tag}</p>
-              <h2 className="mt-3 font-display text-2xl text-navy">{p.name}</h2>
-              <p className="mt-2 text-muted">À partir de {p.from} €</p>
+              <h3 className="mt-3 font-display text-2xl text-navy">{p.name}</h3>
+              <p className="mt-2 text-muted">{p.from === 0 ? "Inclus au trajet" : `+ ${formatEuro(p.from)}`}</p>
+              <ul className="mt-6 flex-1 space-y-2 text-sm text-muted">
+                {p.items.map((it) => (
+                  <li key={it}>{it}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+        <p className="mt-16 text-xs font-semibold tracking-[0.18em] text-coral uppercase">Professionnel</p>
+        <h2 className="mt-3 font-display text-3xl text-navy">Atelier, Livraison client, Signature.</h2>
+        <div className="mt-8 grid gap-6 lg:grid-cols-3">
+          {PACKS_PRO.map((p) => (
+            <article key={p.id} className="flex flex-col rounded-[1.8rem] border border-line bg-surface p-8">
+              <p className="text-xs font-semibold tracking-[0.16em] text-coral uppercase">{p.tag}</p>
+              <h3 className="mt-3 font-display text-2xl text-navy">{p.name}</h3>
+              <p className="mt-2 text-muted">{p.from === 0 ? "Inclus au trajet" : `+ ${formatEuro(p.from)}`}</p>
               <ul className="mt-6 flex-1 space-y-2 text-sm text-muted">
                 {p.items.map((it) => (
                   <li key={it}>{it}</li>
@@ -42,7 +61,7 @@ function Page() {
           ))}
         </div>
         <p className="mt-10 max-w-3xl text-sm leading-relaxed text-muted">
-          Ces montants sont indicatifs. Ils s’ajoutent au convoyage. Moins cher qu’à la carte. Confirmation sous 2 heures ouvrées.
+          Ces montants s’ajoutent au convoyage. Base Quimper, approche 0,25 €/km hors base, retour chauffeur inclus en aller simple. Confirmation sous 2 heures ouvrées.
         </p>
         <Link to="/simulateur" className="mt-8 inline-flex h-12 items-center rounded-full bg-coral px-6 font-medium text-surface">
           Composer au simulateur
