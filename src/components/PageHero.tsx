@@ -56,11 +56,15 @@ export function PageHero({
         {kicker ? (
           <p className="mb-3 text-xs font-semibold tracking-[0.22em] text-coral uppercase sm:mb-5">{kicker}</p>
         ) : null}
+        <h1 className="max-w-3xl font-display text-[1.85rem] leading-[1.18] text-navy [text-wrap:pretty] sm:hidden">
+          {title}
+          {accent ? <span className="text-coral"> {accent}</span> : null}
+        </h1>
         <RiseWords
           as="h1"
           text={title}
           accent={accent}
-          className="max-w-3xl font-display text-[1.85rem] leading-tight text-navy [text-wrap:pretty] sm:text-6xl"
+          className="hidden max-w-3xl font-display text-6xl text-navy sm:block"
         />
         {text ? (
           <Reveal>
