@@ -60,7 +60,7 @@ export function PageHero({
           as="h1"
           text={title}
           accent={accent}
-          className="max-w-3xl font-display text-[1.85rem] text-navy sm:text-6xl"
+          className="max-w-3xl font-display text-[1.85rem] leading-tight text-navy [text-wrap:pretty] sm:text-6xl"
         />
         {text ? (
           <Reveal>
