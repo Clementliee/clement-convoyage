@@ -6,6 +6,7 @@ import { FaqJsonLd } from "@/components/JsonLd";
 import { HeroStage } from "@/components/HeroStage";
 import { HomeEstimator } from "@/components/HomeEstimator";
 import { Reveal } from "@/components/Reveal";
+import { RiseWords } from "@/components/RiseWords";
 import { pageHead } from "@/lib/seo";
 import { PILLARS, PROCESS, B2B_OFFERS, PACKS_PART, PACKS_PRO, PRESTIGE_PROTOCOL, WHY_PRO_DRIVER } from "@/lib/offers";
 import { formatEuro } from "@/lib/utils";
@@ -58,9 +59,10 @@ function Home() {
       <section className="mx-auto max-w-5xl px-5 py-28 sm:px-8 sm:py-36">
         <Reveal>
           <p className="text-xs font-semibold tracking-[0.28em] text-coral uppercase">Prestations</p>
-          <h2 className="mt-5 max-w-3xl font-display text-4xl leading-[1.12] tracking-tight text-navy sm:text-5xl">
-            Acheminement, préparation, liaisons européennes.
-          </h2>
+          <RiseWords
+            text="Acheminement, préparation, liaisons européennes."
+            className="mt-5 max-w-3xl font-display text-4xl leading-[1.12] tracking-tight text-navy sm:text-5xl"
+          />
         </Reveal>
         <div className="mt-20 grid gap-12 sm:grid-cols-3">
           {PILLARS.map((p) => (
@@ -75,7 +77,10 @@ function Home() {
 
       <section className="mx-auto max-w-6xl px-5 pb-28 sm:px-8">
         <Reveal>
-          <h2 className="font-display text-4xl text-navy sm:text-5xl">Trois packs. Deux clientèles.</h2>
+          <RiseWords
+            text="Trois packs. Deux clientèles."
+            className="font-display text-4xl text-navy sm:text-5xl"
+          />
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
             Plus d’à la carte sur le convoyage. Un particulier n’a pas besoin d’un coffret terroir. Un concessionnaire n’a pas besoin d’un plein pour la route. Mise en main offerte.
           </p>
@@ -121,9 +126,12 @@ function Home() {
       <section className="mx-auto max-w-6xl px-5 pb-28 sm:px-8">
         <Reveal>
           <p className="text-xs font-semibold tracking-[0.28em] text-coral uppercase">Missions</p>
-          <h2 className="mt-5 font-display text-4xl text-navy sm:text-5xl">Ce qu’on fait, concrètement.</h2>
+          <RiseWords
+            text="Ce que nous faisons."
+            className="mt-5 font-display text-4xl text-navy sm:text-5xl"
+          />
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-            Achat à distance, Paris, Nice, Varsovie, location, accompagnement à l’achat. Le prix se calcule au simulateur.
+            Convoyage, atelier, flotte, prestige. Des cas. Le devis se fait sur dossier.
           </p>
         </Reveal>
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
@@ -151,7 +159,10 @@ function Home() {
 
       <section className="mx-auto max-w-6xl px-5 pb-28 sm:px-8">
         <Reveal>
-          <h2 className="font-display text-4xl text-navy sm:text-5xl">Un professionnel. Pas un particulier.</h2>
+          <RiseWords
+            text="Un professionnel. Pas un particulier."
+            className="font-display text-4xl text-navy sm:text-5xl"
+          />
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
             Les plateformes à 60 € mettent un conducteur amateur au volant. Nous non.
           </p>
@@ -207,7 +218,10 @@ function Home() {
           />
           <div className="flex flex-col justify-center p-12 sm:p-16">
             <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Conciergerie</p>
-            <h2 className="mt-5 font-display text-4xl text-navy sm:text-5xl">Conciergerie de véhicules.</h2>
+            <RiseWords
+              text="Conciergerie de véhicules."
+              className="mt-5 font-display text-4xl text-navy sm:text-5xl"
+            />
             <p className="mt-6 max-w-md text-lg leading-relaxed text-muted">
               Bretagne. Gare, atelier, flotte, prestige. Le devis se fait sur dossier.
             </p>
@@ -224,7 +238,7 @@ function Home() {
 
       <section className="mx-auto max-w-5xl px-5 pb-28 sm:px-8">
         <Reveal>
-          <h2 className="font-display text-4xl text-navy sm:text-5xl">France et Europe.</h2>
+          <RiseWords text="France et Europe." className="font-display text-4xl text-navy sm:text-5xl" />
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
             Base opérationnelle à Quimper. Prise en charge sur le lieu où se trouve le véhicule.
           </p>

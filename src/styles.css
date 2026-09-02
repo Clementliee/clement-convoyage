@@ -97,7 +97,8 @@
   }
   .reveal {
     opacity: 0;
-    transform: translateY(22px);
+    transform: perspective(900px) translateY(1.35rem) rotateX(10deg);
+    transform-origin: 50% 90%;
     transition:
       opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
       transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -105,6 +106,49 @@
   .reveal-on {
     opacity: 1;
     transform: none;
+  }
+  .rise-stage {
+    perspective: 900px;
+  }
+  .rise-clip {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    padding-bottom: 0.08em;
+    margin-right: 0.28em;
+  }
+  .rise-word {
+    display: block;
+    opacity: 0;
+    transform: translateY(115%) rotateX(32deg) translateZ(-18px);
+    transform-origin: 50% 100%;
+    transition:
+      opacity 720ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 720ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: calc(var(--i, 0) * 70ms);
+    backface-visibility: hidden;
+  }
+  .rise-on .rise-word {
+    opacity: 1;
+    transform: none;
+  }
+  @media (max-width: 640px) {
+    .rise-word {
+      transform: translateY(100%) rotateX(18deg);
+      transition-duration: 620ms;
+      transition-delay: calc(var(--i, 0) * 55ms);
+    }
+    .reveal {
+      transform: perspective(700px) translateY(1rem) rotateX(6deg);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal,
+    .rise-word {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
   }
   @supports (animation-timeline: view()) {
     .reveal-view {

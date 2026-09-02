@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { RiseWords } from "@/components/RiseWords";
+import { Reveal } from "@/components/Reveal";
 
 export function PageHero({
   kicker,
@@ -54,16 +56,17 @@ export function PageHero({
         {kicker ? (
           <p className="mb-5 text-xs font-semibold tracking-[0.22em] text-coral uppercase">{kicker}</p>
         ) : null}
-        <h1 className="max-w-3xl font-display text-4xl text-navy sm:text-6xl">
-          {title}
-          {accent ? (
-            <>
-              {" "}
-              <span className="text-coral">{accent}</span>
-            </>
-          ) : null}
-        </h1>
-        {text ? <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">{text}</p> : null}
+        <RiseWords
+          as="h1"
+          text={title}
+          accent={accent}
+          className="max-w-3xl font-display text-4xl text-navy sm:text-6xl"
+        />
+        {text ? (
+          <Reveal>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">{text}</p>
+          </Reveal>
+        ) : null}
       </div>
     </section>
   );

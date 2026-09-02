@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppLink } from "@/components/AppLink";
 import { PageHero } from "@/components/PageHero";
 import { CtaBar } from "@/components/CtaBar";
+import { Reveal } from "@/components/Reveal";
+import { RiseWords } from "@/components/RiseWords";
 import { SERVICES } from "@/lib/site";
 import { pageHead } from "@/lib/seo";
 
@@ -27,7 +29,8 @@ function Page() {
       />
 
       <section className="mx-auto grid max-w-6xl gap-6 px-5 pb-16 sm:px-8 lg:grid-cols-3">
-        <article className="flex flex-col overflow-hidden rounded-[1.8rem] bg-navy text-surface">
+        <Reveal>
+        <article className="flex h-full flex-col overflow-hidden rounded-[1.8rem] bg-navy text-surface">
           <img src="/images/mission-audi-a4.jpg" alt="Audi A4 Avant en convoyage France" className="h-44 w-full object-cover" />
           <div className="flex flex-1 flex-col p-8 sm:p-10">
             <p className="text-xs font-semibold tracking-[0.18em] text-surface/50 uppercase">Convoyage</p>
@@ -43,7 +46,9 @@ function Page() {
             </Link>
           </div>
         </article>
-        <article className="flex flex-col overflow-hidden rounded-[1.8rem] border border-line bg-surface">
+        </Reveal>
+        <Reveal delay={80}>
+        <article className="flex h-full flex-col overflow-hidden rounded-[1.8rem] border border-line bg-surface">
           <img src="/images/mission-tiguan-gare.jpg" alt="Volkswagen Tiguan à la gare" className="h-44 w-full object-cover" />
           <div className="flex flex-1 flex-col p-8 sm:p-10">
             <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">Conciergerie</p>
@@ -59,13 +64,15 @@ function Page() {
             </Link>
           </div>
         </article>
-        <article className="flex flex-col overflow-hidden rounded-[1.8rem] border border-line bg-surface">
+        </Reveal>
+        <Reveal delay={160}>
+        <article className="flex h-full flex-col overflow-hidden rounded-[1.8rem] border border-line bg-surface">
           <img src="/images/mission-bmw-controle.jpg" alt="Contrôle visuel d’une BMW Série 3" className="h-44 w-full object-cover" />
           <div className="flex flex-1 flex-col p-8 sm:p-10">
             <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">Conciergerie</p>
             <h2 className="mt-3 font-display text-3xl text-navy sm:text-4xl">Achat accompagné</h2>
             <p className="mt-4 flex-1 text-muted">
-              On y va à deux voitures. Contrôle visuel sur place. Vous repartez au volant de l’achat, on ramène l’autre.
+              Deux véhicules. Contrôle visuel. Vous repartez au volant. Nous ramenons l’autre.
             </p>
             <Link
               to="/jockey-gares-aeroports"
@@ -75,10 +82,11 @@ function Page() {
             </Link>
           </div>
         </article>
+        </Reveal>
       </section>
 
       <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8">
-        <h2 className="font-display text-3xl text-navy">Deux délais.</h2>
+        <RiseWords text="Deux délais." className="font-display text-3xl text-navy" />
         <p className="mt-3 max-w-xl text-muted">
           Pack Route ou Pack Atelier : le même trajet. Les packs au-dessus changent la remise, pas le kilomètre. Week-ends
           et jours fériés inclus. Sous réserve de disponibilité.
