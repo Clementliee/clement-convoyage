@@ -1,7 +1,7 @@
 /** Noms de fichiers SEO. Une source pour tout le site. */
 export const IMG = {
   hero: "/images/convoyage-berline-bretagne.jpg",
-  heroPhares: "/images/convoyage-berline-phares.jpg",
+  heroPhares: "/images/convoyage-berline-phares.jpg?v=nuit",
   france: "/images/mission-golf-brest.jpg",
   europe: "/images/mission-passat.jpg",
   cles: "/images/mission-bmw-x3.jpg",

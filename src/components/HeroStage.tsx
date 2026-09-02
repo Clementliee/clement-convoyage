@@ -48,6 +48,11 @@ export function HeroStage() {
           decoding="async"
           className="absolute inset-0 h-full w-full object-cover object-[62%_58%]"
         />
+        <div
+          className="pointer-events-none absolute inset-0 bg-[#071018]"
+          style={{ opacity: lights * 0.42 }}
+          aria-hidden
+        />
         <img
           src={IMG.heroPhares}
           alt=""
