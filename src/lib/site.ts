@@ -36,23 +36,23 @@ export const NAV = [
 export const INCLUDED = [
   {
     t: "Convoyage routier",
-    d: "Prise en charge, acheminement, restitution. Véhicule particulier ou utilitaire jusqu’à 3,5 t, en état de marche. Assurance tous risques dédiée.",
+    d: "Prise en charge, acheminement, restitution. Véhicule particulier ou utilitaire jusqu’à 3,5 t, en état de marche. Un chauffeur dédié, assuré en tous risques. Pas de sous-traitance.",
   },
   {
     t: "Frais de route",
-    d: "Carburant, péages et logistique retour du convoyeur, intégrés à la mission.",
+    d: "Carburant, péages et logistique retour du convoyeur, intégrés à la mission. Ils figurent sur le devis. Ils ne s’ajoutent pas après.",
   },
   {
     t: "État des lieux numérique",
-    d: "Rapport haute définition, départ et arrivée. Compteur, carrosserie, habitacle.",
+    d: "Rapport haute définition, départ et arrivée. Compteur, carrosserie, habitacle. Photographies horodatées. Jointes au compte rendu.",
   },
   {
     t: "Restitution des clés",
-    d: "En main. Documents de bord. Compte-rendu de mission.",
+    d: "En main propre, à la personne désignée. Documents de bord. Compte-rendu de mission le jour même. Rien n’est laissé en suspens.",
   },
   {
     t: "Mise en main personnalisée",
-    d: "Offerte. 20 à 30 minutes : aides à la conduite, multimédia, recharge.",
+    d: "Offerte. Vingt à trente minutes : aides à la conduite, multimédia, recharge. Sur place, à la remise. Pas un mot dans un mail.",
   },
 ] as const;
 

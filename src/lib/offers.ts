@@ -92,6 +92,9 @@ export const PACKS_PART = [
       "État des lieux photo, départ et arrivée",
       "Assurance tous risques, mise en main offerte",
     ],
+    text: "Le trajet, sans autre prestation de remise. Chauffeur, photographies, assurance, clés en main. La mise en main est offerte, vingt à trente minutes. Pour un particulier qui veut simplement que le véhicule arrive, à l’adresse convenue, avec un compte rendu le jour même.",
+    cta: "Chiffrer en Pack Route",
+    search: { mission: "convoyage", client: "part" },
   },
   {
     id: "confort" as const,
@@ -103,6 +106,9 @@ export const PACKS_PART = [
       "Nettoyage intérieur et extérieur",
       "Plein carburant, ou recharge VE",
     ],
+    text: "Le véhicule arrive propre, avec le plein ou la recharge. C’est la formule la plus demandée : le destinataire prend le volant sans passer à la station ni au lavage. Tout le Pack Route, plus le nettoyage intérieur et extérieur, plus le plein.",
+    cta: "Chiffrer en Pack Sérénité",
+    search: { mission: "convoyage", client: "part" },
   },
   {
     id: "premium" as const,
@@ -114,6 +120,9 @@ export const PACKS_PART = [
       "Traceur GPS 4G cédé, 12 mois inclus",
       "Suivi pendant la mission",
     ],
+    text: "Tout le Pack Sérénité, plus un traceur GPS 4G cédé à l’acquéreur, avec douze mois de suivi. Le véhicule est suivi pendant la mission. Le traceur reste ensuite dans le véhicule. Pour un achat à distance, ou lorsque le suivi compte autant que l’arrivée.",
+    cta: "Chiffrer en Pack Sécurisé",
+    search: { mission: "convoyage", client: "part" },
   },
 ] as const;
 
@@ -128,6 +137,9 @@ export const PACKS_PRO = [
       "État des lieux photo HD, compte-rendu",
       "Facture à quinze jours",
     ],
+    text: "Le déplacement, pour un réseau. Navette d’atelier, transfert inter-sites, VO. Photographies, compte rendu, facture à quinze jours. Sans coffret. Le commercial demeure en établissement. Le mécanicien reste au banc.",
+    cta: "Chiffrer en Pack Atelier",
+    search: { mission: "convoyage", client: "pro" },
   },
   {
     id: "confort" as const,
@@ -139,6 +151,9 @@ export const PACKS_PRO = [
       "Nettoyage standard constructeur",
       "Coffret Terroir Breton, mise en main client",
     ],
+    text: "Le commercial vend. Nous livrons. Nettoyage conforme au réseau, coffret terroir, mise en main chez le client, compte rendu au donneur d’ordre. La formule la plus demandée en concession. Facturation à quinze jours.",
+    cta: "Chiffrer en Pack Livraison",
+    search: { mission: "convoyage", client: "pro" },
   },
   {
     id: "premium" as const,
@@ -150,9 +165,11 @@ export const PACKS_PRO = [
       "Coffret Prestige Champagne",
       "GPS le temps de la mission, protocole de remise",
     ],
+    text: "L’image de marque du réseau, jusqu’au pas de porte. Coffret champagne, suivi GPS le temps de la mission, protocole de remise. Livraison vidéo possible, au devis : un film court tourné à la remise, transmis à la concession.",
+    cta: "Chiffrer en Pack Signature",
+    search: { mission: "convoyage", client: "pro" },
   },
 ] as const;
-
 /** @deprecated Use PACKS_PART / PACKS_PRO. Kept for pages that still iterate a single list. */
 export const PACKS = PACKS_PART;
 
