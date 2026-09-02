@@ -34,7 +34,7 @@ export function HeroStage() {
     };
   }, []);
 
-  const lights = Math.min(1, Math.max(0, t / 0.7));
+  const lights = Math.min(1, Math.max(0, t / 0.38));
 
   return (
     <section ref={wrap} className="relative h-[145vh] bg-[#1a2230]">
