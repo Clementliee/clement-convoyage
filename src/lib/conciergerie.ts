@@ -63,9 +63,9 @@ export const CONCIERGE_CATALOGUE = [
     id: "achat",
     kicker: "Achat",
     title: "Accompagnement d’achat",
-    text: "Deux véhicules. Contrôle visuel de la carrosserie, du compteur, de l’habitacle et des documents. Vous repartez au volant de l’achat ; nous ramenons l’autre.",
-    image: "/images/mission-bmw-controle.jpg",
-    alt: "Contrôle visuel d’une BMW Série 3",
+    text: "Nous nous rendons chez le vendeur. Photographies, conformité à l’annonce, carrosserie, compteur, habitacle, documents. Un rapport vous est adressé : état du véhicule, observations, tarif. Vous décidez ensuite. Si vous achetez, vous pouvez repartir au volant ; nous ramenons l’autre véhicule.",
+    image: "/images/mission-achat-inspection.jpg",
+    alt: "Contrôle visuel d’une Audi avant achat, photographies de carrosserie",
   },
   {
     id: "flotte",

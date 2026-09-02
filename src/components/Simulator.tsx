@@ -850,8 +850,8 @@ function JockeyOptions({
         {service === "achat" || service === "mouvement" ? (
           <Toggle
             label="Contrôle visuel"
-            text="Carrosserie, compteur, intérieur, documents, photos."
-            image="/images/mission-bmw-controle.jpg"
+            text="Photographies, conformité à l’annonce, rapport : état du véhicule et tarif."
+            image="/images/mission-achat-inspection.jpg"
             on={input.controleVisuel}
             onClick={() => setInput((s) => ({ ...s, controleVisuel: !s.controleVisuel }))}
           />

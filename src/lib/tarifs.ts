@@ -425,7 +425,7 @@ export const JOCKEY_SERVICES = [
   {
     id: "achat" as const,
     name: "Achat accompagné",
-    hint: "Deux véhicules. Contrôle visuel. Vous repartez au volant.",
+    hint: "Inspection chez le vendeur, photographies, rapport. Vous décidez ensuite.",
   },
   {
     id: "flotte" as const,
