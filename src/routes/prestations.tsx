@@ -125,6 +125,14 @@ function Page() {
                   <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">{item.kicker}</p>
                   <h3 className="mt-3 font-display text-2xl text-navy sm:text-3xl">{item.title}</h3>
                   <p className="mt-3 max-w-md text-sm leading-relaxed text-muted">{item.text}</p>
+                  <ul className="mt-5 space-y-2">
+                    {item.items.map((line) => (
+                      <li key={line} className="flex gap-3 text-sm leading-relaxed text-navy">
+                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-coral" />
+                        <span>{line}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </article>
             </Reveal>

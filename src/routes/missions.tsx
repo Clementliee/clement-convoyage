@@ -25,13 +25,13 @@ function Page() {
     <main>
       <PageHero
         kicker="Missions"
-        title="Ce que nous faisons."
-        text="Convoyage. Atelier. Flotte. Prestige. Des cas, pas des tarifs. Le devis se fait sur dossier."
+        title="Ce que nous convoyons."
+        text="A vers B. France, Europe. Livraison client, import, prestige, échange. Des cas. Le devis se fait sur dossier."
         image="/images/mission-audi-a4.jpg"
         alt="Audi A4 Avant en convoyage sur autoroute"
       />
 
-      <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
+      <section className="mx-auto max-w-6xl overflow-x-hidden px-5 pb-20 sm:px-8">
         <div className="flex flex-wrap gap-2">
           {CASE_FILTERS.map((f) => (
             <button
@@ -51,15 +51,25 @@ function Page() {
         <div className="mt-10 grid gap-10 lg:grid-cols-2">
           {rows.map((c, i) => (
             <Reveal key={c.id} delay={(i % 2) * 90}>
-              <article className="flex h-full flex-col overflow-hidden rounded-[1.8rem] border border-line bg-surface">
+              <article className="flex h-full min-w-0 flex-col overflow-hidden rounded-[1.8rem] border border-line bg-surface">
                 <img src={c.image} alt={c.alt} className="h-56 w-full object-cover" />
-                <div className="flex flex-1 flex-col p-7 sm:p-8">
+                <div className="flex min-w-0 flex-1 flex-col p-7 sm:p-8">
                   <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">
                     {c.tag} · {c.pack}
                   </p>
-                  <h2 className="mt-3 font-display text-2xl text-navy">{c.title}</h2>
+                  <h2 className="mt-3 font-display text-2xl break-words text-navy">{c.title}</h2>
                   <p className="mt-2 text-sm text-muted">{c.lead}</p>
-                  <p className="mt-4 flex-1 text-base leading-relaxed text-muted">{c.story}</p>
+                  <p className="mt-4 text-base leading-relaxed text-muted">{c.story}</p>
+                  {c.beats ? (
+                    <ol className="mt-5 min-w-0 space-y-2">
+                      {c.beats.map((b, n) => (
+                        <li key={b} className="flex min-w-0 gap-3 text-sm leading-relaxed text-navy">
+                          <span className="shrink-0 font-display text-coral">{String(n + 1).padStart(2, "0")}</span>
+                          <span className="min-w-0">{b}</span>
+                        </li>
+                      ))}
+                    </ol>
+                  ) : null}
                   <Link
                     to="/simulateur"
                     search={{
