@@ -40,6 +40,7 @@ import { Route as SecuriteVehiculeRouteImport } from './routes/securite-vehicule
 import { Route as SimulateurRouteImport } from './routes/simulateur'
 import { Route as TarifsRouteImport } from './routes/tarifs'
 import { Route as TraqueurGpsRouteImport } from './routes/traqueur-gps'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
 const IndexRoute = IndexRouteImport.update({
@@ -197,6 +198,11 @@ const TraqueurGpsRoute = TraqueurGpsRouteImport.update({
   path: '/traqueur-gps',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => BlogRoute,
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -236,13 +242,13 @@ export interface FileRoutesByFullPath {
   '/tarifs': typeof TarifsRoute
   '/traqueur-gps': typeof TraqueurGpsRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/blog/': typeof BlogIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$slug': typeof SlugRoute
   '/a-propos': typeof AProposRoute
   '/avis': typeof AvisRoute
-  '/blog': typeof BlogRouteWithChildren
   '/cgv': typeof CgvRoute
   '/coffrets-livraison': typeof CoffretsLivraisonRoute
   '/confidentialite': typeof ConfidentialiteRoute
@@ -270,6 +276,7 @@ export interface FileRoutesByTo {
   '/tarifs': typeof TarifsRoute
   '/traqueur-gps': typeof TraqueurGpsRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/blog': typeof BlogIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -305,6 +312,7 @@ export interface FileRoutesById {
   '/tarifs': typeof TarifsRoute
   '/traqueur-gps': typeof TraqueurGpsRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/blog/': typeof BlogIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -341,13 +349,13 @@ export interface FileRouteTypes {
     | '/tarifs'
     | '/traqueur-gps'
     | '/blog/$slug'
+    | '/blog/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/$slug'
     | '/a-propos'
     | '/avis'
-    | '/blog'
     | '/cgv'
     | '/coffrets-livraison'
     | '/confidentialite'
@@ -375,6 +383,7 @@ export interface FileRouteTypes {
     | '/tarifs'
     | '/traqueur-gps'
     | '/blog/$slug'
+    | '/blog'
   id:
     | '__root__'
     | '/'
@@ -409,6 +418,7 @@ export interface FileRouteTypes {
     | '/tarifs'
     | '/traqueur-gps'
     | '/blog/$slug'
+    | '/blog/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -664,6 +674,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TraqueurGpsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/': {
+      id: '/blog/'
+      path: '/'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof BlogRoute
+    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/$slug'
@@ -676,10 +693,12 @@ declare module '@tanstack/react-router' {
 
 interface BlogRouteChildren {
   BlogSlugRoute: typeof BlogSlugRoute
+  BlogIndexRoute: typeof BlogIndexRoute
 }
 
 const BlogRouteChildren: BlogRouteChildren = {
   BlogSlugRoute: BlogSlugRoute,
+  BlogIndexRoute: BlogIndexRoute,
 }
 
 const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)

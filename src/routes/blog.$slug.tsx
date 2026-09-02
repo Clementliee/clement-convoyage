@@ -32,7 +32,7 @@ function Page() {
         <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">Journal</p>
         <h1 className="mt-4 font-display text-4xl text-navy sm:text-5xl">{a.h1}</h1>
         <p className="mt-6 text-lg leading-relaxed text-muted">{a.intro}</p>
-        <img src={a.image} alt="" className="mt-10 w-full rounded-[1.6rem] object-cover" />
+        <img src={a.image} alt={a.alt} className="mt-10 aspect-[16/9] w-full rounded-[1.6rem] object-cover" />
         {a.body.map((b) => (
           <section key={b.h} className="mt-10">
             <h2 className="font-display text-2xl text-navy">{b.h}</h2>
