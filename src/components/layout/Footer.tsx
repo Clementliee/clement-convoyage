@@ -3,8 +3,8 @@ import { SITE } from "@/lib/site";
 
 const PRESTATIONS = [
   { to: "/prestations", label: "Prestations" },
-  { to: "/missions", label: "Missions" },
   { to: "/jockey-gares-aeroports", label: "Conciergerie de véhicules" },
+  { to: "/missions", label: "Missions" },
   { to: "/professionnels", label: "Concessions et garages" },
   { to: "/pack-mise-a-la-route", label: "Packs de livraison" },
   { to: "/simulateur", label: "Devis" },

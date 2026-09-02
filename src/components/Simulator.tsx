@@ -668,8 +668,7 @@ function JockeyFlow({
       {step === 4 && (
         <div className="mt-8 space-y-6">
           <p className="text-sm text-muted">
-            La conciergerie se compose à la carte. Nettoyage, CT, plein, attente d’une personne. Pas de gardiennage. Pas
-            de transport de passagers.
+            La conciergerie se compose à la carte. Gare, aéroport, location, achat accompagné, nettoyage, CT, plein, attente. Pas de gardiennage. Pas de transport de passagers.
           </p>
           <div className="grid gap-3 sm:grid-cols-2">
             <Toggle
@@ -712,6 +711,14 @@ function JockeyFlow({
               price={formatEuro(OPTIONS.jockeyAttente)}
               on={input.jockeyAttente}
               onClick={() => setInput((s) => ({ ...s, jockeyAttente: !s.jockeyAttente }))}
+            />
+            <Toggle
+              label="Contrôle visuel d’achat"
+              text="Carrosserie, compteur, intérieur, documents, photos. Pour un achat accompagné."
+              price={formatEuro(OPTIONS.controleVisuel)}
+              image="/images/etat-des-lieux-vehicule.jpg"
+              on={input.controleVisuel}
+              onClick={() => setInput((s) => ({ ...s, controleVisuel: !s.controleVisuel }))}
             />
           </div>
         </div>

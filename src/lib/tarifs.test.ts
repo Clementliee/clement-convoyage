@@ -137,10 +137,14 @@ describe("jockey conciergerie keeps à la carte", () => {
         jockeyCt: true,
         jockeyAttente: true,
         jockeyWash: "standard",
+        controleVisuel: true,
       }),
     );
     assert.equal(bare.ok, true);
-    assert.equal(extra.options, OPTIONS.jockeyCt + OPTIONS.jockeyAttente + OPTIONS.jockeyLavage);
+    assert.equal(
+      extra.options,
+      OPTIONS.jockeyCt + OPTIONS.jockeyAttente + OPTIONS.jockeyLavage + OPTIONS.controleVisuel,
+    );
     assert.equal(extra.total - bare.total, extra.options);
   });
 });

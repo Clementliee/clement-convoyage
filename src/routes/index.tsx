@@ -9,7 +9,7 @@ import { Reveal } from "@/components/Reveal";
 import { pageHead } from "@/lib/seo";
 import { PILLARS, PROCESS, B2B_OFFERS, PACKS_PART, PACKS_PRO, PRESTIGE_PROTOCOL, WHY_PRO_DRIVER } from "@/lib/offers";
 import { formatEuro } from "@/lib/utils";
-import { CASES } from "@/lib/cases";
+import { featuredCases } from "@/lib/cases";
 
 export const Route = createFileRoute("/")({
   head: () =>
@@ -123,11 +123,11 @@ function Home() {
           <p className="text-xs font-semibold tracking-[0.28em] text-coral uppercase">Missions</p>
           <h2 className="mt-5 font-display text-4xl text-navy sm:text-5xl">Ce qu’on fait, concrètement.</h2>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-            Achat à distance, import, navette atelier, conciergerie gare. Le prix se calcule au simulateur.
+            Achat à distance, Paris, Nice, Varsovie, location, accompagnement à l’achat. Le prix se calcule au simulateur.
           </p>
         </Reveal>
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
-          {CASES.slice(0, 3).map((c) => (
+          {featuredCases().map((c) => (
             <Link
               key={c.id}
               to="/missions"

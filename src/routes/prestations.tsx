@@ -23,15 +23,15 @@ function Page() {
         kicker="Prestations"
         title="Livraison de véhicule."
         accent="Conciergerie."
-        text="Packs particuliers et professionnels. Conciergerie à la carte en Bretagne. Tous les jours."
+        text="Convoyage France et Europe. Conciergerie : gares, location, achat accompagné. Tous les jours."
       />
 
-      <section className="mx-auto grid max-w-6xl gap-6 px-5 pb-16 sm:px-8 lg:grid-cols-2">
+      <section className="mx-auto grid max-w-6xl gap-6 px-5 pb-16 sm:px-8 lg:grid-cols-3">
         <article className="flex flex-col rounded-[1.8rem] bg-navy p-8 text-surface sm:p-10">
-          <p className="text-xs font-semibold tracking-[0.18em] text-surface/50 uppercase">Principal</p>
-          <h2 className="mt-3 font-display text-3xl sm:text-4xl">Livraison France et Europe</h2>
+          <p className="text-xs font-semibold tracking-[0.18em] text-surface/50 uppercase">Convoyage</p>
+          <h2 className="mt-3 font-display text-3xl sm:text-4xl">France et Europe</h2>
           <p className="mt-4 flex-1 text-surface/70">
-            On récupère le véhicule où il se trouve. On le remet au destinataire. Mise en main offerte.
+            On récupère le véhicule où il se trouve. On le remet au destinataire. Bretagne, Paris, Lyon, Nice, Monaco, Bruxelles, Varsovie.
           </p>
           <Link
             to="/simulateur"
@@ -41,17 +41,29 @@ function Page() {
           </Link>
         </article>
         <article className="flex flex-col rounded-[1.8rem] border border-line bg-surface p-8 sm:p-10">
-          <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">Nouveau</p>
-          <h2 className="mt-3 font-display text-3xl text-navy sm:text-4xl">Conciergerie gares et aéroports</h2>
+          <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">Conciergerie</p>
+          <h2 className="mt-3 font-display text-3xl text-navy sm:text-4xl">Gare, aéroport, location</h2>
           <p className="mt-4 flex-1 text-muted">
-            Quimper, Brest, Lorient, Vannes, Rennes, Nantes. Dépose, rapatriement, CT, attente. À la carte. Pas de
-            gardiennage.
+            Dépose, rapatriement, récupération ou restitution d’une location, CT, attente. À la carte. Pas de gardiennage.
           </p>
           <Link
             to="/jockey-gares-aeroports"
             className="mt-8 inline-flex h-12 w-fit items-center rounded-full bg-navy px-6 text-sm font-semibold text-white"
           >
-            Réserver un créneau
+            Voir la conciergerie
+          </Link>
+        </article>
+        <article className="flex flex-col rounded-[1.8rem] border border-line bg-surface p-8 sm:p-10">
+          <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">Conciergerie</p>
+          <h2 className="mt-3 font-display text-3xl text-navy sm:text-4xl">Achat accompagné</h2>
+          <p className="mt-4 flex-1 text-muted">
+            On y va à deux voitures. Contrôle visuel sur place. Vous repartez au volant de l’achat, on ramène l’autre.
+          </p>
+          <Link
+            to="/jockey-gares-aeroports"
+            className="mt-8 inline-flex h-12 w-fit items-center rounded-full border border-navy px-6 text-sm font-semibold text-navy"
+          >
+            Comment ça se passe
           </Link>
         </article>
       </section>

@@ -13,7 +13,7 @@ export const Route = createFileRoute("/jockey-gares-aeroports")({
     pageHead({
       title: "Conciergerie de véhicules en Bretagne | Convoyage BZH",
       description:
-        "Conciergerie automobile en Bretagne. Dépose gare ou aéroport, rapatriement, contrôle technique, attente, lavage. À la carte. Pas de gardiennage.",
+        "Conciergerie automobile en Bretagne. Gare, aéroport, location, accompagnement à l’achat, CT, attente. À la carte. Pas de gardiennage.",
       path: "/jockey-gares-aeroports",
       image: "/images/jockey-gare-quimper.jpg",
     }),
@@ -28,6 +28,14 @@ const FAQ = [
   {
     q: "Vous gardez la voiture pendant mon absence ?",
     a: "Non. Pas de gardiennage. Soit nous déposons le véhicule à la gare ou à l’aéroport, soit nous le ramenons à votre domicile, soit les deux. Un double des clés peut rester chez nous pour le prochain départ.",
+  },
+  {
+    q: "Vous récupérez une location ?",
+    a: "Oui. Agence ou aéroport. On prend le véhicule, photos, on le ramène chez vous. On peut aussi le restituer à l’agence pendant que vous prenez l’avion.",
+  },
+  {
+    q: "Vous m’accompagnez pour un achat ?",
+    a: "Oui. On y va à deux voitures. Contrôle visuel sur place : carrosserie, compteur, intérieur, documents, photos. Si vous achetez, vous repartez au volant. On ramène l’autre véhicule.",
   },
   {
     q: "Où intervenez-vous ?",
@@ -46,7 +54,7 @@ function Page() {
         kicker="Conciergerie Bretagne"
         title="Le véhicule, sans vous."
         accent=""
-        text="Gare, aéroport, contrôle technique, remise à une personne. Nous déplaçons la voiture. Vous prenez le train. Photos. Pas de gardiennage."
+        text="Gare, aéroport, location, achat accompagné, contrôle technique. Nous déplaçons la voiture. Vous prenez le train. Photos. Pas de gardiennage."
         image="/images/jockey-gare-quimper.jpg"
         alt="Berline sur le parvis d’une gare en Bretagne"
       />
@@ -80,6 +88,33 @@ function Page() {
       </section>
 
       <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8">
+        <h2 className="font-display text-3xl text-navy">Aussi, à la carte.</h2>
+        <div className="mt-8 grid gap-6 lg:grid-cols-3">
+          <div className="rounded-[1.6rem] border border-line bg-surface p-7">
+            <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">Location</p>
+            <h3 className="mt-3 font-display text-2xl text-navy">Récupérer ou restituer.</h3>
+            <p className="mt-3 text-sm leading-relaxed text-muted">
+              On va chercher la location à l’agence ou à l’aéroport. On la ramène chez vous. Ou l’inverse : on restitue pendant que vous prenez l’avion. Photos. Ticket carburant si le contrat l’exige.
+            </p>
+          </div>
+          <div className="rounded-[1.6rem] border border-line bg-surface p-7">
+            <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">Achat</p>
+            <h3 className="mt-3 font-display text-2xl text-navy">Deux voitures. Contrôle visuel.</h3>
+            <p className="mt-3 text-sm leading-relaxed text-muted">
+              Vous allez voir un véhicule. On vous y rejoint. Contrôle visuel : carrosserie, compteur, intérieur, documents, photos. Si vous achetez, vous repartez au volant. On ramène l’autre.
+            </p>
+          </div>
+          <div className="rounded-[1.6rem] border border-line bg-surface p-7">
+            <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">Atelier</p>
+            <h3 className="mt-3 font-display text-2xl text-navy">CT, carrosserie, concession.</h3>
+            <p className="mt-3 text-sm leading-relaxed text-muted">
+              On dépose le véhicule au centre, au garage, chez le mandataire. On le reprend. Vous n’immobilisez pas votre journée.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8">
         <h2 className="font-display text-3xl text-navy">Gares et aéroports.</h2>
         <p className="mt-3 max-w-2xl text-muted">
           Le tarif se calcule entre votre domicile et le point choisi. Prix indicatifs, à confirmer. Photos incluses.
@@ -98,7 +133,7 @@ function Page() {
 
       <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8">
         <h2 className="font-display text-3xl text-navy">À la carte, uniquement en conciergerie.</h2>
-        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           <div className="rounded-[1.6rem] bg-sand p-7">
             <p className="font-display text-xl text-navy">Nettoyage</p>
             <p className="mt-2 text-sm text-muted">Intérieur et extérieur. {formatEuro(OPTIONS.jockeyLavage)}. Prestige {formatEuro(OPTIONS.jockeyLavagePrestige)}.</p>
@@ -116,6 +151,10 @@ function Page() {
             <p className="mt-2 text-sm text-muted">Quelqu’un vient chercher le véhicule. Nous restons. {formatEuro(OPTIONS.jockeyAttente)}.</p>
           </div>
           <div className="rounded-[1.6rem] bg-sand p-7">
+            <p className="font-display text-xl text-navy">Contrôle visuel d’achat</p>
+            <p className="mt-2 text-sm text-muted">Carrosserie, compteur, intérieur, documents, photos. {formatEuro(OPTIONS.controleVisuel)}.</p>
+          </div>
+          <div className="rounded-[1.6rem] bg-sand p-7">
             <p className="font-display text-xl text-navy">Double des clés</p>
             <p className="mt-2 text-sm text-muted">Possible, pour les prochains départs. Inclus.</p>
           </div>
@@ -128,8 +167,8 @@ function Page() {
         <FaqJsonLd items={FAQ} />
       </section>
       <CtaBar
-        title="Un véhicule à déposer, ramener, ou présenter ?"
-        text="Domicile, gare ou aéroport, aller, retour ou les deux. Devis en quelques minutes."
+        title="Un véhicule à déposer, ramener, inspecter ?"
+        text="Gare, aéroport, location, achat accompagné. Devis en quelques minutes."
         secondaryTo="/simulateur"
         secondaryLabel="Devis conciergerie"
       />

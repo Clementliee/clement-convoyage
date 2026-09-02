@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { CtaBar } from "@/components/CtaBar";
 import { PageHero } from "@/components/PageHero";
-import { CASES } from "@/lib/cases";
+import { CASE_FILTERS, filterCases, type CaseFilter } from "@/lib/cases";
 import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/missions")({
@@ -9,7 +10,7 @@ export const Route = createFileRoute("/missions")({
     pageHead({
       title: "Missions de convoyage. Cas concrets | Convoyage BZH",
       description:
-        "Exemples de missions : achat Leboncoin, import Belgique, livraison concession, navette CT, conciergerie gare. Base Quimper, Bretagne, France, Europe.",
+        "Exemples de missions : Bretagne, Paris, Nice, Monaco, Bruxelles, Varsovie. Location, accompagnement à l’achat, gares. Base Quimper.",
       path: "/missions",
       image: "/images/convoyage-voiture-france.jpg",
     }),
@@ -17,20 +18,38 @@ export const Route = createFileRoute("/missions")({
 });
 
 function Page() {
+  const [filter, setFilter] = useState<CaseFilter>("all");
+  const rows = filterCases(filter);
   return (
     <main>
       <PageHero
         kicker="Missions"
         title="Ce qu’on fait."
         accent="Concrètement."
-        text="Des cas types. Particuliers, professionnels, conciergerie. Le prix se calcule au simulateur, après vos coordonnées."
+        text="Bretagne, France, Europe. Convoyage, professionnels, conciergerie. Le prix se calcule au simulateur, après vos coordonnées."
         image="/images/convoyage-voiture-france.jpg"
         alt="Convoyage d’une berline sur route"
       />
 
       <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
-        <div className="grid gap-10 lg:grid-cols-2">
-          {CASES.map((c) => (
+        <div className="flex flex-wrap gap-2">
+          {CASE_FILTERS.map((f) => (
+            <button
+              key={f.id}
+              type="button"
+              onClick={() => setFilter(f.id)}
+              className={
+                filter === f.id
+                  ? "inline-flex h-11 items-center rounded-full bg-navy px-5 text-sm font-semibold text-white"
+                  : "inline-flex h-11 items-center rounded-full border border-line bg-surface px-5 text-sm text-navy"
+              }
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
+        <div className="mt-10 grid gap-10 lg:grid-cols-2">
+          {rows.map((c) => (
             <article key={c.id} className="flex flex-col overflow-hidden rounded-[1.8rem] border border-line bg-surface">
               <img src={c.image} alt={c.alt} className="h-56 w-full object-cover" />
               <div className="flex flex-1 flex-col p-7 sm:p-8">

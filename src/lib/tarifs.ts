@@ -612,6 +612,10 @@ export function computeQuote(input: QuoteInput): QuoteResult {
       options += OPTIONS.jockeyAttente;
       lines.push({ label: "Attente / remise à une personne", amount: OPTIONS.jockeyAttente });
     }
+    if (input.controleVisuel) {
+      options += OPTIONS.controleVisuel;
+      lines.push({ label: "Contrôle visuel d’achat", amount: OPTIONS.controleVisuel });
+    }
     const homeName = home?.name ?? (input.from.trim() || "Domicile");
     const label =
       input.jockeySens === "depose"

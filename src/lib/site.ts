@@ -28,8 +28,8 @@ export const SITE = {
 
 export const NAV = [
   { to: "/prestations", label: "Prestations" },
-  { to: "/missions", label: "Missions" },
   { to: "/jockey-gares-aeroports", label: "Conciergerie" },
+  { to: "/missions", label: "Missions" },
   { to: "/contact", label: "Contact" },
 ] as const;
 
@@ -84,7 +84,7 @@ export const ADDONS = [
   {
     to: "/jockey-gares-aeroports",
     title: "Conciergerie à la carte",
-    text: "Gare, aéroport, CT, attente, lavage. Uniquement sur la conciergerie.",
+    text: "Gare, aéroport, location, accompagnement à l’achat, CT. À la carte. Pas de gardiennage.",
     price: "À la carte",
     image: "/images/jockey-gare-quimper.jpg",
     alt: "Berline sur le parvis d’une gare",
@@ -111,7 +111,7 @@ export const SERVICES = [
   {
     to: "/jockey-gares-aeroports",
     title: "Conciergerie de véhicules",
-    text: "Bretagne, Rennes, Nantes. Dépose gare ou aéroport, rapatriement, CT, attente. À la carte. Pas de gardiennage.",
+    text: "Bretagne, Rennes, Nantes. Gare, aéroport, location, accompagnement à l’achat, CT. À la carte. Pas de gardiennage.",
     image: "/images/jockey-gare-quimper.jpg",
     alt: "Berline qui attend sur le parvis d’une gare",
     badge: "Nouveau",
