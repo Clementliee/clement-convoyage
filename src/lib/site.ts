@@ -2,7 +2,7 @@ export const SITE = {
   name: "Convoyage BZH",
   mark: "BZH",
   legalName: "Clément René Dominique LELIÈGE",
-  tradeName: "BZH3D",
+  tradeName: "Convoyage BZH",
   baseline: "Convoyeur automobile à Quimper. Acheminement en France et en Europe. Conciergerie de véhicules en Bretagne.",
   sub: "Base opérationnelle à Quimper. Intervention 7 jours sur 7. Chauffeur professionnel.",
   city: "Quimper",
@@ -21,7 +21,7 @@ export const SITE = {
   rne: "02/07/2026",
   form: "Entrepreneur individuel, micro-entreprise",
   vat: "Franchise en base de TVA, article 293 B du CGI",
-  domain: "bzh3d.fr",
+  domain: "",
   origin: "https://clement-convoyage.vercel.app",
   host: "Vercel Inc., 440 Terry Avenue North, San Francisco, CA 94158, États-Unis",
 } as const;

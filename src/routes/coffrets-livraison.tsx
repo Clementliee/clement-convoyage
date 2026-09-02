@@ -55,7 +55,9 @@ function Page() {
       </section>
       <section className="mx-auto max-w-3xl px-5 pb-16 sm:px-8">
         <p className="text-muted">
-          Un coffret, pas les deux. La mise en main est offerte, coffret ou non.
+          Un coffret, pas les deux. Utile en livraison concession, si le réseau n’a pas préparé de cadeau. Utile aussi
+          en conciergerie, si vous allez chercher quelqu’un à la gare ou à l’aéroport : la personne retrouve le véhicule
+          avec un coffret champagne et chocolats. La mise en main est offerte, coffret ou non.
         </p>
         <Link to="/simulateur" className="mt-6 inline-flex font-semibold text-coral">
           Demander un devis

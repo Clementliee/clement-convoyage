@@ -54,8 +54,8 @@ export const CONCIERGE_CATALOGUE = [
   {
     id: "roulage",
     kicker: "Prestige",
-    title: "Roulage préventif",
-    text: "Mise en température et kilométrage court pour un véhicule trop longtemps à l’arrêt. Photographies et compte rendu.",
+    title: "Mise en circulation périodique",
+    text: "Pour un véhicule trop longtemps à l’arrêt. Ordre écrit, kilométrage limité, itinéraire défini, photographies, compte rendu.",
     image: "/images/mission-roulage.jpg",
     alt: "Porsche 911 en roulage sur une route bretonne",
   },
@@ -77,9 +77,32 @@ export const CONCIERGE_CATALOGUE = [
   },
 ] as const;
 
+export const CONCIERGE_GROUPS = [
+  {
+    id: "deplacements",
+    title: "Déplacements",
+    text: "Gare, aéroport, location. Vous prenez le train. Nous déplaçons le véhicule.",
+    ids: ["mouvement", "location"],
+  },
+  {
+    id: "atelier",
+    title: "Atelier et flotte",
+    text: "Entretien, carrosserie, contrôle technique, planning d’entreprise.",
+    ids: ["atelier", "flotte"],
+  },
+  {
+    id: "prestige",
+    title: "Prestige et achat",
+    text: "Mise en circulation périodique. Inspection chez le vendeur avant d’acheter.",
+    ids: ["roulage", "achat"],
+  },
+] as const;
+
 export const CONCIERGE_EXTRAS = [
   { title: "Nettoyage", text: "Intérieur et extérieur. Finition prestige sur demande." },
   { title: "Plein de carburant", text: "Passage en station. Ticket joint au compte rendu." },
   { title: "Attente sur place", text: "Remise à une personne présente. Nous demeurons jusqu’à l’échange des clés." },
   { title: "Prise de rendez-vous", text: "Nous contactons l’atelier et bloquons le créneau." },
+  { title: "Coffret champagne et chocolats", text: "Dans le véhicule, si vous allez chercher quelqu’un à la gare ou à l’aéroport." },
+  { title: "Coffret Terroir Breton", text: "Galettes, caramels, cidre. Remis avec les clés." },
 ] as const;

@@ -11,7 +11,7 @@ export const Route = createFileRoute("/missions")({
     pageHead({
       title: "Missions | Convoyage et conciergerie | Convoyage BZH",
       description:
-        "Exemples de missions : convoyage en France et en Europe, livraison concession, import, véhicule de prestige, conciergerie en Bretagne. Devis sur dossier.",
+        "Missions de convoyage en France et en Europe, livraisons concession, imports, véhicules de prestige, conciergerie en Bretagne. Devis sur dossier.",
       path: "/missions",
       image: "/images/mission-audi-a4.jpg",
     }),
@@ -25,7 +25,7 @@ function Page() {
     <main>
       <PageHero
         kicker="Missions"
-        title="Exemples de missions"
+        title="Missions réalisées"
         text="Acheminement en France et en Europe, livraisons concessions, imports, véhicules de prestige, conciergerie en Bretagne. Chaque mission est chiffrée sur dossier."
         image="/images/mission-audi-a4.jpg"
         alt="Audi A4 Avant en convoyage sur autoroute"

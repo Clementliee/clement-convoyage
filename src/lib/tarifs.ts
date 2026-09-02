@@ -18,6 +18,8 @@ export const OPTIONS = {
   utilitairePct: 0.15,
   prestigePct: 0.2,
   gps: 199,
+  gpsMission: 45,
+  videoLivraison: 49,
   protocolePrestige: 150,
   plein: 149,
   pleinService: 49,
@@ -486,6 +488,9 @@ export type QuoteInput = {
   mission: MissionKind;
   clientKind: ClientKind;
   tripMode: TripMode;
+  pickupDate?: string;
+  gpsMission: boolean;
+  videoLivraison: boolean;
   jockeySens: JockeySens;
   jockeyService: JockeyService;
   jockeyPoint: string;
@@ -520,6 +525,9 @@ export function defaultQuoteInput(over: Partial<QuoteInput> = {}): QuoteInput {
     mission: "convoyage",
     clientKind: "part",
     tripMode: "aller",
+    pickupDate: "",
+    gpsMission: false,
+    videoLivraison: false,
     jockeySens: "rapatriement",
     jockeyService: "mouvement",
     jockeyPoint: "",
@@ -536,7 +544,7 @@ export function defaultQuoteInput(over: Partial<QuoteInput> = {}): QuoteInput {
   };
 }
 
-/** Exemples publics Pack Route, aller simple. Recalculés par le moteur. */
+/** Trajets de référence, recalculés par le moteur. Jamais affichés publiquement. */
 export const PRICE_EXAMPLE_TRIPS = [
   { from: "Quimper", to: "Brest", tag: "Finistère" },
   { from: "Quimper", to: "Lorient", tag: "Sud Bretagne" },
@@ -646,6 +654,14 @@ function jockeyExtras(input: QuoteInput): { options: number; lines: QuoteLine[] 
   if (input.jockeyRdv) {
     options += OPTIONS.jockeyRdv;
     lines.push({ label: "Prise de rendez-vous", amount: OPTIONS.jockeyRdv });
+  }
+  if (input.coffret === "armor") {
+    options += OPTIONS.coffretArmor;
+    lines.push({ label: "Coffret Terroir Breton", amount: OPTIONS.coffretArmor });
+  }
+  if (input.coffret === "champagne") {
+    options += OPTIONS.coffretChampagne;
+    lines.push({ label: "Coffret champagne et chocolats", amount: OPTIONS.coffretChampagne });
   }
   return { options, lines };
 }
@@ -937,7 +953,37 @@ export function computeQuote(input: QuoteInput): QuoteResult {
     lines.push({ label: packLabel, amount: options });
   }
 
-  const total = Math.max(MINIMUM_LOCAL, base + options);
+  let extraOpts = 0;
+  if (input.videoLivraison) {
+    extraOpts += OPTIONS.videoLivraison;
+    lines.push({
+      label: "Livraison vidéo",
+      amount: OPTIONS.videoLivraison,
+      hint: "Film court à la remise, transmis au donneur d’ordre",
+    });
+  }
+  if (input.gpsMission && !input.protocolePrestige && pack !== "premium") {
+    extraOpts += OPTIONS.gpsMission;
+    lines.push({
+      label: "Suivi GPS le temps de la mission",
+      amount: OPTIONS.gpsMission,
+      hint: "Retiré à la remise",
+    });
+  }
+  if (input.gps && pack !== "premium") {
+    extraOpts += OPTIONS.gps;
+    lines.push({ label: "Traceur GPS 4G cédé, 12 mois", amount: OPTIONS.gps });
+  }
+  if (input.coffret === "champagne" && !(pack === "premium" && input.clientKind === "pro")) {
+    extraOpts += OPTIONS.coffretChampagne;
+    lines.push({ label: "Coffret champagne et chocolats", amount: OPTIONS.coffretChampagne });
+  }
+  if (input.coffret === "armor" && !(pack === "confort" && input.clientKind === "pro") && pack !== "premium") {
+    extraOpts += OPTIONS.coffretArmor;
+    lines.push({ label: "Coffret Terroir Breton", amount: OPTIONS.coffretArmor });
+  }
+
+  const total = Math.max(MINIMUM_LOCAL, base + options + extraOpts);
 
   let delay = "5 jours, sous réserve de disponibilité";
   if (input.when === "urgent") delay = "sous 72 h, sous réserve de disponibilité";
@@ -946,7 +992,7 @@ export function computeQuote(input: QuoteInput): QuoteResult {
     ok: true,
     km: kmMission,
     base,
-    options,
+    options: options + extraOpts,
     total,
     delay,
     fromName,

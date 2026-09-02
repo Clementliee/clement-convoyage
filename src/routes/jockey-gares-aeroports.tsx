@@ -4,7 +4,7 @@ import { Faq } from "@/components/Faq";
 import { FaqJsonLd } from "@/components/JsonLd";
 import { PageHero } from "@/components/PageHero";
 import { pageHead } from "@/lib/seo";
-import { CONCIERGE_CATALOGUE, CONCIERGE_EXTRAS, CONCIERGE_STEPS } from "@/lib/conciergerie";
+import { CONCIERGE_CATALOGUE, CONCIERGE_EXTRAS, CONCIERGE_GROUPS, CONCIERGE_STEPS } from "@/lib/conciergerie";
 import { SITE } from "@/lib/site";
 import { Reveal } from "@/components/Reveal";
 import { RiseWords } from "@/components/RiseWords";
@@ -101,18 +101,26 @@ function Page() {
       <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
         <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Prestations</p>
         <RiseWords text="Prestations de conciergerie" className="mt-4 max-w-xl font-display text-3xl text-navy sm:text-4xl" />
-        <div className="mt-12 grid gap-6 lg:grid-cols-2">
-          {CONCIERGE_CATALOGUE.map((item, i) => (
-            <Reveal key={item.id} delay={(i % 2) * 80}>
-            <article className="overflow-hidden rounded-[1.6rem] border border-line bg-surface">
-              <img src={item.image} alt={item.alt} className="h-52 w-full object-cover" />
-              <div className="p-8">
-                <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">{item.kicker}</p>
-                <h3 className="mt-3 font-display text-2xl text-navy sm:text-3xl">{item.title}</h3>
-                <p className="mt-3 max-w-md text-sm leading-relaxed text-muted">{item.text}</p>
+        <div className="mt-12 space-y-16">
+          {CONCIERGE_GROUPS.map((group) => (
+            <div key={group.id}>
+              <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">{group.title}</p>
+              <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted">{group.text}</p>
+              <div className="mt-6 grid gap-6 lg:grid-cols-2">
+                {CONCIERGE_CATALOGUE.filter((item) => (group.ids as readonly string[]).includes(item.id)).map((item, i) => (
+                  <Reveal key={item.id} delay={(i % 2) * 80}>
+                    <article className="overflow-hidden rounded-[1.6rem] border border-line bg-surface">
+                      <img src={item.image} alt={item.alt} className="h-52 w-full object-cover" />
+                      <div className="p-8">
+                        <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">{item.kicker}</p>
+                        <h3 className="mt-3 font-display text-2xl text-navy sm:text-3xl">{item.title}</h3>
+                        <p className="mt-3 max-w-md text-sm leading-relaxed text-muted">{item.text}</p>
+                      </div>
+                    </article>
+                  </Reveal>
+                ))}
               </div>
-            </article>
-            </Reveal>
+            </div>
           ))}
         </div>
       </section>

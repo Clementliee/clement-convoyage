@@ -10,14 +10,9 @@ import {
   JOCKEY_POINTS,
   JOCKEY_SENS,
   JOCKEY_SERVICES,
-  OPTIONS,
-  packPrice,
-  prixPlein,
-  litresPlein,
   WHEN_OFFERS,
   type ClientKind,
   type MissionKind,
-  type PackKind,
   type QuoteInput,
   type TripMode,
   type VehicleKind,
@@ -70,6 +65,9 @@ export function Simulator({
     mission: initialMission === "jockey" ? "jockey" : "convoyage",
     clientKind: "part",
     tripMode: "aller",
+    pickupDate: "",
+    gpsMission: false,
+    videoLivraison: false,
     jockeySens: "rapatriement",
     jockeyService: "mouvement",
     jockeyPoint: "",
@@ -193,8 +191,8 @@ export function Simulator({
         <h2 className="mt-6 font-display text-3xl text-navy">{STEPS[step]}</h2>
         {step === 4 ? (
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted">
-            Base opérationnelle à Quimper. Si le départ n’est pas Quimper, l’approche est facturée 0,25 €/km. En aller
-            simple, le retour du chauffeur est inclus.
+            Base opérationnelle à Quimper. Si le départ n’est pas Quimper, l’approche depuis la base est intégrée au devis.
+            En aller simple, le retour du chauffeur est inclus.
           </p>
         ) : null}
         {step === 6 ? (
@@ -285,14 +283,27 @@ export function Simulator({
         />
       )}
       {step === 6 && (
-        <WhenPicker
-          base={quote.ok ? standardBase : 0}
-          showEuro={quote.ok && standardBase > 0}
-          onPick={(v) => {
-            setInput((s) => ({ ...s, when: v }));
-            next();
-          }}
-        />
+        <div className="space-y-6">
+          <WhenPicker
+            base={quote.ok ? standardBase : 0}
+            showEuro={false}
+            onPick={(v) => {
+              setInput((s) => ({ ...s, when: v }));
+            }}
+          />
+          <label className="block text-sm text-muted">
+            Date de prise en charge souhaitée
+            <input
+              type="date"
+              value={input.pickupDate ?? ""}
+              onChange={(e) => setInput((s) => ({ ...s, pickupDate: e.target.value }))}
+              className="mt-2 w-full rounded-2xl border border-line bg-bg px-4 py-3.5 text-navy"
+            />
+          </label>
+          <p className="text-sm text-muted">
+            Vous proposez une date. Convoyage BZH confirme le créneau, ou vous contacte.
+          </p>
+        </div>
       )}
       {step === 7 && (
         <div className="space-y-8">
@@ -306,11 +317,6 @@ export function Simulator({
 
           <div className="grid gap-4 lg:grid-cols-3">
             {packs.map((p) => {
-              const priced = computeQuote({
-                ...input,
-                pack: p.id,
-                kmManual: kmManual ? Number(kmManual) : undefined,
-              });
               const on = input.pack === p.id;
               return (
                 <button
@@ -323,14 +329,7 @@ export function Simulator({
                 >
                   <span className="text-xs font-semibold tracking-[0.16em] text-coral uppercase">{p.tag}</span>
                   <span className="mt-2 font-display text-2xl text-navy">{p.name}</span>
-                  <span className="mt-3 font-display text-3xl text-navy">
-                    {priced.ok ? formatEuro(priced.total) : "—"}
-                  </span>
-                  {packPrice(client, p.id) > 0 ? (
-                    <span className="mt-1 text-sm text-muted">dont {formatEuro(packPrice(client, p.id))} de pack</span>
-                  ) : (
-                    <span className="mt-1 text-sm text-muted">Trajet seul</span>
-                  )}
+                  <span className="mt-3 text-sm text-muted">Inclus au devis, selon la formule.</span>
                   <ul className="mt-4 flex-1 space-y-1.5 text-sm text-muted">
                     {p.items.map((it) => (
                       <li key={it}>{it}</li>
@@ -342,29 +341,49 @@ export function Simulator({
             })}
           </div>
 
+          <div className="grid gap-3 sm:grid-cols-2">
+            {client === "pro" ? (
+              <Toggle
+                label="Livraison vidéo"
+                text="Film court à la remise, transmis au donneur d’ordre. La concession l’envoie au client."
+                on={input.videoLivraison}
+                onClick={() => setInput((s) => ({ ...s, videoLivraison: !s.videoLivraison }))}
+              />
+            ) : null}
+            <Toggle
+              label="Suivi GPS le temps de la mission"
+              text="Balise posée au départ, retirée à la remise. Lien de suivi."
+              on={input.gpsMission}
+              onClick={() => setInput((s) => ({ ...s, gpsMission: !s.gpsMission }))}
+            />
+            {input.pack !== "premium" ? (
+              <Toggle
+                label="Traceur GPS 4G cédé"
+                text="Reste dans le véhicule. Douze mois de suivi pour l’acquéreur."
+                on={input.gps}
+                onClick={() => setInput((s) => ({ ...s, gps: !s.gps }))}
+              />
+            ) : null}
+            <Toggle
+              label="Coffret champagne et chocolats"
+              text="Remis avec les clés. Utile si la concession n’a pas préparé de cadeau."
+              on={input.coffret === "champagne"}
+              onClick={() =>
+                setInput((s) => ({ ...s, coffret: s.coffret === "champagne" ? "aucun" : "champagne" }))
+              }
+            />
+            <Toggle
+              label="Coffret Terroir Breton"
+              text="Galettes, caramels, cidre. Remis avec les clés."
+              on={input.coffret === "armor"}
+              onClick={() => setInput((s) => ({ ...s, coffret: s.coffret === "armor" ? "aucun" : "armor" }))}
+            />
+          </div>
+
           {quote.ok ? (
-            <div className="rounded-[1.4rem] border border-line px-5 py-5">
-              <p className="text-xs font-semibold tracking-[0.16em] text-muted uppercase">Détail du devis</p>
-              <ul className="mt-4 space-y-2">
-                {quote.lines.map((l) => (
-                  <li key={l.label} className="flex items-baseline justify-between gap-4 text-sm">
-                    <span className="text-muted">
-                      {l.label}
-                      {l.hint ? <span className="text-muted/70"> · {l.hint}</span> : null}
-                    </span>
-                    <span className="shrink-0 font-medium text-navy">{formatEuro(l.amount)}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-4 flex items-baseline justify-between border-t border-line pt-4">
-                <span className="font-display text-xl text-navy">Total HT</span>
-                <span className="font-display text-2xl text-navy">{formatEuro(quote.total)}</span>
-              </div>
-              <p className="mt-3 text-xs leading-relaxed text-muted">
-                Micro-entreprise, TVA non applicable. Tarif de vente, charges sociales 11 % déjà absorbées. Devis formel
-                sous 2 heures ouvrées.
-              </p>
-            </div>
+            <p className="text-sm leading-relaxed text-muted">
+              Le montant détaillé s’affiche après vos coordonnées.
+            </p>
           ) : null}
         </div>
       )}
@@ -405,7 +424,7 @@ export function Simulator({
       ) : null}
 
       <p className="mt-6 text-center text-xs leading-relaxed text-muted">
-        Base Quimper. Approche 0,25 €/km hors base. Retour chauffeur inclus en aller simple.{" "}
+        Base Quimper. Approche et retour du chauffeur intégrés au devis.
         <Link to="/contact" className="text-coral">
           Contact
         </Link>
@@ -785,6 +804,16 @@ function JockeyOptions({
       <p className="text-sm text-muted">
         Le montant n’apparaît qu’après vos coordonnées. Pas de gardiennage. Pas de transport de passagers.
       </p>
+      <label className="block text-sm text-muted">
+        Date de prise en charge souhaitée
+        <input
+          type="date"
+          value={input.pickupDate ?? ""}
+          onChange={(e) => setInput((s) => ({ ...s, pickupDate: e.target.value }))}
+          className="mt-2 w-full rounded-2xl border border-line bg-bg px-4 py-3.5 text-navy"
+        />
+      </label>
+      <p className="text-sm text-muted">Vous proposez une date. Convoyage BZH confirme le créneau, ou vous contacte.</p>
       {service === "mouvement" ? (
         <label className="block text-sm text-muted">
           Numéro de train ou de vol
@@ -846,6 +875,22 @@ function JockeyOptions({
           text="Remise à une personne. Nous restons sur place."
           on={input.jockeyAttente}
           onClick={() => setInput((s) => ({ ...s, jockeyAttente: !s.jockeyAttente }))}
+        />
+        <Toggle
+          label="Coffret champagne et chocolats"
+          text="Dans le véhicule. Utile si vous allez chercher quelqu’un à la gare ou à l’aéroport."
+          image="/images/coffret-prestige-champagne.jpg"
+          on={input.coffret === "champagne"}
+          onClick={() =>
+            setInput((s) => ({ ...s, coffret: s.coffret === "champagne" ? "aucun" : "champagne" }))
+          }
+        />
+        <Toggle
+          label="Coffret Terroir Breton"
+          text="Galettes, caramels, cidre. Remis avec les clés."
+          image="/images/coffret-terroir-breton.jpg"
+          on={input.coffret === "armor"}
+          onClick={() => setInput((s) => ({ ...s, coffret: s.coffret === "armor" ? "aucun" : "armor" }))}
         />
         {service === "achat" || service === "mouvement" ? (
           <Toggle

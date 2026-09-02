@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { AppLink } from "@/components/AppLink";
 import { CtaBar } from "@/components/CtaBar";
 import { PageHero } from "@/components/PageHero";
-import { seoByKind } from "@/lib/seo-pages";
 import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/destinations")({
@@ -16,33 +15,44 @@ export const Route = createFileRoute("/destinations")({
   component: Page,
 });
 
-function Group({
-  title,
-  kind,
-}: {
-  title: string;
-  kind: "ville" | "region" | "france" | "europe" | "metier";
-}) {
-  const pages = seoByKind(kind);
-  return (
-    <section className="mx-auto max-w-6xl px-4 pb-12 sm:px-6">
-      <h2 className="font-display text-2xl tracking-tight text-navy">{title}</h2>
-      <div className="mt-5 flex flex-wrap gap-2">
-        {pages.map((p) => (
-          <AppLink
-            key={p.slug}
-            to={`/${p.slug}`}
-            className="rounded-full border border-line bg-surface px-4 py-2 text-sm text-navy hover:border-coral"
-          >
-            {p.kind === "metier" || p.kind === "france" || p.kind === "region"
-              ? p.h1
-              : (p.locality ?? p.country ?? p.h1)}
-          </AppLink>
-        ))}
-      </div>
-    </section>
-  );
-}
+const GROUPS: { title: string; links: { to: string; label: string }[] }[] = [
+  {
+    title: "Bretagne et Grand Ouest",
+    links: [
+      { to: "/convoyage-quimper", label: "Quimper" },
+      { to: "/convoyage-brest", label: "Brest" },
+      { to: "/convoyage-lorient", label: "Lorient" },
+      { to: "/convoyage-vannes", label: "Vannes" },
+      { to: "/convoyage-rennes", label: "Rennes" },
+      { to: "/convoyage-nantes", label: "Nantes" },
+      { to: "/convoyage-bretagne", label: "Bretagne" },
+    ],
+  },
+  {
+    title: "France",
+    links: [
+      { to: "/convoyage-paris", label: "Paris" },
+      { to: "/convoyage-lyon", label: "Lyon" },
+      { to: "/convoyage-bordeaux", label: "Bordeaux" },
+      { to: "/convoyage-toulouse", label: "Toulouse" },
+      { to: "/convoyage-marseille", label: "Marseille" },
+      { to: "/convoyage-nice", label: "Nice" },
+      { to: "/convoyage-lille", label: "Lille" },
+    ],
+  },
+  {
+    title: "Europe",
+    links: [
+      { to: "/convoyage-belgique", label: "Belgique" },
+      { to: "/convoyage-allemagne", label: "Allemagne" },
+      { to: "/convoyage-espagne", label: "Espagne" },
+      { to: "/convoyage-italie", label: "Italie" },
+      { to: "/convoyage-suisse", label: "Suisse" },
+      { to: "/convoyage-monaco", label: "Monaco" },
+      { to: "/livraison-europe", label: "Europe" },
+    ],
+  },
+];
 
 function Page() {
   return (
@@ -52,11 +62,22 @@ function Page() {
         title="Zones d’intervention"
         text="Le véhicule est pris en charge à l’adresse indiquée et remis au destinataire. Quimper est la base opérationnelle, pas un départ obligatoire. Le devis est établi sur dossier."
       />
-      <Group title="Villes" kind="ville" />
-      <Group title="Territoires" kind="region" />
-      <Group title="France" kind="france" />
-      <Group title="Europe" kind="europe" />
-      <Group title="Métiers" kind="metier" />
+      {GROUPS.map((g) => (
+        <section key={g.title} className="mx-auto max-w-6xl px-4 pb-12 sm:px-6">
+          <h2 className="font-display text-2xl tracking-tight text-navy">{g.title}</h2>
+          <div className="mt-5 flex flex-wrap gap-2">
+            {g.links.map((l) => (
+              <AppLink
+                key={l.to}
+                to={l.to}
+                className="rounded-full border border-line bg-surface px-4 py-2 text-sm text-navy hover:border-coral"
+              >
+                {l.label}
+              </AppLink>
+            ))}
+          </div>
+        </section>
+      ))}
       <CtaBar />
     </main>
   );

@@ -38,17 +38,16 @@ function Page() {
           <p className="text-xs font-semibold tracking-[0.2em] text-coral uppercase">Direction, Quimper</p>
           <h2 className="font-display text-4xl text-navy">Clément</h2>
           <p>
-            Clément achemine des véhicules depuis Quimper. Prise en charge à l’adresse indiquée, en France et en Europe.
-            Remise au destinataire. État des lieux photographique. Clés en main. Mise en main offerte.
+            Je ne viens pas du transport. Je viens de l’automobile. J’ai travaillé pour de grandes marques — Renault, DS
+            Automobiles, Mercedes-Benz — et livré des véhicules à distance, en concession comme hors réseau.
           </p>
           <p>
-            Si le créneau ne tient pas, nous le disons avant. En cas d’imprévu, nous prévenons.
+            Convoyage BZH, c’est cette culture-là : standards constructeur, remise en main propre, reporting, respect du
+            créneau. Prise en charge à l’adresse du véhicule, France et Europe. Mise en main offerte.
           </p>
           <p>
-            Panne, météo, destinataire absent, document manquant : nous informons. Nous ne disparaissons pas.
-          </p>
-          <p>
-            Un numéro, un e-mail, une réponse. Intervention tous les jours. Astreinte 24 h pour les professionnels.
+            Si le créneau ne tient pas, nous le disons avant. En cas d’imprévu, nous prévenons. Un numéro, un e-mail, une
+            réponse. Intervention tous les jours. Astreinte 24 h pour les professionnels.
           </p>
         </Reveal>
       </section>

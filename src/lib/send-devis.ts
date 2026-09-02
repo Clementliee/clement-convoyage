@@ -15,6 +15,8 @@ export type LeadPayload = {
   range: QuoteRange;
   extras: string;
   message?: string;
+  pickupDate?: string;
+  accepted?: boolean;
 };
 
 function autoresponse(p: LeadPayload) {
@@ -28,8 +30,10 @@ function autoresponse(p: LeadPayload) {
     p.range.mid > 0 ? `Fourchette indicative : de ${p.range.low} € à ${p.range.high} €` : "",
     p.range.mid > 0 ? `Estimation centrale : ${p.range.mid} €` : "",
     p.extras ? `Options : ${p.extras}` : "",
+    p.pickupDate ? `Date de prise en charge souhaitée : ${p.pickupDate}` : "",
+    p.accepted ? "Devis accepté par le client. À confirmer par Convoyage BZH." : "",
     "",
-    "Ce tarif est indicatif. Il doit être confirmé avec un professionnel avant toute mission.",
+    "Ce tarif est indicatif. Clément confirme le prix et le créneau sous 2 heures ouvrées.",
     "Le PDF de devis s’est téléchargé depuis le site au moment de votre demande. Conservez-le.",
     "",
     "Inclus à la confirmation : conduite, carburant, péages, retour, état des lieux photo, remise des clés, mise en main.",
@@ -61,6 +65,8 @@ export async function sendDevisLead(p: LeadPayload): Promise<{ ok: boolean; deta
     Fourchette: `de ${p.range.low} € à ${p.range.high} €`,
     Estimation: `${p.range.mid} €`,
     Options: p.extras || "",
+    DateSouhaitee: p.pickupDate || "",
+    Acceptation: p.accepted ? "Oui" : "En attente",
     Message: p.message || "",
   };
 
@@ -90,6 +96,8 @@ export function mailtoFallback(p: LeadPayload) {
       p.email,
       p.phone,
       `${p.fromName} vers ${p.toName}, ${p.km} km`,
+      p.pickupDate ? `Date souhaitée : ${p.pickupDate}` : "",
+      p.accepted ? "Devis accepté. À confirmer." : "",
       `Fourchette ${p.range.low}, ${p.range.high} €`,
       p.message ?? "",
     ].join("\n"),

@@ -50,71 +50,133 @@ function Home() {
       <HeroStage />
 
       <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
-        <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Prestations</p>
-        <RiseWords
-          text="Convoyage et conciergerie"
-          className="mt-4 max-w-xl font-display text-3xl text-navy sm:text-5xl"
-        />
+        <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Vous êtes</p>
+        <RiseWords text="Particulier ou professionnel" className="mt-4 max-w-xl font-display text-3xl text-navy sm:text-5xl" />
         <div className="mt-12 grid gap-6 lg:grid-cols-2">
           <Reveal>
             <article className="flex h-full flex-col overflow-hidden rounded-[1.8rem] bg-navy text-surface">
-              <img src="/images/mission-audi-a4.jpg" alt="Audi A4 en convoyage" className="h-48 w-full object-cover" />
+              <img src="/images/mission-308.jpg" alt="Peugeot 308 en convoyage" className="h-48 w-full object-cover" />
               <div className="flex flex-1 flex-col p-8 sm:p-10">
-                <p className="text-[11px] font-semibold tracking-[0.16em] text-white/45 uppercase">Convoyage</p>
-                <h2 className="mt-3 font-display text-3xl text-white">Acheminement en France et en Europe</h2>
+                <p className="text-[11px] font-semibold tracking-[0.16em] text-white/45 uppercase">Particulier</p>
+                <h2 className="mt-3 font-display text-3xl text-white">Faire livrer mon véhicule</h2>
                 <p className="mt-4 flex-1 text-sm leading-relaxed text-white/70">
-                  Le véhicule est pris en charge à l’adresse indiquée et remis au destinataire. Particuliers et
-                  professionnels. État des lieux photographique. Mise en main offerte.
+                  Achat à distance, mutation, import. Prise en charge à l’adresse du véhicule, remise à domicile. État des
+                  lieux photographique. Mise en main offerte.
                 </p>
-                <div className="mt-8 flex flex-wrap gap-3">
-                  <Link
-                    to="/simulateur"
-                    className="inline-flex h-12 items-center rounded-full bg-coral px-6 text-sm font-semibold text-white"
-                  >
-                    Demander un devis
-                  </Link>
-                  <Link
-                    to="/prestations"
-                    className="inline-flex h-12 items-center rounded-full border border-white/30 px-6 text-sm font-semibold text-white"
-                  >
-                    Les prestations
-                  </Link>
-                </div>
+                <Link
+                  to="/simulateur"
+                  className="mt-8 inline-flex h-12 w-fit items-center rounded-full bg-coral px-6 text-sm font-semibold text-white"
+                >
+                  Demander un devis
+                </Link>
               </div>
             </article>
           </Reveal>
           <Reveal delay={80}>
             <article className="flex h-full flex-col overflow-hidden rounded-[1.8rem] border border-line bg-surface">
-              <img
-                src="/images/mission-tiguan-gare.jpg"
-                alt="Conciergerie gare"
-                className="h-48 w-full object-cover"
-              />
+              <img src="/images/mission-bmw-x3.jpg" alt="Livraison concession" className="h-48 w-full object-cover" />
               <div className="flex flex-1 flex-col p-8 sm:p-10">
-                <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">Conciergerie</p>
-                <h2 className="mt-3 font-display text-3xl text-navy">Conciergerie automobile en Bretagne</h2>
+                <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">Professionnel</p>
+                <h2 className="mt-3 font-display text-3xl text-navy">Externaliser mes convoyages</h2>
                 <p className="mt-4 flex-1 text-sm leading-relaxed text-muted">
-                  Gares, ateliers, flottes et véhicules de prestige. Nous déplaçons le véhicule. Pas de gardiennage, ni
-                  de transport de passagers.
+                  Concessions, garages, mandataires, loueurs. Votre vendeur vend. Votre mécanicien reste au banc. Nous
+                  déplaçons le véhicule.
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <Link
                     to="/simulateur"
-                    search={{ mission: "jockey" }}
                     className="inline-flex h-12 items-center rounded-full bg-navy px-6 text-sm font-semibold text-white"
                   >
                     Demander un devis
                   </Link>
                   <Link
-                    to="/jockey-gares-aeroports"
+                    to="/professionnels"
                     className="inline-flex h-12 items-center rounded-full border border-navy px-6 text-sm font-semibold text-navy"
                   >
-                    La conciergerie
+                    Offre professionnelle
                   </Link>
                 </div>
               </div>
             </article>
           </Reveal>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 pb-24 sm:px-8">
+        <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Trois offres</p>
+        <RiseWords text="Convoyage, livraison, conciergerie" className="mt-4 max-w-2xl font-display text-3xl text-navy sm:text-5xl" />
+        <div className="mt-12 grid gap-6 lg:grid-cols-3">
+          {[
+            {
+              k: "Convoyage",
+              t: "D’un point à un autre",
+              d: "Prise en charge, conduite, péages, carburant, retour du chauffeur, état des lieux, remise des clés.",
+              to: "/prestations" as const,
+            },
+            {
+              k: "Livraison",
+              t: "L’expérience client",
+              d: "Tout le convoyage, plus nettoyage, plein ou recharge, mise en main, compte rendu. Coffret et vidéo sur demande.",
+              to: "/prestations" as const,
+            },
+            {
+              k: "Conciergerie",
+              t: "Le véhicule, sans vous",
+              d: "Gares, ateliers, location, flotte, inspection avant achat. Bretagne. Pas de gardiennage.",
+              to: "/jockey-gares-aeroports" as const,
+            },
+          ].map((o) => (
+            <Reveal key={o.k}>
+              <article className="flex h-full flex-col rounded-[1.6rem] border border-line bg-surface p-8">
+                <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">{o.k}</p>
+                <h3 className="mt-3 font-display text-2xl text-navy">{o.t}</h3>
+                <p className="mt-4 flex-1 text-sm leading-relaxed text-muted">{o.d}</p>
+                <Link to={o.to} className="mt-6 text-sm font-semibold text-coral hover:underline">
+                  En savoir plus
+                </Link>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 pb-24 sm:px-8">
+        <div className="grid gap-10 rounded-[2rem] bg-sand p-8 sm:p-12 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+          <div>
+            <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Haute valeur</p>
+            <h2 className="mt-4 font-display text-3xl text-navy sm:text-4xl">Véhicules de prestige et atypiques</h2>
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-muted">
+              Sportives, collection, imports, véhicules de haute valeur. Protocole renforcé : scellés, suivi GPS le temps
+              de la mission, remise à la personne désignée, conduite adaptée. Ce n’est pas de la sécurité privée. C’est un
+              cadre de prise en charge, pour que le véhicule n’ait pas n’importe qui au volant.
+            </p>
+            <Link
+              to="/simulateur"
+              className="mt-8 inline-flex h-12 items-center rounded-full bg-navy px-6 text-sm font-semibold text-white"
+            >
+              Demander un devis
+            </Link>
+          </div>
+          <img
+            src="/images/mission-ds7-vauban.jpg"
+            alt="DS 7 Vauban, véhicule de haute valeur en convoyage"
+            className="h-64 w-full rounded-[1.4rem] object-cover sm:h-80"
+          />
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 pb-24 sm:px-8">
+        <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Preuves</p>
+        <RiseWords text="Ce que vous voyez, c’est ce que nous faisons" className="mt-4 max-w-xl font-display text-3xl text-navy sm:text-4xl" />
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            { src: "/images/mission-achat-inspection.jpg", alt: "Inspection photographique avant achat" },
+            { src: "/images/remise-cles-vehicule.jpg", alt: "Remise des clés en main propre" },
+            { src: "/images/etat-des-lieux-vehicule.jpg", alt: "État des lieux du véhicule" },
+            { src: "/images/fondateur-clement-quimper.jpg", alt: "Clément, Convoyage BZH, Quimper" },
+          ].map((p) => (
+            <img key={p.src} src={p.src} alt={p.alt} className="h-44 w-full rounded-[1.4rem] object-cover" />
+          ))}
         </div>
       </section>
 
@@ -141,7 +203,7 @@ function Home() {
 
       <section className="mx-auto max-w-6xl px-5 pb-24 sm:px-8">
         <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Missions</p>
-        <RiseWords text="Exemples de missions" className="mt-4 font-display text-3xl text-navy sm:text-5xl" />
+        <RiseWords text="Missions réalisées" className="mt-4 font-display text-3xl text-navy sm:text-5xl" />
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
           {featured.map((c) => (
             <Link

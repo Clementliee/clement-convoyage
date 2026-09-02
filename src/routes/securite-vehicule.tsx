@@ -34,7 +34,10 @@ function Page() {
           En cas d’imprévu, nous vous informons.
         </p>
         <p>
-          Le traceur GPS 4G est une option : il reste dans le véhicule de l’acquéreur, douze mois inclus. Le suivi temporaire d’une mission prestige est compris dans le protocole dédié. Il ne s’agit pas d’une activité de sécurité privée.
+          Le traceur GPS 4G est une option : il reste dans le véhicule de l’acquéreur, douze mois inclus. Le suivi
+          temporaire d’une mission prestige est compris dans le protocole dédié. Pour les véhicules de haute valeur ou
+          atypiques, le chauffeur est formé aux systèmes de sécurité du véhicule. Il ne s’agit pas d’une activité de
+          sécurité privée. C’est un cadre de prise en charge.
         </p>
         <div className="flex flex-wrap gap-4 text-sm font-semibold">
           <AppLink to="/traqueur-gps" className="text-coral">

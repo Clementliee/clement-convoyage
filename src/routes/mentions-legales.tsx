@@ -6,7 +6,7 @@ export const Route = createFileRoute("/mentions-legales")({
   head: () =>
     pageHead({
       title: "Mentions légales. Convoyage BZH",
-      description: `Mentions légales de Convoyage BZH, enseigne de ${SITE.tradeName}. SIRET ${SITE.siret}, Quimper.`,
+      description: `Mentions légales de Convoyage BZH. SIRET ${SITE.siret}, Quimper.`,
       path: "/mentions-legales",
     }),
   component: Page,
@@ -18,7 +18,7 @@ function Page() {
       <h1 className="font-display text-4xl text-navy">Mentions légales</h1>
       <div className="mt-8 space-y-5 text-sm leading-relaxed text-muted">
         <p>
-          L’enseigne {SITE.name} est éditée par {SITE.legalName}, {SITE.form}. Nom commercial : {SITE.tradeName}.
+          L’enseigne {SITE.name} est éditée par {SITE.legalName}, {SITE.form}.
         </p>
         <p>
           Siège d’exploitation : {SITE.city}, {SITE.region}, France.
@@ -33,7 +33,7 @@ function Page() {
           Directeur de la publication : {SITE.legalName}.
         </p>
         <p>
-          Contact : {SITE.email}, {SITE.phone}. Nom de domaine déclaré : {SITE.domain}.
+          Contact : {SITE.email}, {SITE.phone}.
         </p>
         <p>Hébergeur : {SITE.host}.</p>
         <p>

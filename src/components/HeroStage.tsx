@@ -55,7 +55,7 @@ export function HeroStage() {
         />
         <img
           src={IMG.heroPhares}
-          alt=""
+          alt="Berline premium, phares allumés"
           width={1792}
           height={1008}
           decoding="async"

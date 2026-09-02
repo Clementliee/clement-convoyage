@@ -12,39 +12,7 @@ import {
 } from "./tarifs.ts";
 
 function baseInput(over: Partial<QuoteInput> = {}): QuoteInput {
-  return {
-    from: "Quimper",
-    to: "Rennes",
-    zone: "france",
-    vehicle: "vp",
-    when: "standard",
-    lavage: "aucun",
-    rechargeVe: false,
-    gps: false,
-    protocolePrestige: false,
-    plein: false,
-    controleVisuel: false,
-    coffret: "aucun",
-    pack: "essentiel",
-    kitBienvenue: false,
-    formula: "aucun",
-    mission: "convoyage",
-    clientKind: "part",
-    tripMode: "aller",
-    jockeySens: "rapatriement",
-    jockeyService: "mouvement",
-    jockeyPoint: "",
-    jockeyRef: "",
-    jockeyAller: "",
-    jockeyRetour: "",
-    jockeyCt: false,
-    jockeyAttente: false,
-    jockeyWash: "aucun",
-    jockeyRdv: false,
-    jockeyCarrosserie: false,
-    flotteNb: 1,
-    ...over,
-  };
+  return defaultQuoteInput(over);
 }
 
 describe("Quimper → Rennes vs Driiveme chauffeur pro 220 € HT", () => {
@@ -103,7 +71,7 @@ describe("packs particulier vs professionnel", () => {
   });
 
   it("applies pro Signature without double-billing GPS product", () => {
-    const packed = computeQuote(applyPack(baseInput({ clientKind: "pro" }), "premium"));
+    const packed = computeQuote(applyPack(baseInput({ clientKind: "pro", gpsMission: true }), "premium"));
     assert.equal(packed.options, OPTIONS.packProSignature);
   });
 });
@@ -202,7 +170,7 @@ describe("conciergerie atelier, roulage, flotte", () => {
   });
 });
 
-describe("public price examples", () => {
+describe("internal price examples", () => {
   it("matches the quote engine for Quimper → Rennes Pack Route", () => {
     const rows = priceExamples();
     const rennes = rows.find((r) => r.from === "Quimper" && r.to === "Rennes");
@@ -213,5 +181,34 @@ describe("public price examples", () => {
     const vannes = rows.find((r) => r.from === "Vannes" && r.to === "Rennes");
     assert.ok(vannes);
     assert.ok(vannes.approche > 0);
+  });
+});
+
+describe("options hors pack", () => {
+  it("bills video, mission GPS and champagne on Pack Route", () => {
+    const q = computeQuote(baseInput({ videoLivraison: true, gpsMission: true, coffret: "champagne" }));
+    assert.equal(q.options, OPTIONS.videoLivraison + OPTIONS.gpsMission + OPTIONS.coffretChampagne);
+  });
+
+  it("does not double-bill mission GPS on Pack Sécurisé", () => {
+    const packed = computeQuote(applyPack(baseInput({ gpsMission: true, gps: true }), "premium"));
+    assert.equal(packed.options, OPTIONS.packPartSecurise);
+  });
+
+  it("bills champagne on a particular Pack Sécurisé", () => {
+    const packed = computeQuote({ ...applyPack(baseInput(), "premium"), coffret: "champagne" });
+    assert.equal(packed.options, OPTIONS.packPartSecurise + OPTIONS.coffretChampagne);
+  });
+
+  it("bills champagne on a jockey gare mission", () => {
+    const q = computeQuote(
+      baseInput({
+        mission: "jockey",
+        from: "Quimper",
+        jockeyPoint: "Gare de Quimper",
+        coffret: "champagne",
+      }),
+    );
+    assert.equal(q.options, OPTIONS.coffretChampagne);
   });
 });

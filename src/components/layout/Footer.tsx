@@ -20,22 +20,20 @@ const INFOS = [
 
 const BRETAGNE = [
   { to: "/convoyage-quimper", label: "Quimper" },
-  { to: "/convoyage-benodet", label: "Bénodet" },
   { to: "/convoyage-brest", label: "Brest" },
   { to: "/convoyage-lorient", label: "Lorient" },
   { to: "/convoyage-vannes", label: "Vannes" },
   { to: "/convoyage-rennes", label: "Rennes" },
-  { to: "/convoyage-bretagne", label: "Toute la Bretagne" },
+  { to: "/convoyage-nantes", label: "Nantes" },
+  { to: "/convoyage-bretagne", label: "Bretagne" },
 ];
 
 const EUROPE = [
+  { to: "/convoyage-paris", label: "Paris" },
   { to: "/convoyage-belgique", label: "Belgique" },
-  { to: "/convoyage-pologne", label: "Pologne" },
-  { to: "/convoyage-monaco", label: "Monaco" },
-  { to: "/convoyage-serbie", label: "Serbie" },
   { to: "/convoyage-allemagne", label: "Allemagne" },
-  { to: "/convoyage-royaume-uni", label: "Royaume-Uni" },
-  { to: "/livraison-europe", label: "Toutes les destinations" },
+  { to: "/convoyage-espagne", label: "Espagne" },
+  { to: "/livraison-europe", label: "Europe" },
 ];
 
 export function Footer() {

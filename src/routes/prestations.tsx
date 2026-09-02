@@ -47,6 +47,10 @@ const FAQ = [
     q: "Pourquoi aucun tarif n’est-il affiché ?",
     a: "Chaque trajet est chiffré sur dossier : ville, formule, créneau. Le montant figure sur le devis, après communication de vos coordonnées.",
   },
+  {
+    q: "Qu’est-ce que la livraison vidéo ?",
+    a: "Un film court, tourné à la remise du véhicule. Il est transmis à la concession, qui l’envoie à son client. Utile lorsque le destinataire n’est pas sur place, ou pour garder une trace de la mise en main. Prestation supplémentaire, au devis.",
+  },
 ];
 
 function Page() {
@@ -169,6 +173,38 @@ function Page() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
+        <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Compléments</p>
+        <RiseWords text="Prestige, vidéo, coffrets" className="mt-4 max-w-xl font-display text-3xl text-navy sm:text-4xl" />
+        <div className="mt-12 grid gap-6 lg:grid-cols-3">
+          <article className="rounded-[1.6rem] border border-line bg-surface p-8">
+            <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">Haute valeur</p>
+            <h3 className="mt-3 font-display text-2xl text-navy">Protocole prestige</h3>
+            <p className="mt-3 text-sm leading-relaxed text-muted">
+              Sportives, collection, imports, véhicules atypiques. Scellés, suivi GPS le temps de la mission, conduite
+              adaptée, remise à la personne désignée. Ce n’est pas de la sécurité privée. C’est un cadre de prise en
+              charge, pour un chauffeur formé.
+            </p>
+          </article>
+          <article className="rounded-[1.6rem] border border-line bg-surface p-8">
+            <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">Concession</p>
+            <h3 className="mt-3 font-display text-2xl text-navy">Livraison vidéo</h3>
+            <p className="mt-3 text-sm leading-relaxed text-muted">
+              Un film court, tourné à la remise : accueil, clés, mise en main. Transmis au donneur d’ordre. La concession
+              l’envoie au client qui n’était pas sur place. Prestation supplémentaire, au devis.
+            </p>
+          </article>
+          <article className="rounded-[1.6rem] border border-line bg-surface p-8">
+            <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">Remise</p>
+            <h3 className="mt-3 font-display text-2xl text-navy">Coffrets</h3>
+            <p className="mt-3 text-sm leading-relaxed text-muted">
+              Champagne et chocolats, ou terroir breton. Pour une concession qui n’a pas préparé de cadeau, ou pour
+              aller chercher quelqu’un à la gare. Remis avec les clés.
+            </p>
+          </article>
         </div>
       </section>
 

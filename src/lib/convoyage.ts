@@ -77,6 +77,7 @@ export const CONVOYAGE_CATALOGUE = [
     items: [
       "Préparation et nettoyage selon la formule retenue",
       "Coffret de bienvenue selon la formule Livraison ou Signature",
+      "Livraison vidéo sur demande : film court à la remise, transmis à la concession",
       "Mise en main chez le client, vingt à trente minutes",
       "Facturation à quinze jours",
     ],
@@ -104,6 +105,7 @@ export const CONVOYAGE_CATALOGUE = [
     text: "Sportive, collection, import de valeur. Clés et documents sous scellé, suivi GPS le temps de la mission, conduite adaptée, remise à la personne désignée. Il ne s’agit pas d’une activité de sécurité privée.",
     items: [
       "Clés et documents placés sous scellé",
+      "Suivi GPS le temps de la mission, retiré à la remise",
       "Conduite en mode Comfort, autoroute privilégiée",
       "Pauses exclusivement en stations éclairées",
       "Compte rendu factuel, sans sous-traitance",

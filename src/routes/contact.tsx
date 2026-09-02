@@ -27,18 +27,33 @@ function Page() {
   const [from, setFrom] = useState("Quimper");
   const [to, setTo] = useState("");
   const [message, setMessage] = useState("");
+  const [pickupDate, setPickupDate] = useState("");
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
+  const [contactError, setContactError] = useState("");
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
+    if (!firstName.trim() || !lastName.trim()) {
+      setContactError("Indiquez votre nom et votre prénom.");
+      return;
+    }
+    if (!phone.trim() && !email.trim()) {
+      setContactError("Indiquez un téléphone ou un e-mail.");
+      return;
+    }
+    if (kind === "pro" && !company.trim()) {
+      setContactError("Indiquez le nom de la société.");
+      return;
+    }
+    setContactError("");
     setBusy(true);
     const payload = {
       firstName: firstName.trim(),
       lastName: lastName.trim(),
       client: kind,
       company: company.trim(),
-      email: email.trim(),
+      email: email.trim() || SITE.email,
       phone: phone.trim(),
       fromName: from.trim() || "Quimper",
       toName: to.trim() || "à préciser",
@@ -47,6 +62,7 @@ function Page() {
       range: { low: 0, mid: 0, high: 0 },
       extras: "Demande contact",
       message: message.trim(),
+      pickupDate: pickupDate.trim(),
     };
     const sent = await sendDevisLead(payload);
     setBusy(false);
@@ -72,8 +88,8 @@ function Page() {
         ) : (
           <form className="space-y-3 rounded-[1.6rem] border border-line bg-surface p-6" onSubmit={submit}>
             <div className="grid gap-3 sm:grid-cols-2">
-              <Field label="Prénom" value={firstName} onChange={setFirstName} />
-              <Field label="Nom" value={lastName} onChange={setLastName} />
+              <Field label="Prénom" value={firstName} onChange={setFirstName} required />
+              <Field label="Nom" value={lastName} onChange={setLastName} required />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <button
@@ -91,9 +107,10 @@ function Page() {
                 Professionnel
               </button>
             </div>
-            {kind === "pro" ? <Field label="Société" value={company} onChange={setCompany} /> : null}
-            <Field label="Téléphone" value={phone} onChange={setPhone} type="tel" />
-            <Field label="E-mail" value={email} onChange={setEmail} type="email" />
+            {kind === "pro" ? <Field label="Société" value={company} onChange={setCompany} required /> : null}
+            <Field label="Téléphone" value={phone} onChange={setPhone} type="tel" required={!email.trim()} />
+            <Field label="E-mail" value={email} onChange={setEmail} type="email" required={!phone.trim()} />
+            <Field label="Date de prise en charge souhaitée" value={pickupDate} onChange={setPickupDate} type="date" required={false} />
             <div className="grid gap-3 sm:grid-cols-2">
               <Field label="Départ" value={from} onChange={setFrom} />
               <Field label="Arrivée" value={to} onChange={setTo} required={false} />
@@ -107,11 +124,12 @@ function Page() {
                 className="mt-1 w-full rounded-2xl border border-line bg-bg px-3 py-3 text-navy"
               />
             </label>
+            {contactError ? <p className="text-sm text-coral">{contactError}</p> : null}
             <Button type="submit" className="w-full" size="lg" disabled={busy}>
               {busy ? "Envoi…" : "Envoyer"}
             </Button>
             <p className="text-xs text-muted">
-              Un e-mail part vers vous et vers {SITE.email}. Réponse sous 2 h ouvrées.
+              Téléphone ou e-mail, au moins l’un des deux. Un e-mail part vers vous et vers {SITE.email}. Réponse sous 2 h ouvrées.
             </p>
           </form>
         )}
@@ -157,6 +175,7 @@ function Field({
   return (
     <label className="block text-sm text-muted">
       {label}
+      {required ? <span className="text-coral"> *</span> : null}
       <input
         required={required}
         type={type}

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { downloadQuotePdf } from "@/lib/quote-pdf";
 import { mailtoFallback, sendDevisLead } from "@/lib/send-devis";
+import { SITE } from "@/lib/site";
 import { quoteRange, type QuoteInput, type QuoteResult } from "@/lib/tarifs";
 import { formatEuro } from "@/lib/utils";
 
@@ -18,29 +19,23 @@ export function QuoteGate({
   const extras = [
     input.mission === "jockey" ? `Conciergerie ${input.jockeySens} · domicile ${input.from} · ${input.jockeyPoint}` : "",
     input.mission === "jockey" && input.jockeyRef ? `Train ou vol ${input.jockeyRef}` : "",
-    input.mission === "jockey" && input.jockeyAller ? `Aller ${input.jockeyAller.replace("T", " ")}` : "",
-    input.mission === "jockey" && input.jockeyRetour ? `Retour ${input.jockeyRetour.replace("T", " ")}` : "",
-    input.mission === "jockey" && input.jockeyCt ? "Passage révision ou contrôle technique" : "",
-    input.mission === "jockey" && input.jockeyAttente ? "Attente / remise à une personne" : "",
-    input.mission === "jockey" && input.jockeyWash === "prestige"
-      ? "Nettoyage prestige 125 €"
-      : input.mission === "jockey" && input.jockeyWash === "standard"
-        ? "Nettoyage intérieur et extérieur 90 €"
-        : "",
     input.mission === "convoyage" && input.tripMode === "retourVehicule" ? "Véhicule à reprendre au retour" : "",
     input.mission === "convoyage" && input.tripMode === "aller" ? "Aller simple, retour chauffeur inclus" : "",
     input.clientKind === "pro" ? "Client professionnel" : "Client particulier",
     input.pack === "essentiel" ? (input.clientKind === "pro" ? "Pack Atelier" : "Pack Route") : "",
     input.pack === "confort" ? (input.clientKind === "pro" ? "Pack Livraison client" : "Pack Sérénité") : "",
     input.pack === "premium" ? (input.clientKind === "pro" ? "Pack Signature réseau" : "Pack Sécurisé") : "",
-    input.gps && input.pack === "premium" ? "Traceur GPS 4G" : "",
+    input.gps ? "Traceur GPS 4G cédé, 12 mois" : "",
+    input.gpsMission ? "Suivi GPS le temps de la mission" : "",
+    input.videoLivraison ? "Livraison vidéo" : "",
     "Mise en main personnalisée, offerte",
-    input.plein ? `Plein carburant inclus au pack` : "",
-    input.coffret === "champagne" ? "Coffret Prestige Champagne" : input.coffret === "armor" ? "Coffret Terroir Breton" : "",
+    input.plein ? "Plein carburant" : "",
+    input.coffret === "champagne" ? "Coffret champagne et chocolats" : input.coffret === "armor" ? "Coffret Terroir Breton" : "",
     input.model ? `Véhicule : ${input.model}` : "",
-    input.vehicle === "prestige" ? "Prestige" : "",
+    input.vehicle === "prestige" ? "Véhicule de haute valeur" : "",
     input.vehicle === "utilitaire" ? "Utilitaire" : "",
     input.when === "urgent" ? "Urgent, sous 72 h" : "Standard, 5 jours",
+    input.pickupDate ? `Date souhaitée : ${input.pickupDate}` : "",
   ]
     .filter(Boolean)
     .join(", ");
@@ -51,9 +46,12 @@ export function QuoteGate({
   const [company, setCompany] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [pickupDate, setPickupDate] = useState(input.pickupDate ?? "");
   const [busy, setBusy] = useState(false);
   const [revealed, setRevealed] = useState(false);
+  const [accepted, setAccepted] = useState(false);
   const [mailOk, setMailOk] = useState(true);
+  const [contactError, setContactError] = useState("");
   const [tilt, setTilt] = useState({ x: 8, y: -8, z: 0.96 });
   const scene = useRef<HTMLDivElement>(null);
 
@@ -83,25 +81,39 @@ export function QuoteGate({
 
   const extrasLabel = extras || "Aucune option";
 
+  const payloadBase = () => ({
+    firstName: firstName.trim(),
+    lastName: lastName.trim(),
+    client: kind,
+    company: company.trim(),
+    email: email.trim() || SITE.email,
+    phone: phone.trim(),
+    fromName: quote.fromName,
+    toName: quote.toName,
+    km: quote.km,
+    delay: quote.delay,
+    range,
+    extras: extrasLabel,
+    pickupDate: pickupDate.trim(),
+  });
+
   const submit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!firstName.trim() || !lastName.trim() || !phone.trim() || !email.trim()) return;
-    if (kind === "pro" && !company.trim()) return;
+    if (!firstName.trim() || !lastName.trim()) {
+      setContactError("Indiquez votre nom et votre prénom.");
+      return;
+    }
+    if (!phone.trim() && !email.trim()) {
+      setContactError("Indiquez un téléphone ou un e-mail.");
+      return;
+    }
+    if (kind === "pro" && !company.trim()) {
+      setContactError("Indiquez le nom de la société.");
+      return;
+    }
+    setContactError("");
     setBusy(true);
-    const payload = {
-      firstName: firstName.trim(),
-      lastName: lastName.trim(),
-      client: kind,
-      company: company.trim(),
-      email: email.trim(),
-      phone: phone.trim(),
-      fromName: quote.fromName,
-      toName: quote.toName,
-      km: quote.km,
-      delay: quote.delay,
-      range,
-      extras: extrasLabel,
-    };
+    const payload = payloadBase();
     try {
       const sent = await sendDevisLead(payload);
       setMailOk(sent.ok);
@@ -110,6 +122,17 @@ export function QuoteGate({
       if (!sent.ok) {
         window.location.href = mailtoFallback(payload);
       }
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const acceptQuote = async () => {
+    setBusy(true);
+    const payload = { ...payloadBase(), accepted: true };
+    try {
+      await sendDevisLead(payload);
+      setAccepted(true);
     } finally {
       setBusy(false);
     }
@@ -130,79 +153,76 @@ export function QuoteGate({
           </p>
           {revealed ? (
             <>
-              <p className="mt-8 text-sm text-surface/70">Tarif final, indicatif</p>
+              <p className="mt-8 text-sm text-surface/70">Devis chiffré, à confirmer</p>
               <p className="mt-3 font-display text-4xl tracking-tight sm:text-5xl">
                 de {formatEuro(range.low)} à {formatEuro(range.high)}
               </p>
               <p className="mt-4 text-sm text-surface/70">
                 Autour de {formatEuro(range.mid)}. {quote.km} km. {quote.delay}.
               </p>
+              {pickupDate ? (
+                <p className="mt-3 text-sm text-surface/70">Prise en charge souhaitée : {pickupDate}</p>
+              ) : null}
               <p className="mt-8 max-w-sm text-sm leading-relaxed text-surface/75">
-                Prix indicatif, à confirmer avec un professionnel avant toute mission. Un PDF vient
-                d’être téléchargé. Un e-mail de confirmation part sur votre boîte.
+                Vous pouvez accepter ce devis. Clément confirme ensuite le créneau, ou vous contacte.
               </p>
               <Button
                 type="button"
                 className="mt-8"
-                onClick={() =>
-                  void downloadQuotePdf({
-                    firstName,
-                    lastName,
-                    client: kind,
-                    company,
-                    email,
-                    phone,
-                    fromName: quote.fromName,
-                    toName: quote.toName,
-                    km: quote.km,
-                    delay: quote.delay,
-                    range,
-                    extras: extrasLabel,
-                  })
-                }
+                onClick={() => void downloadQuotePdf(payloadBase())}
               >
                 Télécharger le PDF
               </Button>
-              {!mailOk ? (
-                <p className="mt-4 text-xs text-surface/60">
-                  Si l’e-mail automatique n’arrive pas, votre messagerie s’est ouverte en secours.
-                </p>
-              ) : null}
             </>
           ) : (
             <>
               <p className="mt-10 font-display text-4xl tracking-tight sm:text-5xl">
-                Votre estimation
+                Votre devis
                 <br />
-                est prête.
+                est prêt.
               </p>
               <p className="mt-8 select-none font-display text-5xl tracking-tight text-surface/20 blur-[6px]">
                 Prix masqué
               </p>
               <p className="mt-8 max-w-sm text-sm leading-relaxed text-surface/70">
-                Laissez vos coordonnées pour afficher la fourchette, recevoir le PDF et un e-mail de
-                confirmation.
+                Nom, prénom, et un téléphone ou un e-mail. Le montant s’affiche ensuite. Vous pourrez l’accepter.
               </p>
             </>
           )}
         </div>
       </div>
 
-      {revealed ? (
+      {accepted ? (
         <div className="rounded-[2rem] border border-line bg-surface p-8 sm:p-10">
-          <p className="font-display text-3xl text-navy">C’est envoyé.</p>
+          <p className="font-display text-3xl text-navy">Devis accepté</p>
           <p className="mt-4 text-base leading-relaxed text-muted">
-            {firstName}, la fourchette de {formatEuro(range.low)} à {formatEuro(range.high)} est
-            indicative. Clément confirme le prix ferme sous 2 heures ouvrées.
+            {firstName}, votre acceptation est enregistrée. Clément confirme la date de prise en charge, ou vous
+            contacte sous deux heures ouvrées.
+          </p>
+        </div>
+      ) : revealed ? (
+        <div className="rounded-[2rem] border border-line bg-surface p-8 sm:p-10">
+          <p className="font-display text-3xl text-navy">Accepter ce devis</p>
+          <p className="mt-4 text-base leading-relaxed text-muted">
+            Fourchette de {formatEuro(range.low)} à {formatEuro(range.high)}. Le créneau n’est pas bloqué tant que
+            Clément n’a pas confirmé.
+          </p>
+          <Button type="button" className="mt-8 w-full" size="lg" disabled={busy} onClick={() => void acceptQuote()}>
+            {busy ? "Envoi…" : "J’accepte ce devis"}
+          </Button>
+          <p className="mt-4 text-xs leading-relaxed text-muted">
+            Vous proposez une date. Convoyage BZH confirme, ou reprend contact pour un autre créneau.
           </p>
         </div>
       ) : (
         <form onSubmit={submit} className="rounded-[2rem] border border-line bg-surface p-8 sm:p-10">
-          <p className="font-display text-3xl text-navy">Pour voir le prix</p>
-          <p className="mt-2 text-sm leading-relaxed text-muted">Nom, téléphone et e-mail sont obligatoires.</p>
+          <p className="font-display text-3xl text-navy">Vos coordonnées</p>
+          <p className="mt-2 text-sm leading-relaxed text-muted">
+            Prénom, nom, et un moyen de contact. Puis le devis chiffré.
+          </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
-            <Field label="Prénom" value={firstName} onChange={setFirstName} autoComplete="given-name" />
-            <Field label="Nom" value={lastName} onChange={setLastName} autoComplete="family-name" />
+            <Field label="Prénom" required value={firstName} onChange={setFirstName} autoComplete="given-name" />
+            <Field label="Nom" required value={lastName} onChange={setLastName} autoComplete="family-name" />
           </div>
           <div className="mt-4 grid grid-cols-2 gap-3">
             <KindButton active={kind === "part"} onClick={() => setKind("part")} label="Particulier" />
@@ -210,20 +230,25 @@ export function QuoteGate({
           </div>
           {kind === "pro" ? (
             <div className="mt-4">
-              <Field label="Société" value={company} onChange={setCompany} autoComplete="organization" />
+              <Field label="Société" required value={company} onChange={setCompany} autoComplete="organization" />
             </div>
           ) : null}
           <div className="mt-4">
-            <Field label="Téléphone" value={phone} onChange={setPhone} type="tel" autoComplete="tel" />
+            <Field label="Téléphone" required={!email.trim()} value={phone} onChange={setPhone} type="tel" autoComplete="tel" />
           </div>
           <div className="mt-4">
-            <Field label="E-mail" value={email} onChange={setEmail} type="email" autoComplete="email" />
+            <Field label="E-mail" required={!phone.trim()} value={email} onChange={setEmail} type="email" autoComplete="email" />
           </div>
+          <div className="mt-4">
+            <Field label="Date de prise en charge souhaitée" value={pickupDate} onChange={setPickupDate} type="date" />
+          </div>
+          {contactError ? <p className="mt-3 text-sm text-coral">{contactError}</p> : null}
           <Button type="submit" className="mt-8 w-full" size="lg" disabled={busy}>
-            {busy ? "Envoi…" : "Générer mon devis officiel"}
+            {busy ? "Envoi…" : "Afficher mon devis"}
           </Button>
           <p className="mt-4 text-xs leading-relaxed text-muted">
-            Afin d’ajuster l’itinéraire kilométrique et d’appliquer le barème, renseignez vos coordonnées. La synthèse s’affiche ensuite. Proposition tarifaire ferme sous 2 heures ouvrées. Un e-mail part vers vous et vers {SITE_EMAIL}.
+            Téléphone ou e-mail, au moins l’un des deux. Devis ferme sous deux heures ouvrées, après confirmation du
+            créneau par Convoyage BZH.
           </p>
         </form>
       )}
@@ -231,26 +256,27 @@ export function QuoteGate({
   );
 }
 
-const SITE_EMAIL = "leliege.clement@gmail.com";
-
 function Field({
   label,
   value,
   onChange,
   type = "text",
   autoComplete,
+  required = false,
 }: {
   label: string;
   value: string;
   onChange: (v: string) => void;
   type?: string;
   autoComplete?: string;
+  required?: boolean;
 }) {
   return (
     <label className="block text-sm text-muted">
       {label}
+      {required ? <span className="text-coral"> *</span> : null}
       <input
-        required
+        required={required}
         type={type}
         value={value}
         autoComplete={autoComplete}
@@ -275,9 +301,11 @@ function KindButton({
     <button
       type="button"
       onClick={onClick}
-      className={`rounded-2xl border px-3 py-3.5 text-sm font-medium transition-colors ${
-        active ? "border-navy bg-navy text-surface" : "border-line bg-bg text-navy"
-      }`}
+      className={
+        active
+          ? "h-12 rounded-full bg-navy text-sm font-semibold text-white"
+          : "h-12 rounded-full border border-line bg-surface text-sm text-navy"
+      }
     >
       {label}
     </button>

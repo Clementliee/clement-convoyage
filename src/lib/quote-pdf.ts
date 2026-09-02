@@ -14,6 +14,7 @@ export type QuotePdfInput = {
   delay: string;
   range: QuoteRange;
   extras: string;
+  pickupDate?: string;
 };
 
 export async function downloadQuotePdf(data: QuotePdfInput) {
@@ -64,6 +65,10 @@ export async function downloadQuotePdf(data: QuotePdfInput) {
   y += 5;
   doc.setTextColor(110, 110, 115);
   doc.text(`${data.km} km, delai ${data.delay}`, 22, y);
+  if (data.pickupDate) {
+    y += 5;
+    doc.text(`Prise en charge souhaitee : ${data.pickupDate}`, 22, y);
+  }
   if (data.extras) {
     y += 5;
     const extraLines = doc.splitTextToSize(`Options : ${data.extras}`, 166);
