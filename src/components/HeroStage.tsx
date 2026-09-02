@@ -49,8 +49,8 @@ export function HeroStage() {
           className="absolute inset-0 h-full w-full object-cover object-[62%_58%]"
         />
         <div
-          className="pointer-events-none absolute inset-0 bg-[#071018]"
-          style={{ opacity: lights * 0.42 }}
+          className="pointer-events-none absolute inset-0 bg-[#081018]"
+          style={{ opacity: lights * 0.28, mixBlendMode: "multiply" }}
           aria-hidden
         />
         <img
