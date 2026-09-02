@@ -41,7 +41,7 @@ export function HeroStage() {
       <div className="sticky top-0 h-dvh overflow-hidden bg-[#1a2230]">
         <img
           src={IMG.hero}
-          alt="Peugeot 308 en convoyage, Cornouaille"
+          alt="Berline premium sur la côte bretonne"
           width={1792}
           height={1008}
           fetchPriority="high"
