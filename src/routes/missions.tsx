@@ -9,9 +9,9 @@ import { pageHead } from "@/lib/seo";
 export const Route = createFileRoute("/missions")({
   head: () =>
     pageHead({
-      title: "Missions. Convoyage, conciergerie, flotte | Convoyage BZH",
+      title: "Missions | Convoyage et conciergerie | Convoyage BZH",
       description:
-        "Cas concrets : convoyage France et Europe, gare, location, atelier, carrosserie, roulage prestige, flotte. Base Quimper. Devis sur dossier.",
+        "Exemples de missions : convoyage en France et en Europe, livraison concession, import, véhicule de prestige, conciergerie en Bretagne. Devis sur dossier.",
       path: "/missions",
       image: "/images/mission-audi-a4.jpg",
     }),
@@ -25,8 +25,8 @@ function Page() {
     <main>
       <PageHero
         kicker="Missions"
-        title="Missions réalisées"
-        text="Acheminement en France et en Europe, livraisons clients, imports, véhicules de prestige et échanges. Exemples de missions. Le devis est établi sur dossier."
+        title="Exemples de missions"
+        text="Acheminement en France et en Europe, livraisons concessions, imports, véhicules de prestige, conciergerie en Bretagne. Chaque mission est chiffrée sur dossier."
         image="/images/mission-audi-a4.jpg"
         alt="Audi A4 Avant en convoyage sur autoroute"
       />
@@ -90,7 +90,7 @@ function Page() {
 
       <CtaBar
         title="Une mission comparable ?"
-        text="Le simulateur prépare une fourchette. Devis ferme sous deux heures ouvrées."
+        text="Indiquez le départ et l’arrivée. Devis ferme sous deux heures ouvrées."
       />
     </main>
   );
