@@ -47,8 +47,8 @@ const FAQ = [
     a: "En Bretagne, à Rennes et à Nantes. Gares de Quimper, Lorient, Brest, Vannes, Rennes, Nantes. Aéroports de Brest-Bretagne, Lorient, Rennes-Saint-Jacques et Nantes-Atlantique.",
   },
   {
-    q: "Pourquoi aucun tarif sur cette page ?",
-    a: "Chaque mission est chiffrée sur dossier. Ville, créneau, atelier, flotte. Le montant apparaît sur le devis, après vos coordonnées.",
+    q: "Pourquoi aucun tarif n’est-il affiché ?",
+    a: "Chaque mission est chiffrée sur dossier : ville, créneau, atelier, flotte. Le montant figure sur le devis, après communication de vos coordonnées.",
   },
 ];
 
@@ -57,8 +57,8 @@ function Page() {
     <main>
       <PageHero
         kicker="Conciergerie · Bretagne"
-        title="Le véhicule. Sans vous."
-        text="Gare, atelier, flotte, prestige. Nous prenons les clés. Nous rendons le véhicule. Le devis se fait sur dossier."
+        title="Conciergerie automobile en Bretagne"
+        text="Gares, ateliers, flottes et véhicules de prestige. Nous déplaçons le véhicule à votre place. Le devis est établi sur dossier."
         image="/images/mission-tiguan-gare.jpg"
         alt="Volkswagen Tiguan sur le parvis d’une gare en Bretagne"
       />
@@ -69,7 +69,7 @@ function Page() {
           search={{ mission: "jockey" }}
           className="inline-flex h-14 items-center justify-center rounded-full bg-coral px-8 text-sm font-semibold text-white"
         >
-          Établir un devis
+          Demander un devis
         </Link>
         <a
           href={SITE.phoneHref}
@@ -82,7 +82,7 @@ function Page() {
       <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
         <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Déroulement</p>
         <RiseWords
-          text="Cinq étapes. Une mission."
+          text="Déroulement de la prestation"
           className="mt-4 max-w-xl font-display text-3xl text-navy sm:text-4xl"
         />
         <ol className="mt-12">
@@ -100,7 +100,7 @@ function Page() {
 
       <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
         <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Prestations</p>
-        <RiseWords text="Ce que nous faisons." className="mt-4 max-w-xl font-display text-3xl text-navy sm:text-4xl" />
+        <RiseWords text="Prestations de conciergerie" className="mt-4 max-w-xl font-display text-3xl text-navy sm:text-4xl" />
         <div className="mt-12 grid gap-6 lg:grid-cols-2">
           {CONCIERGE_CATALOGUE.map((item, i) => (
             <Reveal key={item.id} delay={(i % 2) * 80}>
@@ -121,9 +121,9 @@ function Page() {
         <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center">
           <div>
             <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Compléments</p>
-            <RiseWords text="Autour de la mission." className="mt-4 font-display text-3xl text-navy sm:text-4xl" />
+            <RiseWords text="Prestations complémentaires" className="mt-4 font-display text-3xl text-navy sm:text-4xl" />
             <p className="mt-4 max-w-md text-muted">
-              Nettoyage, plein, attente, prise de rendez-vous. Ajoutés au devis. Jamais affichés ici.
+              Nettoyage, plein, attente sur place, prise de rendez-vous. Ajoutés au devis, jamais affichés ici.
             </p>
           </div>
           <div className="grid gap-px overflow-hidden rounded-[1.6rem] border border-line bg-line sm:grid-cols-2">
@@ -141,12 +141,11 @@ function Page() {
         <div className="rounded-[2rem] bg-navy px-8 py-12 text-surface sm:px-14 sm:py-16">
           <p className="text-xs font-semibold tracking-[0.22em] text-white/45 uppercase">Périmètre</p>
           <RiseWords
-            text="Bretagne. Rennes. Nantes."
+            text="Zone d’intervention"
             className="mt-4 max-w-xl font-display text-3xl text-white sm:text-4xl"
           />
           <p className="mt-5 max-w-xl text-base leading-relaxed text-white/70">
-            La conciergerie reste locale. Le convoyage, lui, va en France et en Europe. Pas de gardiennage. Pas de
-            transport de passagers. Chaque mission est chiffrée depuis Quimper.
+            La conciergerie est limitée à la Bretagne, à Rennes et à Nantes. Le convoyage, lui, s’étend à la France et à l’Europe. Pas de gardiennage, ni de transport de passagers. Chaque mission est chiffrée depuis Quimper.
           </p>
         </div>
       </section>
@@ -157,10 +156,10 @@ function Page() {
         <FaqJsonLd items={FAQ} />
       </section>
       <CtaBar
-        title="Un véhicule à déposer, entretenir, faire rouler ?"
-        text="Le devis se fait sur dossier. Particulier, professionnel, flotte."
+        title="Un véhicule à déposer, à entretenir ou à faire rouler ?"
+        text="Le devis est établi sur dossier, pour un particulier, un professionnel ou une flotte."
         secondaryTo="/simulateur"
-        secondaryLabel="Établir un devis"
+        secondaryLabel="Demander un devis"
       />
     </main>
   );

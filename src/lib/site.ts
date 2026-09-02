@@ -3,8 +3,8 @@ export const SITE = {
   mark: "BZH",
   legalName: "Clément René Dominique LELIÈGE",
   tradeName: "BZH3D",
-  baseline: "Convoyeur automobile à Quimper, Cornouaille. Packs particuliers et professionnels. Conciergerie de véhicules en Bretagne.",
-  sub: "Base Quimper. Bretagne, France, Europe. Disponibilité 7j/7. Chauffeur professionnel, pas un particulier.",
+  baseline: "Convoyeur automobile à Quimper. Acheminement en France et en Europe. Conciergerie de véhicules en Bretagne.",
+  sub: "Base opérationnelle à Quimper. Intervention 7 jours sur 7. Chauffeur professionnel.",
   city: "Quimper",
   region: "Finistère, Bretagne",
   street: "11 rue Hoche",
@@ -60,7 +60,7 @@ export const ADDONS = [
   {
     to: "/pack-mise-a-la-route",
     title: "Packs particuliers",
-    text: "Route, Sérénité, Sécurisé. Plein et traceur GPS dans le menu. Pas d’à la carte.",
+    text: "Formules Route, Sérénité et Sécurisé. Plein et traceur GPS inclus selon la formule.",
     price: "3 packs",
     image: "/images/plein-carburant-vehicule.jpg",
     alt: "Plein de carburant avant restitution",
@@ -68,7 +68,7 @@ export const ADDONS = [
   {
     to: "/pack-mise-a-la-route",
     title: "Packs professionnels",
-    text: "Atelier, Livraison client, Signature réseau. Coffrets et protocole dans le menu.",
+    text: "Formules Atelier, Livraison client et Signature réseau. Coffrets et protocole selon la formule.",
     price: "3 packs",
     image: "/images/coffret-terroir-breton.jpg",
     alt: "Coffret Terroir Breton",
@@ -84,7 +84,7 @@ export const ADDONS = [
   {
     to: "/jockey-gares-aeroports",
     title: "Conciergerie",
-    text: "Gare, atelier, flotte, prestige. Bretagne. Le devis se fait sur dossier.",
+    text: "Gares, ateliers, flottes et véhicules de prestige en Bretagne. Devis établi sur dossier.",
     price: "Sur devis",
     image: "/images/mission-tiguan-gare.jpg",
     alt: "Volkswagen Tiguan sur le parvis d’une gare",
@@ -123,6 +123,6 @@ export const SERVICES = [
     text: "Particuliers : Route, Sérénité, Sécurisé. Professionnels : Atelier, Livraison client, Signature. Mise en main offerte.",
     image: "/images/mission-audi-a4.jpg",
     alt: "Audi A4 Avant en convoyage",
-    cta: "Voir les menus",
+    cta: "Voir les formules",
   },
 ] as const;

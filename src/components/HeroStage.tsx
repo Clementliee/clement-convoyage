@@ -81,13 +81,13 @@ export function HeroStage() {
             className="max-w-3xl font-display text-[2.15rem] leading-[1.12] text-white sm:text-5xl lg:text-[3.4rem]"
             style={{ textShadow: "0 2px 28px rgba(0,0,0,0.7)" }}
           >
-            Nous prenons le véhicule. Nous le remettons.
+            Acheminement de votre véhicule
           </h1>
           <p
             className="mt-5 max-w-xl text-base leading-relaxed text-white sm:text-lg"
             style={{ textShadow: "0 2px 18px rgba(0,0,0,0.7)" }}
           >
-            Convoyage, France et Europe. Un professionnel. Devis ou appel.
+            Convoyeur professionnel, basé à Quimper. France et Europe. Un devis, ou un appel.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Link

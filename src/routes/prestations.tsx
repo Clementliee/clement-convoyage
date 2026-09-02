@@ -24,28 +24,28 @@ export const Route = createFileRoute("/prestations")({
 
 const FAQ = [
   {
-    q: "Vous convoyez partout ?",
-    a: "Oui. Prise en charge où se trouve le véhicule. Remise chez le destinataire. France. Europe selon mission. Quimper est la base, pas un départ obligatoire.",
+    q: "Intervenez-vous partout en France ?",
+    a: "Oui. Le véhicule est pris en charge à l’adresse où il se trouve et remis au destinataire. France, et Europe selon la mission. Quimper est la base opérationnelle, pas un départ obligatoire.",
   },
   {
-    q: "Qui conduit ?",
-    a: "Un chauffeur professionnel. Pas un particulier. Assurance tous risques. Photos au départ et à l’arrivée.",
+    q: "Qui conduit le véhicule ?",
+    a: "Un chauffeur professionnel, assuré en tous risques. Un état des lieux photographique est établi au départ et à l’arrivée.",
   },
   {
-    q: "Quelle est la différence entre les packs ?",
-    a: "Le kilomètre ne change pas. Le pack change la remise : nettoyage, plein, GPS, coffret. Particulier et professionnel n’ont pas le même menu.",
+    q: "En quoi les formules diffèrent-elles ?",
+    a: "Le kilomètre est identique. La formule détermine les prestations de remise : nettoyage, plein, traceur GPS, coffret. Particuliers et professionnels disposent de formules distinctes.",
   },
   {
-    q: "C’est urgent ?",
-    a: "Standard : cinq jours. Urgent : soixante-douze heures, sous réserve. Le devis le dit.",
+    q: "Quel est le délai ?",
+    a: "Cinq jours en délai standard. Soixante-douze heures en urgence, sous réserve de disponibilité. Le devis le précise.",
   },
   {
     q: "Et la conciergerie ?",
-    a: "Autre métier. Gare, atelier, flotte, prestige, en Bretagne. Page dédiée.",
+    a: "Il s’agit d’une prestation distincte, limitée à la Bretagne : gares, ateliers, flottes et véhicules de prestige. Une page lui est consacrée.",
   },
   {
-    q: "Pourquoi aucun tarif ici ?",
-    a: "Chaque trajet est chiffré sur dossier. Ville, pack, créneau. Le montant apparaît après vos coordonnées.",
+    q: "Pourquoi aucun tarif n’est-il affiché ?",
+    a: "Chaque trajet est chiffré sur dossier : ville, formule, créneau. Le montant figure sur le devis, après communication de vos coordonnées.",
   },
 ];
 
@@ -54,8 +54,8 @@ function Page() {
     <main>
       <PageHero
         kicker="Convoyage · France et Europe"
-        title="Nous prenons le véhicule. Nous le remettons."
-        text="A vers B. Particulier ou professionnel. Photos. Mise en main offerte. Le devis se fait sur dossier."
+        title="Acheminement de votre véhicule"
+        text="Prise en charge à l’adresse du véhicule, remise au destinataire. Particuliers et professionnels. Le devis est établi sur dossier."
         image="/images/mission-audi-a4.jpg"
         alt="Audi A4 Avant en convoyage sur autoroute"
       />
@@ -65,7 +65,7 @@ function Page() {
           to="/simulateur"
           className="inline-flex h-14 items-center justify-center rounded-full bg-coral px-8 text-sm font-semibold text-white"
         >
-          Établir un devis
+          Demander un devis
         </Link>
         <a
           href={SITE.phoneHref}
@@ -76,8 +76,8 @@ function Page() {
       </section>
 
       <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
-        <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Qui commande</p>
-        <RiseWords text="Deux clientèles. Deux menus." className="mt-4 max-w-xl font-display text-3xl text-navy sm:text-4xl" />
+        <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Clientèle</p>
+        <RiseWords text="Particuliers et professionnels" className="mt-4 max-w-xl font-display text-3xl text-navy sm:text-4xl" />
         <div className="mt-12 grid gap-6 lg:grid-cols-2">
           {CONVOYAGE_CLIENTS.map((c, i) => (
             <Reveal key={c.id} delay={i * 80}>
@@ -99,7 +99,7 @@ function Page() {
 
       <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
         <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Déroulement</p>
-        <RiseWords text="Cinq étapes. Une mission." className="mt-4 max-w-xl font-display text-3xl text-navy sm:text-4xl" />
+        <RiseWords text="Déroulement de la mission" className="mt-4 max-w-xl font-display text-3xl text-navy sm:text-4xl" />
         <ol className="mt-12">
           {CONVOYAGE_STEPS.map((s) => (
             <li key={s.n} className="grid gap-4 border-t border-line py-10 sm:grid-cols-[5.5rem_1fr] sm:gap-10">
@@ -115,7 +115,7 @@ function Page() {
 
       <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
         <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Missions</p>
-        <RiseWords text="Ce que nous convoyons." className="mt-4 max-w-xl font-display text-3xl text-navy sm:text-4xl" />
+        <RiseWords text="Nature des missions" className="mt-4 max-w-xl font-display text-3xl text-navy sm:text-4xl" />
         <div className="mt-12 grid gap-6 lg:grid-cols-2">
           {CONVOYAGE_CATALOGUE.map((item, i) => (
             <Reveal key={item.id} delay={(i % 2) * 80}>
@@ -141,10 +141,10 @@ function Page() {
       </section>
 
       <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
-        <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Packs</p>
-        <RiseWords text="Le trajet. Puis la remise." className="mt-4 max-w-xl font-display text-3xl text-navy sm:text-4xl" />
+        <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Formules</p>
+        <RiseWords text="Trois formules, deux clientèles" className="mt-4 max-w-xl font-display text-3xl text-navy sm:text-4xl" />
         <p className="mt-4 max-w-xl text-muted">
-          Le kilomètre ne change pas. Le pack change ce qui se passe à l’arrivée. Inclus au devis. Jamais affiché ici.
+          Le kilomètre est identique. La formule détermine les prestations de remise. Le montant figure sur le devis, jamais sur cette page.
         </p>
         <div className="mt-12 grid gap-10 lg:grid-cols-2">
           <div>
@@ -177,12 +177,12 @@ function Page() {
           <div className="rounded-[1.6rem] border border-line bg-surface p-8">
             <p className="text-xs font-semibold tracking-[0.16em] text-muted uppercase">Standard</p>
             <p className="mt-3 font-display text-3xl text-navy">Cinq jours</p>
-            <p className="mt-3 text-muted">Prise en charge sous cinq jours. Sous réserve.</p>
+            <p className="mt-3 text-muted">Prise en charge sous cinq jours, sous réserve de disponibilité.</p>
           </div>
           <div className="rounded-[1.6rem] bg-sand p-8">
             <p className="text-xs font-semibold tracking-[0.16em] text-coral uppercase">Urgent</p>
             <p className="mt-3 font-display text-3xl text-navy">72 heures</p>
-            <p className="mt-3 text-muted">Pour un besoin serré. Sous réserve. Le devis le dit.</p>
+            <p className="mt-3 text-muted">Pour un besoin serré, sous réserve de disponibilité. Le devis le précise.</p>
           </div>
         </div>
       </section>
@@ -191,11 +191,11 @@ function Page() {
         <div className="rounded-[2rem] bg-navy px-8 py-12 text-surface sm:px-14 sm:py-16">
           <p className="text-xs font-semibold tracking-[0.22em] text-white/45 uppercase">Périmètre</p>
           <RiseWords
-            text="France. Europe. Base Quimper."
+            text="Zone d’intervention"
             className="mt-4 max-w-xl font-display text-3xl text-white sm:text-4xl"
           />
           <p className="mt-5 max-w-xl text-base leading-relaxed text-white/70">
-            Nous allons chercher le véhicule où il se trouve. La conciergerie, elle, reste en Bretagne.
+            Le véhicule est pris en charge à l’adresse où il se trouve, en France ou en Europe. La conciergerie demeure limitée à la Bretagne.
           </p>
           <Link
             to="/jockey-gares-aeroports"
@@ -213,8 +213,8 @@ function Page() {
       </section>
 
       <CtaBar
-        title="Un véhicule à faire venir, ou à faire partir ?"
-        text="Le devis se fait sur dossier. Particulier ou professionnel."
+        title="Un véhicule à acheminer ?"
+        text="Le devis est établi après étude du trajet, pour un particulier ou un professionnel."
         secondaryTo="/contact"
         secondaryLabel="Nous écrire"
       />

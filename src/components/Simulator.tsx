@@ -129,7 +129,7 @@ export function Simulator({
               {
                 v: "convoyage",
                 l: "Convoyage, livraison France et Europe",
-                h: "A vers B, packs particuliers ou professionnels",
+                h: "Trajet point à point, formules particuliers ou professionnels",
               },
               {
                 v: "jockey",
@@ -206,8 +206,8 @@ export function Simulator({
         {step === 7 ? (
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted">
             {client === "pro"
-              ? "Trois packs professionnels. Pas d’à la carte : le coffret, le nettoyage et le protocole sont dans le menu."
-              : "Trois packs particuliers. Pas d’à la carte : le plein et le traceur GPS sont dans le menu."}
+              ? "Trois formules professionnelles. Coffret, nettoyage et protocole sont inclus selon la formule retenue."
+              : "Trois formules particulières. Plein et traceur GPS sont inclus selon la formule retenue."}
           </p>
         ) : null}
       </div>

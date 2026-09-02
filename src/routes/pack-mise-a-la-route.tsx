@@ -21,9 +21,9 @@ function Page() {
   return (
     <main>
       <PageHero
-        kicker="Packs de livraison"
-        title="Le véhicule arrive prêt."
-        text="Deux clientèles, trois packs chacune. Pas d’à la carte sur le convoyage. La conciergerie reste composable. Prix indicatifs, à confirmer."
+        kicker="Formules de livraison"
+        title="Le véhicule arrive prêt à prendre la route"
+        text="Trois formules pour les particuliers, trois pour les professionnels. Le montant figure sur le devis."
         image="/images/preparation-esthetique-vehicule.jpg"
         alt="Préparation d’un véhicule avant livraison"
       />

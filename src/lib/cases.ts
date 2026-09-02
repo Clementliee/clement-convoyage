@@ -382,9 +382,9 @@ export const CASES: MissionCase[] = [
     from: "Quimper",
     to: "Rennes",
     title: "Achat à Rennes. Série 3. Contrôle visuel.",
-    lead: "Le client y va. On y va aussi. On inspecte. On ramène l’autre.",
+    lead: "Le client se rend chez le vendeur. Nous l’accompagnons et ramenons l’autre véhicule.",
     story:
-      "Le client roule dans sa voiture actuelle. On le rejoint au vendeur à Rennes. Contrôle visuel de la BMW : carrosserie, compteur, intérieur, documents, photos. S’il achète, il repart au volant de l’achat. On ramène l’ancienne. L’inverse est possible.",
+      "Le client roule dans son véhicule actuel. Nous le rejoignons chez le vendeur à Rennes. Contrôle visuel de la BMW : carrosserie, compteur, habitacle, documents, photographies. S’il achète, il repart au volant. Nous ramenons l’ancien véhicule.",
     image: "/images/mission-bmw-controle.jpg",
     alt: "Contrôle visuel d’une BMW Série 3 avant achat",
     mission: "jockey",

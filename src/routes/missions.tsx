@@ -25,8 +25,8 @@ function Page() {
     <main>
       <PageHero
         kicker="Missions"
-        title="Ce que nous convoyons."
-        text="A vers B. France, Europe. Livraison client, import, prestige, échange. Des cas. Le devis se fait sur dossier."
+        title="Missions réalisées"
+        text="Acheminement en France et en Europe, livraisons clients, imports, véhicules de prestige et échanges. Exemples de missions. Le devis est établi sur dossier."
         image="/images/mission-audi-a4.jpg"
         alt="Audi A4 Avant en convoyage sur autoroute"
       />
@@ -79,7 +79,7 @@ function Page() {
                     }}
                     className="mt-7 inline-flex h-12 w-fit items-center rounded-full bg-coral px-6 text-sm font-semibold text-white"
                   >
-                    Chiffrer un cas similaire
+                    Demander un devis
                   </Link>
                 </div>
               </article>
@@ -89,8 +89,8 @@ function Page() {
       </section>
 
       <CtaBar
-        title="Un cas qui ressemble au vôtre ?"
-        text="Le simulateur prépare la fourchette. Devis ferme sous 2 heures ouvrées."
+        title="Une mission comparable ?"
+        text="Le simulateur prépare une fourchette. Devis ferme sous deux heures ouvrées."
       />
     </main>
   );
