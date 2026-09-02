@@ -81,14 +81,13 @@ export function HeroStage() {
             className="max-w-3xl font-display text-[2.15rem] leading-[1.12] text-white sm:text-5xl lg:text-[3.4rem]"
             style={{ textShadow: "0 2px 28px rgba(0,0,0,0.7)" }}
           >
-            On récupère votre véhicule. On le livre.
+            Nous prenons le véhicule. Nous le remettons.
           </h1>
           <p
             className="mt-5 max-w-xl text-base leading-relaxed text-white sm:text-lg"
             style={{ textShadow: "0 2px 18px rgba(0,0,0,0.7)" }}
           >
-            Convoyage depuis Quimper, Cornouaille. France et Europe. Conciergerie de véhicules en Bretagne, 7j/7. Mise en
-            main offerte. Un professionnel, pas un particulier.
+            Convoyage, France et Europe. Un professionnel. Devis ou appel.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Link
@@ -100,7 +99,7 @@ export function HeroStage() {
                 transition: "box-shadow 1s ease",
               }}
             >
-              Calculer un itinéraire, obtenir un devis
+              Obtenir un devis
             </Link>
             <a
               href={SITE.phoneHref}

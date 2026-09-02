@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { AppLink } from "@/components/AppLink";
 import { CtaBar } from "@/components/CtaBar";
 import { Faq } from "@/components/Faq";
 import { FaqJsonLd } from "@/components/JsonLd";
@@ -8,16 +7,16 @@ import { HomeEstimator } from "@/components/HomeEstimator";
 import { Reveal } from "@/components/Reveal";
 import { RiseWords } from "@/components/RiseWords";
 import { pageHead } from "@/lib/seo";
-import { PILLARS, PROCESS, B2B_OFFERS, PACKS_PART, PACKS_PRO, PRESTIGE_PROTOCOL, WHY_PRO_DRIVER } from "@/lib/offers";
-import { formatEuro } from "@/lib/utils";
+import { CONVOYAGE_STEPS } from "@/lib/convoyage";
 import { featuredCases } from "@/lib/cases";
+import { SITE } from "@/lib/site";
 
 export const Route = createFileRoute("/")({
   head: () =>
     pageHead({
-      title: "Convoyage BZH | Convoyage automobile à Quimper, Cornouaille | Bretagne, France, Europe",
+      title: "Convoyage BZH | Convoyage automobile à Quimper | France, Europe",
       description:
-        "Convoyeur professionnel à Quimper. Packs particuliers et professionnels, conciergerie de véhicules en Bretagne 7j/7. Mise en main offerte. Devis après coordonnées.",
+        "Convoyeur professionnel à Quimper. France et Europe. Conciergerie de véhicules en Bretagne. Devis ou appel. Mise en main offerte.",
       path: "/",
       image: "/images/convoyage-berline-bretagne.jpg",
     }),
@@ -26,116 +25,124 @@ export const Route = createFileRoute("/")({
 
 const FAQ = [
   {
-    q: "Qui opère les missions ?",
-    a: "Convoyage BZH, base opérationnelle à Quimper. Clément Leliège conduit les missions. Convoyage, préparation esthétique, remise protocolaire.",
+    q: "Vous convoyez où ?",
+    a: "France et Europe. Prise en charge où se trouve le véhicule. Quimper est la base, pas un départ obligatoire.",
   },
   {
-    q: "Quels véhicules sont éligibles ?",
-    a: "Véhicules légers et utilitaires jusqu’à 3,5 t, en état de marche, permis B. Hors champ : plateau, non-roulant, poids lourd.",
+    q: "Conciergerie ou convoyage ?",
+    a: "Convoyage : A vers B, France et Europe. Conciergerie : gare, atelier, flotte, prestige, en Bretagne.",
   },
   {
-    q: "Quelle est la zone d’intervention ?",
-    a: "Prise en charge et remise partout en France, et en Europe selon mission. Quimper est la base, pas un départ obligatoire.",
+    q: "Qui conduit ?",
+    a: "Un chauffeur professionnel. Pas un particulier. Photos. Assurance. Mise en main offerte.",
   },
   {
-    q: "Comment est établie la cotation ?",
-    a: "Base Quimper. Trajet, approche si le départ n’est pas à Quimper, retour du chauffeur en aller simple. Packs particuliers et professionnels. Fourchette après nom, téléphone et e-mail. Devis ferme sous 2 heures.",
-  },
-  {
-    q: "Pourquoi pas un particulier à 60 € ?",
-    a: "Un particulier n’est pas assuré comme un professionnel, ne fait pas d’état des lieux photo, ne fait pas la mise en main. Nous facturons un chauffeur, des photos, un créneau tenu.",
-  },
-  {
-    q: "La mise en main est-elle facturée ?",
-    a: "Non. Le protocole de mise en main est offert à chaque remise.",
+    q: "Comment obtenir un prix ?",
+    a: "Devis en ligne, après vos coordonnées. Ou un appel.",
   },
 ];
 
 function Home() {
+  const featured = featuredCases().slice(0, 3);
+
   return (
     <main>
       <HeroStage />
 
-      <section className="mx-auto max-w-5xl px-5 py-28 sm:px-8 sm:py-36">
-        <Reveal>
-          <p className="text-xs font-semibold tracking-[0.28em] text-coral uppercase">Prestations</p>
-          <RiseWords
-            text="Acheminement, préparation, liaisons européennes."
-            className="mt-5 max-w-3xl font-display text-4xl leading-[1.12] tracking-tight text-navy sm:text-5xl"
-          />
-        </Reveal>
-        <div className="mt-20 grid gap-12 sm:grid-cols-3">
-          {PILLARS.map((p) => (
-            <Reveal key={p.k}>
-              <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">{p.k}</p>
-              <p className="mt-3 font-display text-2xl text-navy">{p.t}</p>
-              <p className="mt-4 text-base leading-relaxed text-muted">{p.d}</p>
-            </Reveal>
-          ))}
+      <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
+        <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Vous cherchez</p>
+        <RiseWords
+          text="Deux métiers. Un interlocuteur."
+          className="mt-4 max-w-xl font-display text-3xl text-navy sm:text-5xl"
+        />
+        <div className="mt-12 grid gap-6 lg:grid-cols-2">
+          <Reveal>
+            <article className="flex h-full flex-col overflow-hidden rounded-[1.8rem] bg-navy text-surface">
+              <img src="/images/mission-audi-a4.jpg" alt="Audi A4 en convoyage" className="h-48 w-full object-cover" />
+              <div className="flex flex-1 flex-col p-8 sm:p-10">
+                <p className="text-[11px] font-semibold tracking-[0.16em] text-white/45 uppercase">Convoyage</p>
+                <h2 className="mt-3 font-display text-3xl text-white">A vers B. France, Europe.</h2>
+                <p className="mt-4 flex-1 text-sm leading-relaxed text-white/70">
+                  Nous allons chercher le véhicule. Nous le remettons. Particulier ou professionnel. Photos. Mise en main
+                  offerte.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Link
+                    to="/simulateur"
+                    className="inline-flex h-12 items-center rounded-full bg-coral px-6 text-sm font-semibold text-white"
+                  >
+                    Devis convoyage
+                  </Link>
+                  <Link
+                    to="/prestations"
+                    className="inline-flex h-12 items-center rounded-full border border-white/30 px-6 text-sm font-semibold text-white"
+                  >
+                    Voir le déroulement
+                  </Link>
+                </div>
+              </div>
+            </article>
+          </Reveal>
+          <Reveal delay={80}>
+            <article className="flex h-full flex-col overflow-hidden rounded-[1.8rem] border border-line bg-surface">
+              <img
+                src="/images/mission-tiguan-gare.jpg"
+                alt="Conciergerie gare"
+                className="h-48 w-full object-cover"
+              />
+              <div className="flex flex-1 flex-col p-8 sm:p-10">
+                <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">Conciergerie</p>
+                <h2 className="mt-3 font-display text-3xl text-navy">Gare, atelier, flotte. Bretagne.</h2>
+                <p className="mt-4 flex-1 text-sm leading-relaxed text-muted">
+                  Le véhicule se déplace. Vous non. Entretien, carrosserie, roulage, location. Pas de gardiennage.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Link
+                    to="/simulateur"
+                    search={{ mission: "jockey" }}
+                    className="inline-flex h-12 items-center rounded-full bg-navy px-6 text-sm font-semibold text-white"
+                  >
+                    Devis conciergerie
+                  </Link>
+                  <Link
+                    to="/jockey-gares-aeroports"
+                    className="inline-flex h-12 items-center rounded-full border border-navy px-6 text-sm font-semibold text-navy"
+                  >
+                    Voir le déroulement
+                  </Link>
+                </div>
+              </div>
+            </article>
+          </Reveal>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 pb-28 sm:px-8">
-        <Reveal>
-          <RiseWords
-            text="Trois packs. Deux clientèles."
-            className="font-display text-4xl text-navy sm:text-5xl"
-          />
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-            Plus d’à la carte sur le convoyage. Un particulier n’a pas besoin d’un coffret terroir. Un concessionnaire n’a pas besoin d’un plein pour la route. Mise en main offerte.
-          </p>
-        </Reveal>
-        <div className="mt-16 grid gap-16 lg:grid-cols-2">
-          <div>
-            <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">Particulier</p>
-            <div className="mt-4 divide-y divide-line border-y border-line">
-              {PACKS_PART.map((p) => (
-                <div key={p.id} className="flex items-baseline justify-between gap-6 py-6">
-                  <div>
-                    <p className="text-lg text-navy">{p.name}</p>
-                    <p className="mt-1 text-sm text-muted">{p.items.slice(1).join(". ")}.</p>
-                  </div>
-                  <p className="shrink-0 text-sm text-muted">{p.from === 0 ? "Trajet" : `+ ${formatEuro(p.from)}`}</p>
+      <section className="mx-auto grid max-w-6xl gap-16 px-5 pb-24 sm:px-8 lg:grid-cols-2">
+        <div>
+          <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Méthode</p>
+          <RiseWords text="Cinq étapes." className="mt-4 font-display text-3xl text-navy sm:text-5xl" />
+          <ol className="mt-10">
+            {CONVOYAGE_STEPS.map((s) => (
+              <li key={s.n} className="grid gap-2 border-t border-line py-7 sm:grid-cols-[4.5rem_1fr]">
+                <p className="font-display text-xl text-coral">{s.n}</p>
+                <div>
+                  <p className="font-display text-2xl text-navy">{s.title}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-muted">{s.text}</p>
                 </div>
-              ))}
-            </div>
-          </div>
-          <div>
-            <p className="text-xs font-semibold tracking-[0.18em] text-coral uppercase">Professionnel</p>
-            <div className="mt-4 divide-y divide-line border-y border-line">
-              {PACKS_PRO.map((p) => (
-                <div key={p.id} className="flex items-baseline justify-between gap-6 py-6">
-                  <div>
-                    <p className="text-lg text-navy">{p.name}</p>
-                    <p className="mt-1 text-sm text-muted">{p.items.slice(1).join(". ")}.</p>
-                  </div>
-                  <p className="shrink-0 text-sm text-muted">{p.from === 0 ? "Trajet" : `+ ${formatEuro(p.from)}`}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+              </li>
+            ))}
+          </ol>
         </div>
-        <Link
-          to="/simulateur"
-          className="mt-12 inline-flex h-12 items-center rounded-full bg-coral px-6 text-sm font-semibold text-white"
-        >
-          Obtenir un devis
-        </Link>
+        <Reveal>
+          <HomeEstimator />
+        </Reveal>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 pb-28 sm:px-8">
-        <Reveal>
-          <p className="text-xs font-semibold tracking-[0.28em] text-coral uppercase">Missions</p>
-          <RiseWords
-            text="Ce que nous faisons."
-            className="mt-5 font-display text-4xl text-navy sm:text-5xl"
-          />
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-            Convoyage, atelier, flotte, prestige. Des cas. Le devis se fait sur dossier.
-          </p>
-        </Reveal>
+      <section className="mx-auto max-w-6xl px-5 pb-24 sm:px-8">
+        <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Missions</p>
+        <RiseWords text="Des cas. Pas des tarifs." className="mt-4 font-display text-3xl text-navy sm:text-5xl" />
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
-          {featuredCases().map((c) => (
+          {featured.map((c) => (
             <Link
               key={c.id}
               to="/missions"
@@ -157,185 +164,37 @@ function Home() {
         </Link>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 pb-28 sm:px-8">
-        <Reveal>
-          <RiseWords
-            text="Un professionnel. Pas un particulier."
-            className="font-display text-4xl text-navy sm:text-5xl"
-          />
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-            Les plateformes à 60 € mettent un conducteur amateur au volant. Nous non.
-          </p>
-        </Reveal>
-        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {WHY_PRO_DRIVER.map((w) => (
-            <div key={w.t}>
-              <p className="font-display text-2xl text-navy">{w.t}</p>
-              <p className="mt-3 text-sm leading-relaxed text-muted">{w.d}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-5 pb-28 sm:px-8">
-        <Reveal>
-        <div className="overflow-hidden rounded-[2.4rem] bg-navy text-surface lg:grid lg:grid-cols-2 lg:items-stretch">
-          <div className="flex flex-col justify-center gap-5 p-8 sm:p-12">
-            <p className="text-xs font-semibold tracking-[0.22em] text-surface/50 uppercase">Réseaux automobiles</p>
-            <h2 className="font-display text-3xl leading-tight text-white sm:text-4xl">
-              Concessions, garages, flottes.
-            </h2>
-            <ul className="space-y-3 text-sm leading-relaxed text-white/70">
-              {B2B_OFFERS.map((o) => (
-                <li key={o.t}>
-                  <span className="font-semibold text-white">{o.t}.</span> {o.d}
-                </li>
-              ))}
-            </ul>
+      <section className="mx-auto max-w-6xl px-5 pb-24 sm:px-8">
+        <div className="flex flex-col gap-4 rounded-[2rem] bg-navy px-8 py-12 text-surface sm:flex-row sm:items-center sm:justify-between sm:px-14 sm:py-14">
+          <div>
+            <p className="text-xs font-semibold tracking-[0.22em] text-white/45 uppercase">Un créneau, un devis</p>
+            <p className="mt-3 max-w-lg font-display text-3xl text-white sm:text-4xl">Appelez. Ou laissez le dossier.</p>
+          </div>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <a
+              href={SITE.phoneHref}
+              className="inline-flex h-12 items-center justify-center rounded-full bg-white px-6 text-sm font-semibold text-navy"
+            >
+              {SITE.phone}
+            </a>
             <Link
               to="/simulateur"
-              className="mt-2 inline-flex h-12 w-fit items-center rounded-full bg-coral px-6 text-sm font-semibold text-white"
+              className="inline-flex h-12 items-center justify-center rounded-full bg-coral px-6 text-sm font-semibold text-white"
             >
-              Obtenir un devis
-            </Link>
-          </div>
-          <img
-            src="/images/atelier-garage-professionnel.jpg?v=propre"
-            alt="Berline propre dans un atelier automobile professionnel"
-            className="h-56 w-full object-cover sm:h-72 lg:h-full lg:min-h-[22rem]"
-          />
-        </div>
-        </Reveal>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-5 pb-28 sm:px-8">
-        <Reveal>
-        <div className="overflow-hidden rounded-[2.4rem] bg-sand lg:grid lg:grid-cols-2">
-          <img
-            src="/images/jockey-gare-quimper.jpg"
-            alt="Berline sur le parvis d’une gare"
-            className="h-72 w-full object-cover lg:h-full"
-          />
-          <div className="flex flex-col justify-center p-12 sm:p-16">
-            <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Conciergerie</p>
-            <RiseWords
-              text="Conciergerie de véhicules."
-              className="mt-5 font-display text-4xl text-navy sm:text-5xl"
-            />
-            <p className="mt-6 max-w-md text-lg leading-relaxed text-muted">
-              Bretagne. Gare, atelier, flotte, prestige. Le devis se fait sur dossier.
-            </p>
-            <Link
-              to="/jockey-gares-aeroports"
-              className="mt-10 inline-flex h-12 w-fit items-center rounded-full bg-coral px-6 text-sm font-semibold text-white"
-            >
-              Réserver une conciergerie
+              Établir un devis
             </Link>
           </div>
         </div>
-        </Reveal>
       </section>
 
-      <section className="mx-auto max-w-5xl px-5 pb-28 sm:px-8">
-        <Reveal>
-          <RiseWords text="France et Europe." className="font-display text-4xl text-navy sm:text-5xl" />
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
-            Base opérationnelle à Quimper. Prise en charge sur le lieu où se trouve le véhicule.
-          </p>
-          <div className="mt-12 flex flex-wrap gap-3">
-            {[
-              ["/convoyage-quimper", "Quimper"],
-              ["/convoyage-concarneau", "Concarneau"],
-              ["/convoyage-brest", "Brest"],
-              ["/convoyage-lorient", "Lorient"],
-              ["/convoyage-vannes", "Vannes"],
-              ["/convoyage-rennes", "Rennes"],
-              ["/convoyage-nantes", "Nantes"],
-              ["/convoyage-paris", "Paris"],
-              ["/convoyage-lyon", "Lyon"],
-              ["/convoyage-bordeaux", "Bordeaux"],
-              ["/convoyage-pologne", "Pologne"],
-              ["/convoyage-monaco", "Monaco"],
-              ["/convoyage-belgique", "Belgique"],
-              ["/destinations", "Toutes les destinations"],
-            ].map(([to, label]) => (
-              <AppLink
-                key={to}
-                to={to}
-                className="rounded-full border border-line px-5 py-2.5 text-sm text-navy hover:border-coral"
-              >
-                {label}
-              </AppLink>
-            ))}
-          </div>
-        </Reveal>
-      </section>
-
-      <section className="mx-auto grid max-w-6xl gap-20 px-5 pb-28 sm:px-8 lg:grid-cols-2">
-        <Reveal>
-          <h2 className="font-display text-4xl text-navy sm:text-5xl">Un processus d’acheminement en 4 phases.</h2>
-          <ol className="mt-14 space-y-10">
-            {PROCESS.map((s) => (
-              <li key={s.n}>
-                <p className="text-xs tracking-[0.2em] text-coral uppercase">{s.n}</p>
-                <p className="mt-2 font-display text-3xl text-navy">{s.t}</p>
-                <p className="mt-2 text-muted">{s.d}</p>
-              </li>
-            ))}
-          </ol>
-        </Reveal>
-        <Reveal delay={80}>
-          <HomeEstimator />
-        </Reveal>
-      </section>
-
-      <section className="mx-auto max-w-5xl px-5 pb-28 sm:px-8">
-        <Reveal>
-          <h2 className="max-w-3xl font-display text-4xl text-navy sm:text-5xl">
-            Un véhicule confié n’est pas une marchandise. C’est un capital.
-          </h2>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">
-            Assurance professionnelle tous risques, gestion des imprévus, clés remises en main propre, confidentialité. Le niveau d’exigence des réseaux de distribution premium.
-          </p>
-        </Reveal>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-5 pb-28 sm:px-8">
-        <Reveal>
-          <p className="text-xs font-semibold tracking-[0.28em] text-coral uppercase">{PRESTIGE_PROTOCOL.kicker}</p>
-          <h2 className="mt-5 font-display text-4xl text-navy sm:text-5xl">{PRESTIGE_PROTOCOL.name}</h2>
-          <p className="mt-4 max-w-xl text-lg leading-relaxed text-muted">{PRESTIGE_PROTOCOL.promise}</p>
-        </Reveal>
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {PRESTIGE_PROTOCOL.items.map((item) => (
-            <div key={item.t} className="rounded-[1.8rem] border border-line bg-surface p-7">
-              <p className="font-display text-2xl text-navy">{item.t}</p>
-              <p className="mt-3 text-sm leading-relaxed text-muted">{item.d}</p>
-            </div>
-          ))}
-        </div>
-        <p className="mt-8 max-w-3xl text-sm leading-relaxed text-muted">{PRESTIGE_PROTOCOL.disclaimer}</p>
-        <div className="mt-8 flex flex-wrap items-center gap-5">
-          <AppLink to={PRESTIGE_PROTOCOL.href} className="text-sm font-semibold text-coral hover:underline">
-            En savoir plus
-          </AppLink>
-          <Link
-            to="/simulateur"
-            className="inline-flex h-12 items-center rounded-full bg-coral px-6 text-sm font-semibold text-white"
-          >
-            {PRESTIGE_PROTOCOL.cta}
-          </Link>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-2xl px-5 pb-28 sm:px-8">
-        <h2 className="mb-10 font-display text-5xl text-navy">Questions.</h2>
+      <section className="mx-auto max-w-2xl px-5 pb-20 sm:px-8">
+        <h2 className="mb-8 font-display text-4xl text-navy">Questions</h2>
         <Faq items={FAQ} />
         <FaqJsonLd items={FAQ} />
       </section>
 
       <div className="mb-10">
-        <CtaBar />
+        <CtaBar title="Un véhicule à acheminer ?" text="Devis sur dossier. Ou un appel." />
       </div>
     </main>
   );
