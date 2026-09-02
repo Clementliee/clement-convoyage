@@ -29,6 +29,7 @@ import { Route as JockeyGaresAeroportsRouteImport } from './routes/jockey-gares-
 import { Route as LivraisonEuropeRouteImport } from './routes/livraison-europe'
 import { Route as LivraisonVehiculeRouteImport } from './routes/livraison-vehicule'
 import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
+import { Route as MissionsRouteImport } from './routes/missions'
 import { Route as NettoyageVehiculeRouteImport } from './routes/nettoyage-vehicule'
 import { Route as PackMiseALaRouteRouteImport } from './routes/pack-mise-a-la-route'
 import { Route as PreparationVehiculeRouteImport } from './routes/preparation-vehicule'
@@ -141,6 +142,11 @@ const MentionsLegalesRoute = MentionsLegalesRouteImport.update({
   path: '/mentions-legales',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MissionsRoute = MissionsRouteImport.update({
+  id: '/missions',
+  path: '/missions',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NettoyageVehiculeRoute = NettoyageVehiculeRouteImport.update({
   id: '/nettoyage-vehicule',
   path: '/nettoyage-vehicule',
@@ -218,6 +224,7 @@ export interface FileRoutesByFullPath {
   '/livraison-europe': typeof LivraisonEuropeRoute
   '/livraison-vehicule': typeof LivraisonVehiculeRoute
   '/mentions-legales': typeof MentionsLegalesRoute
+  '/missions': typeof MissionsRoute
   '/nettoyage-vehicule': typeof NettoyageVehiculeRoute
   '/pack-mise-a-la-route': typeof PackMiseALaRouteRoute
   '/preparation-vehicule': typeof PreparationVehiculeRoute
@@ -251,6 +258,7 @@ export interface FileRoutesByTo {
   '/livraison-europe': typeof LivraisonEuropeRoute
   '/livraison-vehicule': typeof LivraisonVehiculeRoute
   '/mentions-legales': typeof MentionsLegalesRoute
+  '/missions': typeof MissionsRoute
   '/nettoyage-vehicule': typeof NettoyageVehiculeRoute
   '/pack-mise-a-la-route': typeof PackMiseALaRouteRoute
   '/preparation-vehicule': typeof PreparationVehiculeRoute
@@ -285,6 +293,7 @@ export interface FileRoutesById {
   '/livraison-europe': typeof LivraisonEuropeRoute
   '/livraison-vehicule': typeof LivraisonVehiculeRoute
   '/mentions-legales': typeof MentionsLegalesRoute
+  '/missions': typeof MissionsRoute
   '/nettoyage-vehicule': typeof NettoyageVehiculeRoute
   '/pack-mise-a-la-route': typeof PackMiseALaRouteRoute
   '/preparation-vehicule': typeof PreparationVehiculeRoute
@@ -320,6 +329,7 @@ export interface FileRouteTypes {
     | '/livraison-europe'
     | '/livraison-vehicule'
     | '/mentions-legales'
+    | '/missions'
     | '/nettoyage-vehicule'
     | '/pack-mise-a-la-route'
     | '/preparation-vehicule'
@@ -353,6 +363,7 @@ export interface FileRouteTypes {
     | '/livraison-europe'
     | '/livraison-vehicule'
     | '/mentions-legales'
+    | '/missions'
     | '/nettoyage-vehicule'
     | '/pack-mise-a-la-route'
     | '/preparation-vehicule'
@@ -386,6 +397,7 @@ export interface FileRouteTypes {
     | '/livraison-europe'
     | '/livraison-vehicule'
     | '/mentions-legales'
+    | '/missions'
     | '/nettoyage-vehicule'
     | '/pack-mise-a-la-route'
     | '/preparation-vehicule'
@@ -420,6 +432,7 @@ export interface RootRouteChildren {
   LivraisonEuropeRoute: typeof LivraisonEuropeRoute
   LivraisonVehiculeRoute: typeof LivraisonVehiculeRoute
   MentionsLegalesRoute: typeof MentionsLegalesRoute
+  MissionsRoute: typeof MissionsRoute
   NettoyageVehiculeRoute: typeof NettoyageVehiculeRoute
   PackMiseALaRouteRoute: typeof PackMiseALaRouteRoute
   PreparationVehiculeRoute: typeof PreparationVehiculeRoute
@@ -574,6 +587,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MentionsLegalesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/missions': {
+      id: '/missions'
+      path: '/missions'
+      fullPath: '/missions'
+      preLoaderRoute: typeof MissionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/nettoyage-vehicule': {
       id: '/nettoyage-vehicule'
       path: '/nettoyage-vehicule'
@@ -685,6 +705,7 @@ const rootRouteChildren: RootRouteChildren = {
   LivraisonEuropeRoute: LivraisonEuropeRoute,
   LivraisonVehiculeRoute: LivraisonVehiculeRoute,
   MentionsLegalesRoute: MentionsLegalesRoute,
+  MissionsRoute: MissionsRoute,
   NettoyageVehiculeRoute: NettoyageVehiculeRoute,
   PackMiseALaRouteRoute: PackMiseALaRouteRoute,
   PreparationVehiculeRoute: PreparationVehiculeRoute,

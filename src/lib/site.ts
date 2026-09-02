@@ -28,7 +28,7 @@ export const SITE = {
 
 export const NAV = [
   { to: "/prestations", label: "Prestations" },
-  { to: "/tarifs", label: "Tarifs" },
+  { to: "/missions", label: "Missions" },
   { to: "/jockey-gares-aeroports", label: "Conciergerie" },
   { to: "/contact", label: "Contact" },
 ] as const;

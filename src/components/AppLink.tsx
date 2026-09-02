@@ -42,6 +42,7 @@ const STATIC = new Set([
   "/cgv",
   "/jockey-gares-aeroports",
   "/tarifs",
+  "/missions",
 ]);
 
 export function AppLink({

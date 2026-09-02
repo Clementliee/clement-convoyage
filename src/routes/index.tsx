@@ -9,14 +9,14 @@ import { Reveal } from "@/components/Reveal";
 import { pageHead } from "@/lib/seo";
 import { PILLARS, PROCESS, B2B_OFFERS, PACKS_PART, PACKS_PRO, PRESTIGE_PROTOCOL, WHY_PRO_DRIVER } from "@/lib/offers";
 import { formatEuro } from "@/lib/utils";
-import { PriceExamples } from "@/components/PriceExamples";
+import { CASES } from "@/lib/cases";
 
 export const Route = createFileRoute("/")({
   head: () =>
     pageHead({
       title: "Convoyage BZH | Convoyage automobile à Quimper, Cornouaille | Bretagne, France, Europe",
       description:
-        "Convoyeur professionnel à Quimper. Packs particuliers et professionnels, conciergerie de véhicules en Bretagne 7j/7. Quimper → Rennes 218 € Pack Route. Mise en main offerte.",
+        "Convoyeur professionnel à Quimper. Packs particuliers et professionnels, conciergerie de véhicules en Bretagne 7j/7. Mise en main offerte. Devis après coordonnées.",
       path: "/",
       image: "/images/convoyage-berline-bretagne.jpg",
     }),
@@ -38,7 +38,7 @@ const FAQ = [
   },
   {
     q: "Comment est établie la cotation ?",
-    a: "Base Quimper. Trajet, plus 0,25 €/km d’approche si le départ n’est pas à Quimper, plus le retour du chauffeur en aller simple. Packs particuliers et professionnels. Exemples publics sur la page Tarifs. Devis ferme sous 2 heures.",
+    a: "Base Quimper. Trajet, approche si le départ n’est pas à Quimper, retour du chauffeur en aller simple. Packs particuliers et professionnels. Fourchette après nom, téléphone et e-mail. Devis ferme sous 2 heures.",
   },
   {
     q: "Pourquoi pas un particulier à 60 € ?",
@@ -120,17 +120,32 @@ function Home() {
 
       <section className="mx-auto max-w-6xl px-5 pb-28 sm:px-8">
         <Reveal>
-          <p className="text-xs font-semibold tracking-[0.28em] text-coral uppercase">Tarifs</p>
-          <h2 className="mt-5 font-display text-4xl text-navy sm:text-5xl">Cinq trajets, prix publics.</h2>
+          <p className="text-xs font-semibold tracking-[0.28em] text-coral uppercase">Missions</p>
+          <h2 className="mt-5 font-display text-4xl text-navy sm:text-5xl">Ce qu’on fait, concrètement.</h2>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-            Pack Route, aller simple, base Quimper. Un chauffeur professionnel. Le simulateur applique le même barème.
+            Achat à distance, import, navette atelier, conciergerie gare. Le prix se calcule au simulateur.
           </p>
         </Reveal>
-        <div className="mt-12">
-          <PriceExamples />
+        <div className="mt-12 grid gap-6 lg:grid-cols-3">
+          {CASES.slice(0, 3).map((c) => (
+            <Link
+              key={c.id}
+              to="/missions"
+              className="group overflow-hidden rounded-[1.8rem] border border-line bg-surface"
+            >
+              <img src={c.image} alt={c.alt} className="h-44 w-full object-cover" />
+              <div className="p-6">
+                <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">
+                  {c.tag} · {c.pack}
+                </p>
+                <p className="mt-3 font-display text-xl text-navy">{c.title}</p>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{c.lead}</p>
+              </div>
+            </Link>
+          ))}
         </div>
-        <Link to="/tarifs" className="mt-8 inline-flex text-sm font-semibold text-coral hover:underline">
-          Comment c’est calculé
+        <Link to="/missions" className="mt-8 inline-flex text-sm font-semibold text-coral hover:underline">
+          Toutes les missions
         </Link>
       </section>
 
