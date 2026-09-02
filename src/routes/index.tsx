@@ -7,6 +7,7 @@ import { HomeEstimator } from "@/components/HomeEstimator";
 import { QuoteCta } from "@/components/QuoteCta";
 import { Reveal } from "@/components/Reveal";
 import { RiseWords } from "@/components/RiseWords";
+import { SecteurPoles } from "@/components/SecteurSection";
 import { pageHead } from "@/lib/seo";
 import { CONVOYAGE_STEPS } from "@/lib/convoyage";
 import { featuredCases } from "@/lib/cases";
@@ -27,7 +28,7 @@ export const Route = createFileRoute("/")({
 const FAQ = [
   {
     q: "Dans quelles zones intervenez-vous ?",
-    a: "En France et en Europe. Le véhicule est pris en charge à l’adresse où il se trouve. Quimper est la base opérationnelle, pas un départ obligatoire.",
+    a: "Le quotidien se joue en Bretagne : Quimper, Brest, Lorient, Vannes, Rennes, Nantes. Le convoyage continue ensuite en France et en Europe. La conciergerie s’arrête à cette zone. Quimper est la base, pas un départ obligatoire.",
   },
   {
     q: "Quelle est la différence entre convoyage et conciergerie ?",
@@ -54,14 +55,14 @@ function Home() {
     <main>
       <HeroStage />
 
-      <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
+      <section className="mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-28">
         <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Vous êtes</p>
         <RiseWords text="Particulier ou professionnel" className="mt-4 max-w-xl font-display text-3xl text-navy sm:text-5xl" />
         <div className="mt-12 grid gap-6 lg:grid-cols-2">
           <Reveal>
             <article className="flex h-full flex-col overflow-hidden rounded-[1.8rem] bg-navy text-surface">
-              <img src="/images/mission-308.jpg" alt="Peugeot 308 en convoyage" className="h-48 w-full object-cover" />
-              <div className="flex flex-1 flex-col p-8 sm:p-10">
+              <img src="/images/mission-308.jpg" alt="Peugeot 308 en convoyage" className="h-40 w-full object-cover sm:h-48" />
+              <div className="flex flex-1 flex-col p-6 sm:p-10">
                 <p className="text-[11px] font-semibold tracking-[0.16em] text-white/45 uppercase">Particulier</p>
                 <h2 className="mt-3 font-display text-3xl text-white">Faire livrer mon véhicule</h2>
                 <p className="mt-4 flex-1 text-sm leading-relaxed text-white/70">
@@ -76,8 +77,8 @@ function Home() {
           </Reveal>
           <Reveal delay={80}>
             <article className="flex h-full flex-col overflow-hidden rounded-[1.8rem] border border-line bg-surface">
-              <img src="/images/mission-bmw-x3.jpg" alt="Livraison concession" className="h-48 w-full object-cover" />
-              <div className="flex flex-1 flex-col p-8 sm:p-10">
+              <img src="/images/mission-bmw-x3.jpg" alt="Livraison concession" className="h-40 w-full object-cover sm:h-48" />
+              <div className="flex flex-1 flex-col p-6 sm:p-10">
                 <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">Professionnel</p>
                 <h2 className="mt-3 font-display text-3xl text-navy">Externaliser mes convoyages</h2>
                 <p className="mt-4 flex-1 text-sm leading-relaxed text-muted">
@@ -101,7 +102,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 pb-24 sm:px-8">
+      <section className="mx-auto max-w-6xl px-5 pb-14 sm:px-8 sm:pb-24">
         <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Trois offres</p>
         <RiseWords text="Convoyage, livraison, conciergerie" className="mt-4 max-w-2xl font-display text-3xl text-navy sm:text-5xl" />
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
@@ -109,7 +110,7 @@ function Home() {
             {
               k: "Convoyage",
               t: "D’un point à un autre",
-              d: "Prise en charge, conduite, péages, carburant, retour du chauffeur, état des lieux, remise des clés. France et Europe.",
+              d: "Prise en charge, conduite, péages, carburant, retour du chauffeur, état des lieux, remise des clés. Bretagne d’abord, puis la France et l’Europe.",
               to: "/prestations" as const,
               link: "Détail des convoyages",
               cta: "Chiffrer un trajet",
@@ -151,7 +152,45 @@ function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 pb-24 sm:px-8">
+      <section className="mx-auto max-w-6xl px-5 pb-14 sm:px-8 sm:pb-24">
+        <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Secteur</p>
+        <RiseWords text="Bretagne, Rennes, Nantes" className="mt-4 max-w-xl font-display text-3xl text-navy sm:text-5xl" />
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
+          Quimper est la base. Cornouaille, Finistère, Morbihan, jusqu’à Rennes et Nantes. Le convoyage continue ensuite
+          en France et en Europe. La conciergerie, elle, s’arrête ici. Chaque ville ouvre le devis, déjà orienté.
+        </p>
+        <div className="mt-10 grid gap-px overflow-hidden rounded-[1.6rem] border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            { from: "Quimper", to: "Brest", d: "N165. Jour même possible. VO, SAV, achat entre particuliers.", cta: "Chiffrer Quimper – Brest" },
+            { from: "Quimper", to: "Lorient", d: "Est du Finistère. Utilitaires, concessions, ateliers.", cta: "Chiffrer Quimper – Lorient" },
+            { from: "Quimper", to: "Rennes", d: "Mandataires, Leboncoin. Le client n’a pas à prendre le TGV.", cta: "Chiffrer Quimper – Rennes" },
+            { from: "Quimper", to: "Nantes", d: "Grand Ouest. Même protocole. Conciergerie possible à l’arrivée.", cta: "Chiffrer Quimper – Nantes" },
+            { from: "Brest", to: "Rennes", d: "Guipavas, Cesson. Approche depuis Quimper intégrée au devis.", cta: "Chiffrer Brest – Rennes" },
+            { from: "Vannes", to: "Nantes", d: "Golfe vers Loire-Atlantique. Particuliers et stocks inter-sites.", cta: "Chiffrer Vannes – Nantes" },
+          ].map((t) => (
+            <article key={`${t.from}-${t.to}`} className="flex flex-col bg-surface p-7">
+              <p className="font-display text-xl text-navy">
+                {t.from}
+                <span className="text-coral"> → </span>
+                {t.to}
+              </p>
+              <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">{t.d}</p>
+              <QuoteCta search={{ mission: "convoyage", from: t.from, to: t.to }} variant="ghost" className="mt-6">
+                {t.cta}
+              </QuoteCta>
+            </article>
+          ))}
+        </div>
+        <div className="mt-8 flex flex-wrap items-center gap-3">
+          <QuoteCta search={{ mission: "convoyage", from: "Quimper" }}>Chiffrer un trajet du secteur</QuoteCta>
+          <Link to="/destinations" className="inline-flex h-12 items-center text-sm font-semibold text-navy hover:underline">
+            Voir le secteur en détail
+          </Link>
+        </div>
+        <SecteurPoles className="mt-10" />
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 pb-14 sm:px-8 sm:pb-24">
         <div className="grid gap-10 rounded-[2rem] bg-sand p-8 sm:p-12 lg:grid-cols-[1.1fr_1fr] lg:items-center">
           <div>
             <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Haute valeur</p>
@@ -173,7 +212,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 pb-24 sm:px-8">
+      <section className="mx-auto max-w-6xl px-5 pb-14 sm:px-8 sm:pb-24">
         <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Preuves</p>
         <RiseWords text="Ce que vous voyez, c’est ce que nous faisons" className="mt-4 max-w-xl font-display text-3xl text-navy sm:text-4xl" />
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -181,9 +220,18 @@ function Home() {
             { src: "/images/mission-achat-inspection.jpg", alt: "Inspection photographique avant achat" },
             { src: "/images/remise-cles-vehicule.jpg", alt: "Remise des clés en main propre" },
             { src: "/images/etat-des-lieux-vehicule.jpg", alt: "État des lieux du véhicule" },
-            { src: "/images/fondateur-clement-quimper.jpg", alt: "Clément, Convoyage BZH, Quimper" },
+            {
+              src: "/images/fondateur-clement-quimper.jpg",
+              alt: "Clément, Convoyage BZH, Quimper",
+              fit: "object-[50%_10%]",
+            },
           ].map((p) => (
-            <img key={p.src} src={p.src} alt={p.alt} className="h-44 w-full rounded-[1.4rem] object-cover" />
+            <img
+              key={p.src}
+              src={p.src}
+              alt={p.alt}
+              className={`h-44 w-full rounded-[1.4rem] object-cover ${"fit" in p ? p.fit : ""}`}
+            />
           ))}
         </div>
       </section>
@@ -209,7 +257,7 @@ function Home() {
         </Reveal>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 pb-24 sm:px-8">
+      <section className="mx-auto max-w-6xl px-5 pb-14 sm:px-8 sm:pb-24">
         <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Missions</p>
         <RiseWords text="Missions réalisées" className="mt-4 font-display text-3xl text-navy sm:text-5xl" />
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
@@ -235,7 +283,7 @@ function Home() {
         </Link>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 pb-24 sm:px-8">
+      <section className="mx-auto max-w-6xl px-5 pb-14 sm:px-8 sm:pb-24">
         <div className="flex flex-col gap-4 rounded-[2rem] bg-navy px-8 py-12 text-surface sm:flex-row sm:items-center sm:justify-between sm:px-14 sm:py-14">
           <div>
             <p className="text-xs font-semibold tracking-[0.22em] text-white/45 uppercase">Prise de contact</p>

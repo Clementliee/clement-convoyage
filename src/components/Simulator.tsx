@@ -12,7 +12,9 @@ import {
   JOCKEY_POINTS,
   JOCKEY_SENS,
   JOCKEY_SERVICES,
+  OPTIONS,
   WHEN_OFFERS,
+  prixPlein,
   type ClientKind,
   type MissionKind,
   type QuoteInput,
@@ -22,6 +24,7 @@ import {
   type JockeyService,
 } from "@/lib/tarifs";
 import { PACKS_PART, PACKS_PRO } from "@/lib/offers";
+import { formatEuro } from "@/lib/utils";
 
 const STEPS = ["Trajet", "Formule"];
 
@@ -73,6 +76,13 @@ export function Simulator({
     () => computeQuote({ ...input, kmManual: kmManual ? Number(kmManual) : undefined }),
     [input, kmManual],
   );
+  const urgSurcharge = useMemo(() => {
+    const withKm = { ...input, kmManual: kmManual ? Number(kmManual) : undefined };
+    const std = computeQuote({ ...withKm, when: "standard" });
+    const urg = computeQuote({ ...withKm, when: "urgent" });
+    if (!std.ok || !urg.ok) return 0;
+    return Math.max(0, urg.total - std.total);
+  }, [input, kmManual]);
   const europeAuto = Boolean(findCity(input.from)?.europe || findCity(input.to)?.europe);
 
   const canNext = Boolean(input.from.trim() && (input.to.trim() || kmManual));
@@ -103,7 +113,7 @@ export function Simulator({
             options={[
               {
                 v: "convoyage",
-                l: "Convoyage, livraison France et Europe",
+                l: "Convoyage France et Europe",
                 h: "Trajet point à point, formules particuliers ou professionnels",
               },
               {
@@ -172,8 +182,8 @@ export function Simulator({
           {step === 0
             ? "Base Quimper. L’approche et le retour du chauffeur sont intégrés. L’Europe est détectée d’après les villes."
             : client === "pro"
-              ? "Trois formules professionnelles. Coffret, nettoyage et protocole selon la formule."
-              : "Trois formules particulières. Plein et traceur GPS selon la formule."}
+              ? "Trois formules. Le tarif de chaque formule est affiché. Cliquez, puis recevez le devis par e-mail."
+              : "Trois formules. Le tarif de chaque formule est affiché. Cliquez, puis recevez le devis par e-mail."}
         </p>
       </div>
 
@@ -267,6 +277,7 @@ export function Simulator({
             <WhenPicker
               value={input.when}
               onPick={(v) => setInput((s) => ({ ...s, when: v }))}
+              surcharge={quote.ok ? urgSurcharge : 0}
             />
             <label className="mt-4 block text-sm text-muted">
               Date de prise en charge souhaitée
@@ -305,7 +316,12 @@ export function Simulator({
                 >
                   <span className="text-xs font-semibold tracking-[0.16em] text-coral uppercase">{p.tag}</span>
                   <span className="mt-2 font-display text-2xl text-navy">{p.name}</span>
-                  <span className="mt-3 text-sm text-muted">Inclus au devis, selon la formule.</span>
+                  <span className="mt-3 font-display text-2xl text-coral">
+                    {p.from === 0 ? "Inclus" : `+ ${formatEuro(p.from)}`}
+                  </span>
+                  <span className="mt-1 text-sm text-muted">
+                    {p.from === 0 ? "Le trajet, sans supplément de formule." : "Supplément de formule, en plus du trajet."}
+                  </span>
                   <ul className="mt-4 flex-1 space-y-1.5 text-sm text-muted">
                     {p.items.map((it) => (
                       <li key={it}>{it}</li>
@@ -316,52 +332,20 @@ export function Simulator({
               );
             })}
           </div>
-          <div className="grid gap-3 sm:grid-cols-2">
-            {client === "pro" ? (
-              <Toggle
-                label="Livraison vidéo"
-                text="Film court à la remise, transmis au donneur d’ordre. La concession l’envoie au client."
-                on={input.videoLivraison}
-                onClick={() => setInput((s) => ({ ...s, videoLivraison: !s.videoLivraison }))}
-              />
-            ) : null}
-            <Toggle
-              label="Suivi GPS le temps de la mission"
-              text="Balise posée au départ, retirée à la remise. Lien de suivi."
-              on={input.gpsMission}
-              onClick={() => setInput((s) => ({ ...s, gpsMission: !s.gpsMission }))}
-            />
-            {input.pack !== "premium" ? (
-              <Toggle
-                label="Traceur GPS 4G cédé"
-                text="Reste dans le véhicule. Douze mois de suivi pour l’acquéreur."
-                on={input.gps}
-                onClick={() => setInput((s) => ({ ...s, gps: !s.gps }))}
-              />
-            ) : null}
-            <Toggle
-              label="Coffret champagne et chocolats"
-              text="Remis avec les clés. Utile si la concession n’a pas préparé de cadeau."
-              on={input.coffret === "champagne"}
-              onClick={() =>
-                setInput((s) => ({ ...s, coffret: s.coffret === "champagne" ? "aucun" : "champagne" }))
-              }
-            />
-            <Toggle
-              label="Coffret Terroir Breton"
-              text="Galettes, caramels, cidre. Remis avec les clés."
-              on={input.coffret === "armor"}
-              onClick={() => setInput((s) => ({ ...s, coffret: s.coffret === "armor" ? "aucun" : "armor" }))}
-            />
-          </div>
           {quote.ok ? (
-            <p className="text-sm leading-relaxed text-muted">
-              {quote.fromName} → {quote.toName}
-              {quote.km ? ` · ${quote.km} km` : ""}
-              {quote.europe ? " · Europe" : ""}
-              {input.tripMode === "retourVehicule" ? " · véhicule à reprendre" : " · aller simple"}. Le
-              montant des trois formules s’affiche après vos coordonnées.
-            </p>
+            <div className="rounded-[1.4rem] border border-navy bg-sand px-5 py-5">
+              <p className="text-sm text-muted">
+                {quote.fromName} → {quote.toName}
+                {quote.km ? ` · ${quote.km} km` : ""}
+                {quote.europe ? " · Europe" : ""}
+                {input.tripMode === "retourVehicule" ? " · véhicule à reprendre" : " · aller simple"}
+              </p>
+              <p className="mt-2 font-display text-3xl text-navy">{formatEuro(quote.total)}</p>
+              <p className="mt-2 text-sm leading-relaxed text-muted">
+                TTC, franchise de TVA. Trajet + formule. À l’étape suivante : société si besoin, téléphone, e-mail. Le
+                PDF part tout de suite.
+              </p>
+            </div>
           ) : (
             <p className="text-sm text-muted">{quote.message}</p>
           )}
@@ -378,7 +362,7 @@ export function Simulator({
           </Button>
         ) : (
           <Button type="button" onClick={() => quote.ok && setGate(true)} disabled={!quote.ok}>
-            Générer mon devis — une minute
+            Recevoir mon devis par e-mail
           </Button>
         )}
       </div>
@@ -396,14 +380,22 @@ export function Simulator({
 function WhenPicker({
   value,
   onPick,
+  surcharge = 0,
 }: {
   value: WhenKind;
   onPick: (v: WhenKind) => void;
+  surcharge?: number;
 }) {
   return (
     <div className="grid gap-3">
       {WHEN_OFFERS.map((w) => {
         const on = value === w.id;
+        const price =
+          w.id === "urgent"
+            ? surcharge > 0
+              ? `${w.extraLabel} · ${formatEuro(surcharge)}`
+              : w.extraLabel
+            : w.extraLabel;
         return (
           <button
             key={w.id}
@@ -419,7 +411,7 @@ function WhenPicker({
                 {w.delay}. {w.hint}
               </span>
             </span>
-            <span className="shrink-0 text-sm font-semibold text-coral">{w.extraLabel}</span>
+            <span className="shrink-0 text-sm font-semibold text-coral">{price}</span>
           </button>
         );
       })}
@@ -432,7 +424,7 @@ function Choice({
   onPick,
   value,
 }: {
-  options: { v: string; l: string; h: string }[];
+  options: { v: string; l: string; h: string; p?: string }[];
   onPick: (v: string) => void;
   value?: string;
 }) {
@@ -449,8 +441,11 @@ function Choice({
               on ? "border-navy bg-sand" : "border-line bg-bg hover:border-navy"
             }`}
           >
-            <span className="font-medium text-navy">{o.l}</span>
-            <span className="text-sm text-muted">{o.h}</span>
+            <span>
+              <span className="block font-medium text-navy">{o.l}</span>
+              <span className="mt-1 block text-sm text-muted">{o.h}</span>
+            </span>
+            {o.p ? <span className="shrink-0 text-sm font-semibold text-coral">{o.p}</span> : null}
           </button>
         );
       })}
@@ -690,7 +685,12 @@ function JockeyFlow({
             onPick={(v) => setInput((s) => ({ ...s, jockeySens: v as QuoteInput["jockeySens"] }))}
           />
           <Choice
-            options={JOCKEY_POINTS.map((p) => ({ v: p.name, l: p.name, h: "Bretagne" }))}
+            options={JOCKEY_POINTS.map((p) => ({
+              v: p.name,
+              l: p.name,
+              h: input.jockeySens === "allerRetour" ? "Aller et retour" : "Course simple",
+              p: formatEuro(input.jockeySens === "allerRetour" ? p.allerRetour : p.forfait),
+            }))}
             onPick={(v) => {
               setInput((s) => ({ ...s, jockeyPoint: v, to: v }));
               setStep(4);
@@ -752,7 +752,7 @@ function JockeyFlow({
           </Button>
         ) : (
           <Button type="button" onClick={() => quote.ok && setGate(true)} disabled={!quote.ok}>
-            Générer mon devis — une minute
+            Recevoir mon devis par e-mail
           </Button>
         )}
       </div>
@@ -768,10 +768,17 @@ function JockeyOptions({
   setInput: (fn: (s: QuoteInput) => QuoteInput) => void;
 }) {
   const service = input.jockeyService;
+  const urgSurcharge = useMemo(() => {
+    const std = computeQuote({ ...input, when: "standard" });
+    const urg = computeQuote({ ...input, when: "urgent" });
+    if (!std.ok || !urg.ok) return 0;
+    return Math.max(0, urg.total - std.total);
+  }, [input]);
   return (
     <div className="mt-8 space-y-6">
       <p className="text-sm text-muted">
-        Le montant n’apparaît qu’après vos coordonnées. Pas de gardiennage. Pas de transport de passagers.
+        Chaque option a son tarif. Pas de gardiennage. Pas de transport de passagers. Le total s’affiche, puis le devis
+        part par e-mail.
       </p>
       <label className="block text-sm text-muted">
         Date de prise en charge souhaitée
@@ -783,6 +790,11 @@ function JockeyOptions({
         />
       </label>
       <p className="text-sm text-muted">Vous proposez une date. Convoyage BZH confirme le créneau, ou vous contacte.</p>
+      <WhenPicker
+        value={input.when}
+        onPick={(v) => setInput((s) => ({ ...s, when: v }))}
+        surcharge={urgSurcharge}
+      />
       {service === "mouvement" ? (
         <label className="block text-sm text-muted">
           Numéro de train ou de vol
@@ -799,6 +811,7 @@ function JockeyOptions({
           <Toggle
             label="Carrosserie"
             text="Deux passages. Dépôt, puis reprise."
+            price="+ 78 %"
             on={input.jockeyCarrosserie}
             onClick={() => setInput((s) => ({ ...s, jockeyCarrosserie: !s.jockeyCarrosserie }))}
           />
@@ -807,6 +820,7 @@ function JockeyOptions({
           <Toggle
             label="Prise de rendez-vous"
             text="Nous appelons l’atelier. Nous bloquons le créneau."
+            price={formatEuro(OPTIONS.jockeyRdv)}
             on={input.jockeyRdv}
             onClick={() => setInput((s) => ({ ...s, jockeyRdv: !s.jockeyRdv }))}
           />
@@ -814,13 +828,14 @@ function JockeyOptions({
         <Toggle
           label="Nettoyage intérieur et extérieur"
           text="Remise propre."
-          image="/images/preparation-esthetique-vehicule.jpg"
+          price={formatEuro(OPTIONS.jockeyLavage)}
           on={input.jockeyWash === "standard"}
           onClick={() => setInput((s) => ({ ...s, jockeyWash: s.jockeyWash === "standard" ? "aucun" : "standard" }))}
         />
         <Toggle
           label="Nettoyage prestige"
           text="Véhicule haut de gamme."
+          price={formatEuro(OPTIONS.jockeyLavagePrestige)}
           on={input.jockeyWash === "prestige"}
           onClick={() => setInput((s) => ({ ...s, jockeyWash: s.jockeyWash === "prestige" ? "aucun" : "prestige" }))}
         />
@@ -828,6 +843,7 @@ function JockeyOptions({
           <Toggle
             label="Contrôle technique"
             text="Nous emmenons le véhicule. Hors facture du centre."
+            price={formatEuro(OPTIONS.jockeyCt)}
             on={input.jockeyCt}
             onClick={() => setInput((s) => ({ ...s, jockeyCt: !s.jockeyCt }))}
           />
@@ -835,42 +851,44 @@ function JockeyOptions({
         <Toggle
           label="Plein carburant"
           text="Passage à la pompe. Ticket joint."
-          image="/images/plein-carburant-vehicule.jpg"
+          price={formatEuro(prixPlein(input.vehicle))}
           on={input.plein}
           onClick={() => setInput((s) => ({ ...s, plein: !s.plein }))}
         />
         <Toggle
           label="Attente"
           text="Remise à une personne. Nous restons sur place."
+          price={formatEuro(OPTIONS.jockeyAttente)}
           on={input.jockeyAttente}
           onClick={() => setInput((s) => ({ ...s, jockeyAttente: !s.jockeyAttente }))}
-        />
-        <Toggle
-          label="Coffret champagne et chocolats"
-          text="Dans le véhicule. Utile si vous allez chercher quelqu’un à la gare ou à l’aéroport."
-          image="/images/coffret-prestige-champagne.jpg"
-          on={input.coffret === "champagne"}
-          onClick={() =>
-            setInput((s) => ({ ...s, coffret: s.coffret === "champagne" ? "aucun" : "champagne" }))
-          }
-        />
-        <Toggle
-          label="Coffret Terroir Breton"
-          text="Galettes, caramels, cidre. Remis avec les clés."
-          image="/images/coffret-terroir-breton.jpg"
-          on={input.coffret === "armor"}
-          onClick={() => setInput((s) => ({ ...s, coffret: s.coffret === "armor" ? "aucun" : "armor" }))}
         />
         {service === "achat" || service === "mouvement" ? (
           <Toggle
             label="Contrôle visuel"
             text="Photographies, conformité à l’annonce, rapport : état du véhicule et tarif."
-            image="/images/mission-achat-inspection.jpg"
+            price={formatEuro(OPTIONS.controleVisuel)}
             on={input.controleVisuel}
             onClick={() => setInput((s) => ({ ...s, controleVisuel: !s.controleVisuel }))}
           />
         ) : null}
       </div>
+      {(() => {
+        const q = computeQuote(input);
+        if (!q.ok) return <p className="text-sm text-muted">{q.message}</p>;
+        return (
+          <div className="rounded-[1.4rem] border border-navy bg-sand px-5 py-5">
+            <p className="text-sm text-muted">
+              {q.fromName} → {q.toName}
+              {q.km ? ` · ${q.km} km` : ""}
+            </p>
+            <p className="mt-2 font-display text-3xl text-navy">{formatEuro(q.total)}</p>
+            <p className="mt-2 text-sm leading-relaxed text-muted">
+              TTC, franchise de TVA. À l’étape suivante : société si besoin, téléphone, e-mail. Le PDF part tout de
+              suite.
+            </p>
+          </div>
+        );
+      })()}
     </div>
   );
 }

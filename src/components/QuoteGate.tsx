@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
+import { MissionDossier } from "@/components/MissionDossier";
 import { downloadQuotePdf } from "@/lib/quote-pdf";
+import { upsertQuote, type StoredQuote } from "@/lib/quotes-store";
 import { mailtoFallback, sendDevisLead } from "@/lib/send-devis";
 import { SITE } from "@/lib/site";
 import { PACKS_PART, PACKS_PRO } from "@/lib/offers";
@@ -29,7 +32,7 @@ function extrasLine(input: QuoteInput, pack: PackKind, kind: "part" | "pro") {
     input.model ? `Véhicule : ${input.model}` : "",
     input.vehicle === "prestige" ? "Véhicule de haute valeur" : "",
     input.vehicle === "utilitaire" ? "Utilitaire" : "",
-    input.when === "urgent" ? "Urgent, sous 72 h" : "Standard, 5 jours",
+    input.when === "urgent" ? "Urgent, majoration + 20 %" : "Standard, sans majoration",
     input.pickupDate ? `Date souhaitée : ${input.pickupDate}` : "",
   ]
     .filter(Boolean)
@@ -47,12 +50,12 @@ export function QuoteGate({
 }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [kind, setKind] = useState<"part" | "pro">(client);
+  const kind = client;
   const [pack, setPack] = useState<PackKind>(input.pack);
   const [company, setCompany] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [pickupDate, setPickupDate] = useState(input.pickupDate ?? "");
+  const pickupDate = input.pickupDate ?? "";
   const [busy, setBusy] = useState(false);
   const [revealed, setRevealed] = useState(false);
   const [accepted, setAccepted] = useState(false);
@@ -117,8 +120,8 @@ export function QuoteGate({
       setContactError("Indiquez votre nom et votre prénom.");
       return;
     }
-    if (!phone.trim() && !email.trim()) {
-      setContactError("Indiquez un téléphone ou un e-mail.");
+    if (!phone.trim() || !email.trim()) {
+      setContactError("Indiquez un téléphone et un e-mail.");
       return;
     }
     if (kind === "pro" && !company.trim()) {
@@ -131,6 +134,7 @@ export function QuoteGate({
     try {
       const sent = await sendDevisLead(payload);
       await downloadQuotePdf(payload);
+      persist("envoye");
       setRevealed(true);
       if (!sent.ok) {
         window.location.href = mailtoFallback(payload);
@@ -140,12 +144,58 @@ export function QuoteGate({
     }
   };
 
+  const persist = (status: StoredQuote["status"]) => {
+    const p = payloadBase();
+    upsertQuote({
+      quoteNo,
+      createdAt: new Date().toISOString(),
+      status,
+      total: p.total,
+      fromName: p.fromName,
+      toName: p.toName,
+      km: p.km,
+      delay: p.delay,
+      pack: packLabel(kind, pack),
+      client: kind,
+      company: p.company ?? "",
+      firstName: p.firstName,
+      lastName: p.lastName,
+      email: p.email,
+      phone: p.phone,
+      pickupDate: p.pickupDate ?? "",
+      extras: p.extras,
+      lines: p.lines,
+    });
+  };
+
+  const stored = (): StoredQuote => ({
+    quoteNo,
+    createdAt: new Date().toISOString(),
+    status: "signe",
+    total: currentQuote.total,
+    fromName: currentQuote.fromName,
+    toName: currentQuote.toName,
+    km: currentQuote.km,
+    delay: currentQuote.delay,
+    pack: packLabel(kind, pack),
+    client: kind,
+    company: company.trim(),
+    firstName: firstName.trim(),
+    lastName: lastName.trim(),
+    email: email.trim() || SITE.email,
+    phone: phone.trim(),
+    pickupDate: pickupDate.trim(),
+    extras: extrasLabel,
+    lines: currentQuote.lines,
+  });
+
   const acceptQuote = async () => {
     setBusy(true);
     const payload = { ...payloadBase(), accepted: true };
     try {
       await sendDevisLead(payload);
       await downloadQuotePdf(payload);
+      persist("signe");
       setAccepted(true);
     } finally {
       setBusy(false);
@@ -203,7 +253,7 @@ export function QuoteGate({
                 Prix masqué
               </p>
               <p className="mt-8 max-w-sm text-sm leading-relaxed text-surface/70">
-                Nom, prénom, et un téléphone ou un e-mail. En une minute, le montant s’affiche et part par e-mail. Vous signez.
+                Nom, prénom, téléphone et e-mail. En une minute, le montant s’affiche et part par e-mail. Vous signez.
               </p>
             </>
           )}
@@ -211,14 +261,7 @@ export function QuoteGate({
       </div>
 
       {accepted ? (
-        <div className="rounded-[2rem] border border-line bg-surface p-8 sm:p-10">
-          <p className="font-display text-3xl text-navy">Devis signé</p>
-          <p className="mt-4 text-base leading-relaxed text-muted">
-            {firstName}, le tarif est verrouillé à {formatEuro(currentQuote.total)}. Nous confirmons la date de prise
-            en charge, ou nous proposons un autre créneau. Le PDF signé est sur votre appareil
-            {email.trim() ? " et le devis est parti par e-mail" : ""}.
-          </p>
-        </div>
+        <MissionDossier quote={stored()} lead={{ ...payloadBase(), accepted: true }} />
       ) : revealed ? (
         <div className="rounded-[2rem] border border-line bg-surface p-8 sm:p-10">
           <p className="font-display text-3xl text-navy">Signer ce devis</p>
@@ -255,22 +298,35 @@ export function QuoteGate({
             {busy ? "Envoi…" : "J’accepte ce devis"}
           </Button>
           <p className="mt-4 text-xs leading-relaxed text-muted">
-            Vous signez le tarif. Convoyage BZH confirme le créneau, ou propose une autre date. Le prix ne bouge pas.
+            Vous signez le tarif. Ensuite : véhicule, assurance, clés. Convoyage BZH confirme le créneau. Le prix ne
+            bouge pas.
           </p>
+          <Link to="/suivi" className="mt-4 inline-flex text-sm font-semibold text-navy hover:underline">
+            Retrouver mes devis
+          </Link>
         </div>
       ) : (
         <form onSubmit={submit} className="rounded-[2rem] border border-line bg-surface p-8 sm:p-10">
           <p className="font-display text-3xl text-navy">Vos coordonnées</p>
           <p className="mt-2 text-sm leading-relaxed text-muted">
-            Prénom, nom, et un moyen de contact. En une minute : le montant s’affiche, un e-mail part, vous signez.
+            {kind === "pro"
+              ? "Le nom de la société, puis vos coordonnées. Le devis part tout de suite."
+              : "Vos coordonnées. Le devis part tout de suite."}
+          </p>
+          <p className="mt-4 text-sm text-navy">
+            {[
+              kind === "pro" ? "Professionnel" : "Particulier",
+              packLabel(kind, pack),
+              pickupDate
+                ? `prise en charge le ${pickupDate.split("-").reverse().join("/")}`
+                : null,
+            ]
+              .filter(Boolean)
+              .join(" · ")}
           </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             <Field label="Prénom" required value={firstName} onChange={setFirstName} autoComplete="given-name" />
             <Field label="Nom" required value={lastName} onChange={setLastName} autoComplete="family-name" />
-          </div>
-          <div className="mt-4 grid grid-cols-2 gap-3">
-            <KindButton active={kind === "part"} onClick={() => setKind("part")} label="Particulier" />
-            <KindButton active={kind === "pro"} onClick={() => setKind("pro")} label="Professionnel" />
           </div>
           {kind === "pro" ? (
             <div className="mt-4">
@@ -278,13 +334,10 @@ export function QuoteGate({
             </div>
           ) : null}
           <div className="mt-4">
-            <Field label="Téléphone" required={!email.trim()} value={phone} onChange={setPhone} type="tel" autoComplete="tel" />
+            <Field label="Téléphone" required value={phone} onChange={setPhone} type="tel" autoComplete="tel" />
           </div>
           <div className="mt-4">
-            <Field label="E-mail" required={!phone.trim()} value={email} onChange={setEmail} type="email" autoComplete="email" />
-          </div>
-          <div className="mt-4">
-            <Field label="Date de prise en charge souhaitée" value={pickupDate} onChange={setPickupDate} type="date" />
+            <Field label="E-mail" required value={email} onChange={setEmail} type="email" autoComplete="email" />
           </div>
           {contactError ? <p className="mt-3 text-sm text-coral">{contactError}</p> : null}
           <Button type="submit" className="mt-8 w-full" size="lg" disabled={busy}>
@@ -326,29 +379,5 @@ function Field({
         suppressHydrationWarning
       />
     </label>
-  );
-}
-
-function KindButton({
-  active,
-  onClick,
-  label,
-}: {
-  active: boolean;
-  onClick: () => void;
-  label: string;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={
-        active
-          ? "h-12 rounded-full bg-navy text-sm font-semibold text-white"
-          : "h-12 rounded-full border border-line bg-surface text-sm text-navy"
-      }
-    >
-      {label}
-    </button>
   );
 }

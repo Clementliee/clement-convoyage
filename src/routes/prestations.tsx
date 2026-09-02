@@ -6,6 +6,7 @@ import { PageHero } from "@/components/PageHero";
 import { QuoteCta } from "@/components/QuoteCta";
 import { Reveal } from "@/components/Reveal";
 import { RiseWords } from "@/components/RiseWords";
+import { SecteurSection } from "@/components/SecteurSection";
 import { ServiceBlock } from "@/components/ServiceBlock";
 import {
   CONVOYAGE_CATALOGUE,
@@ -24,7 +25,7 @@ export const Route = createFileRoute("/prestations")({
     pageHead({
       title: "Convoyage automobile France et Europe | Convoyage BZH",
       description:
-        "Convoyage de véhicules. France et Europe. Particuliers et professionnels. Photos, mise en main offerte. Devis immédiat. Base Quimper.",
+        "Convoyage de véhicules. Bretagne, France et Europe. Particuliers et professionnels. Photos, mise en main offerte. Devis immédiat. Base Quimper.",
       path: "/prestations",
       image: "/images/mission-audi-a4.jpg",
     }),
@@ -33,8 +34,12 @@ export const Route = createFileRoute("/prestations")({
 
 const FAQ = [
   {
+    q: "Faites-vous les trajets locaux en Bretagne ?",
+    a: "Oui. Quimper, Brest, Lorient, Vannes, Rennes, Nantes. Les missions locales partent souvent le jour même, si le créneau tient. L’approche depuis Quimper est intégrée au devis. La conciergerie (gares, ateliers, flottes) reste limitée à cette zone.",
+  },
+  {
     q: "Intervenez-vous partout en France ?",
-    a: "Oui. Le véhicule est pris en charge à l’adresse où il se trouve et remis au destinataire. France, et Europe selon la mission. Quimper est la base opérationnelle, pas un départ obligatoire.",
+    a: "Oui. Le quotidien se joue en Bretagne. Le véhicule est ensuite pris en charge partout en France, et en Europe selon la mission. Quimper est la base opérationnelle, pas un départ obligatoire.",
   },
   {
     q: "Qui conduit le véhicule ?",
@@ -70,9 +75,9 @@ function Page() {
   return (
     <main className="overflow-x-clip">
       <PageHero
-        kicker="Convoyage · France et Europe"
+        kicker="Convoyage · Bretagne, France, Europe"
         title="Acheminement de votre véhicule"
-        text="Prise en charge à l’adresse du véhicule, remise au destinataire. Particuliers et professionnels. Un chauffeur dédié, un état des lieux photographique, une mise en main offerte. Chaque prestation est détaillée ci-dessous. Le devis est immédiat. Vous signez en ligne."
+        text="Le quotidien se joue en Bretagne, depuis Quimper. Le convoyage continue en France et en Europe. Prise en charge à l’adresse du véhicule, remise au destinataire. Chaque prestation est détaillée ci-dessous. Le devis est immédiat. Vous signez en ligne."
         image="/images/mission-audi-a4.jpg"
         alt="Audi A4 Avant en convoyage sur autoroute"
       />
@@ -83,7 +88,7 @@ function Page() {
         </QuoteCta>
         <a
           href={SITE.phoneHref}
-          className="inline-flex h-14 items-center justify-center rounded-full border border-navy px-8 text-sm font-semibold text-navy"
+          className="hidden h-14 items-center justify-center rounded-full border border-navy px-8 text-sm font-semibold text-navy sm:inline-flex"
         >
           {SITE.phone}
         </a>
@@ -119,6 +124,8 @@ function Page() {
           ))}
         </div>
       </section>
+
+      <SecteurSection mode="convoyage" />
 
       <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
         <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Missions</p>
@@ -329,9 +336,9 @@ function Page() {
             className="mt-4 max-w-xl font-display text-3xl text-white sm:text-4xl"
           />
           <p className="mt-5 max-w-xl text-base leading-relaxed text-white/70">
-            Le véhicule est pris en charge à l’adresse où il se trouve, en France ou en Europe. La conciergerie demeure
-            limitée à la Bretagne, à Rennes et à Nantes : gares, ateliers, flottes, prestige. Les deux se chiffrent
-            distinctement.
+            Le quotidien se joue en Bretagne : Quimper, Brest, Lorient, Vannes, Rennes, Nantes. Le convoyage continue
+            ensuite en France et en Europe. La conciergerie s’arrête à cette zone : gares, ateliers, flottes, prestige.
+            Les deux se chiffrent distinctement.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
@@ -354,10 +361,10 @@ function Page() {
       </section>
 
       <CtaBar
-        title="Un véhicule à acheminer ?"
-        text="Indiquez le départ et l’arrivée. Le devis est établi après étude du trajet, pour un particulier ou un professionnel."
+        title="Un véhicule à acheminer depuis la Bretagne ?"
+        text="Quimper, Brest, Lorient, Vannes, Rennes, Nantes, puis la France et l’Europe. Indiquez le départ et l’arrivée. Le devis est immédiat."
         primaryLabel="Chiffrer un trajet"
-        primarySearch={{ mission: "convoyage" }}
+        primarySearch={{ mission: "convoyage", from: "Quimper" }}
         secondaryTo="/contact"
         secondaryLabel="Nous écrire"
       />

@@ -1,15 +1,23 @@
 import { Link } from "@tanstack/react-router";
 import { Menu, Phone, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrandMark } from "@/components/BrandMark";
 import { NAV, SITE } from "@/lib/site";
 
 export function Header() {
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   return (
     <>
       <header className="glass fixed inset-x-0 top-0 z-50 border-b border-line/70">
-        <div className="mx-auto flex h-[4.5rem] max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
+        <div className="mx-auto flex h-[4.5rem] max-w-6xl items-center justify-between gap-3 px-4 sm:px-8">
           <Link to="/" className="min-w-0" onClick={() => setOpen(false)}>
             <BrandMark />
           </Link>
@@ -57,23 +65,30 @@ export function Header() {
             </button>
           </div>
         </div>
-        {open ? (
-          <div className="border-t border-line bg-bg px-5 py-4 md:hidden">
-            <nav className="flex flex-col">
-              {NAV.map((item) => (
-                <Link
-                  key={item.to}
-                  to={item.to}
-                  className="rounded-lg px-3 py-3 text-base text-navy"
-                  onClick={() => setOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
-        ) : null}
       </header>
+      {open ? (
+        <div className="fixed inset-0 z-40 bg-bg pt-[4.5rem] md:hidden">
+          <nav className="flex h-full flex-col px-6 py-8">
+            {NAV.map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                className="border-b border-line py-5 text-2xl text-navy"
+                onClick={() => setOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
+            <Link
+              to="/simulateur"
+              className="mt-8 inline-flex h-12 items-center justify-center rounded-full bg-coral text-sm font-semibold text-white"
+              onClick={() => setOpen(false)}
+            >
+              Obtenir un devis
+            </Link>
+          </nav>
+        </div>
+      ) : null}
       <div className="h-[4.5rem]" aria-hidden />
     </>
   );

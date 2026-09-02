@@ -32,7 +32,7 @@ export function PageHero({
   return (
     <section className="relative overflow-hidden">
       {image ? (
-        <div className="perspective-scene relative h-72 w-full overflow-hidden sm:h-[28rem]">
+        <div className="perspective-scene relative h-52 w-full overflow-hidden sm:h-[28rem]">
           <div
             className="absolute inset-[-10%] will-change-transform"
             style={{
@@ -52,7 +52,7 @@ export function PageHero({
           <div className="absolute inset-0 bg-navy/10" />
         </div>
       ) : null}
-      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+      <div className="mx-auto max-w-6xl px-5 py-10 sm:px-8 sm:py-24">
         {kicker ? (
           <p className="mb-5 text-xs font-semibold tracking-[0.22em] text-coral uppercase">{kicker}</p>
         ) : null}

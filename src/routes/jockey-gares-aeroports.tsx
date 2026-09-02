@@ -6,6 +6,7 @@ import { PageHero } from "@/components/PageHero";
 import { QuoteCta } from "@/components/QuoteCta";
 import { Reveal } from "@/components/Reveal";
 import { RiseWords } from "@/components/RiseWords";
+import { SecteurSection } from "@/components/SecteurSection";
 import { ServiceBlock } from "@/components/ServiceBlock";
 import {
   CONCIERGE_CATALOGUE,
@@ -107,6 +108,8 @@ function Page() {
           Chiffrer une conciergerie
         </QuoteCta>
       </section>
+
+      <SecteurSection mode="concierge" showTrajets={false} />
 
       <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
         <p className="text-xs font-semibold tracking-[0.22em] text-coral uppercase">Prestations</p>

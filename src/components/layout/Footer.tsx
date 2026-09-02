@@ -14,7 +14,8 @@ const INFOS = [
   { to: "/faq", label: "FAQ" },
   { to: "/a-propos", label: "À propos" },
   { to: "/contact", label: "Contact" },
-  { to: "/destinations", label: "France et Europe" },
+  { to: "/suivi", label: "Suivi de devis" },
+  { to: "/destinations", label: "Secteur Bretagne" },
 ];
 
 const BRETAGNE = [

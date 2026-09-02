@@ -26,6 +26,8 @@ export const STATIC_PATHS = [
   "/cgv",
   "/jockey-gares-aeroports",
   "/convoyage-france",
+  "/missions",
+  "/suivi",
 ] as const;
 
 export function absUrl(path = "/") {

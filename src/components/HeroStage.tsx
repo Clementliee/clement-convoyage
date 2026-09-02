@@ -37,7 +37,7 @@ export function HeroStage() {
   const lights = Math.min(1, Math.max(0, t / 0.38));
 
   return (
-    <section ref={wrap} className="relative h-[145vh] bg-[#1a2230]">
+    <section ref={wrap} className="relative h-dvh bg-[#1a2230] md:h-[145vh]">
       <div className="sticky top-0 h-dvh overflow-hidden bg-[#1a2230]">
         <img
           src={IMG.hero}
@@ -46,7 +46,7 @@ export function HeroStage() {
           height={1008}
           fetchPriority="high"
           decoding="async"
-          className="absolute inset-0 h-full w-full object-cover object-[62%_58%]"
+          className="absolute inset-0 h-full w-full object-cover object-[70%_62%] md:object-[62%_58%]"
         />
         <div
           className="pointer-events-none absolute inset-0 bg-[#081018]"
@@ -59,37 +59,42 @@ export function HeroStage() {
           width={1792}
           height={1008}
           decoding="async"
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover object-[62%_58%]"
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover object-[70%_62%] md:object-[62%_58%]"
           style={{ opacity: lights }}
           aria-hidden
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/82 via-black/40 to-black/10" />
-        <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col justify-end px-5 pb-16 pt-28 sm:px-8 sm:pb-24">
-          <div className="mb-5 flex flex-wrap gap-2">
-            {["Base Quimper", "Chauffeur professionnel", "France et Europe", "Devis en 1 minute"].map(
-              (b) => (
-                <span
-                  key={b}
-                  className="rounded-full border border-white/40 bg-black/50 px-3 py-1 text-[10px] tracking-[0.16em] text-white uppercase"
-                >
-                  {b}
-                </span>
-              ),
-            )}
+        <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col justify-end px-5 pb-10 pt-24 sm:px-8 sm:pb-24">
+          <div className="mb-4 flex flex-wrap gap-2">
+            {[
+              { l: "Base Quimper", always: true },
+              { l: "Chauffeur professionnel", always: false },
+              { l: "France et Europe", always: true },
+              { l: "Devis en 1 minute", always: false },
+            ].map((b) => (
+              <span
+                key={b.l}
+                className={`rounded-full border border-white/40 bg-black/50 px-3 py-1 text-[10px] tracking-[0.16em] text-white uppercase ${
+                  b.always ? "" : "hidden sm:inline-flex"
+                }`}
+              >
+                {b.l}
+              </span>
+            ))}
           </div>
           <h1
-            className="max-w-3xl font-display text-[2.15rem] leading-[1.12] text-white sm:text-5xl lg:text-[3.4rem]"
+            className="max-w-3xl font-display text-[2rem] leading-[1.12] text-white sm:text-5xl lg:text-[3.4rem]"
             style={{ textShadow: "0 2px 28px rgba(0,0,0,0.7)" }}
           >
             Acheminement de votre véhicule
           </h1>
           <p
-            className="mt-5 max-w-xl text-base leading-relaxed text-white sm:text-lg"
+            className="mt-4 max-w-xl text-[0.95rem] leading-relaxed text-white sm:mt-5 sm:text-lg"
             style={{ textShadow: "0 2px 18px rgba(0,0,0,0.7)" }}
           >
-            Convoyeur professionnel, basé à Quimper. France et Europe. En une minute, votre devis par e-mail. Vous signez.
+            Convoyeur à Quimper. France et Europe. Devis en une minute, à signer.
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap">
             <Link
               to="/simulateur"
               className="inline-flex h-12 items-center justify-center rounded-full px-7 text-sm font-semibold text-white"
@@ -103,7 +108,7 @@ export function HeroStage() {
             </Link>
             <a
               href={SITE.phoneHref}
-              className="inline-flex h-12 items-center justify-center rounded-full border border-white/55 bg-black/35 px-6 text-sm font-semibold text-white"
+              className="hidden h-12 items-center justify-center rounded-full border border-white/55 bg-black/35 px-6 text-sm font-semibold text-white sm:inline-flex"
             >
               {SITE.phone}
             </a>

@@ -3,7 +3,6 @@ import { AuthProvider } from "@/lib/auth/provider";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
-import { StickyCall } from "@/components/StickyCall";
 import { CacheClear } from "@/components/CacheClear";
 import { LocalBusinessJsonLd } from "@/components/JsonLd";
 import { SITE } from "@/lib/site";
@@ -47,14 +46,13 @@ function Root() {
       <head>
         <HeadContent />
       </head>
-      <body className="min-h-dvh bg-bg pb-20 font-sans text-fg md:pb-0">
+      <body className="min-h-dvh bg-bg font-sans text-fg md:pb-0">
         <PreviewHostBridge />
         <CacheClear />
         <AuthProvider>
           <Header />
           <Outlet />
           <Footer />
-          <StickyCall />
         </AuthProvider>
         <LocalBusinessJsonLd />
         <Scripts />

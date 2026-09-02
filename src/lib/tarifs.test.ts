@@ -89,11 +89,16 @@ describe("vehicle and urgency", () => {
     assert.equal(prestige.options, vp.options);
   });
 
-  it("applies +25 % urgent on trip, approche and return, not on the pack", () => {
+  it("applies +20 % urgent as a visible line on trip, approche and return, not on the pack", () => {
     const std = computeQuote(baseInput({ pack: "confort" }));
     const urg = computeQuote(baseInput({ pack: "confort", when: "urgent" }));
+    const maj = Math.round((std.prixTrajet + std.prixApproche + std.prixRetour) * OPTIONS.urgencePct);
     assert.equal(urg.options, std.options);
-    assert.equal(urg.base, Math.round(std.prixTrajet * 1.25) + Math.round(std.prixApproche * 1.25) + Math.round(std.prixRetour * 1.25));
+    assert.equal(urg.prixTrajet, std.prixTrajet);
+    assert.equal(urg.total - std.total, maj);
+    const line = urg.lines.find((l) => l.label.includes("Majoration urgence"));
+    assert.ok(line);
+    assert.equal(line?.amount, maj);
   });
 });
 

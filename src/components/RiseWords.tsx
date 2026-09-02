@@ -21,46 +21,66 @@ export function RiseWords({
     if (!root) return;
     const nodes = [...root.querySelectorAll<HTMLElement>(".rise-word")];
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const n = Math.max(1, nodes.length);
+    const delay = n > 1 ? 0.42 / (n - 1) : 0;
+    const dur = 0.58;
+    let done = false;
+
     const apply = (p: number) => {
+      if (done) return;
+      const t = Math.min(1, Math.max(0, p));
       nodes.forEach((w, i) => {
-        const local = Math.min(1, Math.max(0, (p - i * 0.08) / 0.5));
+        const local = Math.min(1, Math.max(0, (t - i * delay) / dur));
         w.style.opacity = String(local);
-        w.style.filter = `blur(${(1 - local) * 5}px)`;
-        w.style.transform = `translate3d(0, ${(1 - local) * 1.2}em, ${(1 - local) * -32}px) rotateX(${(1 - local) * 50}deg)`;
+        w.style.filter = local >= 1 ? "none" : `blur(${(1 - local) * 5}px)`;
+        w.style.transform =
+          local >= 1
+            ? "none"
+            : `translate3d(0, ${(1 - local) * 1.2}em, ${(1 - local) * -32}px) rotateX(${(1 - local) * 50}deg)`;
       });
+      if (t >= 1) done = true;
     };
+
     if (reduce) {
       apply(1);
       return;
     }
+
     const measure = () => {
       const r = root.getBoundingClientRect();
       const vh = window.innerHeight || 1;
-      return Math.min(1, Math.max(0, (vh * 0.9 - r.top) / (vh * 0.48)));
+      return Math.min(1, Math.max(0, (vh * 0.82 - r.top) / (vh * 0.38)));
     };
+
     apply(0);
     let intro = 0;
     let playing = false;
+    const playToEnd = (ms: number) => {
+      playing = true;
+      const t0 = performance.now();
+      const step = (now: number) => {
+        apply(Math.min(1, (now - t0) / ms));
+        if (now - t0 < ms && !done) intro = requestAnimationFrame(step);
+        else {
+          apply(1);
+          playing = false;
+        }
+      };
+      intro = requestAnimationFrame(step);
+    };
+
     const boot = () => {
-      const target = measure();
-      if (target >= 0.45) {
-        playing = true;
-        const t0 = performance.now();
-        const step = (now: number) => {
-          apply(Math.min(1, (now - t0) / 860));
-          if (now - t0 < 860) intro = requestAnimationFrame(step);
-          else playing = false;
-        };
-        intro = requestAnimationFrame(step);
-      } else {
-        apply(target);
-      }
+      if (measure() >= 0.28) playToEnd(900);
+      else apply(measure());
     };
     const onScroll = () => {
-      if (playing) return;
-      apply(measure());
+      if (done || playing) return;
+      const p = measure();
+      if (p >= 0.55) playToEnd(720);
+      else apply(p);
     };
-    const fail = window.setTimeout(() => apply(1), 1400);
+
+    const fail = window.setTimeout(() => apply(1), 1800);
     requestAnimationFrame(boot);
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
@@ -70,7 +90,7 @@ export function RiseWords({
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, []);
+  }, [text, accent]);
 
   let i = 0;
   const render = (list: string[], coral = false) =>

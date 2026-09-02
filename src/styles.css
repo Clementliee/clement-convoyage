@@ -63,6 +63,12 @@
   a {
     color: inherit;
   }
+  details summary {
+    list-style: none;
+  }
+  details summary::-webkit-details-marker {
+    display: none;
+  }
 }
 
 @layer components {
@@ -95,6 +101,18 @@
   .tilt-hover:hover {
     transform: perspective(1200px) rotateY(-6deg) translateZ(20px);
   }
+  .reveal {
+    opacity: 0;
+    transform: perspective(900px) translateY(1.35rem) rotateX(10deg);
+    transform-origin: 50% 90%;
+    transition:
+      opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-on {
+    opacity: 1;
+    transform: none;
+  }
   .rise-stage {
     perspective: 1000px;
     display: inline;
@@ -117,42 +135,18 @@
     .reveal {
       animation: reveal-3d linear both;
       animation-timeline: view();
-      animation-range: entry 0% entry 42%;
+      animation-range: entry 0% cover 28%;
     }
-  }
-  @keyframes rise-3d {
-    from {
-      opacity: 0;
-      filter: blur(6px);
-      transform: translateY(1.25em) rotateX(48deg) translateZ(-28px);
-    }
-    to {
-      opacity: 1;
-      filter: blur(0);
-      transform: none;
+    .reveal-view {
+      animation: reveal-3d linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
     }
   }
   @keyframes reveal-3d {
     from {
       opacity: 0;
-      transform: perspective(900px) translateY(2rem) rotateX(14deg);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-  @supports (animation-timeline: view()) {
-    .reveal-view {
-      animation: reveal-up 800ms cubic-bezier(0.16, 1, 0.3, 1) both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 35%;
-    }
-  }
-  @keyframes reveal-up {
-    from {
-      opacity: 0;
-      transform: translateY(1.25rem);
+      transform: perspective(900px) translateY(1.25rem) rotateX(8deg);
     }
     to {
       opacity: 1;
@@ -209,11 +203,5 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-  }
-  .tilt-hover:hover,
-  .card-3d,
-  .reveal {
-    transform: none !important;
-    opacity: 1 !important;
   }
 }

@@ -12,7 +12,7 @@ export const OPTIONS = {
   lavageExterieur: 25,
   lavageComplet: 90,
   rechargeVe: 25,
-  urgencePct: 0.25,
+  urgencePct: 0.2,
   samediPct: 0.2,
   dimanchePct: 0.4,
   utilitairePct: 0.15,
@@ -339,15 +339,15 @@ export const WHEN_OFFERS = [
     delay: "5 jours",
     hint: "Du lundi au vendredi. Prise en charge sous cinq jours environ, sous réserve de disponibilité des équipes. Week-end et jours fériés inclus.",
     extraPct: 0,
-    extraLabel: "Délai de base",
+    extraLabel: "Sans majoration",
   },
   {
     id: "urgent" as const,
     name: "Urgent",
     delay: "Sous 72 h",
-    hint: "Prise en charge sous 72 heures, sous réserve de disponibilité des équipes. Week-end et jours fériés inclus.",
-    extraPct: 0.25,
-    extraLabel: "Créneau serré",
+    hint: "Prise en charge sous 72 heures, sous réserve de disponibilité. Majoration de 20 % sur le trajet, l’approche et le retour. Pas sur la formule.",
+    extraPct: 0.2,
+    extraLabel: "Majoration + 20 %",
   },
 ] as const;
 export type ZoneKind = "france" | "europe";
@@ -717,24 +717,26 @@ function computeJockeyQuote(input: QuoteInput): QuoteResult {
     let base = args.base;
     let prixApproche = args.prixApproche;
     let prixRetour = args.prixRetour;
-    if (input.when === "urgent") {
-      base = Math.round(base * (1 + OPTIONS.urgencePct));
-      prixApproche = Math.round(prixApproche * (1 + OPTIONS.urgencePct));
-      prixRetour = Math.round(prixRetour * (1 + OPTIONS.urgencePct));
-    }
+    const majUrgence =
+      input.when === "urgent"
+        ? Math.round((base + prixApproche + prixRetour) * OPTIONS.urgencePct)
+        : 0;
     const optionAmt = extras.options + (args.extraOptions ?? 0);
     const lines = [
       ...args.tripLines.map((l) => (l.label.startsWith("Prestation") || l.label.includes("Trajet") || l.label.includes("Aller") ? { ...l, amount: base } : l)),
       ...(prixApproche ? [{ label: "Approche depuis Quimper", amount: prixApproche }] : []),
       ...(prixRetour ? [{ label: "Retour chauffeur", amount: prixRetour }] : []),
+      ...(majUrgence
+        ? [{ label: "Majoration urgence + 20 %", amount: majUrgence, hint: "Créneau sous 72 h" }]
+        : []),
       ...(args.extraLines ?? []),
       ...extras.lines,
     ];
-    const total = base + prixApproche + prixRetour + optionAmt;
+    const total = base + prixApproche + prixRetour + majUrgence + optionAmt;
     return {
       ok: true,
       km: args.km,
-      base: base + prixApproche + prixRetour,
+      base: base + prixApproche + prixRetour + majUrgence,
       options: optionAmt,
       total,
       delay: input.when === "urgent" ? "sous 72 h, sous réserve de disponibilité" : "5 jours, sous réserve de disponibilité",
@@ -924,14 +926,12 @@ export function computeQuote(input: QuoteInput): QuoteResult {
   if (roundTrip) prixRetourVal = Math.round(prixTrajet * ECONOMICS.retourVehiculeCoeff);
   else if (!driverHome) prixRetourVal = prixRetourChauffeur(kmRetourBase, kmMission);
 
-  if (input.when === "urgent") {
-    const k = 1 + OPTIONS.urgencePct;
-    prixTrajet = Math.round(prixTrajet * k);
-    prixApprocheVal = Math.round(prixApprocheVal * k);
-    prixRetourVal = Math.round(prixRetourVal * k);
-  }
+  const majUrgence =
+    input.when === "urgent"
+      ? Math.round((prixTrajet + prixApprocheVal + prixRetourVal) * OPTIONS.urgencePct)
+      : 0;
 
-  const base = prixTrajet + prixApprocheVal + prixRetourVal;
+  const base = prixTrajet + prixApprocheVal + prixRetourVal + majUrgence;
   const pack = input.pack;
   const options = packPrice(input.clientKind, pack);
 
@@ -956,6 +956,13 @@ export function computeQuote(input: QuoteInput): QuoteResult {
       label: "Retour chauffeur à Quimper",
       amount: prixRetourVal,
       hint: "Train / rapatriement",
+    });
+  }
+  if (majUrgence > 0) {
+    lines.push({
+      label: "Majoration urgence + 20 %",
+      amount: majUrgence,
+      hint: "Créneau sous 72 h. Sur le trajet, l’approche et le retour. Pas sur la formule.",
     });
   }
   if (options > 0) {

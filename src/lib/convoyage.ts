@@ -52,12 +52,12 @@ export const CONVOYAGE_CATALOGUE = [
     title: "Trajet point à point",
     lead: "Le véhicule est pris en charge à l’adresse indiquée et remis au destinataire. Un chauffeur dédié, un créneau confirmé, un compte rendu le jour même.",
     paragraphs: [
-      "Quimper est la base opérationnelle, pas un départ obligatoire. Le véhicule est récupéré là où il se trouve : domicile, concession, parking d’immeuble, parking d’aéroport, atelier. Bretagne, Grand Ouest, Paris, Lyon, Nice, et le reste du territoire. Nous intervenons tous les jours, sous réserve de disponibilité.",
+      "Le quotidien se joue en Bretagne. Quimper, Brest, Lorient, Vannes, Rennes, Nantes. Le véhicule est récupéré là où il se trouve : domicile, concession de Creac’h Gwen, parking d’immeuble, atelier de Penhars, aéroport de Pluguffan. Au-delà, c’est la France entière, puis l’Europe. Quimper reste la base, pas un départ obligatoire. Tous les jours, sous réserve de disponibilité.",
       "Avant le départ, un état des lieux photographique est établi : compteur, carrosserie, habitacle, documents de bord. Les clés ne changent de main qu’après ce constat. Pendant l’acheminement, un seul chauffeur conduit le véhicule. Péages, carburant et retour du chauffeur sont intégrés au devis. En cas d’imprévu, vous êtes informé.",
       "À l’arrivée, les clés sont remises en main propre à la personne désignée. La mise en main est offerte : aides à la conduite, multimédia, recharge. Vingt à trente minutes, sur place. Un rapport de mission part le jour même : horaires, kilométrage, photographies, observations. Le dossier est clos.",
     ],
     forWhom:
-      "Particuliers qui achètent, vendent ou déménagent. Professionnels qui doivent déplacer un véhicule entre deux sites, sans immobiliser un commercial ni un technicien.",
+      "Particuliers de Cornouaille, du Finistère et du Grand Ouest qui achètent, vendent ou déménagent. Concessions et garages de Quimper, Brest, Lorient, Vannes qui doivent déplacer un véhicule sans immobiliser un commercial.",
     items: [
       "Prise en charge à l’adresse du véhicule, remise à l’adresse du destinataire",
       "État des lieux photographique au départ et à l’arrivée",
@@ -152,7 +152,7 @@ export const CONVOYAGE_CATALOGUE = [
     title: "Achat à distance",
     lead: "Leboncoin, garage ou mandataire : le vendeur et l’acheteur n’ont pas à se déplacer. Nous récupérons le véhicule une fois la vente conclue, et le livrons à l’adresse convenue.",
     paragraphs: [
-      "Nous intervenons après la vente, pas avant. Un contrôle visuel est effectué sur place avant le départ : carrosserie, compteur, habitacle, documents. Les photographies sont horodatées. Si quelque chose ne correspond pas à ce qui a été convenu, nous vous appelons avant de partir.",
+      "Leboncoin Quimper, Brest, Rennes, Nantes. Garage ou mandataire. Nous intervenons après la vente, pas avant. Un contrôle visuel est effectué sur place avant le départ : carrosserie, compteur, habitacle, documents. Les photographies sont horodatées. Si quelque chose ne correspond pas à ce qui a été convenu, nous vous appelons avant de partir.",
       "Le véhicule est ensuite acheminé au domicile, sur le lieu de travail, ou chez un tiers désigné. À l’arrivée, la mise en main porte sur les aides à la conduite et le multimédia. Vingt à trente minutes. Le destinataire prend le volant en connaissance de cause.",
       "Un compte rendu peut être adressé aux deux parties, sur demande. Pour une inspection avant d’acheter — lorsque vous n’avez pas encore décidé — il s’agit d’une prestation de conciergerie distincte, limitée à la Bretagne.",
     ],
@@ -177,7 +177,7 @@ export const CONVOYAGE_CATALOGUE = [
     title: "Livraison client",
     lead: "Concession, garage, mandataire. Le commercial demeure en établissement. Nous livrons le neuf ou l’occasion, avec la mise en main et le compte rendu.",
     paragraphs: [
-      "Votre vendeur vend. Nous livrons. Préparation selon la formule retenue : nettoyage, plein, coffret. La remise se fait chez le client, à l’adresse convenue. La mise en main dure vingt à trente minutes : aides à la conduite, multimédia, recharge. L’image de marque du réseau est tenue jusqu’au pas de porte.",
+      "Votre vendeur vend. Nous livrons. Creac’h Gwen, Brest, Lorient, Vannes, Rennes. Préparation selon la formule retenue : nettoyage, plein, coffret. La remise se fait chez le client, à l’adresse convenue — domicile de Cornouaille, résidence du littoral, entreprise de l’agglomération. Mise en main vingt à trente minutes. L’image de marque du réseau est tenue jusqu’au pas de porte.",
       "Un coffret de bienvenue peut accompagner les clés : terroir breton, ou champagne et chocolats. Une livraison vidéo — film court tourné à la remise — peut être transmise à la concession, qui l’envoie au client absent. Utile aussi pour garder une trace de la mise en main.",
       "Le compte rendu part au donneur d’ordre le jour même. Facturation à quinze jours. Un interlocuteur, pas un standard. Si le client n’est pas là, nous le disons, nous ne laissons pas les clés dans une boîte.",
     ],
@@ -202,7 +202,7 @@ export const CONVOYAGE_CATALOGUE = [
     title: "Navette d’atelier",
     lead: "Contrôle technique, carrosserie, préparation. L’atelier conserve ses techniciens. Nous assurons les déplacements, un véhicule ou plusieurs sur un même créneau.",
     paragraphs: [
-      "Vos mécaniciens restent au banc. Nous prenons le véhicule chez le client, à la concession, ou sur un autre site, nous le déposons à l’atelier, nous le reprenons une fois le travail achevé. Contrôle technique, carrosserie, pneumatiques, préparation. L’approche depuis Quimper est intégrée au devis.",
+      "Vos mécaniciens restent au banc. Quimper, Brest, Lorient, Vannes. Nous prenons le véhicule chez le client, à la concession, ou sur un autre site, nous le déposons à l’atelier, nous le reprenons une fois le travail achevé. Contrôle technique, carrosserie, pneumatiques, préparation. L’approche depuis Quimper est intégrée au devis.",
       "Un véhicule, ou plusieurs sur un même créneau. Photographies au départ et au retour. Compte rendu le soir. Formule Atelier : le déplacement, rien d’autre. Pas de coffret. Pas de mise en scène. Un chauffeur, un créneau, un rapport.",
       "Pour une flotte ou un planning à la semaine, la conciergerie prend le relais, en Bretagne. Au-delà, c’est du convoyage. Les deux se chiffrent distinctement.",
     ],
@@ -252,7 +252,7 @@ export const CONVOYAGE_GROUPS = [
   {
     id: "trajets",
     title: "Trajets",
-    text: "France, Europe, électrique, aller et retour. Le véhicule est pris là où il se trouve. Un chauffeur, un créneau, un compte rendu.",
+    text: "Bretagne d’abord, puis la France et l’Europe. Électrique, aller et retour. Le véhicule est pris là où il se trouve. Un chauffeur, un créneau, un compte rendu.",
     ids: ["france", "europe", "electrique", "retour"],
   },
   {

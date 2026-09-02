@@ -52,12 +52,12 @@ export const CONCIERGE_CATALOGUE = [
     title: "Gares et aéroports",
     lead: "Vous prenez le train ou l’avion. Nous déplaçons uniquement le véhicule. Dépose, rapatriement, ou les deux. Pas de transport de passagers.",
     paragraphs: [
-      "Quimper, Lorient, Brest, Vannes, Rennes et Nantes. Gares et aéroports. Vous descendez au dépose-minute, ou vous retrouvez le véhicule à l’arrivée. Un double des clés peut rester chez nous pour le prochain départ. Pas de gardiennage : le véhicule n’est pas stationné chez nous pendant votre absence.",
+      "Gare de Quimper, gare de Lorient, gare de Brest, gare de Vannes, gare de Rennes, gare de Nantes. Aéroports de Pluguffan, Guipavas, Lorient-Bretagne Sud, Saint-Jacques, Nantes-Atlantique. Vous descendez au dépose-minute, ou vous retrouvez le véhicule à l’arrivée. Un double des clés peut rester chez nous pour le prochain départ. Pas de gardiennage.",
       "Un état des lieux photographique est établi à chaque mouvement. Compteur, carrosserie, habitacle. Si vous partez et revenez le même jour, ou plusieurs jours plus tard, les deux courses se chiffrent ensemble. L’attente sur place — jusqu’à l’échange des clés — peut être ajoutée au devis.",
       "Un coffret champagne et chocolats, ou terroir breton, peut attendre dans l’habitacle si vous allez chercher quelqu’un. Remis avec les clés. Un coffret, pas les deux. Composé à Quimper.",
     ],
     forWhom:
-      "Particuliers qui prennent le TGV ou un vol depuis la Bretagne. Professionnels qui enchaînent une gare et une réunion, sans laisser le véhicule au dépose-minute.",
+      "Particuliers qui prennent le TGV à Quimper, Lorient, Brest, Vannes ou Rennes. Professionnels qui enchaînent une gare et une réunion, sans laisser le véhicule au dépose-minute. Voyages au départ de Pluguffan ou de Guipavas.",
     items: [
       "Dépose, rapatriement, ou aller et retour",
       "Gares de Quimper, Lorient, Brest, Vannes, Rennes, Nantes",
@@ -79,7 +79,7 @@ export const CONCIERGE_CATALOGUE = [
     paragraphs: [
       "Compteur, carburant, carrosserie : l’état des lieux de l’agence est repris, photographié, consigné. Utile en one-way, en correspondance, ou lorsque le créneau d’ouverture de l’agence ne correspond pas au vôtre. Le véhicule rejoint ensuite l’adresse convenue, ou l’agence de restitution.",
       "Vous n’avez pas à interrompre une réunion, ni à rentrer plus tôt d’un vol, pour rendre une voiture. Nous tenons le créneau. Si l’agence glisse, vous êtes prévenu avant. Le compte rendu part le jour même, avec les photographies et le niveau de carburant.",
-      "Cette prestation reste limitée à la Bretagne, à Rennes et à Nantes. Au-delà, c’est du convoyage : un autre cadre, un autre devis.",
+      "Cette prestation reste limitée à la Bretagne, à Rennes et à Nantes : agences de Quimper, Brest, Lorient, Vannes, aéroports de Guipavas, Saint-Jacques, Nantes-Atlantique. Au-delà, c’est du convoyage : un autre cadre, un autre devis.",
     ],
     forWhom:
       "Voyageurs en correspondance, one-way, ou dont l’horaire ne recoupe pas l’ouverture de l’agence. Entreprises qui font tourner des locations sans immobiliser un salarié.",
@@ -102,7 +102,7 @@ export const CONCIERGE_CATALOGUE = [
     title: "Entretien, carrosserie, contrôle technique",
     lead: "Nous prenons le rendez-vous, déposons le véhicule et le reprenons. La facture de l’atelier demeure la vôtre. Vous n’avez pas à poser une demi-journée.",
     paragraphs: [
-      "Nous appelons l’atelier, nous bloquons le créneau, nous déposons le véhicule, nous le reprenons une fois le travail achevé. Entretien, révision, pneumatiques, carrosserie, contrôle technique. Un compte rendu, les photographies, la facture de l’atelier transmise, inchangée.",
+      "Quimper, Brest, Lorient, Vannes, Rennes, Nantes. Nous appelons l’atelier, nous bloquons le créneau, nous déposons le véhicule, nous le reprenons une fois le travail achevé. Entretien, révision, pneumatiques, carrosserie, contrôle technique. Un compte rendu, les photographies, la facture de l’atelier transmise, inchangée.",
       "Nettoyage et plein peuvent être ajoutés, pour que le véhicule revienne propre et avec le niveau convenu. Vous n’avez pas à enchaîner l’atelier et la station. Le devis les relie, ou les laisse de côté, selon votre consigne.",
       "Si le créneau de l’atelier glisse, vous êtes prévenu avant. Nous ne laissons pas un véhicule une nuit de plus sans vous le dire. Pour plusieurs véhicules, le planning se construit avec la gestion de flotte.",
     ],
@@ -127,7 +127,7 @@ export const CONCIERGE_CATALOGUE = [
     title: "Gestion de flotte",
     lead: "Planning, prise de rendez-vous, entretien, carrosserie, nettoyage et compte rendu. Un seul interlocuteur. Ce n’est pas un logiciel. C’est une exécution.",
     paragraphs: [
-      "Professions libérales, TPE, petites flottes. Les véhicules tournent, les agendas aussi. Nous construisons le planning à la semaine ou au mois, nous déplaçons les véhicules, nous tenons le fil avec les ateliers. Un compte rendu par mouvement. Facturation regroupée possible.",
+      "Professions libérales, TPE, petites flottes de Cornouaille, du Finistère, du Morbihan. Les véhicules tournent, les agendas aussi. Nous construisons le planning à la semaine ou au mois, nous déplaçons les véhicules, nous tenons le fil avec les ateliers de Quimper, Brest, Lorient. Un compte rendu par mouvement. Facturation regroupée possible.",
       "Ce n’est pas un logiciel de flotte, ni une plateforme. C’est un chauffeur, un numéro, une exécution. Contrôle technique, pneumatiques, carrosserie, nettoyage, dépose gare si besoin. Vous gardez vos collaborateurs sur leur métier.",
       "La zone reste la Bretagne, Rennes et Nantes. Au-delà, les rotations passent en convoyage. Les deux se chiffrent distinctement, avec le même interlocuteur.",
     ],
@@ -152,7 +152,7 @@ export const CONCIERGE_CATALOGUE = [
     title: "Mise en circulation périodique",
     lead: "Pour un véhicule trop longtemps à l’arrêt. Ordre écrit, kilométrage limité, itinéraire défini. Une mise en température, pas une promenade.",
     paragraphs: [
-      "Collection, sportive, véhicule peu utilisé. Compteur relevé, photographies, itinéraire convenu, kilométrage plafonné. Mensuel si vous le souhaitez. Compte rendu à chaque sortie : niveaux, observations, distance parcourue. Le véhicule reste le vôtre, à votre adresse, sans gardiennage.",
+      "Collection, sportive, véhicule peu utilisé, souvent en Cornouaille ou sur le littoral. Compteur relevé, photographies, itinéraire convenu sur des axes de Finistère, kilométrage plafonné. Mensuel si vous le souhaitez. Compte rendu à chaque sortie : niveaux, observations, distance parcourue. Le véhicule reste le vôtre, à votre adresse, sans gardiennage.",
       "La conduite est adaptée : montée en température, mode Comfort, axes choisis. Ce n’est pas un usage personnel du véhicule. C’est une consigne, exécutée, tracée. Si une alerte apparaît — bruit, voyant, niveau — la sortie s’arrête, vous êtes appelé.",
       "Le roulage se combine, si besoin, avec un passage atelier ou un nettoyage. Toujours en Bretagne. Pour un acheminement hors zone, c’est du convoyage prestige.",
     ],
@@ -177,7 +177,7 @@ export const CONCIERGE_CATALOGUE = [
     title: "Accompagnement d’achat",
     lead: "Nous nous rendons chez le vendeur. Vous n’achetez pas encore. Vous décidez ensuite, sur pièces : photographies, observations, tarif demandé.",
     paragraphs: [
-      "Photographies de carrosserie, habitacle, compteur, documents. Conformité à l’annonce. Un rapport vous est adressé : état du véhicule, observations, tarif. Ce n’est pas une expertise agréée. C’est un constat visuel, daté, photographié. Vous décidez ensuite. Aucune obligation d’achat.",
+      "Leboncoin du 29 et du 56, vendeur à Quimper, Brest, Lorient, Vannes. Photographies de carrosserie, habitacle, compteur, documents. Conformité à l’annonce. Un rapport vous est adressé : état du véhicule, observations, tarif. Ce n’est pas une expertise agréée. C’est un constat visuel, daté, photographié. Vous décidez ensuite. Aucune obligation d’achat.",
       "Si vous achetez, vous pouvez repartir au volant. Nous ramenons l’autre véhicule — le vôtre, ou celui du vendeur, selon la consigne. Si vous ne donnez pas suite, la mission s’arrête au rapport. Vous n’avez pas à vous déplacer pour un véhicule qui ne correspond pas.",
       "Cette inspection se tient en Bretagne. Pour un achat déjà conclu, hors zone, c’est un convoyage : nous récupérons le véhicule une fois la vente faite, nous le livrons à l’adresse convenue.",
     ],

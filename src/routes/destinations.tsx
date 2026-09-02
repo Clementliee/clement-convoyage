@@ -1,84 +1,56 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { AppLink } from "@/components/AppLink";
 import { CtaBar } from "@/components/CtaBar";
 import { PageHero } from "@/components/PageHero";
+import { QuoteCta } from "@/components/QuoteCta";
+import { SecteurSection } from "@/components/SecteurSection";
 import { pageHead } from "@/lib/seo";
+import { SITE } from "@/lib/site";
 
 export const Route = createFileRoute("/destinations")({
   head: () =>
     pageHead({
-      title: "Destinations | Bretagne, France, Europe | Convoyage BZH",
+      title: "Secteur Bretagne | Quimper, Brest, Lorient, Rennes, Nantes | Convoyage BZH",
       description:
-        "Convoyage de véhicules en Bretagne, en France et en Europe. Prise en charge à l’adresse du véhicule. Base Quimper. Devis immédiat.",
+        "Convoyage automobile en Bretagne et Grand Ouest. Quimper, Brest, Lorient, Vannes, Rennes, Nantes. Conciergerie sur le secteur. Devis immédiat.",
       path: "/destinations",
+      image: "/images/mission-golf-brest.jpg",
     }),
   component: Page,
 });
 
-const GROUPS: { title: string; links: { to: string; label: string }[] }[] = [
-  {
-    title: "Bretagne et Grand Ouest",
-    links: [
-      { to: "/convoyage-quimper", label: "Quimper" },
-      { to: "/convoyage-brest", label: "Brest" },
-      { to: "/convoyage-lorient", label: "Lorient" },
-      { to: "/convoyage-vannes", label: "Vannes" },
-      { to: "/convoyage-rennes", label: "Rennes" },
-      { to: "/convoyage-nantes", label: "Nantes" },
-      { to: "/convoyage-bretagne", label: "Bretagne" },
-    ],
-  },
-  {
-    title: "France",
-    links: [
-      { to: "/convoyage-paris", label: "Paris" },
-      { to: "/convoyage-lyon", label: "Lyon" },
-      { to: "/convoyage-bordeaux", label: "Bordeaux" },
-      { to: "/convoyage-toulouse", label: "Toulouse" },
-      { to: "/convoyage-marseille", label: "Marseille" },
-      { to: "/convoyage-nice", label: "Nice" },
-      { to: "/convoyage-lille", label: "Lille" },
-    ],
-  },
-  {
-    title: "Europe",
-    links: [
-      { to: "/convoyage-belgique", label: "Belgique" },
-      { to: "/convoyage-allemagne", label: "Allemagne" },
-      { to: "/convoyage-espagne", label: "Espagne" },
-      { to: "/convoyage-italie", label: "Italie" },
-      { to: "/convoyage-suisse", label: "Suisse" },
-      { to: "/convoyage-monaco", label: "Monaco" },
-      { to: "/livraison-europe", label: "Europe" },
-    ],
-  },
-];
-
 function Page() {
   return (
-    <main>
+    <main className="overflow-x-clip">
       <PageHero
-        kicker="Destinations"
-        title="Zones d’intervention"
-        text="Le véhicule est pris en charge à l’adresse indiquée et remis au destinataire. Quimper est la base opérationnelle, pas un départ obligatoire. Le devis est immédiat. Vous signez en ligne."
+        kicker="Secteur · Bretagne"
+        title="Bretagne, Rennes, Nantes"
+        text="Quimper est la base. Le quotidien se joue en Cornouaille, dans le Finistère, dans le Morbihan, jusqu’à Rennes et Nantes. Le convoyage continue ensuite en France et en Europe. Chaque pavé ouvre le devis, déjà orienté."
+        image="/images/mission-golf-brest.jpg"
+        alt="Volkswagen Golf 8 sur une 2×2 voies en Bretagne"
       />
-      {GROUPS.map((g) => (
-        <section key={g.title} className="mx-auto max-w-6xl px-4 pb-12 sm:px-6">
-          <h2 className="font-display text-2xl tracking-tight text-navy">{g.title}</h2>
-          <div className="mt-5 flex flex-wrap gap-2">
-            {g.links.map((l) => (
-              <AppLink
-                key={l.to}
-                to={l.to}
-                className="rounded-full border border-line bg-surface px-4 py-2 text-sm text-navy hover:border-coral"
-              >
-                {l.label}
-              </AppLink>
-            ))}
-          </div>
-        </section>
-      ))}
-      <CtaBar />
+
+      <section className="mx-auto flex max-w-6xl flex-col gap-4 px-5 pb-16 sm:flex-row sm:px-8">
+        <QuoteCta search={{ mission: "convoyage", from: "Quimper" }} className="h-14 px-8">
+          Chiffrer un trajet du secteur
+        </QuoteCta>
+        <a
+          href={SITE.phoneHref}
+          className="inline-flex h-14 items-center justify-center rounded-full border border-navy px-8 text-sm font-semibold text-navy"
+        >
+          {SITE.phone}
+        </a>
+      </section>
+
+      <SecteurSection mode="convoyage" heading={false} />
+
+      <CtaBar
+        title="Un véhicule à déplacer sur le secteur ?"
+        text="Quimper, Brest, Lorient, Vannes, Rennes, Nantes. Indiquez le départ et l’arrivée. Le devis est immédiat."
+        primaryLabel="Chiffrer un trajet"
+        primarySearch={{ mission: "convoyage", from: "Quimper" }}
+        secondaryTo="/contact"
+        secondaryLabel="Nous écrire"
+      />
     </main>
   );
 }
