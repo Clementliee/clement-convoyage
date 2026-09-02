@@ -58,7 +58,7 @@ function SeoPageView() {
       />
       {rich ? <RichCity page={page} /> : <SimpleCity page={page} />}
       <CtaBar
-        title={page.locality ? `Estimer un convoyage ${page.locality}` : "Obtenir une fourchette"}
+        title={page.locality ? `Estimer un convoyage ${page.locality}` : "Obtenir un devis"}
         text="Pas de grille publique. Coordonnées, puis estimation indicative."
       />
     </main>
@@ -163,7 +163,7 @@ function RichCity({ page }: { page: SeoPage }) {
           <ol className="mt-8 space-y-6">
             {[
               ["01", "Vous estimez", "Départ, arrivée, véhicule, options."],
-              ["02", "Vous laissez vos coordonnées", "La fourchette s’affiche. Confirmation sous 2 h."],
+              ["02", "Vous laissez vos coordonnées", "Le devis s’affiche. Devis immédiat."],
               ["03", "Nous prenons le véhicule", "Photos, compteur, documents, à Quimper ou ailleurs."],
               ["04", "Nous remettons", "Clés, mise en main offerte, compte-rendu."],
             ].map(([n, t, d]) => (
@@ -192,11 +192,11 @@ function RichCity({ page }: { page: SeoPage }) {
 function SimLine() {
   return (
     <p className="text-lg leading-relaxed text-muted">
-      Pour une fourchette, utilisez le{" "}
+      Pour un devis, utilisez le{" "}
       <AppLink to="/simulateur" className="font-semibold text-coral">
         simulateur
       </AppLink>
-      . Devis ferme sous 2 heures ouvrées, à confirmer. {SITE.phone}.
+      . Devis immédiat, à signer en ligne. {SITE.phone}.
     </p>
   );
 }

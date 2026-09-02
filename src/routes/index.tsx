@@ -4,6 +4,7 @@ import { Faq } from "@/components/Faq";
 import { FaqJsonLd } from "@/components/JsonLd";
 import { HeroStage } from "@/components/HeroStage";
 import { HomeEstimator } from "@/components/HomeEstimator";
+import { QuoteCta } from "@/components/QuoteCta";
 import { Reveal } from "@/components/Reveal";
 import { RiseWords } from "@/components/RiseWords";
 import { pageHead } from "@/lib/seo";
@@ -63,12 +64,9 @@ function Home() {
                   Achat à distance, mutation, import. Prise en charge à l’adresse du véhicule, remise à domicile. État des
                   lieux photographique. Mise en main offerte.
                 </p>
-                <Link
-                  to="/simulateur"
-                  className="mt-8 inline-flex h-12 w-fit items-center rounded-full bg-coral px-6 text-sm font-semibold text-white"
-                >
-                  Demander un devis
-                </Link>
+                <QuoteCta search={{ mission: "convoyage", client: "part" }} className="mt-8">
+                  Chiffrer une livraison particulière
+                </QuoteCta>
               </div>
             </article>
           </Reveal>
@@ -83,12 +81,9 @@ function Home() {
                   déplaçons le véhicule.
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
-                  <Link
-                    to="/simulateur"
-                    className="inline-flex h-12 items-center rounded-full bg-navy px-6 text-sm font-semibold text-white"
-                  >
-                    Demander un devis
-                  </Link>
+                  <QuoteCta search={{ mission: "convoyage", client: "pro" }} variant="navy">
+                    Chiffrer une mission professionnelle
+                  </QuoteCta>
                   <Link
                     to="/professionnels"
                     className="inline-flex h-12 items-center rounded-full border border-navy px-6 text-sm font-semibold text-navy"
@@ -110,20 +105,29 @@ function Home() {
             {
               k: "Convoyage",
               t: "D’un point à un autre",
-              d: "Prise en charge, conduite, péages, carburant, retour du chauffeur, état des lieux, remise des clés.",
+              d: "Prise en charge, conduite, péages, carburant, retour du chauffeur, état des lieux, remise des clés. France et Europe.",
               to: "/prestations" as const,
+              link: "Détail des convoyages",
+              cta: "Chiffrer un trajet",
+              search: { mission: "convoyage" },
             },
             {
               k: "Livraison",
               t: "L’expérience client",
               d: "Tout le convoyage, plus nettoyage, plein ou recharge, mise en main, compte rendu. Coffret et vidéo sur demande.",
               to: "/prestations" as const,
+              link: "Voir les formules",
+              cta: "Déléguer une livraison",
+              search: { mission: "convoyage", client: "pro" },
             },
             {
               k: "Conciergerie",
               t: "Le véhicule, sans vous",
               d: "Gares, ateliers, location, flotte, inspection avant achat. Bretagne. Pas de gardiennage.",
               to: "/jockey-gares-aeroports" as const,
+              link: "Détail de la conciergerie",
+              cta: "Chiffrer une conciergerie",
+              search: { mission: "jockey" },
             },
           ].map((o) => (
             <Reveal key={o.k}>
@@ -131,8 +135,11 @@ function Home() {
                 <p className="text-[11px] font-semibold tracking-[0.16em] text-coral uppercase">{o.k}</p>
                 <h3 className="mt-3 font-display text-2xl text-navy">{o.t}</h3>
                 <p className="mt-4 flex-1 text-sm leading-relaxed text-muted">{o.d}</p>
-                <Link to={o.to} className="mt-6 text-sm font-semibold text-coral hover:underline">
-                  En savoir plus
+                <QuoteCta search={o.search} className="mt-6">
+                  {o.cta}
+                </QuoteCta>
+                <Link to={o.to} className="mt-4 text-sm font-semibold text-navy hover:underline">
+                  {o.link}
                 </Link>
               </article>
             </Reveal>
@@ -150,12 +157,9 @@ function Home() {
               de la mission, remise à la personne désignée, conduite adaptée. Ce n’est pas de la sécurité privée. C’est un
               cadre de prise en charge, pour que le véhicule n’ait pas n’importe qui au volant.
             </p>
-            <Link
-              to="/simulateur"
-              className="mt-8 inline-flex h-12 items-center rounded-full bg-navy px-6 text-sm font-semibold text-white"
-            >
-              Demander un devis
-            </Link>
+            <QuoteCta search={{ mission: "convoyage", vehicle: "prestige" }} variant="navy" className="mt-8">
+              Encadrer un véhicule de valeur
+            </QuoteCta>
           </div>
           <img
             src="/images/mission-ds7-vauban.jpg"
@@ -240,12 +244,7 @@ function Home() {
             >
               {SITE.phone}
             </a>
-            <Link
-              to="/simulateur"
-              className="inline-flex h-12 items-center justify-center rounded-full bg-coral px-6 text-sm font-semibold text-white"
-            >
-              Demander un devis
-            </Link>
+            <QuoteCta search={{ mission: "convoyage" }}>Chiffrer un trajet</QuoteCta>
           </div>
         </div>
       </section>
@@ -257,7 +256,12 @@ function Home() {
       </section>
 
       <div className="mb-10">
-        <CtaBar title="Un véhicule à acheminer ?" text="Le devis est établi après étude du trajet. Vous pouvez également nous appeler." />
+        <CtaBar
+          title="Un véhicule à acheminer ?"
+          text="Le devis est établi après étude du trajet. Vous pouvez également nous appeler."
+          primaryLabel="Chiffrer un trajet"
+          primarySearch={{ mission: "convoyage" }}
+        />
       </div>
     </main>
   );

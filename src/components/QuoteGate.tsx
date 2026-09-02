@@ -4,13 +4,7 @@ import { downloadQuotePdf } from "@/lib/quote-pdf";
 import { mailtoFallback, sendDevisLead } from "@/lib/send-devis";
 import { SITE } from "@/lib/site";
 import { PACKS_PART, PACKS_PRO } from "@/lib/offers";
-import {
-  packQuotes,
-  quoteRange,
-  type PackKind,
-  type QuoteInput,
-  type QuoteResult,
-} from "@/lib/tarifs";
+import { makeQuoteNo, packQuotes, type PackKind, type QuoteInput, type QuoteResult } from "@/lib/tarifs";
 import { formatEuro } from "@/lib/utils";
 
 function packLabel(kind: "part" | "pro", pack: PackKind) {
@@ -65,6 +59,7 @@ export function QuoteGate({
   const [contactError, setContactError] = useState("");
   const [tilt, setTilt] = useState({ x: 8, y: -8, z: 0.96 });
   const scene = useRef<HTMLDivElement>(null);
+  const quoteNo = useMemo(() => makeQuoteNo(), []);
 
   const convoyage = input.mission !== "jockey";
   const scenarios = useMemo(
@@ -72,7 +67,6 @@ export function QuoteGate({
     [convoyage, input, kind],
   );
   const currentQuote = scenarios.find((s) => s.pack === pack)?.quote ?? quote;
-  const range = quoteRange(currentQuote.total);
   const extrasLabel = extrasLine({ ...input, pickupDate }, pack, kind) || "Aucune option";
 
   useEffect(() => {
@@ -110,7 +104,9 @@ export function QuoteGate({
     toName: currentQuote.toName,
     km: currentQuote.km,
     delay: currentQuote.delay,
-    range,
+    total: currentQuote.total,
+    quoteNo,
+    lines: currentQuote.lines,
     extras: extrasLabel,
     pickupDate: pickupDate.trim(),
   });
@@ -149,6 +145,7 @@ export function QuoteGate({
     const payload = { ...payloadBase(), accepted: true };
     try {
       await sendDevisLead(payload);
+      await downloadQuotePdf(payload);
       setAccepted(true);
     } finally {
       setBusy(false);
@@ -168,28 +165,30 @@ export function QuoteGate({
           }}
         >
           <p className="text-xs font-semibold tracking-[0.22em] text-surface/50 uppercase">
-            {currentQuote.fromName} vers {currentQuote.toName}
+            {currentQuote.fromName} vers {currentQuote.toName} · {quoteNo}
           </p>
           {revealed ? (
             <>
               <p className="mt-8 text-sm text-surface/70">{packLabel(kind, pack)}</p>
-              <p className="mt-3 font-display text-4xl tracking-tight sm:text-5xl">
-                de {formatEuro(range.low)} à {formatEuro(range.high)}
-              </p>
+              <p className="mt-3 font-display text-4xl tracking-tight sm:text-5xl">{formatEuro(currentQuote.total)}</p>
               <p className="mt-4 text-sm text-surface/70">
-                Autour de {formatEuro(range.mid)}. {currentQuote.km} km. {currentQuote.delay}.
+                TTC, franchise de TVA. {currentQuote.km} km. {currentQuote.delay}.
               </p>
+              <ul className="mt-6 space-y-2 text-sm text-surface/70">
+                {currentQuote.lines.map((line) => (
+                  <li key={line.label} className="flex justify-between gap-4">
+                    <span>{line.label}</span>
+                    <span className="shrink-0 text-surface">{formatEuro(line.amount)}</span>
+                  </li>
+                ))}
+              </ul>
               {pickupDate ? (
-                <p className="mt-3 text-sm text-surface/70">Prise en charge souhaitée : {pickupDate}</p>
+                <p className="mt-4 text-sm text-surface/70">Prise en charge souhaitée : {pickupDate}</p>
               ) : null}
               <p className="mt-8 max-w-sm text-sm leading-relaxed text-surface/75">
-                Vous pouvez accepter ce devis. Clément confirme ensuite le créneau, ou vous contacte.
+                Tarif fermé {SITE.quoteValidityDays} jours. Vous signez. Nous confirmons le créneau, pas le prix.
               </p>
-              <Button
-                type="button"
-                className="mt-8"
-                onClick={() => void downloadQuotePdf(payloadBase())}
-              >
+              <Button type="button" className="mt-8" onClick={() => void downloadQuotePdf(payloadBase())}>
                 Télécharger le PDF
               </Button>
             </>
@@ -204,7 +203,7 @@ export function QuoteGate({
                 Prix masqué
               </p>
               <p className="mt-8 max-w-sm text-sm leading-relaxed text-surface/70">
-                Nom, prénom, et un téléphone ou un e-mail. Le montant s’affiche ensuite. Vous pourrez l’accepter.
+                Nom, prénom, et un téléphone ou un e-mail. Le montant s’affiche, un e-mail part, vous signez.
               </p>
             </>
           )}
@@ -213,24 +212,24 @@ export function QuoteGate({
 
       {accepted ? (
         <div className="rounded-[2rem] border border-line bg-surface p-8 sm:p-10">
-          <p className="font-display text-3xl text-navy">Devis accepté</p>
+          <p className="font-display text-3xl text-navy">Devis signé</p>
           <p className="mt-4 text-base leading-relaxed text-muted">
-            {firstName}, votre acceptation est enregistrée. Clément confirme la date de prise en charge, ou vous
-            contacte sous deux heures ouvrées.
+            {firstName}, le tarif est verrouillé à {formatEuro(currentQuote.total)}. Nous confirmons la date de prise
+            en charge, ou nous proposons un autre créneau. Le PDF signé est sur votre appareil
+            {email.trim() ? " et le devis est parti par e-mail" : ""}.
           </p>
         </div>
       ) : revealed ? (
         <div className="rounded-[2rem] border border-line bg-surface p-8 sm:p-10">
-          <p className="font-display text-3xl text-navy">Accepter ce devis</p>
+          <p className="font-display text-3xl text-navy">Signer ce devis</p>
           <p className="mt-4 text-base leading-relaxed text-muted">
-            Fourchette de {formatEuro(range.low)} à {formatEuro(range.high)}. Le créneau n’est pas bloqué tant que
-            Clément n’a pas confirmé.
+            {formatEuro(currentQuote.total)} TTC. Tarif national, fermé {SITE.quoteValidityDays} jours. L’acceptation
+            vaut accord sur le montant.
           </p>
           {convoyage && scenarios.length ? (
             <div className="mt-6 grid gap-2">
               <p className="text-sm text-muted">Comparer les trois formules</p>
               {scenarios.map((s) => {
-                const r = quoteRange(s.quote.total);
                 const meta = packs.find((p) => p.id === s.pack);
                 const on = pack === s.pack;
                 return (
@@ -246,9 +245,7 @@ export function QuoteGate({
                       <span className="block font-medium text-navy">{meta?.name}</span>
                       <span className="block text-xs text-muted">{meta?.tag}</span>
                     </span>
-                    <span className="shrink-0 text-sm font-semibold text-coral">
-                      de {formatEuro(r.low)} à {formatEuro(r.high)}
-                    </span>
+                    <span className="shrink-0 text-sm font-semibold text-coral">{formatEuro(s.quote.total)}</span>
                   </button>
                 );
               })}
@@ -258,14 +255,14 @@ export function QuoteGate({
             {busy ? "Envoi…" : "J’accepte ce devis"}
           </Button>
           <p className="mt-4 text-xs leading-relaxed text-muted">
-            Vous proposez une date. Convoyage BZH confirme, ou reprend contact pour un autre créneau.
+            Vous signez le tarif. Convoyage BZH confirme le créneau, ou propose une autre date. Le prix ne bouge pas.
           </p>
         </div>
       ) : (
         <form onSubmit={submit} className="rounded-[2rem] border border-line bg-surface p-8 sm:p-10">
           <p className="font-display text-3xl text-navy">Vos coordonnées</p>
           <p className="mt-2 text-sm leading-relaxed text-muted">
-            Prénom, nom, et un moyen de contact. Puis le devis chiffré.
+            Prénom, nom, et un moyen de contact. Le devis s’affiche tout de suite. Un e-mail part avec le montant.
           </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             <Field label="Prénom" required value={firstName} onChange={setFirstName} autoComplete="given-name" />
@@ -293,10 +290,7 @@ export function QuoteGate({
           <Button type="submit" className="mt-8 w-full" size="lg" disabled={busy}>
             {busy ? "Envoi…" : "Afficher mon devis"}
           </Button>
-          <p className="mt-4 text-xs leading-relaxed text-muted">
-            Téléphone ou e-mail, au moins l’un des deux. Devis ferme sous deux heures ouvrées, après confirmation du
-            créneau par Convoyage BZH.
-          </p>
+          <p className="mt-4 text-xs leading-relaxed text-muted">{SITE.quotePromise}</p>
         </form>
       )}
     </div>

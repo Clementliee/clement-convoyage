@@ -28,7 +28,7 @@ const FAQ = [
   },
   {
     q: "Combien ça coûte ?",
-    a: "Le montant n’est pas affiché. Cochez l’option au simulateur : elle entre dans la fourchette, à confirmer.",
+    a: "Le montant n’est pas affiché. Cochez l’option au simulateur : elle entre dans le devis. Tarif fermé, à signer.",
   },
 ];
 
@@ -80,7 +80,7 @@ function Page() {
         <Faq items={FAQ} />
         <FaqJsonLd items={FAQ} />
       </section>
-      <CtaBar title="Ajouter le contrôle visuel" text="Option au simulateur. Fourchette après coordonnées." />
+      <CtaBar title="Ajouter le contrôle visuel" text="Option au simulateur. Devis immédiat." />
     </main>
   );
 }

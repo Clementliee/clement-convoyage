@@ -19,29 +19,52 @@ import {
   type TripMode,
   type VehicleKind,
   type WhenKind,
+  type JockeyService,
 } from "@/lib/tarifs";
 import { PACKS_PART, PACKS_PRO } from "@/lib/offers";
 
 const STEPS = ["Trajet", "Formule"];
 
+const JOCKEY_SERVICE_IDS = new Set(JOCKEY_SERVICES.map((s) => s.id));
+const VEHICLE_IDS = new Set<VehicleKind>(["vp", "utilitaire", "prestige", "ve"]);
+
 export function Simulator({
   initialFrom = "",
   initialTo = "",
   initialMission = "",
+  initialService = "",
+  initialClient = "",
+  initialVehicle = "",
 }: {
   initialFrom?: string;
   initialTo?: string;
   initialMission?: "" | MissionKind;
+  initialService?: string;
+  initialClient?: "" | ClientKind;
+  initialVehicle?: string;
 }) {
+  const jockeyService = JOCKEY_SERVICE_IDS.has(initialService as JockeyService)
+    ? (initialService as JockeyService)
+    : undefined;
+  const vehicle = VEHICLE_IDS.has(initialVehicle as VehicleKind) ? (initialVehicle as VehicleKind) : undefined;
+  const clientInit: ClientKind = initialClient === "pro" || jockeyService === "flotte" ? "pro" : "part";
+
   const [flow, setFlow] = useState<"" | MissionKind>(initialMission || "");
   const [step, setStep] = useState(0);
   const [gate, setGate] = useState(false);
-  const [client, setClient] = useState<ClientKind>("part");
+  const [client, setClient] = useState<ClientKind>(clientInit);
   const [input, setInput] = useState<QuoteInput>(
     defaultQuoteInput({
       from: initialFrom || "Quimper",
       to: initialTo,
       mission: initialMission === "jockey" ? "jockey" : "convoyage",
+      clientKind: clientInit,
+      vehicle: vehicle ?? "vp",
+      rechargeVe: vehicle === "ve",
+      protocolePrestige: vehicle === "prestige",
+      jockeyService: jockeyService ?? "mouvement",
+      jockeyRdv: jockeyService === "atelier" || jockeyService === "flotte",
+      controleVisuel: jockeyService === "achat",
     }),
   );
   const [kmManual, setKmManual] = useState("");
@@ -111,6 +134,8 @@ export function Simulator({
         gate={gate}
         setGate={setGate}
         quote={quote}
+        skipService={Boolean(jockeyService)}
+        startStep={jockeyService && (initialClient === "pro" || initialClient === "part" || jockeyService === "flotte") ? 2 : 0}
         onBack={() => {
           setFlow("");
           setGate(false);
@@ -514,6 +539,8 @@ function JockeyFlow({
   setGate,
   quote,
   onBack,
+  skipService = false,
+  startStep = 0,
 }: {
   input: QuoteInput;
   setInput: (fn: (s: QuoteInput) => QuoteInput) => void;
@@ -523,8 +550,10 @@ function JockeyFlow({
   setGate: (v: boolean) => void;
   quote: ReturnType<typeof computeQuote>;
   onBack: () => void;
+  skipService?: boolean;
+  startStep?: number;
 }) {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(startStep);
   const service = input.jockeyService;
   const needsLieu = service === "mouvement" || service === "location" || service === "atelier" || service === "achat";
   const steps =
@@ -544,6 +573,10 @@ function JockeyFlow({
   const goPrev = () => {
     if (step === 3 && !needsLieu && service !== "flotte") {
       setStep(2);
+      return;
+    }
+    if (skipService && step === 2) {
+      setStep(0);
       return;
     }
     setStep((s) => s - 1);
@@ -597,7 +630,7 @@ function JockeyFlow({
                 setClient(v as ClientKind);
                 setInput((s) => ({ ...s, clientKind: v as ClientKind }));
               }
-              setStep(1);
+              setStep(skipService ? 2 : 1);
             }}
           />
         </div>

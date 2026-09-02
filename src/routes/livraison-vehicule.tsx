@@ -11,7 +11,7 @@ export const Route = createFileRoute("/livraison-vehicule")({
     pageHead({
       title: "Livraison de véhicule en France | Convoyage BZH",
       description:
-        "Convoyage de véhicules en France. Prise en charge à l’adresse du véhicule, remise au destinataire. Particuliers et utilitaires jusqu’à 3,5 t. Devis sur dossier.",
+        "Convoyage de véhicules en France. Prise en charge à l’adresse du véhicule, remise au destinataire. Particuliers et utilitaires jusqu’à 3,5 t. Devis immédiat.",
       path: "/livraison-vehicule",
       image: "/images/mission-bmw-x3.jpg",
     }),
@@ -39,7 +39,7 @@ function Page() {
       <PageHero
         kicker="Livraison France"
         title="Livraison de véhicule en France"
-        text="Véhicules légers et utilitaires jusqu’à 3,5 t, en état de marche. Prise en charge à l’adresse indiquée. Remise au destinataire. Le devis est établi sur dossier."
+        text="Véhicules légers et utilitaires jusqu’à 3,5 t, en état de marche. Prise en charge à l’adresse indiquée. Remise au destinataire. Le devis est immédiat. Vous signez en ligne."
         image="/images/mission-bmw-x3.jpg"
         alt="Remise des clés d’un véhicule convoyé"
       />
@@ -63,8 +63,8 @@ function Page() {
           <div className="rounded-[2rem] border border-line bg-surface p-8 sm:p-10">
             <p className="font-display text-2xl text-navy">Pas de grille publique</p>
             <p className="mt-4 text-base leading-relaxed text-muted">
-              Chaque trajet a un retour à vide, un créneau et un véhicule différents. La fourchette
-              s’affiche après vos coordonnées, à confirmer avec un professionnel.
+              Chaque trajet a un retour à vide, un créneau et un véhicule différents. Le devis
+              s’affiche après vos coordonnées. Tarif fermé. Vous signez en ligne.
             </p>
             <Link to="/simulateur" className="mt-6 inline-flex text-sm font-semibold text-coral">
               Composer ma livraison

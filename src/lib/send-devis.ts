@@ -1,5 +1,5 @@
 import { SITE } from "@/lib/site";
-import type { QuoteRange } from "@/lib/tarifs";
+import type { QuoteLine } from "@/lib/tarifs";
 
 export type LeadPayload = {
   firstName: string;
@@ -12,35 +12,41 @@ export type LeadPayload = {
   toName: string;
   km: number;
   delay: string;
-  range: QuoteRange;
+  total: number;
+  quoteNo: string;
+  lines: QuoteLine[];
   extras: string;
   message?: string;
   pickupDate?: string;
   accepted?: boolean;
 };
 
+function linesText(p: LeadPayload) {
+  return p.lines.map((l) => `${l.label} : ${l.amount} €`).join("\n");
+}
+
 function autoresponse(p: LeadPayload) {
   return [
     `Bonjour ${p.firstName},`,
     "",
-    "Votre demande de convoyage est bien arrivée.",
+    `Votre devis Convoyage BZH n° ${p.quoteNo} est prêt.`,
     "",
     `Trajet : ${p.fromName} vers ${p.toName} (${p.km} km)`,
-    `Délai estimé : ${p.delay}`,
-    p.range.mid > 0 ? `Fourchette indicative : de ${p.range.low} € à ${p.range.high} €` : "",
-    p.range.mid > 0 ? `Estimation centrale : ${p.range.mid} €` : "",
-    p.extras ? `Options : ${p.extras}` : "",
+    `Montant : ${p.total} € TTC`,
+    `Délai de mission : ${p.delay}`,
     p.pickupDate ? `Date de prise en charge souhaitée : ${p.pickupDate}` : "",
-    p.accepted ? "Devis accepté par le client. À confirmer par Convoyage BZH." : "",
+    p.extras ? `Détail : ${p.extras}` : "",
+    p.accepted ? "Vous avez signé ce devis en ligne. Le tarif est verrouillé." : "Ce tarif est fermé 7 jours. Signez-le sur le site.",
     "",
-    "Ce tarif est indicatif. Clément confirme le prix et le créneau sous 2 heures ouvrées.",
-    "Le PDF de devis s’est téléchargé depuis le site au moment de votre demande. Conservez-le.",
+    "Le prix ne sera pas repris à la hausse. Nous confirmons uniquement le créneau, selon disponibilité.",
+    "Le PDF s’est téléchargé depuis le site. Conservez-le.",
     "",
-    "Inclus à la confirmation : conduite, carburant, péages, retour, état des lieux photo, remise des clés, mise en main.",
+    "Inclus : conduite, carburant, péages, retour convoyeur, état des lieux photo, remise des clés, mise en main.",
     "Franchise TVA art. 293 B du CGI.",
     "",
     `${SITE.name}. ${SITE.city}`,
     SITE.email,
+    SITE.phone,
   ]
     .filter((l) => l !== "")
     .join("\n");
@@ -48,7 +54,7 @@ function autoresponse(p: LeadPayload) {
 
 export async function sendDevisLead(p: LeadPayload): Promise<{ ok: boolean; detail?: string }> {
   const body = {
-    _subject: `Devis convoyage ${p.fromName} vers ${p.toName}. ${p.firstName} ${p.lastName}`,
+    _subject: `${p.accepted ? "Devis signé" : "Devis"} ${p.quoteNo} — ${p.fromName} vers ${p.toName}. ${p.firstName} ${p.lastName}`,
     _template: "table",
     _captcha: "false",
     _replyto: p.email,
@@ -59,14 +65,15 @@ export async function sendDevisLead(p: LeadPayload): Promise<{ ok: boolean; deta
     Profil: p.client === "pro" ? "Professionnel" : "Particulier",
     Societe: p.company || "",
     Telephone: p.phone,
+    NumeroDevis: p.quoteNo,
     Trajet: `${p.fromName} vers ${p.toName}`,
     Kilometres: String(p.km),
     Delai: p.delay,
-    Fourchette: `de ${p.range.low} € à ${p.range.high} €`,
-    Estimation: `${p.range.mid} €`,
+    Montant: `${p.total} € TTC`,
+    Lignes: linesText(p),
     Options: p.extras || "",
     DateSouhaitee: p.pickupDate || "",
-    Acceptation: p.accepted ? "Oui" : "En attente",
+    Acceptation: p.accepted ? "Signé" : "En attente de signature",
     Message: p.message || "",
   };
 
@@ -88,7 +95,7 @@ export async function sendDevisLead(p: LeadPayload): Promise<{ ok: boolean; deta
 }
 
 export function mailtoFallback(p: LeadPayload) {
-  const subject = encodeURIComponent(`Devis convoyage ${p.fromName} vers ${p.toName}`);
+  const subject = encodeURIComponent(`Devis ${p.quoteNo} ${p.fromName} vers ${p.toName}`);
   const body = encodeURIComponent(
     [
       `${p.firstName} ${p.lastName}`,
@@ -96,9 +103,9 @@ export function mailtoFallback(p: LeadPayload) {
       p.email,
       p.phone,
       `${p.fromName} vers ${p.toName}, ${p.km} km`,
+      `Montant : ${p.total} € TTC`,
       p.pickupDate ? `Date souhaitée : ${p.pickupDate}` : "",
-      p.accepted ? "Devis accepté. À confirmer." : "",
-      `Fourchette ${p.range.low}, ${p.range.high} €`,
+      p.accepted ? "Devis signé. Tarif verrouillé." : "En attente de signature.",
       p.message ?? "",
     ].join("\n"),
   );

@@ -62,7 +62,7 @@ function Page() {
       <PageHero
         kicker="Europe"
         title="Livraison de véhicule en Europe"
-        text="Belgique, Allemagne, Pologne, Monaco, Espagne, Italie, Royaume-Uni. Documents vérifiés avant le départ. Le devis est établi sur dossier."
+        text="Belgique, Allemagne, Pologne, Monaco, Espagne, Italie, Royaume-Uni. Documents vérifiés avant le départ. Le devis est immédiat. Vous signez en ligne."
         image="/images/mission-passat.jpg"
         alt="Convoyage de nuit sur autoroute européenne"
       />

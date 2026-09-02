@@ -238,6 +238,22 @@ describe("city match and approach floor", () => {
   });
 });
 
+describe("national long-haul", () => {
+  it("adds a nightée on Quimper → Nice and stays in market band", () => {
+    const q = computeQuote(baseInput({ from: "Quimper", to: "Nice" }));
+    assert.equal(q.ok, true);
+    assert.ok(q.km >= 600);
+    assert.ok(q.lines.some((l) => l.label.includes("Nuitée")));
+    assert.ok(q.total >= 800 && q.total <= 1400, `got ${q.total}`);
+  });
+
+  it("keeps Paris in a national professional band", () => {
+    const q = computeQuote(baseInput({ from: "Quimper", to: "Paris" }));
+    assert.equal(q.ok, true);
+    assert.ok(q.total >= 450 && q.total <= 700, `got ${q.total}`);
+  });
+});
+
 describe("multi-scenario pack quotes", () => {
   it("ranks Route < Sérénité < Sécurisé on the same trip", () => {
     const rows = packQuotes(baseInput());

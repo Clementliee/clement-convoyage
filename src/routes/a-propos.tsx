@@ -9,7 +9,7 @@ export const Route = createFileRoute("/a-propos")({
     pageHead({
       title: "À propos | Convoyeur automobile à Quimper | Convoyage BZH",
       description:
-        "Clément Leliège, convoyeur automobile à Quimper. Acheminement en France et en Europe. Photos, clés en main, mise en main offerte. Devis sous deux heures.",
+        "Clément Leliège, convoyeur automobile à Quimper. Acheminement en France et en Europe. Photos, clés en main, mise en main offerte. Devis immédiat.",
       path: "/a-propos",
       image: "/images/fondateur-clement-quimper.jpg",
     }),

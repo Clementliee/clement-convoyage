@@ -50,7 +50,7 @@ function ville(
       `Convoyage BZH est basé à Quimper. Pour ${name}, vous avez un interlocuteur local, joignable tous les jours, qui connaît les délais, les axes et les remises en concession.`,
       extra,
       "Chaque mission comprend la conduite de A à B, le carburant du véhicule convoyé, les péages, le retour du convoyeur, un état des lieux photo au départ et à l’arrivée, la remise des clés et la mise en main offerte.",
-      "Le simulateur prépare une fourchette après vos coordonnées. Packs particuliers et professionnels. Devis ferme sous 2 heures.",
+      "Le simulateur prépare une devis immédiat après vos coordonnées. Packs particuliers et professionnels. Devis immédiat.",
       "Véhicules acceptés : particuliers, utilitaires et vans ≤ 3,5 t, en état de marche. Hors champ : plateau, poids lourd, non-roulant.",
     ],
     nearby,
@@ -65,7 +65,7 @@ function ville(
       },
       {
         q: "Comment obtenir le tarif ?",
-        a: "Via le simulateur : trajet, véhicule, pack, puis nom, téléphone et e-mail. Une fourchette s’affiche. Devis ferme sous 2 heures ouvrées.",
+        a: "Via le simulateur : trajet, véhicule, pack, puis nom, téléphone et e-mail. Le montant s’affiche. Devis immédiat, à signer en ligne.",
       },
     ],
   };
@@ -91,7 +91,7 @@ function pays(
     body: [
       `Même standard qu’en France : remise comme en concession, photos du véhicule, interlocuteur unique depuis Quimper. Destination type : ${city}.`,
       docs,
-      "Une fourchette est calculée au simulateur après vos coordonnées, à confirmer sous 2 heures. Délai type J+2 à J+4 selon axes et formalités.",
+      "Le montant est calculé au simulateur après vos coordonnées. Vous signez tout de suite. Délai type J+2 à J+4 selon axes et formalités.",
       "Options recommandées à l’international : traqueur GPS, protocole sécurité, lavage avant remise.",
     ],
     nearby: [
@@ -136,7 +136,7 @@ export const SEO_PAGES: SeoPage[] = [
       "L’agglomération tourne autour des concessions, des garages, des mandataires et des particuliers qui achètent à distance. Un convoyeur sur place évite de mobiliser un vendeur ou un mécanicien pour un aller-retour CT, une courtoisie ou une livraison client.",
       "Les missions locales partent souvent le jour même, si le créneau tient. Bénodet, Fouesnant, Concarneau, Pont-l’Abbé, Douarnenez : le même interlocuteur. Brest, Lorient, Rennes, Nantes, Paris : le même protocole.",
       "Toujours inclus : conduite, carburant du véhicule convoyé, péages, retour du convoyeur, état des lieux photo, clés, mise en main. Packs particuliers (Route, Sérénité, Sécurisé) et professionnels (Atelier, Livraison client, Signature).",
-      "Le prix se calcule au simulateur, après nom, téléphone et e-mail. Devis ferme sous 2 heures ouvrées.",
+      "Le prix se calcule au simulateur, après nom, téléphone et e-mail. Devis immédiat, à signer en ligne.",
     ],
     highlights: [
       { t: "Base ici", d: "Pas une plateforme. Un interlocuteur à Quimper, tous les jours. Astreinte 24 h pour les professionnels." },
@@ -190,7 +190,7 @@ export const SEO_PAGES: SeoPage[] = [
       },
       {
         q: "Combien coûte un convoyage à Quimper ?",
-        a: "Un forfait local existe pour les courtes distances. Le montant dépend du trajet, du véhicule et des options. La fourchette s’affiche après vos coordonnées. Prix indicatif, à confirmer.",
+        a: "Un forfait local existe pour les courtes distances. Le montant dépend du trajet, du véhicule et des options. Le devis s’affiche après vos coordonnées. Tarif fermé, à signer.",
       },
       {
         q: "Intervenez-vous à Pluguffan et Ergué-Gabéric ?",
@@ -324,7 +324,7 @@ export const SEO_PAGES: SeoPage[] = [
     { to: "/convoyage-vannes", label: "Vannes" },
     { to: "/convoyage-angers", label: "Angers" },
   ]),
-  ville("convoyage-angers", "Angers", "Angers relie l’ouest au Val de Loire. Livraisons mandataires et particuliers.", "Mission France type. Fourchette après coordonnées, confirmation sous 2 h.", [
+  ville("convoyage-angers", "Angers", "Angers relie l’ouest au Val de Loire. Livraisons mandataires et particuliers.", "Mission France type. Devis immédiat, devis immédiat.", [
     { to: "/convoyage-nantes", label: "Nantes" },
     { to: "/convoyage-le-mans", label: "Le Mans" },
     { to: "/convoyage-tours", label: "Tours" },
@@ -349,7 +349,7 @@ export const SEO_PAGES: SeoPage[] = [
     { to: "/convoyage-rouen", label: "Rouen" },
     { to: "/convoyage-royaume-uni", label: "Royaume-Uni" },
   ]),
-  ville("convoyage-rouen", "Rouen", "Rouen, axe Seine. Livraisons Haute-Normandie, relais vers Paris et Lille.", "Mission France. Protocole professionnel, fourchette après dossier.", [
+  ville("convoyage-rouen", "Rouen", "Rouen, axe Seine. Livraisons Haute-Normandie, relais vers Paris et Lille.", "Mission France. Protocole professionnel, devis immédiat.", [
     { to: "/convoyage-caen", label: "Caen" },
     { to: "/convoyage-paris", label: "Paris" },
     { to: "/convoyage-lille", label: "Lille" },
@@ -572,7 +572,7 @@ export const SEO_PAGES: SeoPage[] = [
     kind: "france",
     image: EU,
     country: "FR",
-    intro: "Depuis Quimper, nous livrons toute la France métropolitaine. Pas de grille publiée : fourchette après vos coordonnées.",
+    intro: "Depuis Quimper, nous livrons toute la France métropolitaine. Pas de grille publiée : devis immédiat après vos coordonnées.",
     body: [
       "Paris, Lyon, Bordeaux, Toulouse, Marseille, Nice, Nantes, Rennes, Lille, Strasbourg : le même standard de remise.",
       "Particuliers : règlement avant départ. Professionnels : 15 jours. Options GPS et sécurité pour les longs trajets.",
@@ -633,7 +633,7 @@ export const SEO_PAGES: SeoPage[] = [
     intro: "Le mandataire vend. Nous livrons. Le client reçoit une remise de concession, pas un parking.",
     body: [
       "Photos au départ de la plate-forme, suivi, remise chez le client ou en point relais convenu.",
-      "Option GPS sur les importations et les hauts de gamme. Pas de tarif public : fourchette après dossier.",
+      "Option GPS sur les importations et les hauts de gamme. Pas de tarif public : devis immédiat.",
     ],
     nearby: [
       { to: "/livraison-vehicule-particulier", label: "Particuliers" },
@@ -741,7 +741,7 @@ export const SEO_PAGES: SeoPage[] = [
     intro: "Urgent ne veut pas dire improvisé. Un créneau, un protocole, une confirmation.",
     body: [
       "Sous 24 h selon disponibilité. Pas de promesse magique : si le créneau n’existe pas, on le dit.",
-      "Astreinte 24 h pour les professionnels. Le simulateur a une option Urgent. Fourchette après coordonnées.",
+      "Astreinte 24 h pour les professionnels. Le simulateur a une option Urgent. Devis immédiat.",
     ],
     nearby: [
       { to: "/simulateur", label: "Simulateur" },
@@ -900,7 +900,7 @@ export const SEO_PAGES: SeoPage[] = [
   pays("convoyage-lettonie", "Lettonie", "Riga", "Lettonie : Riga. Corridor baltique.", "Documents Schengen. GPS sur l’import."),
   pays("convoyage-lituanie", "Lituanie", "Vilnius", "Lituanie : Vilnius. Porte de la Pologne vers les pays baltes.", "Documents UE. Souvent couplé à une mission Pologne."),
   pays("convoyage-malte", "Malte", "La Valette", "Malte : La Valette. Ferry / mer, formalités spécifiques.", "Trajet mer à cadrer au devis. GPS et documents."),
-  pays("convoyage-chypre", "Chypre", "Nicosie", "Chypre : Nicosie. Trajet mer / air, devis spécifique.", "Pas un convoyage routier classique. Devis sur dossier, hors simulateur standard."),
+  pays("convoyage-chypre", "Chypre", "Nicosie", "Chypre : Nicosie. Trajet mer / air, devis spécifique.", "Pas un convoyage routier classique. Devis immédiat, hors simulateur standard."),
   pays("convoyage-liechtenstein", "Liechtenstein", "Vaduz", "Liechtenstein : Vaduz. Prestige, discrétion, voisin de la Suisse.", "Formalités type Suisse. Protocole sécurité."),
   pays("convoyage-geneve", "Genève", "Genève", "Genève, pour les recherches locales. Voir aussi la page Suisse.", "Même formalités que la Suisse. Prestige fréquent."),
   {
@@ -913,7 +913,7 @@ export const SEO_PAGES: SeoPage[] = [
     intro: "La remise n’est pas un colis. Un coffret, composé ici, posé avec les clés.",
     body: [
       "Deux compositions, pas un catalogue. Coffret Armor : galettes, caramels au beurre salé, cidre. Coffret Champagne : brut 75 cl et chocolats.",
-      "Clément va chercher les produits et assemble. Ce n’est pas une boîte Amazon étiquetée. Un coffret par mission, coché au simulateur. Tarif dans la fourchette, jamais en vitrine.",
+      "Clément va chercher les produits et assemble. Ce n’est pas une boîte Amazon étiquetée. Un coffret par mission, coché au simulateur. Tarif dans le devis, jamais en vitrine.",
     ],
     nearby: [
       { to: "/coffrets-livraison", label: "Les deux coffrets" },
@@ -932,7 +932,7 @@ export const SEO_PAGES: SeoPage[] = [
     intro: "Un regard de concession, pas un rapport d’expert. Vingt points, des photos.",
     body: [
       "Ce n’est pas une expertise. Pas de rapport opposable. Un contrôle visuel de présentation : niveaux, éclairage, pneus, carrosserie visible, témoins, documents.",
-      "Si un point bloque le départ, la mission s’arrête et le client est appelé. Option au simulateur, tarif dans la fourchette.",
+      "Si un point bloque le départ, la mission s’arrête et le client est appelé. Option au simulateur, tarif dans le devis.",
     ],
     nearby: [
       { to: "/controle-vehicule", label: "Page contrôle visuel" },
@@ -945,12 +945,12 @@ export const SEO_PAGES: SeoPage[] = [
     slug: "plein-carburant-livraison",
     title: "Plein de carburant à la livraison, Convoyage BZH",
     h1: "Plein de carburant à la livraison",
-    description: "Plein à la remise du véhicule convoyé. Carburant au réel, forfait dans la fourchette. Base Quimper.",
+    description: "Plein à la remise du véhicule convoyé. Carburant au réel, forfait dans le devis. Base Quimper.",
     kind: "metier",
     image: "/images/plein-carburant-vehicule.jpg",
     intro: "Une remise avec la réserve allumée, ce n’est pas une concession.",
     body: [
-      "Le plein se fait à l’arrivée. Le carburant est repris au réel. Un forfait entre dans la fourchette du simulateur, à confirmer.",
+      "Le plein se fait à l’arrivée. Le carburant est repris au réel. Un forfait entre dans le devis du simulateur.",
       "Souvent couplé au lavage et au contrôle visuel. Pour les VE, c’est la recharge au niveau convenu.",
     ],
     nearby: [
@@ -973,7 +973,7 @@ export const SEO_PAGES: SeoPage[] = [
     body: [
       "Convoyage BZH achemine des véhicules particuliers et utilitaires jusqu’à 3,5 t, en état de marche. Base Quimper. Prise en charge partout en France et en Europe.",
       "Chaque mission comprend la conduite, le carburant du véhicule convoyé, les péages, le retour du convoyeur, un état des lieux photo et la mise en main offerte.",
-      "Ce n’est pas un transport plateau. Ce n’est pas un taxi. C’est une remise. Le prix n’est pas publié. Le simulateur prépare une fourchette après vos coordonnées.",
+      "Ce n’est pas un transport plateau. Ce n’est pas un taxi. C’est une remise. Le prix n’est pas publié. Le simulateur prépare une devis immédiat après vos coordonnées.",
     ],
     nearby: [
       { to: "/livraison-vehicule", label: "Livraison France" },
@@ -1005,7 +1005,7 @@ export const SEO_PAGES: SeoPage[] = [
     body: [
       "Vous parlez à quelqu’un qui connaît les axes, les concessions et les remises. Expérience la remise en concession. Si ça coince, on prévient.",
       "Particuliers, mandataires, garages, loueurs. Astreinte 24 h pour les professionnels. Tous les jours.",
-      "Le simulateur prépare le trajet. Le devis ferme arrive sous 2 heures ouvrées.",
+      "Le simulateur prépare le trajet. Le devis s’affiche tout de suite. Vous signez en ligne.",
     ],
     nearby: [
       { to: "/a-propos", label: "À propos" },
@@ -1032,7 +1032,7 @@ export const SEO_PAGES: SeoPage[] = [
     body: [
       "Convoyage depuis la concession, le constructeur ou le mandataire jusqu’au client. Lavage, plein, mise en main offerte.",
       "L’état des lieux photo protège le vendeur et l’acheteur. Option GPS sur les flux prestige et import.",
-      "Le tarif n’est pas affiché. Fourchette après vos coordonnées, à confirmer.",
+      "Le tarif n’est pas affiché. Devis immédiat après vos coordonnées, à signer en ligne.",
     ],
     nearby: [
       { to: "/convoyage-concession", label: "Concessions" },
@@ -1148,7 +1148,7 @@ export const SEO_PAGES: SeoPage[] = [
     country: "FR",
     intro: "La préparation fait la remise. Ce n’est pas du detailing de concours.",
     body: [
-      "Packs Essentiel, Confort, Premium. Contrôle visuel, nettoyage, kit. Prix indicatifs, à confirmer.",
+      "Packs Essentiel, Confort, Premium. Contrôle visuel, nettoyage, kit. Tarif fermé, à signer.",
       "Les concessions y gagnent un client qui récupère un véhicule présentable. Sans mobiliser l’atelier.",
     ],
     nearby: [

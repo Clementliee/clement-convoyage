@@ -20,7 +20,7 @@ function Page() {
         <p>
           Prestataire : {SITE.legalName}, {SITE.form}, enseigne {SITE.name}, nom commercial {SITE.tradeName}. SIRET {SITE.siret}. {SITE.city}, {SITE.region}. {SITE.vat}.
         </p>
-        <p>Devis valable 15 jours. La mission est confirmée à l’accord écrit. Le simulateur produit une fourchette indicative, à confirmer sous 2 heures ouvrées.</p>
+        <p>Devis valable 7 jours. L’acceptation en ligne vaut accord sur le tarif. Le simulateur produit un devis immédiat. Nous confirmons le créneau selon disponibilité, pas le prix.</p>
         <p>Particuliers : 100 % par virement avant départ. Pas de mission sans encaissement.</p>
         <p>
           Professionnels : virement à 15 jours fin de mission. Premier dossier : acompte 50 % possible. Retard : pénalités légales et indemnité de 40 €.

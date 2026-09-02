@@ -46,7 +46,7 @@ function Page() {
           <h2 className="mt-2 font-display text-2xl text-navy">Le réservoir n’est pas un détail.</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted">
             Une remise avec la réserve allumée, ce n’est pas une concession. On fait le plein à
-            l’arrivée. Le carburant est repris au réel ; un forfait entre dans la fourchette.
+            l’arrivée. Le carburant est repris au réel ; un forfait entre dans le devis.
           </p>
         </div>
         </div>

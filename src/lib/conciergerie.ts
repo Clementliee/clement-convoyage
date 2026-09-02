@@ -2,7 +2,7 @@ export const CONCIERGE_STEPS = [
   {
     n: "01",
     title: "Ordre de mission",
-    text: "Créneau, adresse et documents. Un double des clés peut rester à notre disposition pour le prochain départ. Vous validez, nous confirmons sous deux heures ouvrées. Rien n’est engagé avant votre acceptation du devis.",
+    text: "Créneau, adresse et documents. Un double des clés peut rester à notre disposition pour le prochain départ. Le devis s’affiche tout de suite. Vous signez. Nous confirmons le créneau. Rien n’est engagé avant votre signature.",
   },
   {
     n: "02",

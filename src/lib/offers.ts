@@ -62,7 +62,7 @@ export const PROCESS = [
   {
     n: "01",
     t: "Ordre de mission",
-    d: "Impératifs de délai, créneau dédié, confirmation sous 2 heures ouvrées.",
+    d: "Trajet, devis immédiat, signature en ligne. Nous confirmons ensuite le créneau.",
   },
   {
     n: "02",

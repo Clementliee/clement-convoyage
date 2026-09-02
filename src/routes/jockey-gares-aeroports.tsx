@@ -23,7 +23,7 @@ export const Route = createFileRoute("/jockey-gares-aeroports")({
     pageHead({
       title: "Conciergerie automobile en Bretagne | Convoyage BZH",
       description:
-        "Conciergerie de véhicules en Bretagne. Gare, aéroport, atelier, flotte, roulage prestige, achat accompagné. Devis sur dossier. Pas de gardiennage.",
+        "Conciergerie de véhicules en Bretagne. Gare, aéroport, atelier, flotte, roulage prestige, achat accompagné. Devis immédiat. Pas de gardiennage.",
       path: "/jockey-gares-aeroports",
       image: "/images/mission-tiguan-gare.jpg",
     }),
@@ -53,7 +53,7 @@ const FAQ = [
   },
   {
     q: "Que dois-je fournir pour le devis ?",
-    a: "Le créneau, l’adresse, le véhicule, et vos coordonnées : prénom, nom, téléphone ou e-mail. Le montant n’apparaît qu’après. Vous l’acceptez ensuite.",
+    a: "Le créneau, l’adresse, le véhicule, et vos coordonnées : prénom, nom, téléphone ou e-mail. Le montant s’affiche tout de suite. Vous signez.",
   },
   {
     q: "Où intervenez-vous ?",
@@ -61,7 +61,7 @@ const FAQ = [
   },
   {
     q: "Pourquoi aucun tarif n’est-il affiché ?",
-    a: "Chaque mission est chiffrée sur dossier : ville, créneau, atelier, flotte. Le montant figure sur le devis, après communication de vos coordonnées. Vous l’acceptez ensuite.",
+    a: "Chaque mission est chiffrée tout de suite : ville, créneau, atelier, flotte. Le montant figure sur le devis, après communication de vos coordonnées. Vous l’acceptez ensuite.",
   },
 ];
 
@@ -71,7 +71,7 @@ function Page() {
       <PageHero
         kicker="Conciergerie · Bretagne"
         title="Conciergerie automobile en Bretagne"
-        text="Gares, ateliers, flottes et véhicules de prestige. Nous déplaçons le véhicule à votre place. Vous prenez le train, vous restez au bureau, vous décidez d’un achat à distance. Chaque prestation est détaillée ci-dessous. Le devis est établi sur dossier."
+        text="Gares, ateliers, flottes et véhicules de prestige. Nous déplaçons le véhicule à votre place. Vous prenez le train, vous restez au bureau, vous décidez d’un achat à distance. Chaque prestation est détaillée ci-dessous. Le devis est immédiat. Vous signez en ligne."
         image="/images/mission-tiguan-gare.jpg"
         alt="Volkswagen Tiguan sur le parvis d’une gare en Bretagne"
       />
@@ -243,7 +243,7 @@ function Page() {
       </section>
       <CtaBar
         title="Un véhicule à déposer, à entretenir ou à faire rouler ?"
-        text="Le devis est établi sur dossier, pour un particulier, un professionnel ou une flotte."
+        text="Le devis est immédiat, pour un particulier, un professionnel ou une flotte."
         primaryLabel="Chiffrer une conciergerie"
         primarySearch={{ mission: "jockey" }}
         secondaryTo="/contact"

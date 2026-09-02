@@ -2,7 +2,7 @@ export const CONVOYAGE_STEPS = [
   {
     n: "01",
     title: "Ordre de mission",
-    text: "Vous indiquez le départ, l’arrivée, le véhicule et le créneau souhaité. Nous étudions le trajet depuis Quimper, nous confirmons sous deux heures ouvrées, ou nous vous rappelons si le créneau ne tient pas. Rien n’est engagé avant votre acceptation du devis.",
+    text: "Vous indiquez le départ, l’arrivée, le véhicule et le créneau souhaité. Le devis s’affiche tout de suite. Vous signez. Nous confirmons le créneau, ou nous proposons une autre date. Rien n’est engagé avant votre signature.",
   },
   {
     n: "02",
@@ -41,7 +41,7 @@ export const CONVOYAGE_PREPARE = [
   },
   {
     t: "Votre identité",
-    d: "Prénom, nom, téléphone ou e-mail. Le montant n’apparaît qu’après. Vous acceptez ensuite le devis.",
+    d: "Prénom, nom, téléphone ou e-mail. Le montant s’affiche tout de suite. Un e-mail part. Vous signez.",
   },
 ] as const;
 

@@ -5,13 +5,14 @@ import { Button } from "@/components/ui/button";
 import { mailtoFallback, sendDevisLead } from "@/lib/send-devis";
 import { SITE } from "@/lib/site";
 import { pageHead } from "@/lib/seo";
+import { makeQuoteNo } from "@/lib/tarifs";
 
 export const Route = createFileRoute("/contact")({
   head: () =>
     pageHead({
       title: "Contact et devis | Convoyage automobile à Quimper | Convoyage BZH",
       description:
-        "Demandez un devis à Convoyage BZH, Quimper. Réponse sous deux heures ouvrées. Téléphone 06 24 04 85 73.",
+        "Demandez un devis à Convoyage BZH, Quimper. Devis immédiat sur le simulateur. Téléphone 06 24 04 85 73.",
       path: "/contact",
     }),
   component: Page,
@@ -58,8 +59,10 @@ function Page() {
       fromName: from.trim() || "Quimper",
       toName: to.trim() || "à préciser",
       km: 0,
-      delay: "à confirmer",
-      range: { low: 0, mid: 0, high: 0 },
+      delay: "à préciser",
+      total: 0,
+      quoteNo: makeQuoteNo(),
+      lines: [],
       extras: "Demande contact",
       message: message.trim(),
       pickupDate: pickupDate.trim(),
@@ -75,7 +78,7 @@ function Page() {
       <PageHero
         kicker="Contact"
         title="Demander un devis"
-        text={`Réponse sous deux heures ouvrées. ${SITE.hours}. Base ${SITE.city}.`}
+        text={`Pour un devis immédiat, utilisez le simulateur. Pour un message, réponse sous deux heures. ${SITE.hours}. Base ${SITE.city}.`}
       />
       <section className="mx-auto grid max-w-6xl gap-10 px-4 pb-16 sm:px-6 lg:grid-cols-2">
         {done ? (

@@ -9,7 +9,7 @@ export const Route = createFileRoute("/destinations")({
     pageHead({
       title: "Destinations | Bretagne, France, Europe | Convoyage BZH",
       description:
-        "Convoyage de véhicules en Bretagne, en France et en Europe. Prise en charge à l’adresse du véhicule. Base Quimper. Devis sur dossier.",
+        "Convoyage de véhicules en Bretagne, en France et en Europe. Prise en charge à l’adresse du véhicule. Base Quimper. Devis immédiat.",
       path: "/destinations",
     }),
   component: Page,
@@ -60,7 +60,7 @@ function Page() {
       <PageHero
         kicker="Destinations"
         title="Zones d’intervention"
-        text="Le véhicule est pris en charge à l’adresse indiquée et remis au destinataire. Quimper est la base opérationnelle, pas un départ obligatoire. Le devis est établi sur dossier."
+        text="Le véhicule est pris en charge à l’adresse indiquée et remis au destinataire. Quimper est la base opérationnelle, pas un départ obligatoire. Le devis est immédiat. Vous signez en ligne."
       />
       {GROUPS.map((g) => (
         <section key={g.title} className="mx-auto max-w-6xl px-4 pb-12 sm:px-6">

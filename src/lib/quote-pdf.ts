@@ -1,5 +1,5 @@
-import type { QuoteRange } from "@/lib/tarifs";
 import { SITE } from "@/lib/site";
+import type { QuoteLine } from "@/lib/tarifs";
 
 export type QuotePdfInput = {
   firstName: string;
@@ -12,15 +12,26 @@ export type QuotePdfInput = {
   toName: string;
   km: number;
   delay: string;
-  range: QuoteRange;
+  total: number;
+  quoteNo: string;
+  lines: QuoteLine[];
   extras: string;
   pickupDate?: string;
+  accepted?: boolean;
 };
+
+function addDays(days: number) {
+  const d = new Date();
+  d.setDate(d.getDate() + days);
+  return d.toLocaleDateString("fr-FR");
+}
 
 export async function downloadQuotePdf(data: QuotePdfInput) {
   const { jsPDF } = await import("jspdf");
   const doc = new jsPDF({ unit: "mm", format: "a4" });
   const pageW = 210;
+  const issued = new Date().toLocaleDateString("fr-FR");
+  const until = addDays(SITE.quoteValidityDays);
 
   doc.setFillColor(244, 241, 234);
   doc.rect(0, 0, pageW, 297, "F");
@@ -35,9 +46,9 @@ export async function downloadQuotePdf(data: QuotePdfInput) {
   doc.text(SITE.name, 22, 24);
   doc.setFont("helvetica", "normal");
   doc.setFontSize(9);
-  doc.text("Devis indicatif, a confirmer", 22, 32);
+  doc.text(data.accepted ? `Devis n° ${data.quoteNo} — signé` : `Devis n° ${data.quoteNo}`, 22, 32);
 
-  let y = 54;
+  let y = 52;
   doc.setTextColor(29, 29, 31);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(11);
@@ -45,72 +56,80 @@ export async function downloadQuotePdf(data: QuotePdfInput) {
   doc.setFont("helvetica", "normal");
   doc.setFontSize(10);
   y += 7;
-  const who = `${data.firstName} ${data.lastName}`.trim();
-  doc.text(who, 22, y);
+  doc.text(`${data.firstName} ${data.lastName}`.trim(), 22, y);
   y += 5;
   doc.setTextColor(110, 110, 115);
   doc.text(data.client === "pro" ? `Professionnel${data.company ? `, ${data.company}` : ""}` : "Particulier", 22, y);
   y += 5;
-  doc.text(`${data.email}, ${data.phone}`, 22, y);
+  doc.text([data.email, data.phone].filter(Boolean).join(" · ") || "—", 22, y);
 
-  y += 14;
+  y += 12;
   doc.setTextColor(29, 29, 31);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(11);
-  doc.text("Trajet", 22, y);
+  doc.text("Mission", 22, y);
   doc.setFont("helvetica", "normal");
   doc.setFontSize(10);
   y += 7;
   doc.text(`${data.fromName} vers ${data.toName}`, 22, y);
   y += 5;
   doc.setTextColor(110, 110, 115);
-  doc.text(`${data.km} km, delai ${data.delay}`, 22, y);
+  doc.text(`${data.km} km · délai ${data.delay}`, 22, y);
   if (data.pickupDate) {
     y += 5;
-    doc.text(`Prise en charge souhaitee : ${data.pickupDate}`, 22, y);
-  }
-  if (data.extras) {
-    y += 5;
-    const extraLines = doc.splitTextToSize(`Options : ${data.extras}`, 166);
-    doc.text(extraLines, 22, y);
-    y += extraLines.length * 5;
+    doc.text(`Prise en charge souhaitée : ${data.pickupDate}`, 22, y);
   }
 
   y += 12;
+  doc.setTextColor(29, 29, 31);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(11);
+  doc.text("Détail", 22, y);
+  y += 8;
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  for (const line of data.lines) {
+    if (y > 230) break;
+    doc.setTextColor(29, 29, 31);
+    const label = doc.splitTextToSize(line.label, 120);
+    doc.text(label, 22, y);
+    doc.text(`${line.amount} EUR`, 176, y, { align: "right" });
+    y += Math.max(6, label.length * 5);
+  }
+
+  y += 4;
   doc.setFillColor(244, 241, 234);
-  doc.roundedRect(22, y, 166, 42, 3, 3, "F");
+  doc.roundedRect(22, y, 166, 28, 3, 3, "F");
   doc.setTextColor(110, 110, 115);
   doc.setFontSize(8);
-  doc.text("FOURCHETTE INDICATIVE", 32, y + 12);
+  doc.text(data.accepted ? "DEVIS SIGNÉ" : "MONTANT TTC — TARIF FERMÉ", 32, y + 10);
   doc.setTextColor(29, 29, 31);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(18);
-  doc.text(`de ${data.range.low} a ${data.range.high} EUR`, 32, y + 26);
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(9);
-  doc.setTextColor(110, 110, 115);
-  doc.text(`Estimation centrale : ${data.range.mid} EUR`, 32, y + 35);
+  doc.text(`${data.total} EUR`, 32, y + 22);
 
-  y += 56;
-  doc.setTextColor(29, 29, 31);
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(10);
-  doc.text("A confirmer avec un professionnel", 22, y);
+  y += 38;
   doc.setFont("helvetica", "normal");
   doc.setFontSize(9);
   doc.setTextColor(80, 80, 85);
-  const disclaimer = doc.splitTextToSize(
-    "Ce document n'est pas un devis ferme. La fourchette depend du trafic, des attentes, du vehicule et du retour a vide. Un professionnel confirme le prix avant toute mission. Inclus a la confirmation : conduite, carburant, peages, retour convoyeur, etat des lieux photo, remise des cles, mise en main. Franchise de TVA art. 293 B du CGI.",
+  const legal = doc.splitTextToSize(
+    `Émis le ${issued}. Valable ${SITE.quoteValidityDays} jours, jusqu'au ${until}. ` +
+      (data.accepted
+        ? "Accepté en ligne. Le tarif est verrouillé. Le créneau est confirmé selon disponibilité."
+        : "L'acceptation en ligne vaut accord sur le tarif. Nous confirmons ensuite le créneau, pas le prix.") +
+      " Inclus : conduite, carburant, péages, retour convoyeur, état des lieux photo, remise des clés, mise en main. " +
+      SITE.vat +
+      ".",
     166,
   );
-  doc.text(disclaimer, 22, y + 7);
+  doc.text(legal, 22, y);
 
   doc.setFontSize(8);
   doc.setTextColor(150, 150, 155);
-  doc.text(`${SITE.name}, SIRET ${SITE.siret}`, 22, 268);
+  doc.text(`${SITE.name} — ${SITE.legalName}, SIRET ${SITE.siret}`, 22, 268);
   doc.text(`${SITE.city}, ${SITE.email}, ${SITE.phone}`, 22, 273);
-  doc.text(new Date().toLocaleDateString("fr-FR"), 170, 272);
+  doc.text(issued, 170, 273);
 
   const slug = `${data.fromName}-${data.toName}`.replace(/[^a-zA-Z0-9]+/g, "-");
-  doc.save(`Devis-Convoyage-BZH-${slug}.pdf`);
+  doc.save(`Devis-${data.quoteNo}-${slug}.pdf`);
 }

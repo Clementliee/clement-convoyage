@@ -17,7 +17,7 @@ export function HomeEstimator() {
     >
       <p className="font-display text-2xl text-navy">Estimer en trente secondes</p>
       <p className="mt-2 text-sm leading-relaxed text-muted">
-        La fourchette s’affiche après vos coordonnées. Devis ferme sous 2 heures.
+        Le montant s’affiche après vos coordonnées. Vous signez. Un e-mail part avec le devis.
       </p>
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         <label className="text-sm text-muted">
@@ -48,7 +48,7 @@ export function HomeEstimator() {
         ))}
       </datalist>
       <Button type="submit" className="mt-6 w-full" size="lg">
-        Obtenir mon estimation
+        Obtenir mon devis
       </Button>
     </form>
   );

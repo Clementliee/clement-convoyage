@@ -37,7 +37,7 @@ function Page() {
         </p>
         <p>Hébergeur : {SITE.host}.</p>
         <p>
-          Les estimations du simulateur sont indicatives. Elles n’engagent qu’après confirmation écrite sous 2 heures ouvrées.
+          Le simulateur produit un devis immédiat. L’acceptation en ligne vaut accord sur le tarif. Le créneau est confirmé selon disponibilité.
         </p>
       </div>
     </main>

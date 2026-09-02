@@ -24,7 +24,7 @@ export const Route = createFileRoute("/prestations")({
     pageHead({
       title: "Convoyage automobile France et Europe | Convoyage BZH",
       description:
-        "Convoyage de véhicules. France et Europe. Particuliers et professionnels. Photos, mise en main offerte. Devis sur dossier. Base Quimper.",
+        "Convoyage de véhicules. France et Europe. Particuliers et professionnels. Photos, mise en main offerte. Devis immédiat. Base Quimper.",
       path: "/prestations",
       image: "/images/mission-audi-a4.jpg",
     }),
@@ -50,7 +50,7 @@ const FAQ = [
   },
   {
     q: "Que dois-je fournir pour le devis ?",
-    a: "Les deux adresses, le véhicule, la date souhaitée, et vos coordonnées : prénom, nom, téléphone ou e-mail. Le montant n’apparaît qu’après. Vous l’acceptez ensuite.",
+    a: "Les deux adresses, le véhicule, la date souhaitée, et vos coordonnées : prénom, nom, téléphone ou e-mail. Le montant s’affiche tout de suite. Vous signez.",
   },
   {
     q: "Et la conciergerie ?",
@@ -58,7 +58,7 @@ const FAQ = [
   },
   {
     q: "Pourquoi aucun tarif n’est-il affiché ?",
-    a: "Chaque trajet est chiffré sur dossier : ville, formule, créneau, véhicule. Le montant figure sur le devis, après communication de vos coordonnées. Vous l’acceptez ensuite. La date est confirmée par nos soins.",
+    a: "Chaque trajet est chiffré tout de suite : ville, formule, créneau, véhicule. Le montant figure sur le devis, après communication de vos coordonnées. Vous l’acceptez ensuite. La date est confirmée par nos soins.",
   },
   {
     q: "Qu’est-ce que la livraison vidéo ?",
@@ -72,7 +72,7 @@ function Page() {
       <PageHero
         kicker="Convoyage · France et Europe"
         title="Acheminement de votre véhicule"
-        text="Prise en charge à l’adresse du véhicule, remise au destinataire. Particuliers et professionnels. Un chauffeur dédié, un état des lieux photographique, une mise en main offerte. Chaque prestation est détaillée ci-dessous. Le devis est établi sur dossier."
+        text="Prise en charge à l’adresse du véhicule, remise au destinataire. Particuliers et professionnels. Un chauffeur dédié, un état des lieux photographique, une mise en main offerte. Chaque prestation est détaillée ci-dessous. Le devis est immédiat. Vous signez en ligne."
         image="/images/mission-audi-a4.jpg"
         alt="Audi A4 Avant en convoyage sur autoroute"
       />

@@ -3,11 +3,13 @@ import { AppLink } from "@/components/AppLink";
 import { useState, type FormEvent } from "react";
 import { CtaBar } from "@/components/CtaBar";
 import { PageHero } from "@/components/PageHero";
+import { QuoteCta } from "@/components/QuoteCta";
 import { Button } from "@/components/ui/button";
 import { pageHead } from "@/lib/seo";
 import { B2B_CASES, B2B_OFFERS } from "@/lib/offers";
 import { mailtoFallback, sendDevisLead } from "@/lib/send-devis";
 import { SITE } from "@/lib/site";
+import { makeQuoteNo } from "@/lib/tarifs";
 
 export const Route = createFileRoute("/professionnels")({
   head: () =>
@@ -62,9 +64,12 @@ function Page() {
         </p>
         <div className="mt-16 grid gap-5 lg:grid-cols-3">
           {B2B_OFFERS.map((c) => (
-            <div key={c.t} className="rounded-[1.5rem] bg-sand p-6">
+            <div key={c.t} className="flex flex-col rounded-[1.5rem] bg-sand p-6">
               <h3 className="font-display text-xl text-navy">{c.t}</h3>
-              <p className="mt-2 text-sm text-muted">{c.d}</p>
+              <p className="mt-2 flex-1 text-sm text-muted">{c.d}</p>
+              <QuoteCta search={{ mission: "convoyage", client: "pro" }} variant="ghost" className="mt-6">
+                Chiffrer cette mission
+              </QuoteCta>
             </div>
           ))}
         </div>
@@ -81,7 +86,7 @@ function Page() {
             <h2 className="font-display text-3xl text-navy">Nous écrire</h2>
             <ul className="mt-6 space-y-3 text-muted">
               <li>Même tarif, particulier ou professionnel.</li>
-              <li>Devis sous 2 heures ouvrées.</li>
+              <li>Devis immédiat.</li>
               <li>Un interlocuteur à Quimper.</li>
               <li>Facture après mission.</li>
             </ul>
@@ -89,18 +94,25 @@ function Page() {
               L’espace client (suivi, factures) viendra. Aujourd’hui : un cadre clair, un téléphone, un e-mail.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <AppLink to="/convoyage-concession" className="rounded-full border border-line px-5 py-2.5 text-sm">
-                Concessions
-              </AppLink>
-              <AppLink to="/simulateur" className="rounded-full border border-line px-5 py-2.5 text-sm">
-                Estimer une mission
+              <QuoteCta search={{ mission: "convoyage", client: "pro" }}>
+                Chiffrer une mission professionnelle
+              </QuoteCta>
+              <AppLink to="/prestations" className="inline-flex h-12 items-center rounded-full border border-navy px-6 text-sm font-semibold text-navy">
+                Voir les convoyages
               </AppLink>
             </div>
           </div>
           <ProForm />
         </div>
       </section>
-      <CtaBar secondaryTo="/contact" secondaryLabel={`Appeler ${SITE.phone}`} />
+      <CtaBar
+        title="Externaliser vos convoyages"
+        text="Navettes, livraisons clients, imports. Facture à quinze jours. Un interlocuteur à Quimper."
+        primaryLabel="Chiffrer une mission professionnelle"
+        primarySearch={{ mission: "convoyage", client: "pro" }}
+        secondaryTo="/contact"
+        secondaryLabel={`Appeler ${SITE.phone}`}
+      />
     </main>
   );
 }
@@ -131,7 +143,9 @@ function ProForm() {
       toName: "Compte professionnel",
       km: 0,
       delay: "cadre volume",
-      range: { low: 0, mid: 0, high: 0 },
+      total: 0,
+      quoteNo: makeQuoteNo(),
+      lines: [],
       extras: volume ? `Demande professionnelle. Volume estimé : ${volume}` : "Demande professionnelle",
       message,
     };
@@ -148,7 +162,7 @@ function ProForm() {
         <p className="font-display text-2xl text-navy">Demande envoyée.</p>
         <p className="mt-3 text-sm text-muted">
           {mailOk
-            ? "Un e-mail part vers vous. Clément revient sous 2 heures ouvrées."
+            ? "Votre demande de compte professionnel est partie. Clément vous rappelle."
             : "Votre messagerie s’est ouverte. Envoyez le message, ou rappelez."}
         </p>
       </div>

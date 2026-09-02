@@ -98,6 +98,10 @@ export const GPS_COST = {
 export const EUROPE_MAJORATION = 0.2;
 export const EUROPE_FORFAIT = 90;
 export const MINIMUM_LOCAL = 89;
+/** Mission longue : relais nuit obligatoire. Barème national. */
+export const NUITEE = 79;
+export const NUITEE_KM = 600;
+
 
 /** Trajet A→B uniquement. Retour chauffeur et approche Quimper sont facturés à part. */
 export const BAREME = [
@@ -996,6 +1000,15 @@ export function computeQuote(input: QuoteInput): QuoteResult {
     lines.push({ label: "Coffret Terroir Breton", amount: OPTIONS.coffretArmor });
   }
 
+  if (kmMission >= NUITEE_KM) {
+    extraOpts += NUITEE;
+    lines.push({
+      label: "Nuitée convoyeur",
+      amount: NUITEE,
+      hint: "Mission nationale longue, relais obligatoire",
+    });
+  }
+
   const total = Math.max(MINIMUM_LOCAL, base + options + extraOpts);
 
   let delay = "5 jours, sous réserve de disponibilité";
@@ -1026,11 +1039,16 @@ export function computeQuote(input: QuoteInput): QuoteResult {
 export type QuoteRange = { low: number; mid: number; high: number };
 
 export function quoteRange(total: number): QuoteRange {
-  const low = Math.max(MINIMUM_LOCAL, Math.round((total * 0.97) / 5) * 5);
-  let high = Math.round((total * 1.08) / 5) * 5;
-  if (high <= low) high = low + 15;
-  return { low, mid: total, high };
+  return { low: total, mid: total, high: total };
 }
+
+export function makeQuoteNo() {
+  const d = new Date();
+  const ymd = `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}`;
+  const seq = String(Math.floor(100 + Math.random() * 900));
+  return `CBZH-${ymd}-${seq}`;
+}
+
 
 /** Trois formules, mêmes extras hors pack. Pour comparer après identité. */
 export function packQuotes(input: QuoteInput) {

@@ -24,6 +24,8 @@ export const SITE = {
   domain: "",
   origin: "https://clement-convoyage.vercel.app",
   host: "Vercel Inc., 440 Terry Avenue North, San Francisco, CA 94158, États-Unis",
+  quotePromise: "Devis immédiat. Tarif fermé 7 jours. Vous signez en ligne. Nous confirmons le créneau.",
+  quoteValidityDays: 7,
 } as const;
 
 export const NAV = [
@@ -84,8 +86,8 @@ export const ADDONS = [
   {
     to: "/jockey-gares-aeroports",
     title: "Conciergerie",
-    text: "Gares, ateliers, flottes et véhicules de prestige en Bretagne. Devis établi sur dossier.",
-    price: "Sur devis",
+    text: "Gares, ateliers, flottes et véhicules de prestige en Bretagne. Devis immédiat, à signer.",
+    price: "Devis immédiat",
     image: "/images/mission-tiguan-gare.jpg",
     alt: "Volkswagen Tiguan sur le parvis d’une gare",
   },
@@ -111,7 +113,7 @@ export const SERVICES = [
   {
     to: "/jockey-gares-aeroports",
     title: "Conciergerie de véhicules",
-    text: "Bretagne. Gare, atelier, flotte, prestige. Devis sur dossier. Pas de gardiennage.",
+    text: "Bretagne. Gare, atelier, flotte, prestige. Devis immédiat. Pas de gardiennage.",
     image: "/images/mission-tiguan-gare.jpg",
     alt: "Volkswagen Tiguan sur le parvis d’une gare",
     badge: "Nouveau",
@@ -126,3 +128,4 @@ export const SERVICES = [
     cta: "Voir les formules",
   },
 ] as const;
+

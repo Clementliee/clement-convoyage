@@ -213,7 +213,7 @@ export function ServiceJsonLd({
       priceSpecification: {
         "@type": "PriceSpecification",
         priceCurrency: "EUR",
-        description: "Fourchette indicative après coordonnées. Prix à confirmer.",
+        description: "Devis immédiat après coordonnées. Tarif fermé, à signer en ligne.",
       },
     },
   };
