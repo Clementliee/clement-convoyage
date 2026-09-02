@@ -66,7 +66,7 @@ export function HeroStage() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/82 via-black/40 to-black/10" />
         <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col justify-end px-5 pb-16 pt-28 sm:px-8 sm:pb-24">
           <div className="mb-5 flex flex-wrap gap-2">
-            {["Base Quimper", "Chauffeur professionnel", "France et Europe", "Disponibilité 7j/7"].map(
+            {["Base Quimper", "Chauffeur professionnel", "France et Europe", "Devis en 1 minute"].map(
               (b) => (
                 <span
                   key={b}
@@ -87,7 +87,7 @@ export function HeroStage() {
             className="mt-5 max-w-xl text-base leading-relaxed text-white sm:text-lg"
             style={{ textShadow: "0 2px 18px rgba(0,0,0,0.7)" }}
           >
-            Convoyeur professionnel, basé à Quimper. France et Europe. Un devis, ou un appel.
+            Convoyeur professionnel, basé à Quimper. France et Europe. En une minute, votre devis par e-mail. Vous signez.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Link

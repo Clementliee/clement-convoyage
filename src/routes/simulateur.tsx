@@ -18,7 +18,7 @@ export const Route = createFileRoute("/simulateur")({
     pageHead({
       title: "Devis de convoyage | Simulateur France et Europe | Convoyage BZH",
       description:
-        "Demandez un devis de convoyage. France et Europe. Formules particuliers et professionnels. Devis immédiat, à signer en ligne.",
+        "En une minute, votre devis de convoyage par e-mail. France et Europe. Tarif national, à signer en ligne.",
       path: "/simulateur",
     }),
   component: Page,
@@ -30,8 +30,8 @@ function Page() {
     <main>
       <PageHero
         kicker="Simulateur"
-        title="Demander un devis"
-        text="Trajet, formule, puis vos coordonnées. Le montant s’affiche ensuite. Devis immédiat, à signer en ligne."
+        title="Votre devis en une minute"
+        text="Trajet, formule, coordonnées. En une minute, le montant s’affiche et part par e-mail. Vous signez."
       />
       <section className="mx-auto max-w-5xl px-5 pb-24 sm:px-8">
         <Simulator

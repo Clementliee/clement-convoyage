@@ -41,7 +41,7 @@ export const CONCIERGE_PREPARE = [
   },
   {
     t: "Votre identité",
-    d: "Prénom, nom, téléphone ou e-mail. Le montant n’apparaît qu’après. Vous acceptez ensuite le devis.",
+    d: "Prénom, nom, téléphone ou e-mail. Le montant s’affiche tout de suite. Un e-mail part. Vous signez.",
   },
 ] as const;
 

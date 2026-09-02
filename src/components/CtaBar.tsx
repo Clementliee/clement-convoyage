@@ -6,7 +6,7 @@ import { SITE } from "@/lib/site";
 export function CtaBar({
   title = "Un véhicule à acheminer ?",
   text = SITE.quotePromise,
-  primaryLabel = "Chiffrer un trajet",
+  primaryLabel = "Obtenir mon devis",
   primarySearch,
   secondaryTo = "/contact",
   secondaryLabel = "Nous écrire",

@@ -247,10 +247,10 @@ describe("national long-haul", () => {
     assert.ok(q.total >= 800 && q.total <= 1400, `got ${q.total}`);
   });
 
-  it("keeps Paris in a national professional band", () => {
+  it("keeps Paris in the Driiveme professional customer band", () => {
     const q = computeQuote(baseInput({ from: "Quimper", to: "Paris" }));
     assert.equal(q.ok, true);
-    assert.ok(q.total >= 450 && q.total <= 700, `got ${q.total}`);
+    assert.ok(q.total >= 500 && q.total <= 545, `got ${q.total}`);
   });
 });
 

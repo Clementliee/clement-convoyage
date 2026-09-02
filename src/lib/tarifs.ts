@@ -103,14 +103,16 @@ export const NUITEE = 79;
 export const NUITEE_KM = 600;
 
 
-/** Trajet A→B uniquement. Retour chauffeur et approche Quimper sont facturés à part. */
+/** Trajet A→B uniquement. Retour chauffeur et approche Quimper sont facturés à part.
+ * Barème national, calé sur le tarif client chauffeur pro (Driiveme / Hiflow),
+ * pas sur le réseau particulier (Stellamove ~189 € Quimper–Paris). */
 export const BAREME = [
   { min: 0, max: 40, mode: "forfait" as const, prix: 89 },
   { min: 41, max: 80, eurKm: 1.0, minimum: 99 },
   { min: 81, max: 200, eurKm: 0.8, minimum: 129 },
   { min: 201, max: 400, eurKm: 0.73, minimum: 158 },
-  { min: 401, max: 700, eurKm: 0.68, minimum: 290 },
-  { min: 701, max: 99999, eurKm: 0.62, minimum: 470 },
+  { min: 401, max: 700, eurKm: 0.64, minimum: 280 },
+  { min: 701, max: 99999, eurKm: 0.58, minimum: 440 },
 ];
 
 export const CITIES: City[] = [
@@ -565,8 +567,10 @@ export const PRICE_EXAMPLE_TRIPS = [
   { from: "Quimper", to: "Brest", tag: "Finistère" },
   { from: "Quimper", to: "Lorient", tag: "Sud Bretagne" },
   { from: "Quimper", to: "Rennes", tag: "Le plus demandé" },
-  { from: "Quimper", to: "Paris", tag: "France" },
+  { from: "Quimper", to: "Paris", tag: "National" },
+  { from: "Quimper", to: "Lyon", tag: "National long" },
   { from: "Vannes", to: "Rennes", tag: "Départ hors base" },
+  { from: "Nantes", to: "Bordeaux", tag: "Hors Bretagne" },
 ] as const;
 
 export function priceExamples() {
@@ -733,7 +737,7 @@ function computeJockeyQuote(input: QuoteInput): QuoteResult {
       base: base + prixApproche + prixRetour,
       options: optionAmt,
       total,
-      delay: "Créneau sous 2 h, sous réserve.",
+      delay: input.when === "urgent" ? "sous 72 h, sous réserve de disponibilité" : "5 jours, sous réserve de disponibilité",
       fromName: homeName,
       toName: args.toName,
       europe: false,

@@ -29,7 +29,7 @@ function autoresponse(p: LeadPayload) {
   return [
     `Bonjour ${p.firstName},`,
     "",
-    `Votre devis Convoyage BZH n° ${p.quoteNo} est prêt.`,
+    `Votre devis Convoyage BZH n° ${p.quoteNo} est prêt. Il vous est adressé tout de suite.`,
     "",
     `Trajet : ${p.fromName} vers ${p.toName} (${p.km} km)`,
     `Montant : ${p.total} € TTC`,

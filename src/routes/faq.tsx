@@ -10,7 +10,7 @@ export const Route = createFileRoute("/faq")({
     pageHead({
       title: "Questions fréquentes | Convoyage automobile | Convoyage BZH",
       description:
-        "Prix, véhicules, zones, professionnels, GPS, formules et paiement. Convoyage BZH, Quimper. Devis immédiat.",
+        "Prix, délais, devis en une minute. Convoyage BZH, Quimper. Tarif national, à signer en ligne.",
       path: "/faq",
     }),
   component: Page,
@@ -20,9 +20,10 @@ const ITEMS = [
   { q: "Qui est Convoyage BZH ?", a: "Un convoyeur automobile basé à Quimper, en Cornouaille. Clément conduit. Remise comme en concession." },
   { q: "Quels véhicules ?", a: "Particuliers et utilitaires jusqu’à 3,5 t, en état de marche. Pas de plateau, pas de non-roulant." },
   { q: "Où ?", a: "Prise en charge et remise partout en France, et en Europe. Quimper est la base, pas un départ obligatoire." },
-  { q: "Combien ?", a: "Le simulateur calcule depuis Quimper. Montant après nom, téléphone et e-mail. Devis immédiat, à signer en ligne." },
-  { q: "Pourquoi plus cher qu’une plateforme à 60 € ?", a: "Parce que c’est un chauffeur professionnel, pas un particulier. Photos, assurance tous risques, mise en main, créneau tenu." },
-  { q: "Comment se passe une mission ?", a: "Demande, devis, prise en charge, convoyage, remise, compte-rendu." },
+  { q: "Combien ?", a: "Le simulateur calcule un tarif national. Montant après nom, téléphone et e-mail. En une minute, le devis part par e-mail. Vous signez en ligne." },
+  { q: "Pourquoi plus cher qu’une plateforme à 60 € ?", a: "Parce que c’est un chauffeur professionnel, pas un particulier du réseau. Photos, assurance tous risques, mise en main, créneau tenu." },
+  { q: "Combien de temps pour le devis ?", a: "Une minute. Le montant s’affiche, un e-mail part, vous signez. Nous confirmons ensuite le créneau, pas le prix." },
+  { q: "Comment se passe une mission ?", a: "Devis immédiat, signature, prise en charge, convoyage, remise, compte-rendu." },
   { q: "Professionnels ?", a: "Oui. Packs Atelier, Livraison client, Signature réseau. Facture à quinze jours. Garages, mandataires, marchands VO, loueurs, flottes." },
   { q: "GPS ?", a: "Inclus au Pack Sécurisé : traceur 4G cédé, 12 mois de suivi. Sur le Pack Signature réseau : GPS le temps de la mission." },
   { q: "C’est de la sécurité privée ?", a: "Non. C’est un cadre de convoyage : photos, scellés des clés et documents, GPS le temps de la mission. Pas de protection de personnes, pas de transport de fonds." },

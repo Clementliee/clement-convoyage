@@ -203,7 +203,7 @@ export function QuoteGate({
                 Prix masqué
               </p>
               <p className="mt-8 max-w-sm text-sm leading-relaxed text-surface/70">
-                Nom, prénom, et un téléphone ou un e-mail. Le montant s’affiche, un e-mail part, vous signez.
+                Nom, prénom, et un téléphone ou un e-mail. En une minute, le montant s’affiche et part par e-mail. Vous signez.
               </p>
             </>
           )}
@@ -262,7 +262,7 @@ export function QuoteGate({
         <form onSubmit={submit} className="rounded-[2rem] border border-line bg-surface p-8 sm:p-10">
           <p className="font-display text-3xl text-navy">Vos coordonnées</p>
           <p className="mt-2 text-sm leading-relaxed text-muted">
-            Prénom, nom, et un moyen de contact. Le devis s’affiche tout de suite. Un e-mail part avec le montant.
+            Prénom, nom, et un moyen de contact. En une minute : le montant s’affiche, un e-mail part, vous signez.
           </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             <Field label="Prénom" required value={firstName} onChange={setFirstName} autoComplete="given-name" />
@@ -288,7 +288,7 @@ export function QuoteGate({
           </div>
           {contactError ? <p className="mt-3 text-sm text-coral">{contactError}</p> : null}
           <Button type="submit" className="mt-8 w-full" size="lg" disabled={busy}>
-            {busy ? "Envoi…" : "Afficher mon devis"}
+            {busy ? "Envoi…" : "Recevoir mon devis par e-mail"}
           </Button>
           <p className="mt-4 text-xs leading-relaxed text-muted">{SITE.quotePromise}</p>
         </form>

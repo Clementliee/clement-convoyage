@@ -17,7 +17,7 @@ export const Route = createFileRoute("/")({
     pageHead({
       title: "Convoyage BZH | Convoyage automobile à Quimper | France, Europe",
       description:
-        "Convoyeur professionnel à Quimper. France et Europe. Conciergerie de véhicules en Bretagne. Devis ou appel. Mise en main offerte.",
+        "Convoyeur professionnel à Quimper. France et Europe. Conciergerie en Bretagne. Devis en une minute, à signer en ligne.",
       path: "/",
       image: "/images/convoyage-berline-bretagne.jpg",
     }),
@@ -38,8 +38,12 @@ const FAQ = [
     a: "Un chauffeur professionnel, assuré en tous risques. Un état des lieux photographique est établi. La mise en main à la remise est offerte.",
   },
   {
+    q: "Combien de temps pour le devis ?",
+    a: "Une minute. Trajet, coordonnées, le montant s’affiche et part par e-mail. Vous signez. Nous confirmons le créneau, pas le prix.",
+  },
+  {
     q: "Comment obtenir un devis ?",
-    a: "Par le formulaire en ligne, après communication de vos coordonnées, ou par téléphone.",
+    a: "Sur le simulateur. Trajet, vos coordonnées, le montant s’affiche. Un e-mail part tout de suite. Vous signez en ligne. Pas d’attente.",
   },
 ];
 

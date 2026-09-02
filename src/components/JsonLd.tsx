@@ -75,7 +75,7 @@ export function LocalBusinessJsonLd() {
         name: SITE.name,
         legalName: SITE.legalName,
         alternateName: ["Convoyage Bretagne", "Convoyage Quimper"],
-        description: "Convoyage et livraison de véhicules, base Quimper. Prise en charge partout en France et en Europe, remise chez le client. État des lieux photo, mise en main offerte.",
+        description: "Convoyage et livraison de véhicules, base Quimper. France et Europe. Conciergerie en Bretagne. Devis en une minute, à signer en ligne.",
         slogan: SITE.baseline,
         telephone: SITE.phoneHref.replace("tel:", ""),
         email: SITE.email,
@@ -213,7 +213,7 @@ export function ServiceJsonLd({
       priceSpecification: {
         "@type": "PriceSpecification",
         priceCurrency: "EUR",
-        description: "Devis immédiat après coordonnées. Tarif fermé, à signer en ligne.",
+        description: "En une minute, devis par e-mail. Tarif national fermé, à signer en ligne.",
       },
     },
   };

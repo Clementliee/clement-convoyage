@@ -24,7 +24,7 @@ export const SITE = {
   domain: "",
   origin: "https://clement-convoyage.vercel.app",
   host: "Vercel Inc., 440 Terry Avenue North, San Francisco, CA 94158, États-Unis",
-  quotePromise: "Devis immédiat. Tarif fermé 7 jours. Vous signez en ligne. Nous confirmons le créneau.",
+  quotePromise: "En une minute, votre devis par e-mail. Tarif national fermé 7 jours. Vous signez en ligne.",
   quoteValidityDays: 7,
 } as const;
 

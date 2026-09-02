@@ -378,7 +378,7 @@ export function Simulator({
           </Button>
         ) : (
           <Button type="button" onClick={() => quote.ok && setGate(true)} disabled={!quote.ok}>
-            Générer mon devis officiel
+            Générer mon devis — une minute
           </Button>
         )}
       </div>
@@ -752,7 +752,7 @@ function JockeyFlow({
           </Button>
         ) : (
           <Button type="button" onClick={() => quote.ok && setGate(true)} disabled={!quote.ok}>
-            Générer mon devis officiel
+            Générer mon devis — une minute
           </Button>
         )}
       </div>

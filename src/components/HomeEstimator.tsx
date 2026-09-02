@@ -15,9 +15,9 @@ export function HomeEstimator() {
         void navigate({ to: "/simulateur", search: { from, to } });
       }}
     >
-      <p className="font-display text-2xl text-navy">Estimer en trente secondes</p>
+      <p className="font-display text-2xl text-navy">Devis en une minute</p>
       <p className="mt-2 text-sm leading-relaxed text-muted">
-        Le montant s’affiche après vos coordonnées. Vous signez. Un e-mail part avec le devis.
+        Le montant s’affiche. Un e-mail part. Vous signez. Pas d’attente.
       </p>
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         <label className="text-sm text-muted">

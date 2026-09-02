@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import { PageHero } from "@/components/PageHero";
+import { QuoteCta } from "@/components/QuoteCta";
 import { Button } from "@/components/ui/button";
 import { mailtoFallback, sendDevisLead } from "@/lib/send-devis";
 import { SITE } from "@/lib/site";
@@ -10,9 +11,9 @@ import { makeQuoteNo } from "@/lib/tarifs";
 export const Route = createFileRoute("/contact")({
   head: () =>
     pageHead({
-      title: "Contact et devis | Convoyage automobile à Quimper | Convoyage BZH",
+      title: "Contact | Convoyage automobile à Quimper | Convoyage BZH",
       description:
-        "Demandez un devis à Convoyage BZH, Quimper. Devis immédiat sur le simulateur. Téléphone 06 24 04 85 73.",
+        "Devis en une minute sur le simulateur. Message ou appel au 06 24 04 85 73. Convoyage BZH, Quimper.",
       path: "/contact",
     }),
   component: Page,
@@ -77,15 +78,23 @@ function Page() {
     <main>
       <PageHero
         kicker="Contact"
-        title="Demander un devis"
-        text={`Pour un devis immédiat, utilisez le simulateur. Pour un message, réponse sous deux heures. ${SITE.hours}. Base ${SITE.city}.`}
+        title="Nous écrire"
+        text={`${SITE.quotePromise} Pour un message, nous rappelons. ${SITE.hours}. Base ${SITE.city}.`}
       />
+      <section className="mx-auto max-w-6xl px-4 pb-6 sm:px-6">
+        <div className="rounded-[1.6rem] bg-navy px-6 py-6 text-surface sm:flex sm:items-center sm:justify-between sm:px-8">
+          <p className="font-display text-2xl">Besoin d’un prix ?</p>
+          <QuoteCta variant="coral" className="mt-4 sm:mt-0">
+            Obtenir mon devis en une minute
+          </QuoteCta>
+        </div>
+      </section>
       <section className="mx-auto grid max-w-6xl gap-10 px-4 pb-16 sm:px-6 lg:grid-cols-2">
         {done ? (
           <div className="rounded-[1.6rem] border border-line bg-surface p-8">
             <p className="font-display text-2xl text-navy">C’est envoyé.</p>
             <p className="mt-3 text-sm text-muted">
-              Un e-mail de confirmation part sur {email}. Clément vous répond sous 2 heures ouvrées.
+              Un e-mail de confirmation part sur {email}. Nous vous rappelons.
             </p>
           </div>
         ) : (
@@ -132,7 +141,7 @@ function Page() {
               {busy ? "Envoi…" : "Envoyer"}
             </Button>
             <p className="text-xs text-muted">
-              Téléphone ou e-mail, au moins l’un des deux. Un e-mail part vers vous et vers {SITE.email}. Réponse sous 2 h ouvrées.
+              Téléphone ou e-mail, au moins l’un des deux. Un e-mail part vers vous et vers {SITE.email}. Pour un devis chiffré, passez par le simulateur.
             </p>
           </form>
         )}
